@@ -1,0 +1,46 @@
+---
+name: University of Helsinki
+description: University of Helsinki public developer/API footprint review for APIs.json cataloging.
+url: https://raw.githubusercontent.com/api-evangelist/university-of-helsinki/refs/heads/main/review.yml
+created: '2026-06-03'
+modified: '2026-06-03'
+reviews:
+  - date: '2026-06-03'
+    rating: 3
+    summary: >-
+      Verified live: Helda institutional repository runs DSpace 7.6.2 with a
+      working public REST API (/server/api returns HAL root) and a valid
+      OAI-PMH interface (/server/oai/request Identify returns repositoryName
+      "Helda"). The official GitHub organization UniversityofHelsinki (42 public
+      repos) and UH-StudentServices org both resolve. The Sisu/Kori student
+      information system (Funidata) exists and offers GraphQL/REST APIs but is
+      institution/partner-gated with no public self-service docs for the UH
+      tenant. The previously cited Helsinki University Library API
+      (api.hulib.helsinki.fi) did NOT resolve (connection refused) and was not
+      cataloged as a live API. No fabricated endpoints; only directly probed
+      URLs are reported.
+    endpoints:
+      - url: https://helda.helsinki.fi/server/api
+        status: 200
+        note: DSpace 7.6.2 REST API root, returns HAL _links JSON.
+      - url: https://helda.helsinki.fi/server/oai/request?verb=Identify
+        status: 200
+        note: OAI-PMH Identify returns valid XML, repositoryName "Helda".
+      - url: https://helda.helsinki.fi/server/api/discover/search/objects?query=test
+        status: 200
+        note: DSpace discovery/search endpoint responds.
+      - url: https://github.com/UniversityofHelsinki
+        status: 200
+        note: Official GitHub org, 42 public repos (managed by Computer Centre).
+      - url: https://github.com/UH-StudentServices
+        status: 200
+        note: Official Student Services / OPA GitHub org.
+      - url: https://www.helsinki.fi/en
+        status: 200
+        note: Official university website.
+      - url: https://sis-helsinki.funidata.fi
+        status: 302
+        note: Sisu student information system instance (auth-gated, redirects).
+      - url: http://api.hulib.helsinki.fi/
+        status: 0
+        note: Library API host did not resolve / connection refused; not cataloged as live.
