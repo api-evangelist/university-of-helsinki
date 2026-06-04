@@ -1,0 +1,14 @@
+{
+  "repo": "university-of-helsinki",
+  "feeds": [
+    {
+      "source": "https://www.helsinki.fi/en/news",
+      "feed_url": "https://www.helsinki.fi/en/rss.xml",
+      "title": "University of Helsinki",
+      "saved": 0,
+      "method": "none"
+    }
+  ],
+  "post_count": 0,
+  "fetched": "2026-06-03T00:00:00Z"
+}

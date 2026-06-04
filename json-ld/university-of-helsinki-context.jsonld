@@ -1,0 +1,54 @@
+{
+  "@context": {
+    "schema": "https://schema.org/",
+    "dc": "http://purl.org/dc/elements/1.1/",
+    "dcterms": "http://purl.org/dc/terms/",
+    "@vocab": "https://www.helsinki.fi/ns/api#",
+
+    "University": "schema:CollegeOrUniversity",
+    "name": "schema:name",
+    "description": "schema:description",
+    "url": "schema:url",
+    "foundingDate": "schema:foundingDate",
+    "logo": "schema:logo",
+
+    "Repository": "schema:DataCatalog",
+    "repositoryName": "schema:name",
+    "baseURL": {
+      "@id": "schema:url",
+      "@type": "@id"
+    },
+    "version": "schema:softwareVersion",
+
+    "Item": "schema:CreativeWork",
+    "uuid": "schema:identifier",
+    "handle": "schema:identifier",
+    "title": "dc:title",
+    "author": "dc:creator",
+    "contributor": "dc:contributor",
+    "publisher": "dc:publisher",
+    "subject": "dc:subject",
+    "abstract": "dcterms:abstract",
+    "issued": "dcterms:issued",
+    "dateAccessioned": "dcterms:dateSubmitted",
+    "language": "dc:language",
+    "rights": "dc:rights",
+    "type": "dc:type",
+
+    "Collection": "schema:Collection",
+    "Community": "schema:CollectionPage"
+  },
+  "@type": "University",
+  "name": "University of Helsinki",
+  "url": "https://www.helsinki.fi/en",
+  "foundingDate": "1640",
+  "description": "Finland's oldest and largest multidisciplinary research university. Its public API footprint centers on Helda, the DSpace 7 institutional repository, which exposes a public REST (HAL) API and an OAI-PMH metadata-harvesting interface.",
+  "@reverse": {
+    "schema:provider": {
+      "@type": "Repository",
+      "repositoryName": "Helda",
+      "baseURL": "https://helda.helsinki.fi/server/api",
+      "version": "DSpace 7.6.2"
+    }
+  }
+}
