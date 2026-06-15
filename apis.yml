@@ -1,4 +1,3 @@
----
 aid: university-of-helsinki
 name: University of Helsinki
 description: >-
@@ -18,76 +17,78 @@ access: 3rd-Party
 image: https://kinlane-productions.s3.amazonaws.com/apis-json/apis-json-logo.jpg
 url: https://raw.githubusercontent.com/api-evangelist/university-of-helsinki/refs/heads/main/apis.yml
 tags:
-  - Education
-  - Higher Education
-  - University
-  - Finland
-  - Research
-  - Open Data
-  - Institutional Repository
-  - OAI-PMH
+- Education
+- Higher Education
+- University
+- Finland
+- Research
+- Open Data
+- Institutional Repository
+- OAI-PMH
 created: '2026-06-03'
 modified: '2026-06-03'
 specificationVersion: '0.19'
 apis:
-  - aid: university-of-helsinki:helda-rest
-    name: Helda DSpace REST API
-    description: >-
-      Public REST API for Helda, the open institutional repository of the
-      University of Helsinki, powered by DSpace 7.6.2. Provides programmatic
-      access to research publications, dissertations, theses, and other
-      scholarly material, including discovery/search, items, collections, and
-      communities. The repository root advertises DSpace HAL links at
-      /server/api.
-    humanURL: https://helda.helsinki.fi/
-    baseURL: https://helda.helsinki.fi/server/api
-    tags: [ Repository, DSpace, Research, Open Access, Scholarly ]
-    properties:
-      - type: Documentation
-        url: https://helda.helsinki.fi/server/api
-  - aid: university-of-helsinki:helda-oai
-    name: Helda OAI-PMH Metadata Interface
-    description: >-
-      OAI-PMH metadata-harvesting endpoint for Helda, enabling third parties to
-      harvest Dublin Core and other metadata formats describing the
-      university's open-access publications. Confirmed live, returning a valid
-      OAI-PMH Identify response with repository name "Helda".
-    humanURL: https://helda.helsinki.fi/
-    baseURL: https://helda.helsinki.fi/server/oai/request
-    tags: [ OAI-PMH, Metadata, Harvesting, Repository, Open Access ]
-    properties:
-      - type: Documentation
-        url: https://helda.helsinki.fi/server/oai/request?verb=Identify
-  - aid: university-of-helsinki:sisu-kori
-    name: Sisu (Kori) Student Information System API
-    description: >-
-      The University of Helsinki runs the Funidata Sisu student information
-      system for academic administration (study plans, course registration,
-      curricula, organizations). Sisu exposes GraphQL and REST APIs via its
-      Kori component for data integration. These interfaces are used
-      institutionally and partner-integration only; there is no public,
-      self-service developer portal or documentation for the University of
-      Helsinki tenant. Listed here for completeness as a gated API.
-    humanURL: https://www.funidata.fi/en/services/sisu
-    tags: [ Student Information System, Sisu, GraphQL, Gated, Academic ]
-    properties:
-      - type: Documentation
-        url: https://www.funidata.fi/en/services/sisu
+- aid: university-of-helsinki:helda-rest
+  name: Helda DSpace REST API
+  description: >-
+    Public REST API for Helda, the open institutional repository of the
+    University of Helsinki, powered by DSpace 7.6.2. Provides programmatic
+    access to research publications, dissertations, theses, and other
+    scholarly material, including discovery/search, items, collections, and
+    communities. The repository root advertises DSpace HAL links at
+    /server/api.
+  humanURL: https://helda.helsinki.fi/
+  baseURL: https://helda.helsinki.fi/server/api
+  tags: [Repository, DSpace, Research, Open Access, Scholarly]
+  properties:
+  - type: Documentation
+    url: https://helda.helsinki.fi/server/api
+- aid: university-of-helsinki:helda-oai
+  name: Helda OAI-PMH Metadata Interface
+  description: >-
+    OAI-PMH metadata-harvesting endpoint for Helda, enabling third parties to
+    harvest Dublin Core and other metadata formats describing the
+    university's open-access publications. Confirmed live, returning a valid
+    OAI-PMH Identify response with repository name "Helda".
+  humanURL: https://helda.helsinki.fi/
+  baseURL: https://helda.helsinki.fi/server/oai/request
+  tags: [OAI-PMH, Metadata, Harvesting, Repository, Open Access]
+  properties:
+  - type: Documentation
+    url: https://helda.helsinki.fi/server/oai/request?verb=Identify
+- aid: university-of-helsinki:sisu-kori
+  name: Sisu (Kori) Student Information System API
+  description: >-
+    The University of Helsinki runs the Funidata Sisu student information
+    system for academic administration (study plans, course registration,
+    curricula, organizations). Sisu exposes GraphQL and REST APIs via its
+    Kori component for data integration. These interfaces are used
+    institutionally and partner-integration only; there is no public,
+    self-service developer portal or documentation for the University of
+    Helsinki tenant. Listed here for completeness as a gated API.
+  humanURL: https://www.funidata.fi/en/services/sisu
+  tags: [Student Information System, Sisu, GraphQL, Gated, Academic]
+  properties:
+  - type: Documentation
+    url: https://www.funidata.fi/en/services/sisu
+  - url: graphql/university-of-helsinki-graphql.md
+    type: GraphQL
 common:
-  - type: Website
-    url: https://www.helsinki.fi/en
-  - type: GitHub
-    url: https://github.com/UniversityofHelsinki
-  - type: LinkedIn
-    url: https://www.linkedin.com/school/university-of-helsinki/
-  - type: Plans
-    url: plans/university-of-helsinki-plans-pricing.yml
-  - type: RateLimits
-    url: rate-limits/university-of-helsinki-rate-limits.yml
-  - type: FinOps
-    url: finops/university-of-helsinki-finops.yml
-  - type: Review
-    url: review.yml
+- type: Website
+  url: https://www.helsinki.fi/en
+- type: GitHub
+  url: https://github.com/UniversityofHelsinki
+- type: LinkedIn
+  url: https://www.linkedin.com/school/university-of-helsinki/
+- type: Plans
+  url: plans/university-of-helsinki-plans-pricing.yml
+- type: RateLimits
+  url: rate-limits/university-of-helsinki-rate-limits.yml
+- type: FinOps
+  url: finops/university-of-helsinki-finops.yml
+- type: Review
+  url: review.yml
 maintainers:
-  - FN: Kin Lane
-    email: kin@apievangelist.com
+- FN: Kin Lane
+  email: kin@apievangelist.com
