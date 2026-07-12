@@ -75,6 +75,10 @@ apis:
   - url: graphql/university-of-helsinki-graphql.md
     type: GraphQL
 common:
+- type: VulnerabilityDisclosure
+  url: security/university-of-helsinki-vulnerability-disclosure.yml
+- type: DomainSecurity
+  url: security/university-of-helsinki-domain-security.yml
 - type: Website
   url: https://www.helsinki.fi/en
 - type: GitHub
