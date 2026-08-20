@@ -80,7 +80,18 @@ apis:
     self-service developer portal or documentation for the University of
     Helsinki tenant. Listed here for completeness as a gated API.
   humanURL: https://www.funidata.fi/en/services/sisu
-  tags: [Student Information System, Sisu, GraphQL, Gated, Academic]
+  tags:
+  - Student Information System
+  - SISU
+  - GraphQL
+  - Gated
+  - Academic
+  tags_raw:
+  - Student Information System
+  - Sisu
+  - GraphQL
+  - Gated
+  - Academic
   properties:
   - type: Documentation
     url: https://www.funidata.fi/en/services/sisu
