@@ -1,16 +1,23 @@
 aid: university-of-helsinki
 name: University of Helsinki
-description: >-
-  The University of Helsinki is Finland's oldest and largest multidisciplinary
-  research university, founded in 1640, and is ranked #68 in the QS World
-  University Rankings 2025. Its public developer and API footprint centers on
-  open scholarly infrastructure: Helda, the university's institutional
-  repository, runs on DSpace 7 and exposes both a public REST API and an
-  OAI-PMH metadata-harvesting interface. The university also maintains official
-  GitHub organizations for its IT, computer science, student services, and
-  language technology groups. Student-facing academic data flows through the
-  Funidata Sisu student information system (Kori GraphQL/REST APIs), which is
-  used institutionally but is not publicly documented or self-service.
+description: 'The University of Helsinki is Finland''s oldest and largest multidisciplinary research
+  university, founded in 1640, and it is one of the very few institutions in this cohort that operates
+  a real, first-party API program rather than only renting vendor platforms. It runs its own Gravitee
+  API gateway at gw.api.helsinki.fi behind a public developer portal at api.helsinki.fi, listing fifteen
+  public APIs — organisations, buildings and spaces, employee and group directories, service management,
+  the application-portfolio register, network registry, and the CMS behind helsinki.fi and the course
+  pages — twelve of which publish a readable OpenAPI. Alongside that sit genuinely institution-operated
+  scholarly and identity infrastructure: Helda (DSpace 7.6.2) and the newer HY Data Catalogue (DSpace
+  9.0), three live OAI-PMH endpoints, the Editori open-publishing service, the Shibboleth/OIDC identity
+  provider at login.helsinki.fi with sixteen entities registered in the Haka federation, and the Finnish
+  Biodiversity Information Facility (api.laji.fi, 177 paths), which is run by Luomus, a University institute.
+  What the University does NOT author is equally important and is recorded here as tenancy rather than
+  as its own work: Sisu/Kori is Funidata''s, the research portal is Elsevier Pure, and Helka is Ex Libris
+  Primo. The gateway is affiliation-gated — keyless access is disabled and portal self-registration
+  is off — so the catalogue and every specification are readable by anyone, while a credential requires
+  a university or Haka identity.'
+x-type: university
+x-category: Public Research University
 type: Index
 deliveryModel:
   model: saas
@@ -44,81 +51,606 @@ tags:
 - Higher Education
 - University
 - Finland
+- Nordic
 - Research
 - Open Data
+- Research Data
 - Institutional Repository
 - OAI-PMH
+- Identity Federation
+- API Gateway
+- Course Catalog
+- Library
+- Biodiversity
 created: '2026-06-03'
-modified: '2026-06-03'
+modified: '2026-08-30'
 specificationVersion: '0.23'
 apis:
+- aid: university-of-helsinki:api-gateway
+  name: University of Helsinki API Portal (Gravitee)
+  description: 'The University''s own API developer portal and gateway — a self-hosted Gravitee API
+    Management deployment. The portal REST API answers anonymously and is, in practice, the University''s
+    API discovery surface: GET /portal/environments/DEFAULT/apis returns all fifteen public APIs with
+    entrypoints and documentation links, and each API''s Swagger page serves its OpenAPI in full. The
+    configuration endpoint states the credential header (X-Api-Key) and which plan security types are
+    enabled (apikey, oauth2, jwt) and disabled (keyless, sharedApiKey). No /.well-known/api-catalog
+    and no apis.json exist; this endpoint is the catalogue. The base itself (/portal/environments/DEFAULT)
+    returns 500 — there is no root resource; the collections beneath it (/apis, /pages, /configuration,
+    /theme) all return 200 anonymously.'
+  humanURL: https://api.helsinki.fi/portal/
+  baseURL: https://api.helsinki.fi/portal/environments/DEFAULT
+  x-operator: institution
+  tags:
+  - API Gateway
+  - Developer Portal
+  - Gravitee
+  - Discovery
+  - Catalog
+  properties:
+  - type: DeveloperPortal
+    url: https://api.helsinki.fi/portal/
+  - type: APIReference
+    url: https://api.helsinki.fi/portal/environments/DEFAULT/apis
+  - type: Authentication
+    url: authentication/university-of-helsinki-authentication.yml
+  - type: Scopes
+    url: scopes/university-of-helsinki-scopes.yml
+  - type: Lifecycle
+    url: lifecycle/university-of-helsinki-lifecycle.yml
+- aid: university-of-helsinki:hy-organisation
+  name: HY Organisation API
+  description: 'Organisation Registry Public API — the University''s organisational units and their
+    hierarchy. The largest gateway contract: 22 paths and 19 component schemas, OpenAPI 3.0.3, X-Api-Key.'
+  humanURL: https://api.helsinki.fi/portal/
+  baseURL: https://gw.api.helsinki.fi/organisation
+  x-operator: institution
+  tags:
+  - Organisation
+  - Registry
+  - Hierarchy
+  - Reference Data
+  properties:
+  - type: OpenAPI
+    url: openapi/university-of-helsinki-hy-organisation-api-openapi.yml
+  - type: DeveloperPortal
+    url: https://api.helsinki.fi/portal/
+  - type: JSONSchema
+    url: json-schema/university-of-helsinki-hy-organisation-api-schemas.json
+- aid: university-of-helsinki:contact-search
+  name: Contact Search API
+  description: Expert and contact search, used by the public helsinki.fi pages and the Flamma intranet.
+    OpenAPI 3.1.0, 22 paths, 33 schemas — the only 3.1 document in the estate. Returns records about
+    identifiable staff, so no live response is captured anywhere in this repository and no agent skill
+    or MCP tool is emitted for it.
+  humanURL: https://api.helsinki.fi/portal/
+  baseURL: https://gw.api.helsinki.fi/contact-search
+  x-operator: institution
+  tags:
+  - Search
+  - Directory
+  - Experts
+  - Personal Data
+  properties:
+  - type: OpenAPI
+    url: openapi/university-of-helsinki-contact-search-api-openapi.yml
+  - type: DeveloperPortal
+    url: https://api.helsinki.fi/portal/
+  - type: JSONSchema
+    url: json-schema/university-of-helsinki-contact-search-api-schemas.json
+- aid: university-of-helsinki:course-pages-cms
+  name: Course pages CMS
+  description: Drupal JSON:API behind the course pages — course descriptions, materials and related
+    content. Declares an oauth2 scheme with no flows whose description links a third-party CRM vendor's
+    documentation, which is unedited Drupal Simple OAuth boilerplate.
+  humanURL: https://api.helsinki.fi/portal/
+  baseURL: https://gw.api.helsinki.fi/course-pages-cms
+  x-operator: institution
+  tags:
+  - Course Catalog
+  - CMS
+  - Drupal
+  - JSON:API
+  properties:
+  - type: OpenAPI
+    url: openapi/university-of-helsinki-course-pages-cms-openapi.yml
+  - type: DeveloperPortal
+    url: https://api.helsinki.fi/portal/
+  - type: JSONSchema
+    url: json-schema/university-of-helsinki-course-pages-cms-schemas.json
+- aid: university-of-helsinki:helsinki-fi-content
+  name: Helsinki.fi content
+  description: Content API for helsinki.fi — news and study search. Notable for declaring two distinct
+    X-Api-Key schemes, NewsApiKey and StudySearchApiKey, described as issued by two different plans;
+    it is the clearest statement in the estate that the plan is the authorization unit.
+  humanURL: https://api.helsinki.fi/portal/
+  baseURL: https://gw.api.helsinki.fi/public_web
+  x-operator: institution
+  tags:
+  - Content
+  - News
+  - Study Search
+  - CMS
+  properties:
+  - type: OpenAPI
+    url: openapi/university-of-helsinki-helsinki-fi-content-openapi.yml
+  - type: DeveloperPortal
+    url: https://api.helsinki.fi/portal/
+  - type: JSONSchema
+    url: json-schema/university-of-helsinki-helsinki-fi-content-schemas.json
+- aid: university-of-helsinki:hy-building
+  name: HY Building API
+  description: Buildings and spaces on the University estate. Small (2 paths) and the stalest API in
+    the gallery — created 2020-03-18, last updated 2023-05-29.
+  humanURL: https://api.helsinki.fi/portal/
+  baseURL: https://gw.api.helsinki.fi/building
+  x-operator: institution
+  tags:
+  - Campus
+  - Buildings
+  - Spaces
+  - Facilities
+  properties:
+  - type: OpenAPI
+    url: openapi/university-of-helsinki-hy-building-api-openapi.yml
+  - type: DeveloperPortal
+    url: https://api.helsinki.fi/portal/
+  - type: JSONSchema
+    url: json-schema/university-of-helsinki-hy-building-api-schemas.json
+- aid: university-of-helsinki:serviceapi
+  name: ServiceAPI
+  description: Queries the University's service catalogue. Contact is the IT Centre integration services
+    group address, not an individual.
+  humanURL: https://api.helsinki.fi/portal/
+  baseURL: https://gw.api.helsinki.fi/serviceapi
+  x-operator: institution
+  tags:
+  - Service Catalog
+  - IT
+  properties:
+  - type: OpenAPI
+    url: openapi/university-of-helsinki-serviceapi-openapi.yml
+  - type: DeveloperPortal
+    url: https://api.helsinki.fi/portal/
+  - type: JSONSchema
+    url: json-schema/university-of-helsinki-serviceapi-schemas.json
+- aid: university-of-helsinki:employeeinformation
+  name: EmployeeInformationAPI
+  description: Employee information lookup. Returns records about identifiable staff — structural examples
+    only, no live response stored. The portal card advertises 1.4.0 while the spec it serves declares
+    info.version 2.0.0.
+  humanURL: https://api.helsinki.fi/portal/
+  baseURL: https://gw.api.helsinki.fi/employeeinformation
+  x-operator: institution
+  tags:
+  - HR
+  - Directory
+  - Personal Data
+  properties:
+  - type: OpenAPI
+    url: openapi/university-of-helsinki-employeeinformationapi-openapi.yml
+  - type: DeveloperPortal
+    url: https://api.helsinki.fi/portal/
+  - type: JSONSchema
+    url: json-schema/university-of-helsinki-employeeinformationapi-schemas.json
+- aid: university-of-helsinki:persongroup
+  name: PersonGroup
+  description: Selected groups and their member data. Personal data; structural examples only.
+  humanURL: https://api.helsinki.fi/portal/
+  baseURL: https://gw.api.helsinki.fi/persongroup
+  x-operator: institution
+  tags:
+  - Groups
+  - Directory
+  - Personal Data
+  properties:
+  - type: OpenAPI
+    url: openapi/university-of-helsinki-persongroup-openapi.yml
+  - type: DeveloperPortal
+    url: https://api.helsinki.fi/portal/
+  - type: JSONSchema
+    url: json-schema/university-of-helsinki-persongroup-schemas.json
+- aid: university-of-helsinki:general-efecte
+  name: General Efecte API
+  description: Creates service requests in Efecte, the University's IT service management platform.
+    University-operated endpoint in front of a commercial ITSM product.
+  humanURL: https://api.helsinki.fi/portal/
+  baseURL: https://gw.api.helsinki.fi/efecte
+  x-operator: institution
+  tags:
+  - ITSM
+  - Service Requests
+  - Efecte
+  properties:
+  - type: OpenAPI
+    url: openapi/university-of-helsinki-general-efecte-api-openapi.yml
+  - type: DeveloperPortal
+    url: https://api.helsinki.fi/portal/
+  - type: JSONSchema
+    url: json-schema/university-of-helsinki-general-efecte-api-schemas.json
+- aid: university-of-helsinki:network-registry
+  name: Network registry API
+  description: Interface to the University's network registry data (production instance). Declares its
+    API key header as X-API-Key where the rest of the estate uses X-Api-Key.
+  humanURL: https://api.helsinki.fi/portal/
+  baseURL: https://gw.api.helsinki.fi/netdata
+  x-operator: institution
+  tags:
+  - Network
+  - Registry
+  - Infrastructure
+  properties:
+  - type: OpenAPI
+    url: openapi/university-of-helsinki-network-registry-api-openapi.yml
+  - type: DeveloperPortal
+    url: https://api.helsinki.fi/portal/
+  - type: JSONSchema
+    url: json-schema/university-of-helsinki-network-registry-api-schemas.json
+- aid: university-of-helsinki:sovellussalkku
+  name: Sovellussalkku API
+  description: The University's application-portfolio register — a machine-readable inventory of the
+    software the institution runs. Declares no security scheme and no error responses, so its published
+    contract cannot be called as written against a gateway with keyless disabled.
+  humanURL: https://api.helsinki.fi/portal/
+  baseURL: https://gw.api.helsinki.fi/ssapi
+  x-operator: institution
+  tags:
+  - Application Portfolio
+  - IT Governance
+  - Inventory
+  properties:
+  - type: OpenAPI
+    url: openapi/university-of-helsinki-sovellussalkku-api-openapi.yml
+  - type: DeveloperPortal
+    url: https://api.helsinki.fi/portal/
+- aid: university-of-helsinki:dawa-sync
+  name: Dawa Sync API
+  description: Posts data into named data-warehouse tables. Newest API in the gallery (created 2026-04-20)
+    and, like Sovellussalkku, publishes no security scheme or error responses.
+  humanURL: https://api.helsinki.fi/portal/
+  baseURL: https://gw.api.helsinki.fi/secure/dawasync
+  x-operator: institution
+  tags:
+  - Data Warehouse
+  - Ingest
+  properties:
+  - type: OpenAPI
+    url: openapi/university-of-helsinki-dawa-sync-api-openapi.yml
+  - type: DeveloperPortal
+    url: https://api.helsinki.fi/portal/
+- aid: university-of-helsinki:dependency-track
+  name: Dependency Track
+  description: SBOM upload to the University's Dependency Track instance from external networks. Public
+    and running in the portal, but publishes no OpenAPI page, so no contract is stored here.
+  humanURL: https://api.helsinki.fi/portal/
+  baseURL: https://gw.api.helsinki.fi/dtrack/bom
+  x-operator: institution
+  tags:
+  - SBOM
+  - Supply Chain
+  - Security
+  properties:
+  - type: DeveloperPortal
+    url: https://api.helsinki.fi/portal/
+- aid: university-of-helsinki:flamma-liferay-headless
+  name: Flamma Liferay Headless API
+  description: Liferay headless delivery API for Flamma, the staff intranet, distributed through the
+    University gateway. No OpenAPI page is published; the upstream contract is Liferay's.
+  humanURL: https://api.helsinki.fi/portal/
+  baseURL: https://gw.api.helsinki.fi/flamma-headless-delivery/
+  x-operator: institution
+  tags:
+  - Intranet
+  - Headless CMS
+  - Liferay
+  properties:
+  - type: DeveloperPortal
+    url: https://api.helsinki.fi/portal/
+- aid: university-of-helsinki:internal-guide-cms
+  name: Internal Guide CMS JSON-API
+  description: Authenticated access to the Drupal JSON:API behind the internal guide, covering published
+    and unpublished content. No OpenAPI page is published.
+  humanURL: https://api.helsinki.fi/portal/
+  baseURL: https://gw.api.helsinki.fi/guide-cms-api
+  x-operator: institution
+  tags:
+  - CMS
+  - Drupal
+  - JSON:API
+  - Internal
+  properties:
+  - type: DeveloperPortal
+    url: https://api.helsinki.fi/portal/
+- aid: university-of-helsinki:finbif-laji
+  name: FinBIF Laji API (Finnish Biodiversity Information Facility)
+  description: 'The largest contract the University of Helsinki operates: 177 paths and 239 component
+    schemas over Finnish species, taxonomy, occurrence records, collections, image bank and data requests.
+    Operated by Luomus, the Finnish Museum of Natural History, which is an institute of the University
+    — the FinBIF privacy policy names "University of Helsinki, Finnish Museum of Natural History" (Business
+    ID 0313471-7) as the registrar. It is also the only surface in the estate with a genuinely self-service
+    credential: POST an email address to /api-user and an access token is mailed back, no institutional
+    affiliation required.'
+  humanURL: https://laji.fi/en
+  baseURL: https://api.laji.fi
+  x-operator: institution
+  tags:
+  - Biodiversity
+  - Research Infrastructure
+  - Species
+  - Open Data
+  - Occurrence Records
+  - GBIF
+  properties:
+  - type: OpenAPI
+    url: openapi/university-of-helsinki-finbif-laji-openapi.yml
+  - type: JSONSchema
+    url: json-schema/university-of-helsinki-finbif-laji-schemas.json
+  - type: APIReference
+    url: https://api.laji.fi/openapi
+  - type: Documentation
+    url: https://info.laji.fi/en/
 - aid: university-of-helsinki:helda-rest
   name: Helda DSpace REST API
-  description: >-
-    Public REST API for Helda, the open institutional repository of the
-    University of Helsinki, powered by DSpace 7.6.2. Provides programmatic
-    access to research publications, dissertations, theses, and other
-    scholarly material, including discovery/search, items, collections, and
-    communities. The repository root advertises DSpace HAL links at
-    /server/api.
+  description: 'Public HAL REST API for Helda, the University''s open institutional repository, running
+    DSpace 7.6.2. Discovery/search, items, collections, communities and the metadata registry are all
+    readable anonymously. Its metadata registry is where the standards evidence lives: datacite, oaire
+    and coar schemas are registered, and ten ORCID fields including the DSpace ORCID member-integration
+    sync set.'
   humanURL: https://helda.helsinki.fi/
   baseURL: https://helda.helsinki.fi/server/api
-  tags: [Repository, DSpace, Research, Open Access, Scholarly]
+  x-operator: institution
+  tags:
+  - Repository
+  - DSpace
+  - Research
+  - Open Access
+  - Scholarly
+  - ORCID
+  - DataCite
   properties:
-  - type: Documentation
+  - type: APIReference
     url: https://helda.helsinki.fi/server/api
+  - type: Conformance
+    url: conformance/university-of-helsinki-conformance.yml
 - aid: university-of-helsinki:helda-oai
   name: Helda OAI-PMH Metadata Interface
-  description: >-
-    OAI-PMH metadata-harvesting endpoint for Helda, enabling third parties to
-    harvest Dublin Core and other metadata formats describing the
-    university's open-access publications. Confirmed live, returning a valid
-    OAI-PMH Identify response with repository name "Helda".
+  description: OAI-PMH 2.0 harvesting endpoint for Helda. Identify returns repositoryName "Helda" with
+    an earliest datestamp of 1976-05-13, and ListMetadataFormats returns fourteen prefixes — oai_dc,
+    qdc, qdc_helda, qdc_finna, dim, xoai, mods, mets, didl, ore, rdf, marc, etdms and rioxx. Anonymous
+    by protocol design and the single most agent-reachable surface the University runs.
   humanURL: https://helda.helsinki.fi/
   baseURL: https://helda.helsinki.fi/server/oai/request
-  tags: [OAI-PMH, Metadata, Harvesting, Repository, Open Access]
+  x-operator: institution
+  tags:
+  - OAI-PMH
+  - Metadata
+  - Harvesting
+  - Repository
+  - Open Access
+  - Dublin Core
   properties:
   - type: Documentation
     url: https://helda.helsinki.fi/server/oai/request?verb=Identify
-- aid: university-of-helsinki:sisu-kori
-  name: Sisu (Kori) Student Information System API
-  description: >-
-    The University of Helsinki runs the Funidata Sisu student information
-    system for academic administration (study plans, course registration,
-    curricula, organizations). Sisu exposes GraphQL and REST APIs via its
-    Kori component for data integration. These interfaces are used
-    institutionally and partner-integration only; there is no public,
-    self-service developer portal or documentation for the University of
-    Helsinki tenant. Listed here for completeness as a gated API.
-  humanURL: https://www.funidata.fi/en/services/sisu
+  - type: Conformance
+    url: conformance/university-of-helsinki-conformance.yml
+- aid: university-of-helsinki:datakatalogi-rest
+  name: HY Data Catalogue DSpace REST API
+  description: 'A SECOND, separate DSpace deployment — datakatalogi.helsinki.fi, running DSpace 9.0
+    with dspaceName "HyDatacatalogue" — cataloguing research DATA rather than publications. New: its
+    OAI earliest datestamp is 2026-08-12. Registered as a Haka SAML service provider. It is easy to
+    miss because Helda absorbs all the attention, and it was absent from this profile until the 2026-08-30
+    re-run.'
+  humanURL: https://datakatalogi.helsinki.fi/
+  baseURL: https://datakatalogi.helsinki.fi/server/api
+  x-operator: institution
   tags:
-  - Student Information System
-  - SISU
-  - GraphQL
-  - Gated
-  - Academic
-  tags_raw:
-  - Student Information System
-  - Sisu
-  - GraphQL
-  - Gated
-  - Academic
+  - Research Data
+  - Data Catalog
+  - DSpace
+  - Open Data
+  - DataCite
+  properties:
+  - type: APIReference
+    url: https://datakatalogi.helsinki.fi/server/api
+- aid: university-of-helsinki:datakatalogi-oai
+  name: HY Data Catalogue OAI-PMH Interface
+  description: OAI-PMH 2.0 endpoint for the HY Data Catalogue. Identify returns repositoryName "HyDatacatalogue",
+    adminEmail datakatalogi@helsinki.fi, granularity YYYY-MM-DDThh:mm:ssZ. Institution-operated and
+    anonymous.
+  humanURL: https://datakatalogi.helsinki.fi/
+  baseURL: https://datakatalogi.helsinki.fi/server/oai/request
+  x-operator: institution
+  tags:
+  - OAI-PMH
+  - Research Data
+  - Metadata
+  - Harvesting
+  - Open Data
   properties:
   - type: Documentation
+    url: https://datakatalogi.helsinki.fi/server/oai/request?verb=Identify
+- aid: university-of-helsinki:editori-oai
+  name: Editori (journals.helsinki.fi) OAI-PMH Interface
+  description: OAI-PMH 2.0 endpoint for Editori, the University's open publishing service (PKP Open
+    Journal Systems). Identify returns repositoryName "Editori - Avoimen julkaisemisen palvelu", adminEmail
+    editori@helsinki.fi, gzip compression supported, formats oai_dc, marcxml, oai_marc and rfc1807.
+    Institution-hosted and institution-administered; the journal software is PKP's, which is why only
+    the protocol endpoint is recorded and no product spec is stored.
+  humanURL: https://journals.helsinki.fi/
+  baseURL: https://journals.helsinki.fi/index/oai
+  x-operator: institution
+  tags:
+  - OAI-PMH
+  - Open Access
+  - Publishing
+  - Journals
+  - Metadata
+  properties:
+  - type: Documentation
+    url: https://journals.helsinki.fi/index/oai?verb=Identify
+- aid: university-of-helsinki:identity-provider
+  name: HY Login Service — Shibboleth IdP + OpenID Connect
+  description: 'The University''s identity provider at login.helsinki.fi, machine-readable twice over.
+    SAML: GET /idp/shibboleth returns an EntityDescriptor with entityID https://login.helsinki.fi/shibboleth,
+    an IDPSSODescriptor and shibmd:Scope helsinki.fi; the federation-signed copy sits in the Haka aggregate
+    alongside fifteen helsinki.fi service providers, interfederated through eduGAIN. OIDC: /.well-known/openid-configuration
+    returns a full discovery document — issuer https://login.helsinki.fi, endpoints under /idp/profile/oidc/,
+    scopes openid, profile, email, groups, offline_access — releasing eduPerson, SCHAC and funetEduPerson
+    claims alongside local hy* claims. Identity federation is the surface class universities operate
+    by definition and almost never catalogue.'
+  humanURL: https://login.helsinki.fi/
+  baseURL: https://login.helsinki.fi
+  x-operator: institution
+  tags:
+  - Identity Federation
+  - Shibboleth
+  - SAML
+  - OpenID Connect
+  - eduGAIN
+  - Haka
+  - eduPerson
+  properties:
+  - type: OpenIDConnect
+    url: https://login.helsinki.fi/.well-known/openid-configuration
+  - type: Documentation
+    url: https://login.helsinki.fi/idp/shibboleth
+  - type: Conformance
+    url: conformance/university-of-helsinki-conformance.yml
+- aid: university-of-helsinki:sisu-kori
+  name: Sisu (Kori) Student Information System — University of Helsinki tenant
+  description: TENANT RELATIONSHIP, NOT A UNIVERSITY CONTRACT. The University runs its own instance
+    of Sisu, the student information system built by Funidata Oy and shared across Finnish universities,
+    at sisu.helsinki.fi. Its Kori curriculum component answers read requests anonymously on that host
+    — GET /kori/api/module-search returns 400 with {"message":"AT_LEAST_ONE_SEARCH_PARAM_REQUIRED"}
+    and no credential — and the error envelope names fi.helsinki.otm.common.model.OtmId, the Funidata
+    OTM learner data model. The data is the University's; the contract is Funidata's and is identical
+    at every Sisu customer, so no specification for it is stored under this institution. Recorded because
+    the tenancy is a real institutional fact. The base /kori/api returns 500 with a JSON body; the resource
+    paths beneath it answer with 400 validation errors, which is what proves the surface is live and
+    unauthenticated.
+  humanURL: https://sisu.helsinki.fi/student/
+  baseURL: https://sisu.helsinki.fi/kori/api
+  x-operator: tenant
+  x-vendor: Funidata Oy (Sisu)
+  tags:
+  - Student Information System
+  - Sisu
+  - Funidata
+  - Tenant
+  - Course Catalog
+  - Academic
+  properties:
+  - type: Website
+    url: https://sisu.helsinki.fi/student/
+  - type: Documentation
     url: https://www.funidata.fi/en/services/sisu
-  - url: graphql/university-of-helsinki-graphql.md
-    type: GraphQL
+- aid: university-of-helsinki:research-portal
+  name: University of Helsinki Research Portal — Elsevier Pure tenant
+  description: TENANT RELATIONSHIP. researchportal.helsinki.fi is an Elsevier Pure deployment (the page
+    markup identifies Pure and Elsevier directly). It is the University's research information system
+    and its content is the University's, but the contract is Elsevier's and shipping it under this slug
+    is precisely the misattribution this pipeline exists to prevent. Pure's ws/api web service is not
+    publicly exposed on this host (404), and /en/persons/ returns 403 to unauthenticated crawlers.
+  humanURL: https://researchportal.helsinki.fi/
+  x-operator: tenant
+  x-vendor: Elsevier (Pure)
+  tags:
+  - Research Information
+  - Pure
+  - Elsevier
+  - Tenant
+  - CRIS
+  properties:
+  - type: Website
+    url: https://researchportal.helsinki.fi/
+- aid: university-of-helsinki:helka
+  name: Helka Library Discovery — Ex Libris Primo tenant
+  description: TENANT RELATIONSHIP. helka.helsinki.fi redirects to an Ex Libris Primo discovery interface
+    with view identifier 358UOH_INST:VU1. Library discovery is the surface class that is almost always
+    a vendor's; the Primo and Alma APIs belong to Ex Libris and are not stored here. Recorded so the
+    library surface is visible without being credited to the University's engineering.
+  humanURL: https://helka.helsinki.fi/
+  x-operator: tenant
+  x-vendor: Ex Libris (Primo)
+  tags:
+  - Library
+  - Discovery
+  - Primo
+  - Ex Libris
+  - Tenant
+  properties:
+  - type: Website
+    url: https://helka.helsinki.fi/
 common:
+- type: Website
+  url: https://www.helsinki.fi/en
+- type: DeveloperPortal
+  url: https://api.helsinki.fi/portal/
+- type: APIReference
+  url: https://api.helsinki.fi/portal/environments/DEFAULT/apis
+- type: Documentation
+  url: https://api.helsinki.fi/portal/
+- type: GitHubOrganization
+  url: https://github.com/UniversityofHelsinki
+- type: GitHub
+  url: https://github.com/UniversityofHelsinki
+- type: SourceCode
+  url: https://github.com/UH-StudentServices
+- type: LinkedIn
+  url: https://www.linkedin.com/school/university-of-helsinki/
+- type: Blog
+  url: https://blogs.helsinki.fi/
+- type: News
+  url: https://www.helsinki.fi/en/news
+- type: PrivacyPolicy
+  url: https://www.helsinki.fi/en/about-us/processing-data-university/data-protection
+- type: SecurityTxt
+  url: https://www.helsinki.fi/.well-known/security.txt
+- type: ResearchRepository
+  url: https://helda.helsinki.fi/
+- type: OpenData
+  url: https://datakatalogi.helsinki.fi/
+- type: LibraryCatalog
+  url: https://helka.helsinki.fi/
+- type: CourseCatalog
+  url: https://studies.helsinki.fi/courses
+- type: IdentityFederation
+  url: https://login.helsinki.fi/idp/shibboleth
+- type: IdentityFederation
+  url: https://haka.funet.fi/metadata/haka-metadata.xml
+- type: ResearchComputing
+  url: https://www.helsinki.fi/en/research/research-units-and-infrastructures/research-infrastructures
+- type: AIPolicy
+  url: https://studies.helsinki.fi/instructions/article/using-ai-support-learning
+- type: OpenAPI
+  url: openapi/university-of-helsinki-hy-organisation-api-openapi.yml
+- type: JSONSchema
+  url: json-schema/university-of-helsinki-hy-organisation-api-schemas.json
+- type: Authentication
+  url: authentication/university-of-helsinki-authentication.yml
+- type: Scopes
+  url: scopes/university-of-helsinki-scopes.yml
+- type: Errors
+  url: errors/university-of-helsinki-problem-types.yml
+- type: Conformance
+  url: conformance/university-of-helsinki-conformance.yml
+- type: Lifecycle
+  url: lifecycle/university-of-helsinki-lifecycle.yml
+- type: Vocabulary
+  url: vocabulary/university-of-helsinki-vocabulary.yml
+- type: Examples
+  url: examples/university-of-helsinki-examples.yml
+- type: Rules
+  url: rules/university-of-helsinki-openapi-spectral-rules.yml
+- type: JSONLD
+  url: json-ld/university-of-helsinki-context.jsonld
+- type: GraphQL
+  url: graphql/university-of-helsinki-graphql.md
+- type: WellKnown
+  url: well-known/university-of-helsinki-openid-configuration.json
 - type: VulnerabilityDisclosure
   url: security/university-of-helsinki-vulnerability-disclosure.yml
 - type: DomainSecurity
   url: security/university-of-helsinki-domain-security.yml
-- type: Website
-  url: https://www.helsinki.fi/en
-- type: GitHub
-  url: https://github.com/UniversityofHelsinki
-- type: LinkedIn
-  url: https://www.linkedin.com/school/university-of-helsinki/
 - type: Plans
   url: plans/university-of-helsinki-plans-pricing.yml
 - type: RateLimits
@@ -127,6 +659,103 @@ common:
   url: finops/university-of-helsinki-finops.yml
 - type: Review
   url: review.yml
+x-coverage:
+  state: covered
+  reason: covered
+  detail: 'The University of Helsinki operates a genuine first-party API program and this profile now
+    reflects it. Thirteen institution-operated OpenAPI documents were harvested and saved — twelve from
+    the University''s own Gravitee portal at api.helsinki.fi and one from api.laji.fi (FinBIF, run by
+    Luomus, a University institute) — totalling 267 paths and 316 component schemas, plus three live
+    OAI-PMH endpoints, two DSpace REST APIs, and a Shibboleth/OIDC identity provider with sixteen entities
+    in the Haka federation. Nothing was fabricated and nothing was derived from a link: every specification
+    was fetched from a 200 response and stored pristine in openapi/_original/. The limit on this coverage
+    is access, not discovery — the gateway has keyless plans DISABLED and portal self-registration OFF,
+    so no gateway endpoint can be exercised anonymously and every example for those APIs is structural
+    rather than probed. Three surfaces are recorded as tenancy rather than as the University''s work:
+    Sisu/Kori (Funidata), the research portal (Elsevier Pure) and Helka (Ex Libris Primo). The previous
+    profile, written 2026-06-03, saw only Helda and missed the entire gateway.'
+  evidence:
+  - url: https://api.helsinki.fi/portal/environments/DEFAULT/apis?size=200
+    status: 200
+    note: 15 public APIs, all running.
+  - url: https://api.helsinki.fi/portal/environments/DEFAULT/configuration
+    status: 200
+    note: keyless and sharedApiKey disabled; X-Api-Key header.
+  - url: https://api.helsinki.fi/portal/environments/DEFAULT/apis/1c4778a8-7883-4248-8778-a87883a248d0/pages
+    types: SWAGGER
+    status: 200
+    note: Per-API Swagger pages readable anonymously; 12 of 15 have one.
+  - url: https://api.laji.fi/openapi
+    status: 200
+    note: FinBIF Swagger UI; spec extracted from swagger-ui-init.js, 177 paths.
+  - url: https://helda.helsinki.fi/server/api
+    status: 200
+    note: DSpace 7.6.2 HAL root.
+  - url: https://datakatalogi.helsinki.fi/server/api
+    status: 200
+    note: DSpace 9.0 HAL root, HyDatacatalogue — not previously catalogued.
+  - url: https://helda.helsinki.fi/server/oai/request?verb=Identify
+    status: 200
+    note: OAI-PMH 2.0, 14 metadata formats.
+  - url: https://datakatalogi.helsinki.fi/server/oai/request?verb=Identify
+    status: 200
+    note: OAI-PMH 2.0.
+  - url: https://journals.helsinki.fi/index/oai?verb=Identify
+    status: 200
+    note: OAI-PMH 2.0, Editori.
+  - url: https://login.helsinki.fi/.well-known/openid-configuration
+    status: 200
+    note: OIDC discovery with eduPerson/SCHAC claims.
+  - url: https://login.helsinki.fi/idp/shibboleth
+    status: 200
+    note: Shibboleth IdP SAML metadata, scope helsinki.fi.
+  - url: https://haka.funet.fi/metadata/haka-metadata.xml
+    status: 200
+    note: 16 helsinki.fi entityIDs in the Haka federation aggregate.
+  - url: https://moodle.helsinki.fi/mod/lti/certs.php
+    status: 200
+    note: LTI 1.3 platform JWKS.
+  - url: https://sisu.helsinki.fi/kori/api/module-search?limit=1
+    status: 400
+    note: Tenant surface; answers anonymously with the Funidata OTM error envelope.
+  - url: https://researchportal.helsinki.fi/
+    status: 200
+    note: Elsevier Pure; ws/api not exposed (404).
+  - url: https://helka.helsinki.fi/
+    status: 200
+    note: Ex Libris Primo, view 358UOH_INST:VU1.
+  - url: https://gw.api.helsinki.fi/scim/v2/ServiceProviderConfig
+    status: 404
+    note: No SCIM.
+  - url: https://www.helsinki.fi/llms.txt
+    status: 403
+    note: No llms.txt; CDN blocks the path.
+  - url: https://wiki.helsinki.fi/X/me05mC
+    status: 401
+    note: The fuller developer wiki the portal links is auth-gated; not emitted as a pointer.
+  - url: https://version.helsinki.fi/
+    status: 200
+    note: Institution-operated GitLab, behind a bot challenge on anonymous access; API not publicly
+      readable.
+  - url: https://gw.api.helsinki.fi/organisation
+    status: 401
+    note: 'Representative of all 15 gateway contexts: 401 without a key. This is the proof that keyless
+      is disabled, not a dead pointer.'
+x-enrichment:
+  pipeline: pipeline-university
+  run: '2026-08-30'
+  prior_run: '2026-06-03'
+  operator_axis_settled: true
+  institution_surfaces: 22
+  tenant_surfaces: 3
+  vendor_surfaces_rejected: 3
+  contracts_saved: 13
+  note: 'Re-profiled under the university pipeline. The 2026-06-03 profile recorded three surfaces and
+    missed the University''s entire first-party API gateway. No vendor contract was saved: Pure, Primo
+    and Sisu are recorded as tenancy with x-operator: tenant and no specification. The three gateway
+    APIs whose upstream is vendor software (Dependency Track, Flamma/Liferay, the internal guide CMS)
+    are listed as institution-operated endpoints because the University runs and publishes them, but
+    no contract is stored for any of them because none publishes one.'
 maintainers:
 - FN: Kin Lane
   email: kin@apievangelist.com
