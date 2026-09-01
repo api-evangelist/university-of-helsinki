@@ -239,6 +239,10 @@ apis:
   baseURL: https://gw.api.helsinki.fi/persongroup
   x-operator: institution
   tags:
+  - Group
+  - Directory
+  - Personal Data
+  tags_raw:
   - Groups
   - Directory
   - Personal Data
@@ -507,6 +511,13 @@ apis:
   - OpenID Connect
   - eduGAIN
   - Haka
+  tags_raw:
+  - Identity Federation
+  - Shibboleth
+  - SAML
+  - OpenID Connect
+  - eduGAIN
+  - Haka
   - eduPerson
   properties:
   - type: OpenIDConnect
@@ -532,6 +543,13 @@ apis:
   x-operator: tenant
   x-vendor: Funidata Oy (Sisu)
   tags:
+  - Student Information System
+  - SISU
+  - Funidata
+  - Tenant
+  - Course Catalog
+  - Academic
+  tags_raw:
   - Student Information System
   - Sisu
   - Funidata
