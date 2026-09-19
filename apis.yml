@@ -300,7 +300,7 @@ apis:
   - Student Information System
   - SISU
   - Funidata
-  - Tenant
+  - Tenants
   - Course Catalog
   - Academic
   tags_raw:
@@ -330,6 +330,12 @@ apis:
   - Research Information
   - Pure
   - Elsevier
+  - Tenants
+  - CRI
+  tags_raw:
+  - Research Information
+  - Pure
+  - Elsevier
   - Tenant
   - CRIS
   properties:
@@ -346,6 +352,12 @@ apis:
   x-operator: tenant
   x-vendor: Ex Libris (Primo)
   tags:
+  - Library
+  - Discovery
+  - Primo
+  - Ex Libris
+  - Tenants
+  tags_raw:
   - Library
   - Discovery
   - Primo
@@ -438,6 +450,8 @@ apis:
   humanURL: https://api.helsinki.fi/portal/
   baseURL: https://api.helsinki.fi/portal/environments/DEFAULT
   tags:
+  - Annotation
+  tags_raw:
   - Annotations
   properties:
   - type: OpenAPI
@@ -475,7 +489,8 @@ apis:
   description: dawasync API rest service
   humanURL: https://api.helsinki.fi/portal/
   baseURL: https://api.helsinki.fi/portal/environments/DEFAULT
-  tags:
+  tags: []
+  tags_raw:
   - /api
   properties:
   - type: OpenAPI
@@ -514,6 +529,8 @@ apis:
   humanURL: https://api.helsinki.fi/portal/
   baseURL: https://api.helsinki.fi/portal/environments/DEFAULT
   tags:
+  - API User
+  tags_raw:
   - API user
   properties:
   - type: OpenAPI
@@ -782,6 +799,8 @@ apis:
   humanURL: https://api.helsinki.fi/portal/
   baseURL: https://api.helsinki.fi/portal/environments/DEFAULT
   tags:
+  - Collection
+  tags_raw:
   - Collections
   properties:
   - type: OpenAPI
@@ -1088,7 +1107,8 @@ apis:
   description: The /dynamicorder API from University of Helsinki — 8 operation(s) for /dynamicorder.
   humanURL: https://api.helsinki.fi/portal/
   baseURL: https://api.helsinki.fi/portal/environments/DEFAULT
-  tags:
+  tags: []
+  tags_raw:
   - /dynamicorder
   properties:
   - type: OpenAPI
@@ -1663,6 +1683,8 @@ apis:
   humanURL: https://api.helsinki.fi/portal/
   baseURL: https://api.helsinki.fi/portal/environments/DEFAULT
   tags:
+  - HTML to PDF
+  tags_raw:
   - HTML To PDF
   properties:
   - type: OpenAPI
@@ -1857,6 +1879,8 @@ apis:
   humanURL: https://api.helsinki.fi/portal/
   baseURL: https://api.helsinki.fi/portal/environments/DEFAULT
   tags:
+  - Image
+  tags_raw:
   - Images
   properties:
   - type: OpenAPI
@@ -2087,6 +2111,8 @@ apis:
   humanURL: https://api.helsinki.fi/portal/
   baseURL: https://api.helsinki.fi/portal/environments/DEFAULT
   tags:
+  - Machine
+  tags_raw:
   - /machine
   properties:
   - type: OpenAPI
@@ -2278,6 +2304,8 @@ apis:
   humanURL: https://api.helsinki.fi/portal/
   baseURL: https://api.helsinki.fi/portal/environments/DEFAULT
   tags:
+  - Notification
+  tags_raw:
   - Notifications
   properties:
   - type: OpenAPI
@@ -2354,6 +2382,8 @@ apis:
   humanURL: https://api.helsinki.fi/portal/
   baseURL: https://api.helsinki.fi/portal/environments/DEFAULT
   tags:
+  - Order
+  tags_raw:
   - /order
   properties:
   - type: OpenAPI
@@ -2430,6 +2460,8 @@ apis:
   humanURL: https://api.helsinki.fi/portal/
   baseURL: https://api.helsinki.fi/portal/environments/DEFAULT
   tags:
+  - Organization
+  tags_raw:
   - Organizations
   properties:
   - type: OpenAPI
@@ -2468,6 +2500,8 @@ apis:
   humanURL: https://api.helsinki.fi/portal/
   baseURL: https://api.helsinki.fi/portal/environments/DEFAULT
   tags:
+  - Persons
+  tags_raw:
   - Person
   properties:
   - type: OpenAPI
@@ -2623,6 +2657,8 @@ apis:
   humanURL: https://api.helsinki.fi/portal/
   baseURL: https://api.helsinki.fi/portal/environments/DEFAULT
   tags:
+  - Research Organization
+  tags_raw:
   - ResearchOrganization
   properties:
   - type: OpenAPI
@@ -2814,7 +2850,8 @@ apis:
   description: The /ss API from University of Helsinki — 3 operation(s) for /ss.
   humanURL: https://api.helsinki.fi/portal/
   baseURL: https://api.helsinki.fi/portal/environments/DEFAULT
-  tags:
+  tags: []
+  tags_raw:
   - /ss
   properties:
   - type: OpenAPI
@@ -3061,6 +3098,8 @@ apis:
   humanURL: https://api.helsinki.fi/portal/
   baseURL: https://api.helsinki.fi/portal/environments/DEFAULT
   tags:
+  - Ticket
+  tags_raw:
   - /ticket
   properties:
   - type: OpenAPI
@@ -3253,6 +3292,8 @@ apis:
   humanURL: https://api.helsinki.fi/portal/
   baseURL: https://api.helsinki.fi/portal/environments/DEFAULT
   tags:
+  - v1
+  tags_raw:
   - /v1
   properties:
   - type: OpenAPI
