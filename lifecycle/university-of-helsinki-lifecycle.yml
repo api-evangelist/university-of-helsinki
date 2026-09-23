@@ -1,0 +1,88 @@
+generated: '2026-08-30'
+method: derived
+source: openapi/, https://api.helsinki.fi/portal/environments/DEFAULT/apis?size=200
+x-operator: institution
+versioning:
+  scheme: none-in-uri
+  detail: >-
+    Not one of the fifteen gateway APIs carries a version segment in its path. Every entrypoint is
+    a bare context path on a single host — https://gw.api.helsinki.fi/{context} — so
+    `info.version` in the OpenAPI is the only version signal, and there is no way for a caller to
+    pin one. Declared versions range from 0.1 (PersonGroup) to 2.0.0 (EmployeeInformationAPI,
+    Contact Search). One spec declares `"version": "Versioning not supported"` as a literal
+    string, which is at least honest.
+  api_versions:
+    Course pages CMS: Versioning not supported
+    HY Building API: 1.0.0
+    General Efecte API: null
+    Helsinki.fi content: 1.2.0
+    PersonGroup: 1.0.0
+    Dawa Sync API: 1.0.0
+    Network registry API: '1.0'
+    EmployeeInformationAPI: 2.0.0
+    HY Organisation API: 1.0.0
+    Sovellussalkku API: '0.3'
+    ServiceAPI: 1.0.0
+    Contact Search API: 2.0.0
+    FinBIF Laji API: null
+  note: >-
+    Two mismatches worth recording. The portal card for EmployeeInformationAPI advertises 1.4.0
+    while the spec it serves declares info.version 2.0.0; the portal card for Contact Search
+    advertises 1.0.0 while the spec declares 2.0.0. The catalogue and the contract disagree about
+    the version of the same API.
+maintenance:
+  last_updated_from_portal:
+    Helsinki.fi content: '2026-08-26'
+    Dawa Sync API: '2026-04-20'
+    Sovellussalkku API: '2026-02-27'
+    Network registry API (prod instance): '2025-11-26'
+    ServiceAPI: '2025-11-11'
+    Dependency Track: '2025-10-13'
+    Internal Guide CMS JSON-API: '2025-10-02'
+    EmployeeInformationAPI: '2025-05-22'
+    General Efecte API: '2025-05-22'
+    HY Organisation API: '2025-03-06'
+    Flamma Liferay Headless API: '2025-01-03'
+    University of Helsinki - Contact Search API: '2024-06-17'
+    Course pages CMS: '2023-12-08'
+    PersonGroup: '2023-10-30'
+    HY Building API: '2023-05-29'
+  summary:
+    total_public_apis: 15
+    all_running: true
+    updated_in_2026: 3
+    updated_in_2025: 8
+    not_touched_since_2024_or_earlier: 4
+    oldest_created: '2020-02-21'
+    newest_created: '2026-04-20'
+    median_last_update: '2025-05-22'
+  detail: >-
+    The portal exposes created_at and updated_at per API, so the estate grades itself. All fifteen
+    are flagged `running: true` and `public: true`. Three have been touched in 2026 and four have
+    not been touched since 2024 or earlier — HY Building API (2023-05-29) is the stalest and is
+    also one of the two oldest, created 2020-03-18. The gallery has grown steadily rather than in
+    a single push: at least one API created in every year from 2020 to 2026.
+  evidence:
+  - url: https://api.helsinki.fi/portal/environments/DEFAULT/apis?size=200
+    status: 200
+    note: 15 entries, each with created_at, updated_at, running and public.
+deprecation:
+  policy_url: null
+  policy_published: false
+  sunset_header: false
+  deprecated_operations: 0
+  detail: >-
+    No `deprecated: true` flag appears on any operation in any of the thirteen specs. No Sunset or
+    Deprecation header is described anywhere. No deprecation policy page was found on
+    api.helsinki.fi, wiki.helsinki.fi or www.helsinki.fi. The gateway's own retirement behaviour
+    is that an API simply stops being `running` in the portal listing.
+changelog:
+  published: false
+  detail: No changelog, release notes or status page was found for the gateway or for any individual API.
+status_page:
+  published: false
+  detail: >-
+    No status.helsinki.fi and no status surface in the portal. Scheduled maintenance for the one
+    surface that does announce it (FinBIF) is prose on info.laji.fi — "a regular maintenance break
+    in FinBIF's systems on the first Thursday of every month between 8 AM and 12 AM" — not a
+    machine-readable window.

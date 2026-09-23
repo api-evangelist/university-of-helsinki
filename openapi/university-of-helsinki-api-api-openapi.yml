@@ -1,0 +1,242 @@
+openapi: 3.2.0
+info:
+  title: University Of Helsinki /api API
+  version: 1.0.0
+  description: 'Operations tagged /api across 2 of this provider''s published API definitions: university-of-helsinki-dawa-sync-api-openapi.json, university-of-helsinki-persongroup-openapi.json. Each path carries the servers of the definition it was published in.'
+servers:
+- url: https://gw.api.helsinki.fi/secure/dawasync
+- url: https://gw.api.helsinki.fi/persongroup
+tags:
+- name: api
+  description: dawasync API rest service
+paths:
+  /api/ethesis_professorview:
+    post:
+      tags:
+      - api
+      summary: ethesis professorinäkymä dawaan
+      operationId: verb84
+      requestBody:
+        content:
+          application/json:
+            schema:
+              type: string
+        required: true
+      responses:
+        default: {}
+    servers:
+    - url: https://gw.api.helsinki.fi/secure/dawasync
+  /api/powerbiaudit_viewreport:
+    post:
+      tags:
+      - api
+      summary: powerbi-auditia dawaan
+      operationId: verb85
+      requestBody:
+        content:
+          application/json:
+            schema:
+              type: string
+        required: true
+      responses:
+        default: {}
+    servers:
+    - url: https://gw.api.helsinki.fi/secure/dawasync
+  /api/group/{groupname}/{class}/{type}:
+    get:
+      tags:
+      - api
+      summary: Members of a public group
+      operationId: byGroup
+      parameters:
+      - name: groupname
+        in: path
+        description: Groupname to search for
+        required: true
+        schema:
+          type: string
+      - name: class
+        in: path
+        description: Group collection type
+        required: true
+        schema:
+          type: string
+          enum:
+          - degreeProgrammes
+      - name: type
+        in: path
+        description: Group collection type
+        required: true
+        schema:
+          type: string
+          enum:
+          - steeringGroups
+      responses:
+        '200':
+          description: Output type
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Group'
+      security:
+      - Apikey: []
+    servers:
+    - url: https://gw.api.helsinki.fi/persongroup
+  /api/groupnames/{class}/{type}:
+    get:
+      tags:
+      - api
+      summary: Names of available groups
+      operationId: groupNames
+      parameters:
+      - name: class
+        in: path
+        description: Group collection class
+        required: true
+        schema:
+          type: string
+          enum:
+          - degreeProgrammes
+      - name: type
+        in: path
+        description: Group collection type
+        required: true
+        schema:
+          type: string
+          enum:
+          - steeringGroups
+      responses:
+        '200':
+          description: Output type
+          content:
+            application/json:
+              schema:
+                type: array
+                items:
+                  type: string
+      security:
+      - Apikey: []
+    servers:
+    - url: https://gw.api.helsinki.fi/persongroup
+  /api/groups/{class}/{type}:
+    get:
+      tags:
+      - api
+      summary: Names of available groups
+      operationId: groups
+      parameters:
+      - name: class
+        in: path
+        description: Group collection class
+        required: true
+        schema:
+          type: string
+          enum:
+          - degreeProgrammes
+      - name: type
+        in: path
+        description: Group collection type
+        required: true
+        schema:
+          type: string
+          enum:
+          - steeringGroups
+      responses:
+        '200':
+          description: Output type
+          content:
+            application/json:
+              schema:
+                type: array
+                items:
+                  type: string
+      security:
+      - Apikey: []
+    servers:
+    - url: https://gw.api.helsinki.fi/persongroup
+  /api/person/{username}/{class}/{type}:
+    get:
+      tags:
+      - api
+      summary: Public groups of a person
+      operationId: byPerson
+      parameters:
+      - name: username
+        in: path
+        description: Groups by person username
+        required: true
+        schema:
+          type: string
+      - name: class
+        in: path
+        description: Group collection class
+        required: true
+        schema:
+          type: string
+          enum:
+          - degreeProgrammes
+      - name: type
+        in: path
+        description: Group collection type
+        required: true
+        schema:
+          type: string
+          enum:
+          - steeringGroups
+      responses:
+        '200':
+          description: Output type
+          content:
+            application/json:
+              schema:
+                type: array
+                items:
+                  $ref: '#/components/schemas/Group'
+      security:
+      - Apikey: []
+    servers:
+    - url: https://gw.api.helsinki.fi/persongroup
+  /api/steeringgroupspeople:
+    get:
+      tags:
+      - api
+      summary: List persons belonging to steering groups
+      operationId: steeringGroupsPersons
+      responses:
+        '200':
+          description: Request was successful.
+          content:
+            application/json:
+              schema:
+                type: array
+                items:
+                  $ref: '#/components/schemas/SteeringGroupPerson'
+      security:
+      - Apikey: []
+    servers:
+    - url: https://gw.api.helsinki.fi/persongroup
+components:
+  schemas:
+    Group:
+      type: object
+    SteeringGroupPerson:
+      type: object
+      properties:
+        STEERING_GROUP_ORGANIZATION_ID:
+          type: string
+          description: The ORGREK unique ID for the steering group.
+        CONTACT_ID:
+          type: string
+          description: Employee number of the person. Null if not an employee.
+        STUDENT_NAME:
+          type: string
+          description: The person's name if a student, null if an employee.
+  securitySchemes:
+    Apikey:
+      type: apiKey
+      description: APIKey Auth
+      name: X-Api-Key
+      in: header
+x-refined-from:
+- university-of-helsinki-dawa-sync-api-openapi.json
+- university-of-helsinki-persongroup-openapi.json

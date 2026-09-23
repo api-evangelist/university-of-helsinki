@@ -1,0 +1,2130 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "$id": "https://raw.githubusercontent.com/api-evangelist/university-of-helsinki/main/json-schema/university-of-helsinki-contact-search-api-schemas.json",
+  "title": "University of Helsinki - Contact Search API — component schemas",
+  "description": "JSON Schema bundle derived from the component schemas of openapi/university-of-helsinki-contact-search-api-openapi.yml, which was harvested verbatim from the University of Helsinki API portal (https://api.helsinki.fi/portal/environments/DEFAULT/apis/0df65f5a-43ca-4619-b65f-5a43caf6195a/pages/5c69d11d-19a6-4c7b-a9d1-1d19a68c7b89/content). Schemas are reproduced unchanged from the provider's own OpenAPI; only the $schema/$id/$defs envelope is ours.",
+  "x-generated": "2026-08-30",
+  "x-method": "derived",
+  "x-source": "openapi/university-of-helsinki-contact-search-api-openapi.yml",
+  "$defs": {
+    "CompanyContact-read": {
+      "type": "object",
+      "deprecated": false,
+      "description": "Company Contact resource.",
+      "properties": {
+        "companyOrganizations": {
+          "type": "array",
+          "items": {
+            "$ref": "#/components/schemas/CompanyOrganization-read"
+          }
+        },
+        "title": {
+          "anyOf": [
+            {
+              "$ref": "#/components/schemas/CompanyTitle-read"
+            },
+            {
+              "type": "null"
+            }
+          ],
+          "owl:maxCardinality": 1
+        },
+        "id": {
+          "type": "integer"
+        },
+        "firstnames": {
+          "type": "string"
+        },
+        "lastname": {
+          "type": "string"
+        },
+        "fullname": {
+          "type": "string"
+        },
+        "email": {
+          "type": [
+            "string",
+            "null"
+          ]
+        },
+        "address": {
+          "type": "object",
+          "items": {
+            "type": "string"
+          },
+          "properties": {
+            "en": {
+              "type": "string"
+            },
+            "fi": {
+              "type": "string"
+            },
+            "sv": {
+              "type": "string"
+            }
+          }
+        },
+        "mobileNumber": {
+          "type": [
+            "string",
+            "null"
+          ]
+        },
+        "phoneNumber": {
+          "type": [
+            "string",
+            "null"
+          ]
+        },
+        "isPublic": {
+          "type": "boolean",
+          "default": true,
+          "example": true
+        }
+      },
+      "required": [
+        "email",
+        "firstnames",
+        "fullname",
+        "lastname"
+      ]
+    },
+    "CompanyContact.jsonld-read": {
+      "type": "object",
+      "deprecated": false,
+      "description": "Company Contact resource.",
+      "properties": {
+        "@id": {
+          "type": "string",
+          "readOnly": true
+        },
+        "@type": {
+          "type": "string",
+          "readOnly": true
+        },
+        "@context": {
+          "oneOf": [
+            {
+              "type": "string"
+            },
+            {
+              "type": "object",
+              "additionalProperties": true,
+              "properties": {
+                "@vocab": {
+                  "type": "string"
+                },
+                "hydra": {
+                  "type": "string",
+                  "enum": [
+                    "http://www.w3.org/ns/hydra/core#"
+                  ]
+                }
+              },
+              "required": [
+                "@vocab",
+                "hydra"
+              ]
+            }
+          ],
+          "readOnly": true
+        },
+        "companyOrganizations": {
+          "type": "array",
+          "items": {
+            "$ref": "#/components/schemas/CompanyOrganization.jsonld-read"
+          }
+        },
+        "title": {
+          "anyOf": [
+            {
+              "$ref": "#/components/schemas/CompanyTitle.jsonld-read"
+            },
+            {
+              "type": "null"
+            }
+          ],
+          "owl:maxCardinality": 1
+        },
+        "id": {
+          "type": "integer"
+        },
+        "firstnames": {
+          "type": "string"
+        },
+        "lastname": {
+          "type": "string"
+        },
+        "fullname": {
+          "type": "string"
+        },
+        "email": {
+          "type": [
+            "string",
+            "null"
+          ]
+        },
+        "address": {
+          "type": "object",
+          "items": {
+            "type": "string"
+          },
+          "properties": {
+            "en": {
+              "type": "string"
+            },
+            "fi": {
+              "type": "string"
+            },
+            "sv": {
+              "type": "string"
+            }
+          }
+        },
+        "mobileNumber": {
+          "type": [
+            "string",
+            "null"
+          ]
+        },
+        "phoneNumber": {
+          "type": [
+            "string",
+            "null"
+          ]
+        },
+        "isPublic": {
+          "type": "boolean",
+          "default": true,
+          "example": true
+        }
+      },
+      "required": [
+        "email",
+        "firstnames",
+        "fullname",
+        "lastname"
+      ]
+    },
+    "CompanyOrganization-read": {
+      "type": "object",
+      "deprecated": false,
+      "description": "Company organization resource.",
+      "properties": {
+        "id": {
+          "type": "integer"
+        },
+        "name": {
+          "type": "object",
+          "items": {
+            "type": "string"
+          },
+          "properties": {
+            "en": {
+              "type": "string"
+            },
+            "fi": {
+              "type": "string"
+            },
+            "sv": {
+              "type": "string"
+            }
+          }
+        },
+        "type": {
+          "type": "string"
+        },
+        "parent": {
+          "type": [
+            "integer",
+            "null"
+          ]
+        },
+        "depth": {
+          "type": "integer"
+        },
+        "code": {
+          "type": [
+            "string",
+            "null"
+          ]
+        }
+      }
+    },
+    "CompanyOrganization.jsonld-read": {
+      "type": "object",
+      "deprecated": false,
+      "description": "Company organization resource.",
+      "properties": {
+        "@id": {
+          "type": "string",
+          "readOnly": true
+        },
+        "@type": {
+          "type": "string",
+          "readOnly": true
+        },
+        "@context": {
+          "oneOf": [
+            {
+              "type": "string"
+            },
+            {
+              "type": "object",
+              "additionalProperties": true,
+              "properties": {
+                "@vocab": {
+                  "type": "string"
+                },
+                "hydra": {
+                  "type": "string",
+                  "enum": [
+                    "http://www.w3.org/ns/hydra/core#"
+                  ]
+                }
+              },
+              "required": [
+                "@vocab",
+                "hydra"
+              ]
+            }
+          ],
+          "readOnly": true
+        },
+        "id": {
+          "type": "integer"
+        },
+        "name": {
+          "type": "object",
+          "items": {
+            "type": "string"
+          },
+          "properties": {
+            "en": {
+              "type": "string"
+            },
+            "fi": {
+              "type": "string"
+            },
+            "sv": {
+              "type": "string"
+            }
+          }
+        },
+        "type": {
+          "type": "string"
+        },
+        "parent": {
+          "type": [
+            "integer",
+            "null"
+          ]
+        },
+        "depth": {
+          "type": "integer"
+        },
+        "code": {
+          "type": [
+            "string",
+            "null"
+          ]
+        }
+      }
+    },
+    "CompanyTitle-read": {
+      "type": "object",
+      "deprecated": false,
+      "description": "Company Title resource.",
+      "properties": {
+        "id": {
+          "type": "string"
+        },
+        "name": {
+          "type": "object",
+          "items": {
+            "type": "string"
+          },
+          "properties": {
+            "en": {
+              "type": "string"
+            },
+            "fi": {
+              "type": "string"
+            },
+            "sv": {
+              "type": "string"
+            }
+          }
+        }
+      }
+    },
+    "CompanyTitle.jsonld-read": {
+      "type": "object",
+      "deprecated": false,
+      "description": "Company Title resource.",
+      "properties": {
+        "@id": {
+          "type": "string",
+          "readOnly": true
+        },
+        "@type": {
+          "type": "string",
+          "readOnly": true
+        },
+        "id": {
+          "type": "string"
+        },
+        "name": {
+          "type": "object",
+          "items": {
+            "type": "string"
+          },
+          "properties": {
+            "en": {
+              "type": "string"
+            },
+            "fi": {
+              "type": "string"
+            },
+            "sv": {
+              "type": "string"
+            }
+          }
+        }
+      }
+    },
+    "Contact-read": {
+      "type": "object",
+      "deprecated": false,
+      "description": "Contact resource.",
+      "properties": {
+        "organizations": {
+          "type": "array",
+          "items": {
+            "$ref": "#/components/schemas/Organization-read"
+          }
+        },
+        "researchOrganizations": {
+          "type": [
+            "array",
+            "null"
+          ],
+          "items": {
+            "type": "string"
+          }
+        },
+        "steeringGroups": {
+          "type": "array",
+          "items": {
+            "$ref": "#/components/schemas/SteeringGroup-read"
+          }
+        },
+        "hrOrganizations": {
+          "type": "array",
+          "items": {
+            "$ref": "#/components/schemas/HrOrganization-read"
+          }
+        },
+        "title": {
+          "anyOf": [
+            {
+              "$ref": "#/components/schemas/Title-read"
+            },
+            {
+              "type": "null"
+            }
+          ],
+          "owl:maxCardinality": 1
+        },
+        "fieldsOfScience": {
+          "type": "array",
+          "items": {
+            "$ref": "#/components/schemas/KeywordGroup-read"
+          }
+        },
+        "picture": {
+          "type": [
+            "string",
+            "null"
+          ]
+        },
+        "description": {
+          "type": "object",
+          "items": {
+            "type": "string"
+          },
+          "properties": {
+            "en": {
+              "type": "string"
+            },
+            "fi": {
+              "type": "string"
+            },
+            "sv": {
+              "type": "string"
+            }
+          }
+        },
+        "publicWorkDescription": {
+          "type": "object",
+          "items": {
+            "type": "string"
+          },
+          "properties": {
+            "en": {
+              "type": "string"
+            },
+            "fi": {
+              "type": "string"
+            },
+            "sv": {
+              "type": "string"
+            }
+          }
+        },
+        "currentStatus": {
+          "type": "object",
+          "items": {
+            "type": "string"
+          },
+          "properties": {
+            "en": {
+              "type": "string"
+            },
+            "fi": {
+              "type": "string"
+            },
+            "sv": {
+              "type": "string"
+            }
+          }
+        },
+        "tuhUri": {
+          "type": "object",
+          "items": {
+            "type": "string"
+          },
+          "properties": {
+            "rss": {
+              "type": "object",
+              "properties": {
+                "clippings": {
+                  "type": "string"
+                },
+                "activities": {
+                  "type": "string"
+                },
+                "projects": {
+                  "type": "string"
+                },
+                "publications": {
+                  "type": "string"
+                }
+              }
+            },
+            "html": {
+              "type": "object",
+              "properties": {
+                "clippings": {
+                  "type": "string"
+                },
+                "activities": {
+                  "type": "string"
+                },
+                "projects": {
+                  "type": "string"
+                },
+                "publications": {
+                  "type": "string"
+                }
+              }
+            }
+          }
+        },
+        "twitterLink": {
+          "type": [
+            "string",
+            "null"
+          ]
+        },
+        "linkedinLink": {
+          "type": [
+            "string",
+            "null"
+          ]
+        },
+        "facebookLink": {
+          "type": [
+            "string",
+            "null"
+          ]
+        },
+        "instagramLink": {
+          "type": [
+            "string",
+            "null"
+          ]
+        },
+        "youtubeLink": {
+          "type": [
+            "string",
+            "null"
+          ]
+        },
+        "personalLinks": {
+          "type": "array",
+          "items": {
+            "type": "string"
+          },
+          "properties": {}
+        },
+        "id": {
+          "type": "integer"
+        },
+        "firstnames": {
+          "type": "string"
+        },
+        "lastname": {
+          "type": "string"
+        },
+        "fullname": {
+          "type": "string"
+        },
+        "email": {
+          "type": [
+            "string",
+            "null"
+          ]
+        },
+        "address": {
+          "type": "object",
+          "items": {
+            "type": "string"
+          },
+          "properties": {
+            "en": {
+              "type": "string"
+            },
+            "fi": {
+              "type": "string"
+            },
+            "sv": {
+              "type": "string"
+            }
+          }
+        },
+        "mobileNumber": {
+          "type": [
+            "string",
+            "null"
+          ]
+        },
+        "phoneNumber": {
+          "type": [
+            "string",
+            "null"
+          ]
+        },
+        "isPublic": {
+          "type": "boolean",
+          "default": true,
+          "example": true
+        }
+      },
+      "required": [
+        "email",
+        "fieldsOfScience",
+        "firstnames",
+        "fullname",
+        "lastname"
+      ]
+    },
+    "Contact-write": {
+      "type": "object",
+      "deprecated": false,
+      "description": "Contact resource.",
+      "properties": {
+        "primaryOrganizations": {
+          "type": "array",
+          "items": {
+            "$ref": "#/components/schemas/Organization-write"
+          }
+        },
+        "primaryResearchOrganizations": {
+          "type": "array",
+          "items": {
+            "$ref": "#/components/schemas/ResearchOrganization-write"
+          }
+        },
+        "servicingOrganizations": {
+          "type": "array",
+          "items": {
+            "$ref": "#/components/schemas/Organization-write"
+          }
+        },
+        "picture": {
+          "type": [
+            "string",
+            "null"
+          ]
+        },
+        "description": {
+          "type": "object",
+          "items": {
+            "type": "string"
+          },
+          "properties": {
+            "en": {
+              "type": "string"
+            },
+            "fi": {
+              "type": "string"
+            },
+            "sv": {
+              "type": "string"
+            }
+          }
+        },
+        "publicWorkDescription": {
+          "type": "object",
+          "items": {
+            "type": "string"
+          },
+          "properties": {
+            "en": {
+              "type": "string"
+            },
+            "fi": {
+              "type": "string"
+            },
+            "sv": {
+              "type": "string"
+            }
+          }
+        },
+        "titleAddition": {
+          "type": "object",
+          "items": {
+            "type": "string"
+          },
+          "properties": {
+            "en": {
+              "type": "string"
+            },
+            "fi": {
+              "type": "string"
+            },
+            "sv": {
+              "type": "string"
+            }
+          }
+        },
+        "addressAddition": {
+          "type": "object",
+          "items": {
+            "type": "string"
+          },
+          "properties": {
+            "en": {
+              "type": "string"
+            },
+            "fi": {
+              "type": "string"
+            },
+            "sv": {
+              "type": "string"
+            }
+          }
+        },
+        "currentStatus": {
+          "type": "object",
+          "items": {
+            "type": "string"
+          },
+          "properties": {
+            "en": {
+              "type": "string"
+            },
+            "fi": {
+              "type": "string"
+            },
+            "sv": {
+              "type": "string"
+            }
+          }
+        },
+        "twitterLink": {
+          "type": [
+            "string",
+            "null"
+          ]
+        },
+        "linkedinLink": {
+          "type": [
+            "string",
+            "null"
+          ]
+        },
+        "facebookLink": {
+          "type": [
+            "string",
+            "null"
+          ]
+        },
+        "instagramLink": {
+          "type": [
+            "string",
+            "null"
+          ]
+        },
+        "youtubeLink": {
+          "type": [
+            "string",
+            "null"
+          ]
+        },
+        "personalLinks": {
+          "type": "array",
+          "items": {
+            "type": "string"
+          },
+          "properties": {}
+        },
+        "isPublic": {
+          "type": "boolean",
+          "default": true,
+          "example": true
+        }
+      }
+    },
+    "Contact.jsonld-read": {
+      "type": "object",
+      "deprecated": false,
+      "description": "Contact resource.",
+      "properties": {
+        "@id": {
+          "type": "string",
+          "readOnly": true
+        },
+        "@type": {
+          "type": "string",
+          "readOnly": true
+        },
+        "@context": {
+          "oneOf": [
+            {
+              "type": "string"
+            },
+            {
+              "type": "object",
+              "additionalProperties": true,
+              "properties": {
+                "@vocab": {
+                  "type": "string"
+                },
+                "hydra": {
+                  "type": "string",
+                  "enum": [
+                    "http://www.w3.org/ns/hydra/core#"
+                  ]
+                }
+              },
+              "required": [
+                "@vocab",
+                "hydra"
+              ]
+            }
+          ],
+          "readOnly": true
+        },
+        "organizations": {
+          "type": "array",
+          "items": {
+            "$ref": "#/components/schemas/Organization.jsonld-read"
+          }
+        },
+        "researchOrganizations": {
+          "type": [
+            "array",
+            "null"
+          ],
+          "items": {
+            "type": "string"
+          }
+        },
+        "steeringGroups": {
+          "type": "array",
+          "items": {
+            "$ref": "#/components/schemas/SteeringGroup.jsonld-read"
+          }
+        },
+        "hrOrganizations": {
+          "type": "array",
+          "items": {
+            "$ref": "#/components/schemas/HrOrganization.jsonld-read"
+          }
+        },
+        "title": {
+          "anyOf": [
+            {
+              "$ref": "#/components/schemas/Title.jsonld-read"
+            },
+            {
+              "type": "null"
+            }
+          ],
+          "owl:maxCardinality": 1
+        },
+        "fieldsOfScience": {
+          "type": "array",
+          "items": {
+            "$ref": "#/components/schemas/KeywordGroup.jsonld-read"
+          }
+        },
+        "picture": {
+          "type": [
+            "string",
+            "null"
+          ]
+        },
+        "description": {
+          "type": "object",
+          "items": {
+            "type": "string"
+          },
+          "properties": {
+            "en": {
+              "type": "string"
+            },
+            "fi": {
+              "type": "string"
+            },
+            "sv": {
+              "type": "string"
+            }
+          }
+        },
+        "publicWorkDescription": {
+          "type": "object",
+          "items": {
+            "type": "string"
+          },
+          "properties": {
+            "en": {
+              "type": "string"
+            },
+            "fi": {
+              "type": "string"
+            },
+            "sv": {
+              "type": "string"
+            }
+          }
+        },
+        "currentStatus": {
+          "type": "object",
+          "items": {
+            "type": "string"
+          },
+          "properties": {
+            "en": {
+              "type": "string"
+            },
+            "fi": {
+              "type": "string"
+            },
+            "sv": {
+              "type": "string"
+            }
+          }
+        },
+        "tuhUri": {
+          "type": "object",
+          "items": {
+            "type": "string"
+          },
+          "properties": {
+            "rss": {
+              "type": "object",
+              "properties": {
+                "clippings": {
+                  "type": "string"
+                },
+                "activities": {
+                  "type": "string"
+                },
+                "projects": {
+                  "type": "string"
+                },
+                "publications": {
+                  "type": "string"
+                }
+              }
+            },
+            "html": {
+              "type": "object",
+              "properties": {
+                "clippings": {
+                  "type": "string"
+                },
+                "activities": {
+                  "type": "string"
+                },
+                "projects": {
+                  "type": "string"
+                },
+                "publications": {
+                  "type": "string"
+                }
+              }
+            }
+          }
+        },
+        "twitterLink": {
+          "type": [
+            "string",
+            "null"
+          ]
+        },
+        "linkedinLink": {
+          "type": [
+            "string",
+            "null"
+          ]
+        },
+        "facebookLink": {
+          "type": [
+            "string",
+            "null"
+          ]
+        },
+        "instagramLink": {
+          "type": [
+            "string",
+            "null"
+          ]
+        },
+        "youtubeLink": {
+          "type": [
+            "string",
+            "null"
+          ]
+        },
+        "personalLinks": {
+          "type": "array",
+          "items": {
+            "type": "string"
+          },
+          "properties": {}
+        },
+        "id": {
+          "type": "integer"
+        },
+        "firstnames": {
+          "type": "string"
+        },
+        "lastname": {
+          "type": "string"
+        },
+        "fullname": {
+          "type": "string"
+        },
+        "email": {
+          "type": [
+            "string",
+            "null"
+          ]
+        },
+        "address": {
+          "type": "object",
+          "items": {
+            "type": "string"
+          },
+          "properties": {
+            "en": {
+              "type": "string"
+            },
+            "fi": {
+              "type": "string"
+            },
+            "sv": {
+              "type": "string"
+            }
+          }
+        },
+        "mobileNumber": {
+          "type": [
+            "string",
+            "null"
+          ]
+        },
+        "phoneNumber": {
+          "type": [
+            "string",
+            "null"
+          ]
+        },
+        "isPublic": {
+          "type": "boolean",
+          "default": true,
+          "example": true
+        }
+      },
+      "required": [
+        "email",
+        "fieldsOfScience",
+        "firstnames",
+        "fullname",
+        "lastname"
+      ]
+    },
+    "Contact.jsonld-write": {
+      "type": "object",
+      "deprecated": false,
+      "description": "Contact resource.",
+      "properties": {
+        "primaryOrganizations": {
+          "type": "array",
+          "items": {
+            "$ref": "#/components/schemas/Organization.jsonld-write"
+          }
+        },
+        "primaryResearchOrganizations": {
+          "type": "array",
+          "items": {
+            "$ref": "#/components/schemas/ResearchOrganization.jsonld-write"
+          }
+        },
+        "servicingOrganizations": {
+          "type": "array",
+          "items": {
+            "$ref": "#/components/schemas/Organization.jsonld-write"
+          }
+        },
+        "picture": {
+          "type": [
+            "string",
+            "null"
+          ]
+        },
+        "description": {
+          "type": "object",
+          "items": {
+            "type": "string"
+          },
+          "properties": {
+            "en": {
+              "type": "string"
+            },
+            "fi": {
+              "type": "string"
+            },
+            "sv": {
+              "type": "string"
+            }
+          }
+        },
+        "publicWorkDescription": {
+          "type": "object",
+          "items": {
+            "type": "string"
+          },
+          "properties": {
+            "en": {
+              "type": "string"
+            },
+            "fi": {
+              "type": "string"
+            },
+            "sv": {
+              "type": "string"
+            }
+          }
+        },
+        "titleAddition": {
+          "type": "object",
+          "items": {
+            "type": "string"
+          },
+          "properties": {
+            "en": {
+              "type": "string"
+            },
+            "fi": {
+              "type": "string"
+            },
+            "sv": {
+              "type": "string"
+            }
+          }
+        },
+        "addressAddition": {
+          "type": "object",
+          "items": {
+            "type": "string"
+          },
+          "properties": {
+            "en": {
+              "type": "string"
+            },
+            "fi": {
+              "type": "string"
+            },
+            "sv": {
+              "type": "string"
+            }
+          }
+        },
+        "currentStatus": {
+          "type": "object",
+          "items": {
+            "type": "string"
+          },
+          "properties": {
+            "en": {
+              "type": "string"
+            },
+            "fi": {
+              "type": "string"
+            },
+            "sv": {
+              "type": "string"
+            }
+          }
+        },
+        "twitterLink": {
+          "type": [
+            "string",
+            "null"
+          ]
+        },
+        "linkedinLink": {
+          "type": [
+            "string",
+            "null"
+          ]
+        },
+        "facebookLink": {
+          "type": [
+            "string",
+            "null"
+          ]
+        },
+        "instagramLink": {
+          "type": [
+            "string",
+            "null"
+          ]
+        },
+        "youtubeLink": {
+          "type": [
+            "string",
+            "null"
+          ]
+        },
+        "personalLinks": {
+          "type": "array",
+          "items": {
+            "type": "string"
+          },
+          "properties": {}
+        },
+        "isPublic": {
+          "type": "boolean",
+          "default": true,
+          "example": true
+        }
+      }
+    },
+    "FieldOfScience-read": {
+      "type": "object",
+      "deprecated": false,
+      "description": "Field of science resource.",
+      "properties": {
+        "id": {
+          "type": "integer"
+        },
+        "label": {
+          "type": "object",
+          "items": {
+            "type": "string"
+          },
+          "properties": {
+            "en": {
+              "type": "string"
+            },
+            "fi": {
+              "type": "string"
+            },
+            "sv": {
+              "type": "string"
+            }
+          }
+        }
+      },
+      "required": [
+        "label"
+      ]
+    },
+    "FieldOfScience.jsonld-read": {
+      "type": "object",
+      "deprecated": false,
+      "description": "Field of science resource.",
+      "properties": {
+        "@id": {
+          "type": "string",
+          "readOnly": true
+        },
+        "@type": {
+          "type": "string",
+          "readOnly": true
+        },
+        "id": {
+          "type": "integer"
+        },
+        "label": {
+          "type": "object",
+          "items": {
+            "type": "string"
+          },
+          "properties": {
+            "en": {
+              "type": "string"
+            },
+            "fi": {
+              "type": "string"
+            },
+            "sv": {
+              "type": "string"
+            }
+          }
+        }
+      },
+      "required": [
+        "label"
+      ]
+    },
+    "Filter-read": {
+      "type": "object",
+      "deprecated": false,
+      "description": "Filter resource.",
+      "properties": {
+        "id": {
+          "type": "string"
+        },
+        "data": {
+          "type": "array",
+          "items": {
+            "type": "string"
+          }
+        },
+        "isPublic": {
+          "type": "boolean",
+          "default": true,
+          "example": true
+        }
+      }
+    },
+    "Filter.jsonld-read": {
+      "type": "object",
+      "deprecated": false,
+      "description": "Filter resource.",
+      "properties": {
+        "@id": {
+          "type": "string",
+          "readOnly": true
+        },
+        "@type": {
+          "type": "string",
+          "readOnly": true
+        },
+        "@context": {
+          "oneOf": [
+            {
+              "type": "string"
+            },
+            {
+              "type": "object",
+              "additionalProperties": true,
+              "properties": {
+                "@vocab": {
+                  "type": "string"
+                },
+                "hydra": {
+                  "type": "string",
+                  "enum": [
+                    "http://www.w3.org/ns/hydra/core#"
+                  ]
+                }
+              },
+              "required": [
+                "@vocab",
+                "hydra"
+              ]
+            }
+          ],
+          "readOnly": true
+        },
+        "id": {
+          "type": "string"
+        },
+        "data": {
+          "type": "array",
+          "items": {
+            "type": "string"
+          }
+        },
+        "isPublic": {
+          "type": "boolean",
+          "default": true,
+          "example": true
+        }
+      }
+    },
+    "HrOrganization-read": {
+      "type": "object",
+      "deprecated": false,
+      "description": "HR organization resource.",
+      "properties": {
+        "id": {
+          "type": "integer"
+        },
+        "name": {
+          "type": "object",
+          "items": {
+            "type": "string"
+          },
+          "properties": {
+            "en": {
+              "type": "string"
+            },
+            "fi": {
+              "type": "string"
+            },
+            "sv": {
+              "type": "string"
+            }
+          }
+        },
+        "type": {
+          "type": "string"
+        },
+        "parent": {
+          "type": [
+            "integer",
+            "null"
+          ]
+        },
+        "depth": {
+          "type": "integer"
+        },
+        "code": {
+          "type": [
+            "string",
+            "null"
+          ]
+        }
+      }
+    },
+    "HrOrganization.jsonld-read": {
+      "type": "object",
+      "deprecated": false,
+      "description": "HR organization resource.",
+      "properties": {
+        "@id": {
+          "type": "string",
+          "readOnly": true
+        },
+        "@type": {
+          "type": "string",
+          "readOnly": true
+        },
+        "@context": {
+          "oneOf": [
+            {
+              "type": "string"
+            },
+            {
+              "type": "object",
+              "additionalProperties": true,
+              "properties": {
+                "@vocab": {
+                  "type": "string"
+                },
+                "hydra": {
+                  "type": "string",
+                  "enum": [
+                    "http://www.w3.org/ns/hydra/core#"
+                  ]
+                }
+              },
+              "required": [
+                "@vocab",
+                "hydra"
+              ]
+            }
+          ],
+          "readOnly": true
+        },
+        "id": {
+          "type": "integer"
+        },
+        "name": {
+          "type": "object",
+          "items": {
+            "type": "string"
+          },
+          "properties": {
+            "en": {
+              "type": "string"
+            },
+            "fi": {
+              "type": "string"
+            },
+            "sv": {
+              "type": "string"
+            }
+          }
+        },
+        "type": {
+          "type": "string"
+        },
+        "parent": {
+          "type": [
+            "integer",
+            "null"
+          ]
+        },
+        "depth": {
+          "type": "integer"
+        },
+        "code": {
+          "type": [
+            "string",
+            "null"
+          ]
+        }
+      }
+    },
+    "KeywordGroup-read": {
+      "type": "object",
+      "deprecated": false,
+      "description": "",
+      "properties": {
+        "value": {
+          "anyOf": [
+            {
+              "$ref": "#/components/schemas/FieldOfScience-read"
+            },
+            {
+              "type": "null"
+            }
+          ],
+          "owl:maxCardinality": 1
+        },
+        "additional": {
+          "type": "object",
+          "items": {
+            "type": "string"
+          },
+          "properties": {
+            "en": {
+              "type": "array",
+              "items": {
+                "type": "string"
+              }
+            },
+            "fi": {
+              "type": "array",
+              "items": {
+                "type": "string"
+              }
+            },
+            "sv": {
+              "type": "array",
+              "items": {
+                "type": "string"
+              }
+            }
+          }
+        }
+      },
+      "required": [
+        "additional",
+        "value"
+      ]
+    },
+    "KeywordGroup.jsonld-read": {
+      "type": "object",
+      "deprecated": false,
+      "description": "",
+      "properties": {
+        "value": {
+          "anyOf": [
+            {
+              "$ref": "#/components/schemas/FieldOfScience.jsonld-read"
+            },
+            {
+              "type": "null"
+            }
+          ],
+          "owl:maxCardinality": 1
+        },
+        "additional": {
+          "type": "object",
+          "items": {
+            "type": "string"
+          },
+          "properties": {
+            "en": {
+              "type": "array",
+              "items": {
+                "type": "string"
+              }
+            },
+            "fi": {
+              "type": "array",
+              "items": {
+                "type": "string"
+              }
+            },
+            "sv": {
+              "type": "array",
+              "items": {
+                "type": "string"
+              }
+            }
+          }
+        }
+      },
+      "required": [
+        "additional",
+        "value"
+      ]
+    },
+    "Organization-read": {
+      "type": "object",
+      "deprecated": false,
+      "description": "Organization resource.",
+      "properties": {
+        "id": {
+          "type": "integer"
+        },
+        "name": {
+          "type": "object",
+          "items": {
+            "type": "string"
+          },
+          "properties": {
+            "en": {
+              "type": "string"
+            },
+            "fi": {
+              "type": "string"
+            },
+            "sv": {
+              "type": "string"
+            }
+          }
+        },
+        "type": {
+          "type": "string"
+        },
+        "parent": {
+          "type": [
+            "integer",
+            "null"
+          ]
+        },
+        "depth": {
+          "type": "integer"
+        }
+      }
+    },
+    "Organization-write": {
+      "type": "object",
+      "deprecated": false,
+      "description": "Organization resource.",
+      "properties": {
+        "id": {
+          "type": "integer"
+        }
+      }
+    },
+    "Organization.jsonld-read": {
+      "type": "object",
+      "deprecated": false,
+      "description": "Organization resource.",
+      "properties": {
+        "@id": {
+          "type": "string",
+          "readOnly": true
+        },
+        "@type": {
+          "type": "string",
+          "readOnly": true
+        },
+        "@context": {
+          "oneOf": [
+            {
+              "type": "string"
+            },
+            {
+              "type": "object",
+              "additionalProperties": true,
+              "properties": {
+                "@vocab": {
+                  "type": "string"
+                },
+                "hydra": {
+                  "type": "string",
+                  "enum": [
+                    "http://www.w3.org/ns/hydra/core#"
+                  ]
+                }
+              },
+              "required": [
+                "@vocab",
+                "hydra"
+              ]
+            }
+          ],
+          "readOnly": true
+        },
+        "id": {
+          "type": "integer"
+        },
+        "name": {
+          "type": "object",
+          "items": {
+            "type": "string"
+          },
+          "properties": {
+            "en": {
+              "type": "string"
+            },
+            "fi": {
+              "type": "string"
+            },
+            "sv": {
+              "type": "string"
+            }
+          }
+        },
+        "type": {
+          "type": "string"
+        },
+        "parent": {
+          "type": [
+            "integer",
+            "null"
+          ]
+        },
+        "depth": {
+          "type": "integer"
+        }
+      }
+    },
+    "Organization.jsonld-write": {
+      "type": "object",
+      "deprecated": false,
+      "description": "Organization resource.",
+      "properties": {
+        "id": {
+          "type": "integer"
+        }
+      }
+    },
+    "ResearchOrganization-read": {
+      "type": "object",
+      "deprecated": false,
+      "description": "Research organization resource.",
+      "properties": {
+        "abbreviation": {
+          "type": "string"
+        },
+        "id": {
+          "type": "integer"
+        },
+        "name": {
+          "type": "object",
+          "items": {
+            "type": "string"
+          },
+          "properties": {
+            "en": {
+              "type": "string"
+            },
+            "fi": {
+              "type": "string"
+            },
+            "sv": {
+              "type": "string"
+            }
+          }
+        },
+        "type": {
+          "type": "string"
+        },
+        "parent": {
+          "type": [
+            "integer",
+            "null"
+          ]
+        },
+        "depth": {
+          "type": "integer"
+        }
+      }
+    },
+    "ResearchOrganization-write": {
+      "type": "object",
+      "deprecated": false,
+      "description": "Research organization resource.",
+      "properties": {
+        "id": {
+          "type": "integer"
+        }
+      }
+    },
+    "ResearchOrganization.jsonld-read": {
+      "type": "object",
+      "deprecated": false,
+      "description": "Research organization resource.",
+      "properties": {
+        "@id": {
+          "type": "string",
+          "readOnly": true
+        },
+        "@type": {
+          "type": "string",
+          "readOnly": true
+        },
+        "abbreviation": {
+          "type": "string"
+        },
+        "id": {
+          "type": "integer"
+        },
+        "name": {
+          "type": "object",
+          "items": {
+            "type": "string"
+          },
+          "properties": {
+            "en": {
+              "type": "string"
+            },
+            "fi": {
+              "type": "string"
+            },
+            "sv": {
+              "type": "string"
+            }
+          }
+        },
+        "type": {
+          "type": "string"
+        },
+        "parent": {
+          "type": [
+            "integer",
+            "null"
+          ]
+        },
+        "depth": {
+          "type": "integer"
+        }
+      }
+    },
+    "ResearchOrganization.jsonld-write": {
+      "type": "object",
+      "deprecated": false,
+      "description": "Research organization resource.",
+      "properties": {
+        "id": {
+          "type": "integer"
+        }
+      }
+    },
+    "SteeringGroup-read": {
+      "type": "object",
+      "deprecated": false,
+      "description": "Steering Group resource.",
+      "properties": {
+        "id": {
+          "type": "integer"
+        },
+        "name": {
+          "type": "object",
+          "items": {
+            "type": "string"
+          },
+          "properties": {
+            "en": {
+              "type": "string"
+            },
+            "fi": {
+              "type": "string"
+            },
+            "sv": {
+              "type": "string"
+            }
+          }
+        },
+        "type": {
+          "type": "string"
+        },
+        "parent": {
+          "type": [
+            "integer",
+            "null"
+          ]
+        },
+        "depth": {
+          "type": "integer"
+        },
+        "code": {
+          "type": [
+            "string",
+            "null"
+          ]
+        }
+      }
+    },
+    "SteeringGroup.jsonld-read": {
+      "type": "object",
+      "deprecated": false,
+      "description": "Steering Group resource.",
+      "properties": {
+        "@id": {
+          "type": "string",
+          "readOnly": true
+        },
+        "@type": {
+          "type": "string",
+          "readOnly": true
+        },
+        "@context": {
+          "oneOf": [
+            {
+              "type": "string"
+            },
+            {
+              "type": "object",
+              "additionalProperties": true,
+              "properties": {
+                "@vocab": {
+                  "type": "string"
+                },
+                "hydra": {
+                  "type": "string",
+                  "enum": [
+                    "http://www.w3.org/ns/hydra/core#"
+                  ]
+                }
+              },
+              "required": [
+                "@vocab",
+                "hydra"
+              ]
+            }
+          ],
+          "readOnly": true
+        },
+        "id": {
+          "type": "integer"
+        },
+        "name": {
+          "type": "object",
+          "items": {
+            "type": "string"
+          },
+          "properties": {
+            "en": {
+              "type": "string"
+            },
+            "fi": {
+              "type": "string"
+            },
+            "sv": {
+              "type": "string"
+            }
+          }
+        },
+        "type": {
+          "type": "string"
+        },
+        "parent": {
+          "type": [
+            "integer",
+            "null"
+          ]
+        },
+        "depth": {
+          "type": "integer"
+        },
+        "code": {
+          "type": [
+            "string",
+            "null"
+          ]
+        }
+      }
+    },
+    "SteeringGroupMember-read": {
+      "type": "object",
+      "deprecated": false,
+      "description": "Steering Group Member resource.",
+      "properties": {
+        "id": {
+          "type": "integer",
+          "readOnly": true
+        },
+        "contact": {
+          "anyOf": [
+            {
+              "$ref": "#/components/schemas/Contact-read"
+            },
+            {
+              "type": "null"
+            }
+          ],
+          "owl:maxCardinality": 1
+        },
+        "steeringGroup": {
+          "$ref": "#/components/schemas/SteeringGroup-read",
+          "owl:maxCardinality": 1
+        },
+        "studentName": {
+          "type": [
+            "string",
+            "null"
+          ]
+        }
+      }
+    },
+    "SteeringGroupMember.jsonld-read": {
+      "type": "object",
+      "deprecated": false,
+      "description": "Steering Group Member resource.",
+      "properties": {
+        "@id": {
+          "type": "string",
+          "readOnly": true
+        },
+        "@type": {
+          "type": "string",
+          "readOnly": true
+        },
+        "id": {
+          "type": "integer",
+          "readOnly": true
+        },
+        "contact": {
+          "anyOf": [
+            {
+              "$ref": "#/components/schemas/Contact.jsonld-read"
+            },
+            {
+              "type": "null"
+            }
+          ],
+          "owl:maxCardinality": 1
+        },
+        "steeringGroup": {
+          "$ref": "#/components/schemas/SteeringGroup.jsonld-read",
+          "owl:maxCardinality": 1
+        },
+        "studentName": {
+          "type": [
+            "string",
+            "null"
+          ]
+        }
+      }
+    },
+    "Suggestion": {
+      "type": "object",
+      "deprecated": false,
+      "description": "Suggestion resource.",
+      "properties": {
+        "id": {
+          "type": "string"
+        },
+        "suggestion": {
+          "type": "array",
+          "items": {
+            "type": "string"
+          }
+        }
+      },
+      "required": [
+        "id",
+        "suggestion"
+      ]
+    },
+    "Title-read": {
+      "type": "object",
+      "deprecated": false,
+      "description": "Title resource.",
+      "properties": {
+        "id": {
+          "type": "string"
+        },
+        "name": {
+          "type": "object",
+          "items": {
+            "type": "string"
+          },
+          "properties": {
+            "en": {
+              "type": "string"
+            },
+            "fi": {
+              "type": "string"
+            },
+            "sv": {
+              "type": "string"
+            }
+          }
+        }
+      }
+    },
+    "Title.jsonld-read": {
+      "type": "object",
+      "deprecated": false,
+      "description": "Title resource.",
+      "properties": {
+        "@id": {
+          "type": "string",
+          "readOnly": true
+        },
+        "@type": {
+          "type": "string",
+          "readOnly": true
+        },
+        "id": {
+          "type": "string"
+        },
+        "name": {
+          "type": "object",
+          "items": {
+            "type": "string"
+          },
+          "properties": {
+            "en": {
+              "type": "string"
+            },
+            "fi": {
+              "type": "string"
+            },
+            "sv": {
+              "type": "string"
+            }
+          }
+        }
+      }
+    }
+  }
+}

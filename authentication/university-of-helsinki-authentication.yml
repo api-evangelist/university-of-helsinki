@@ -1,0 +1,129 @@
+generated: '2026-08-30'
+method: probed
+source: https://api.helsinki.fi/portal/environments/DEFAULT/configuration
+docs: https://api.helsinki.fi/portal/
+x-operator: institution
+summary:
+  types:
+  - apiKey
+  - http-bearer
+  - oauth2
+  api_key_in:
+  - header
+  oauth2_flows: []
+  note: >-
+    The University of Helsinki fronts its own APIs with a self-hosted Gravitee API Management
+    gateway. The gateway is https://gw.api.helsinki.fi and the developer portal is
+    https://api.helsinki.fi/portal/. The portal's own configuration endpoint states the
+    credential header (`X-Api-Key`) and which plan security types the environment enables:
+    apikey, oauth2 and jwt are enabled, sharedApiKey and keyless are DISABLED. Keyless being
+    off is the single most important access fact here — no University of Helsinki gateway API
+    is callable anonymously, whatever the OpenAPI shows.
+gateway:
+  product: Gravitee API Management
+  entrypoint: https://gw.api.helsinki.fi
+  portal: https://api.helsinki.fi/portal/
+  api_key_header: X-Api-Key
+  plan_security:
+    apikey: true
+    oauth2: true
+    jwt: true
+    sharedApiKey: false
+    keyless: false
+  evidence: >-
+    GET https://api.helsinki.fi/portal/environments/DEFAULT/configuration -> 200 application/json,
+    `portal.entrypoint`, `portal.apikeyHeader`, `plan.security.*` read verbatim.
+onboarding:
+  self_service_for_public: false
+  local_login_enabled: false
+  user_creation_enabled: false
+  application_creation_enabled: true
+  steps:
+  - Sign in to api.helsinki.fi with the HY Login Service (institutional SSO).
+  - Create an application from the Applications menu.
+  - Subscribe the application to an API in the API Gallery and choose a plan.
+  - A key is issued against that subscription.
+  note: >-
+    `authentication.localLogin.enabled` is false and `portal.userCreation.enabled` is false, so
+    there is no way for someone without a University of Helsinki (or Haka-federated) identity to
+    register. The catalogue, the documentation and every OpenAPI are readable without signing in;
+    obtaining a credential is not. This is affiliation-gated, not paywalled.
+  evidence:
+  - url: https://api.helsinki.fi/portal/environments/DEFAULT/pages/0ff46388-9523-430b-b463-889523630b2f/content
+    status: 200
+    note: '"How to get started" portal page, four-step subscription flow, links the HY Developers wiki.'
+  - url: https://wiki.helsinki.fi/X/me05mC
+    status: 401
+    note: >-
+      HY Developers wiki, referenced by the portal as the fuller (mostly Finnish) documentation.
+      Auth-gated, so it is NOT emitted as a pointer in apis.yml — a 401 pointer reads as a claim
+      and grades as dead.
+schemes:
+- name: X-Api-Key
+  type: apiKey
+  in: header
+  parameter: X-Api-Key
+  used_by:
+  - openapi/university-of-helsinki-employeeinformationapi-openapi.yml
+  - openapi/university-of-helsinki-general-efecte-api-openapi.yml
+  - openapi/university-of-helsinki-hy-building-api-openapi.yml
+  - openapi/university-of-helsinki-hy-organisation-api-openapi.yml
+  - openapi/university-of-helsinki-persongroup-openapi.yml
+  - openapi/university-of-helsinki-serviceapi-openapi.yml
+  - openapi/university-of-helsinki-helsinki-fi-content-openapi.yml
+  - openapi/university-of-helsinki-network-registry-api-openapi.yml
+  note: >-
+    The dominant scheme. Two specs case the header differently in the document (`X-API-Key` in
+    the network registry spec, `X-Api-Key` everywhere else); HTTP header names are
+    case-insensitive so both work, but the inconsistency is the provider's.
+- name: oauth2
+  type: oauth2
+  flows: []
+  used_by:
+  - openapi/university-of-helsinki-course-pages-cms-openapi.yml
+  note: >-
+    Declared with NO flows, no authorizationUrl, no tokenUrl and no scopes, and its description
+    links to `https://developers.getbase.com/docs/rest/articles/oauth2/requests` — an unrelated
+    third-party CRM vendor. This is Drupal Simple OAuth boilerplate that shipped into the
+    published spec unedited. Recorded because it is what the provider publishes, not because it
+    is usable.
+- name: X-CSRF-Token
+  type: apiKey
+  in: header
+  parameter: X-CSRF-Token
+  token_url: https://cms.studies.helsinki.fi/user/token
+  used_by:
+  - openapi/university-of-helsinki-course-pages-cms-openapi.yml
+  note: Drupal JSON:API CSRF token, required on writes to the course-pages CMS.
+- name: Access token
+  type: http
+  scheme: bearer
+  bearer_format: JWT
+  used_by:
+  - openapi/university-of-helsinki-finbif-laji-openapi.yml
+  note: >-
+    FinBIF (api.laji.fi) is the exception to the gateway story — it is operated by the Finnish
+    Museum of Natural History, a University of Helsinki institute, on its own host with its own
+    auth. Self-service: POST an email address to /api-user and the access token is mailed back.
+    This is the only genuinely public, no-affiliation-required credential in the estate.
+- name: Person-Token
+  type: apiKey
+  in: header
+  parameter: Person-Token
+  used_by:
+  - openapi/university-of-helsinki-finbif-laji-openapi.yml
+  note: Second FinBIF credential, identifying an end user rather than the calling application.
+non_gateway_surfaces:
+- surface: Helda DSpace REST API
+  auth: none for read; DSpace `/server/api/authn` for write
+  evidence: 'GET https://helda.helsinki.fi/server/api -> 200 application/hal+json, authn link present.'
+- surface: HY Data Catalogue DSpace REST API
+  auth: none for read; DSpace `/server/api/authn` for write
+  evidence: 'GET https://datakatalogi.helsinki.fi/server/api -> 200 application/hal+json, DSpace 9.0.'
+- surface: OAI-PMH (Helda, HY Data Catalogue, Editori journals)
+  auth: none — anonymous harvesting by protocol design
+- surface: Sisu / Kori
+  auth: none observed on read paths, but the surface is a Funidata product, not a UH contract
+  evidence: >-
+    GET https://sisu.helsinki.fi/kori/api/module-search -> 400 application/json
+    {"message":"AT_LEAST_ONE_SEARCH_PARAM_REQUIRED"} — answered without a credential.

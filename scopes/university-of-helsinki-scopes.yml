@@ -1,0 +1,42 @@
+generated: '2026-08-30'
+method: probed
+source: https://api.helsinki.fi/portal/environments/DEFAULT/configuration
+x-operator: institution
+note: >-
+  NO SCOPE STRINGS ARE PUBLISHED. This artifact records a measured absence, not an inventory.
+  All thirteen institution-operated OpenAPI documents harvested from the University of Helsinki
+  API portal and from api.laji.fi were parsed for `components.securitySchemes.*.flows.*.scopes`
+  and the result was empty across every one of them. The single `oauth2` securityScheme in the
+  estate (Course pages CMS) declares no flows at all, so there is nothing for a scope to hang
+  from. Nothing here is inferred; no scope has been invented to fill the slot.
+authorization_model:
+  kind: plan-subscription
+  described_by: Gravitee API Management
+  detail: >-
+    Authorization at the University of Helsinki gateway is not expressed as OAuth scopes. It is
+    expressed as a SUBSCRIPTION: an application is registered in the portal, subscribed to one
+    named API, and granted one named plan on that API. The plan is the grant. Two APIs make this
+    visible in their own specs — Helsinki.fi content declares two separate `X-Api-Key` schemes,
+    `NewsApiKey` and `StudySearchApiKey`, described as "issued by the news plan" and "issued by
+    the study search plan", which is plan-as-scope stated in the provider's own words.
+  plan_security_enabled:
+  - apikey
+  - oauth2
+  - jwt
+  plan_security_disabled:
+  - sharedApiKey
+  - keyless
+  evidence:
+  - url: https://api.helsinki.fi/portal/environments/DEFAULT/configuration
+    status: 200
+    note: plan.security.{apikey,oauth2,jwt}.enabled true; sharedApiKey and keyless false.
+  - url: https://api.helsinki.fi/portal/environments/DEFAULT/apis?size=200
+    status: 200
+    note: >-
+      Fifteen public APIs listed. Per-API `plans` links exist on every entry but return 401
+      without a portal session, so the plan names themselves are not publicly readable.
+plan_endpoints_probed:
+- url: https://api.helsinki.fi/portal/environments/DEFAULT/portal-information
+  status: 401
+  note: Authenticated-only; not readable anonymously.
+scopes: []

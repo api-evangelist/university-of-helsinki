@@ -1,0 +1,397 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "$id": "https://raw.githubusercontent.com/api-evangelist/university-of-helsinki/main/json-schema/university-of-helsinki-helsinki-fi-content-schemas.json",
+  "title": "Helsinki.fi content — component schemas",
+  "description": "JSON Schema bundle derived from the component schemas of openapi/university-of-helsinki-helsinki-fi-content-openapi.yml, which was harvested verbatim from the University of Helsinki API portal (https://api.helsinki.fi/portal/environments/DEFAULT/apis/e4708a43-62d9-482b-b08a-4362d9a82b33/pages/423e4ba6-47ed-44d2-be4b-a647ed14d2a4/content). Schemas are reproduced unchanged from the provider's own OpenAPI; only the $schema/$id/$defs envelope is ours.",
+  "x-generated": "2026-08-30",
+  "x-method": "derived",
+  "x-source": "openapi/university-of-helsinki-helsinki-fi-content-openapi.yml",
+  "$defs": {
+    "NewsNode": {
+      "type": "object",
+      "properties": {
+        "node": {
+          "type": "object",
+          "properties": {
+            "url": {
+              "type": "string",
+              "example": "https://www.example.org/news/test"
+            },
+            "nid": {
+              "type": "string",
+              "description": "Content ID of the article. Serialised as a string, not a number.",
+              "example": "10"
+            },
+            "title": {
+              "type": "string",
+              "example": "Test news article"
+            },
+            "author": {
+              "type": "string",
+              "description": "Name of the author. Free text, not a reference to a user account. Null when not set.",
+              "nullable": true,
+              "example": "Test Person"
+            },
+            "ingress": {
+              "type": "string",
+              "description": "Ingress text. Null when not set.",
+              "nullable": true
+            },
+            "keywords": {
+              "type": "string",
+              "description": "Keyword terms (separated by comma). An empty string when no keywords are set, never null."
+            },
+            "body": {
+              "type": "string",
+              "description": "Body text flattened for search indexing. Not a markup document and not structured: each paragraph is rendered as comma-separated \"key: value\" pairs and the paragraphs are then joined with commas. The values themselves may contain HTML from the rich text fields. Values containing commas are not escaped, so the field cannot be reliably split back apart."
+            },
+            "fact_box": {
+              "type": "string",
+              "description": "Fact box text, flattened the same way as body. Mainly useful for search indexing."
+            },
+            "additional_content": {
+              "type": "string",
+              "description": "Additional content text, flattened the same way as body. Mainly useful for search indexing."
+            },
+            "published_at": {
+              "type": "string",
+              "description": "Publication date, formatted as dd.mm.yyyy. Derived from the article's authored-on date.",
+              "example": "05.08.2026"
+            },
+            "article_type": {
+              "type": "string",
+              "description": "Article type terms (separated by comma). An empty string when none are set.",
+              "example": "News"
+            },
+            "primary_theme_tag": {
+              "type": "string",
+              "description": "Topics and themes terms (separated by comma). An empty string when none are set.",
+              "example": "Equality"
+            },
+            "secondary_theme_tags": {
+              "type": "string",
+              "description": "Units and disciplines terms (separated by comma). An empty string when none are set.",
+              "example": "Social Work"
+            },
+            "liftup_image": {
+              "type": "string",
+              "description": "Always an empty string in the current implementation."
+            },
+            "video_url": {
+              "type": "string",
+              "description": "Always an empty string in the current implementation."
+            },
+            "main_image_description": {
+              "type": "string",
+              "description": "Present only when the article has a main image paragraph. Null when that paragraph has no caption.",
+              "nullable": true
+            },
+            "main_image_credits": {
+              "type": "string",
+              "description": "Present only when the article has a main image paragraph. Null when that paragraph has no credits.",
+              "nullable": true
+            },
+            "main_image": {
+              "description": "Present only when the article has a main image paragraph. An object when the image file resolves, otherwise an empty string, so the type must be checked before reading src.",
+              "oneOf": [
+                {
+                  "type": "object",
+                  "properties": {
+                    "src": {
+                      "type": "string"
+                    },
+                    "alt": {
+                      "type": "string",
+                      "nullable": true
+                    }
+                  }
+                },
+                {
+                  "type": "string",
+                  "enum": [
+                    ""
+                  ]
+                }
+              ]
+            }
+          }
+        }
+      }
+    },
+    "StudyOption": {
+      "type": "object",
+      "properties": {
+        "id": {
+          "type": "string",
+          "description": "Content ID. Integer prefixed with ”node:” in this operation.",
+          "example": "node:140"
+        },
+        "title": {
+          "description": "Content title.",
+          "allOf": [
+            {
+              "$ref": "#/components/schemas/Translated"
+            }
+          ]
+        },
+        "timestamp": {
+          "type": "string",
+          "description": "Unix timestamp of last update or content creation, serialised as a decimal string rather than a number. May originate from a referenced taxonomy term rather than the content itself. Note that the timestamp echoed under the parameters key is a number, unlike this one.",
+          "example": "1704290690"
+        },
+        "ingress": {
+          "description": "Content ingress.",
+          "allOf": [
+            {
+              "$ref": "#/components/schemas/Translated"
+            }
+          ]
+        },
+        "type_id": {
+          "description": "Type term. Returned as boolean false, not null or an empty object, when the field is empty, so the type must be checked before use.",
+          "oneOf": [
+            {
+              "$ref": "#/components/schemas/TextTerm"
+            },
+            {
+              "type": "boolean"
+            }
+          ]
+        },
+        "educational_theme": {
+          "type": "array",
+          "description": "Educational theme terms.",
+          "items": {
+            "$ref": "#/components/schemas/TextTerm"
+          }
+        },
+        "teaching_languages": {
+          "type": "array",
+          "description": "Teaching language terms.",
+          "items": {
+            "$ref": "#/components/schemas/TextTerm"
+          }
+        },
+        "degree_application_period": {
+          "type": "array",
+          "description": "List of degree application periods. Omitted entirely when the content has no application period set.",
+          "items": {
+            "$ref": "#/components/schemas/DegreeApplicationPeriodTerm"
+          }
+        },
+        "url": {
+          "description": "URL to content, per language. Absent entirely when no language version of the content is viewable; see the note on Translated.",
+          "allOf": [
+            {
+              "$ref": "#/components/schemas/Translated"
+            }
+          ]
+        },
+        "rendered": {
+          "description": "Rendered version of the content. Should only be used for indexing, is not meant to be complete. Absent entirely when no language version of the content is viewable; see the note on Translated.",
+          "allOf": [
+            {
+              "$ref": "#/components/schemas/Translated"
+            }
+          ]
+        },
+        "image": {
+          "description": "A image for the content in a standard size. Omitted when no image is set. The URL uses the /s3/files prefix so that the image style is generated on the first request.",
+          "allOf": [
+            {
+              "$ref": "#/components/schemas/Translated"
+            }
+          ]
+        },
+        "course_codes": {
+          "type": "object",
+          "additionalProperties": {
+            "type": "string",
+            "example": "HISM-G5111"
+          },
+          "description": "Course codes collected from the content. Both the keys and the values are the course code. When the content has none, this is serialised as an empty JSON array ([]) rather than an empty object, so check the type before treating it as a map."
+        }
+      }
+    },
+    "DegreeProgramme": {
+      "type": "object",
+      "properties": {
+        "id": {
+          "type": "string",
+          "description": "Content ID. Integer prefixed with ”group:” in this operation.",
+          "example": "group:140"
+        },
+        "title": {
+          "description": "Content title.",
+          "allOf": [
+            {
+              "$ref": "#/components/schemas/Translated"
+            }
+          ]
+        },
+        "timestamp": {
+          "type": "string",
+          "description": "Unix timestamp of last update or content creation, serialised as a decimal string rather than a number. May originate from a referenced taxonomy term rather than the content itself. Note that the timestamp echoed under the parameters key is a number, unlike this one.",
+          "example": "1704290690"
+        },
+        "teaching_language_details": {
+          "type": "array",
+          "description": "List of teaching language details.",
+          "items": {
+            "$ref": "#/components/schemas/TextTerm"
+          }
+        },
+        "educational_theme": {
+          "type": "array",
+          "description": "Educational theme terms.",
+          "items": {
+            "$ref": "#/components/schemas/TextTerm"
+          }
+        },
+        "type_id": {
+          "description": "Type term. Returned as boolean false, not null or an empty object, when the field is empty, so the type must be checked before use.",
+          "oneOf": [
+            {
+              "$ref": "#/components/schemas/TextTerm"
+            },
+            {
+              "type": "boolean"
+            }
+          ]
+        },
+        "units_and_disciplines": {
+          "type": "array",
+          "description": "Units and disciplines terms.",
+          "items": {
+            "$ref": "#/components/schemas/TextTerm"
+          }
+        },
+        "teaching_languages": {
+          "type": "array",
+          "description": "Teaching language terms.",
+          "items": {
+            "$ref": "#/components/schemas/TextTerm"
+          }
+        },
+        "degree_application_period": {
+          "type": "array",
+          "description": "List of degree application periods. Omitted entirely when the content has no application period set.",
+          "items": {
+            "$ref": "#/components/schemas/DegreeApplicationPeriodTerm"
+          }
+        },
+        "url": {
+          "description": "URL to content, per language. Absent entirely when no language version of the content is viewable; see the note on Translated.",
+          "allOf": [
+            {
+              "$ref": "#/components/schemas/Translated"
+            }
+          ]
+        },
+        "ingress": {
+          "description": "Content ingress. A language is present only when that translation has a hero paragraph, so this may cover fewer languages than url, or be absent entirely.",
+          "allOf": [
+            {
+              "$ref": "#/components/schemas/Translated"
+            }
+          ]
+        },
+        "rendered": {
+          "description": "Rendered version of the content. Should only be used for indexing, is not meant to be complete. Absent entirely when no language version of the content is viewable; see the note on Translated.",
+          "allOf": [
+            {
+              "$ref": "#/components/schemas/Translated"
+            }
+          ]
+        },
+        "image": {
+          "description": "A image for the content in a standard size. Omitted when no image is set. The URL uses the /s3/files prefix so that the image style is generated on the first request.",
+          "allOf": [
+            {
+              "$ref": "#/components/schemas/Translated"
+            }
+          ]
+        }
+      }
+    },
+    "StudySearchInfo": {
+      "type": "object",
+      "properties": {
+        "application_period_info": {
+          "$ref": "#/components/schemas/Translated"
+        },
+        "no_application_period_description": {
+          "$ref": "#/components/schemas/Translated"
+        }
+      },
+      "description": "Editorial texts from the site configuration. A value is null when the corresponding text has not been set."
+    },
+    "TextTerm": {
+      "type": "object",
+      "properties": {
+        "id": {
+          "type": "string",
+          "example": "taxonomy_term:851"
+        },
+        "fi": {
+          "type": "string",
+          "nullable": true,
+          "example": "Ympäristö ja ympäristön suojelu"
+        },
+        "sv": {
+          "type": "string",
+          "nullable": true,
+          "example": "Miljö och hållbarhet"
+        },
+        "en": {
+          "type": "string",
+          "nullable": true,
+          "example": "Environment and sustainability"
+        }
+      },
+      "description": "A referenced taxonomy term. The language keys are the same ones the referencing content has, so the set of keys varies per content item. When the term itself is not translated into one of those languages, the value falls back to the term's default language. When no language version of the referencing content is viewable, only id is present."
+    },
+    "DegreeApplicationPeriodTerm": {
+      "type": "object",
+      "properties": {
+        "id": {
+          "type": "string",
+          "example": "taxonomy_term:851"
+        },
+        "start": {
+          "type": "string",
+          "description": "Start of the application period. Has no timezone offset, so it is not an RFC 3339 date-time. Null when not set.",
+          "nullable": true,
+          "example": "2023-12-01T06:00:00"
+        },
+        "end": {
+          "type": "string",
+          "description": "End of the application period. Has no timezone offset, so it is not an RFC 3339 date-time. Null when not set.",
+          "nullable": true,
+          "example": "2024-01-03T13:00:00"
+        },
+        "is_paid": {
+          "type": "boolean"
+        }
+      }
+    },
+    "Translated": {
+      "type": "object",
+      "properties": {
+        "fi": {
+          "type": "string",
+          "nullable": true
+        },
+        "sv": {
+          "type": "string",
+          "nullable": true
+        },
+        "en": {
+          "type": "string",
+          "nullable": true
+        }
+      },
+      "description": "Object containing strings for each language version with the two-letter language code as key. Only the languages the content is published in are present, so the set of keys varies per content item. A key may hold null when the underlying field is empty in that language.\nWhen no language version of the content is viewable, the field is serialised as an empty JSON array ([]) rather than an empty object ({}), because it is built from a PHP list. Check the type before treating it as an object. The same content also omits url, rendered and image entirely, and its referenced terms carry only their id — such an entry has no usable payload beyond the id, and is best skipped by consumers."
+    }
+  }
+}

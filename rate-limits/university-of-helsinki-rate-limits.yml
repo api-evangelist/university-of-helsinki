@@ -4,32 +4,49 @@ schema: https://raw.githubusercontent.com/api-evangelist/interface-research/main
 provider: University of Helsinki
 providerId: university-of-helsinki
 created: '2026-06-03'
-modified: '2026-06-03'
+modified: '2026-08-30'
 reconciled: false
 tags:
 - Education
 - Higher Education
 - University
 - Rate Limiting
-description: >-
-  University of Helsinki does not publish a unified public rate-limit table across its APIs. Open
-  metadata and harvesting endpoints (OAI-PMH, IIIF, library) may throttle large-scale
-  or automated harvesting; clients should harvest politely, honor Retry-After, and
-  contact the relevant service for bulk access.
-notes: Confirm per-service limits with each API's documentation; harvest responsibly.
+description: 'The University of Helsinki publishes no rate-limit table, and the thirteen institution-operated
+  OpenAPI documents confirm it rather than merely leave it unstated: NOT ONE of the twelve gateway specs
+  declares a 429 response or any rate-limit header. The only API in the estate that declares 429 at
+  all is the FinBIF Laji API, on 24 of its operations. The gateway is Gravitee, which supports quota
+  and rate-limit policies per plan, so limits almost certainly exist per subscription — they are simply
+  not described in any public artifact, and the plan documents that would carry them return 401. Anonymous
+  surfaces (DSpace REST, three OAI-PMH endpoints) are unmetered in their documentation; harvest politely.'
+notes: 'Measured 2026-08-30 by parsing every spec in openapi/_original/ for declared 429 responses and
+  rate-limit headers. Gateway specs: zero. FinBIF: 24 operations.'
 sources:
-- https://raw.githubusercontent.com/api-evangelist/university-of-helsinki/refs/heads/main/apis.yml
+- openapi/_original/
+- https://api.helsinki.fi/portal/environments/DEFAULT/configuration
 responseCodes:
   throttled: 429
 limits:
-- name: Default
+- name: Gravitee gateway (all gw.api.helsinki.fi APIs)
+  scope: subscription
+  metric: undisclosed
+  limit: not published
+  notes: No 429 and no rate-limit header declared in any of the 12 gateway specs. Per-plan quota policy
+    is likely but not publicly readable (plans endpoint returns 401).
+- name: FinBIF Laji API
   scope: client
-  metric: requests-per-minute
-  limit: see service documentation
-  notes: No published global limit; large harvests may be rate-limited.
+  metric: requests
+  limit: not published
+  notes: 429 declared on 24 operations with an application/json body — the only rate-limit signal anywhere
+    in the estate.
+- name: OAI-PMH and DSpace REST
+  scope: client
+  metric: requests
+  limit: not published
+  notes: Anonymous by design. No documented limit; resumption tokens pace large harvests.
 policies:
 - name: Backoff Strategy
   description: Exponential backoff with jitter; honor Retry-After; harvest during off-peak hours.
 maintainers:
 - FN: Kin Lane
   email: kin@apievangelist.com
+method: derived

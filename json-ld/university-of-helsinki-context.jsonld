@@ -4,14 +4,12 @@
     "dc": "http://purl.org/dc/elements/1.1/",
     "dcterms": "http://purl.org/dc/terms/",
     "@vocab": "https://www.helsinki.fi/ns/api#",
-
     "University": "schema:CollegeOrUniversity",
     "name": "schema:name",
     "description": "schema:description",
     "url": "schema:url",
     "foundingDate": "schema:foundingDate",
     "logo": "schema:logo",
-
     "Repository": "schema:DataCatalog",
     "repositoryName": "schema:name",
     "baseURL": {
@@ -19,7 +17,6 @@
       "@type": "@id"
     },
     "version": "schema:softwareVersion",
-
     "Item": "schema:CreativeWork",
     "uuid": "schema:identifier",
     "handle": "schema:identifier",
@@ -34,21 +31,82 @@
     "language": "dc:language",
     "rights": "dc:rights",
     "type": "dc:type",
-
     "Collection": "schema:Collection",
-    "Community": "schema:CollectionPage"
+    "Community": "schema:CollectionPage",
+    "APIGateway": "schema:WebAPI",
+    "WebAPI": "schema:WebAPI",
+    "DataCatalog": "schema:DataCatalog",
+    "identityProvider": {
+      "@id": "schema:identifier",
+      "@type": "@id"
+    },
+    "documentation": {
+      "@id": "schema:documentation",
+      "@type": "@id"
+    },
+    "entryPoint": {
+      "@id": "schema:EntryPoint",
+      "@type": "@id"
+    },
+    "operator": "schema:provider",
+    "conformsTo": {
+      "@id": "dcterms:conformsTo",
+      "@type": "@id"
+    },
+    "softwareVersion": "schema:softwareVersion"
   },
   "@type": "University",
   "name": "University of Helsinki",
   "url": "https://www.helsinki.fi/en",
   "foundingDate": "1640",
-  "description": "Finland's oldest and largest multidisciplinary research university. Its public API footprint centers on Helda, the DSpace 7 institutional repository, which exposes a public REST (HAL) API and an OAI-PMH metadata-harvesting interface.",
+  "description": "Finland's oldest and largest multidisciplinary research university. It operates a first-party Gravitee API gateway (gw.api.helsinki.fi) behind a public developer portal, two DSpace repositories, three OAI-PMH endpoints, a Shibboleth/OpenID Connect identity provider registered in the Haka federation, and — through its Finnish Museum of Natural History institute — the FinBIF Laji API. Its student information system, research portal and library discovery are vendor tenancies.",
   "@reverse": {
-    "schema:provider": {
-      "@type": "Repository",
-      "repositoryName": "Helda",
-      "baseURL": "https://helda.helsinki.fi/server/api",
-      "version": "DSpace 7.6.2"
-    }
-  }
+    "schema:provider": [
+      {
+        "@type": "APIGateway",
+        "name": "University of Helsinki API Gateway",
+        "documentation": "https://api.helsinki.fi/portal/",
+        "entryPoint": "https://gw.api.helsinki.fi",
+        "description": "Self-hosted Gravitee API Management. 15 public APIs, 12 with published OpenAPI."
+      },
+      {
+        "@type": "Repository",
+        "repositoryName": "Helda",
+        "baseURL": "https://helda.helsinki.fi/server/api",
+        "softwareVersion": "DSpace 7.6.2",
+        "conformsTo": "http://www.openarchives.org/OAI/2.0/"
+      },
+      {
+        "@type": "DataCatalog",
+        "repositoryName": "HyDatacatalogue",
+        "baseURL": "https://datakatalogi.helsinki.fi/server/api",
+        "softwareVersion": "DSpace 9.0",
+        "conformsTo": "http://www.openarchives.org/OAI/2.0/"
+      },
+      {
+        "@type": "Repository",
+        "repositoryName": "Editori",
+        "baseURL": "https://journals.helsinki.fi/index/oai",
+        "conformsTo": "http://www.openarchives.org/OAI/2.0/"
+      },
+      {
+        "@type": "WebAPI",
+        "name": "FinBIF Laji API",
+        "baseURL": "https://api.laji.fi",
+        "documentation": "https://api.laji.fi/openapi",
+        "description": "Operated by Luomus, the Finnish Museum of Natural History, an institute of the University of Helsinki."
+      },
+      {
+        "@type": "WebAPI",
+        "name": "HY Login Service",
+        "baseURL": "https://login.helsinki.fi",
+        "documentation": "https://login.helsinki.fi/.well-known/openid-configuration",
+        "conformsTo": "urn:oasis:names:tc:SAML:2.0:metadata",
+        "description": "Shibboleth Identity Provider with an OpenID Connect profile; 16 helsinki.fi entities registered in the Haka federation."
+      }
+    ]
+  },
+  "x-generated": "2026-08-30",
+  "x-method": "derived",
+  "x-source": "apis.yml"
 }

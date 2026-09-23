@@ -1,0 +1,187 @@
+openapi: 3.2.0
+info:
+  title: Laji Coordinates API
+  description: '## Authentication
+
+
+    This API requires an **Access Token**.'
+  version: '1'
+  contact: {}
+servers:
+- url: https://api.laji.fi
+tags:
+- name: Coordinates
+paths:
+  /coordinates/location:
+    post:
+      operationId: CoordinatesController_getLocationInformation
+      parameters: []
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              type: object
+              example:
+                type: Point
+                coordinates:
+                - 25
+                - 60
+      responses:
+        '200':
+          description: ''
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  results:
+                    type: array
+                    items:
+                      $ref: '#/components/schemas/Location'
+                  '@context':
+                    type: string
+        '400':
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  errorCode:
+                    type: string
+                  message:
+                    type: string
+                  localized:
+                    type: boolean
+        '401':
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  errorCode:
+                    type: string
+                  message:
+                    type: string
+                  localized:
+                    type: boolean
+        '403':
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  errorCode:
+                    type: string
+                  message:
+                    type: string
+                  localized:
+                    type: boolean
+        '404':
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  errorCode:
+                    type: string
+                  message:
+                    type: string
+                  localized:
+                    type: boolean
+        '406':
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  errorCode:
+                    type: string
+                  message:
+                    type: string
+                  localized:
+                    type: boolean
+        '422':
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  errorCode:
+                    type: string
+                  message:
+                    type: string
+                  localized:
+                    type: boolean
+        '500':
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  errorCode:
+                    type: string
+                  message:
+                    type: string
+                  localized:
+                    type: boolean
+      security:
+      - Access token: []
+      - Lang: []
+      - Person token: []
+      tags:
+      - Coordinates
+      summary: Coordinates controller get location information
+      x-summary-source: derived
+components:
+  schemas:
+    Location:
+      type: object
+      properties:
+        address_components:
+          type: array
+          items:
+            $ref: '#/components/schemas/AddressComponent'
+        types:
+          type: array
+          items:
+            type: string
+        formatted_address:
+          type: string
+        place_id:
+          type: string
+      required:
+      - address_components
+      - types
+      - place_id
+    MultiLangDto:
+      type: string
+    AddressComponent:
+      type: object
+      properties:
+        long_name:
+          type: string
+        short_name:
+          $ref: '#/components/schemas/MultiLangDto'
+        types:
+          type: array
+          items:
+            type: string
+      required:
+      - short_name
+      - types
+  securitySchemes:
+    Access_token:
+      scheme: bearer
+      bearerFormat: JWT
+      type: http
+      description: Access token
+    Lang:
+      type: apiKey
+      in: header
+      name: Accept-Language
+      description: Sets the 'Accept-Language' header. One of 'fi', 'sv,' 'en'. Defaults to 'en'.
+    Person_token:
+      type: apiKey
+      in: header
+      name: Person-Token

@@ -4,30 +4,37 @@ schema: https://raw.githubusercontent.com/api-evangelist/interface-research/main
 provider: University of Helsinki
 providerId: university-of-helsinki
 created: '2026-06-03'
-modified: '2026-06-03'
+modified: '2026-08-30'
 reconciled: false
 tags:
 - Education
 - Higher Education
 - University
 - Plans
-description: >-
-  University of Helsinki is a non-commercial higher-education institution; its APIs are not sold
-  as a commercial product. Public APIs (library, repository, course, and open-metadata
-  interfaces) are offered free of charge, typically for non-commercial use. Most
-  administrative and identity APIs are not openly self-service and require institutional
-  affiliation, credentials, or federation membership rather than a paid plan.
-notes: >-
-  No published per-seat or per-call commercial pricing. "Free / Open" reflects open
-  public endpoints; "Affiliation / Credentialed" reflects access gated by institutional
-  identity rather than payment.
+description: 'The University of Helsinki is a non-commercial higher-education institution and sells
+  none of its APIs. Access is gated by AFFILIATION, not by payment. Its own Gravitee gateway (gw.api.helsinki.fi)
+  enables three plan security types — apikey, oauth2 and jwt — and explicitly DISABLES keyless and sharedApiKey,
+  so no gateway endpoint is callable anonymously. Portal self-registration is also off (localLogin.enabled
+  false, userCreation.enabled false): a credential requires signing in with the HY Login Service, creating
+  an application, and subscribing it to one API under one named plan. The plan is the authorization
+  unit; there are no OAuth scopes anywhere in the estate. Two surfaces sit outside that model — the
+  DSpace REST and OAI-PMH endpoints (Helda, HY Data Catalogue, Editori), which are anonymous by design,
+  and the FinBIF Laji API, which issues a token to any email address on request.'
+notes: 'No per-seat or per-call pricing exists anywhere. Per-API plan NAMES are not publicly readable:
+  the portal''s /apis/{id}/plans links return 401 without a session, and /environments/DEFAULT/portal-information
+  returns 401 as well. What is publicly readable is which plan SECURITY TYPES the environment permits,
+  from https://api.helsinki.fi/portal/environments/DEFAULT/configuration (200).'
 sources:
+- https://api.helsinki.fi/portal/environments/DEFAULT/configuration
+- https://api.helsinki.fi/portal/environments/DEFAULT/pages/0ff46388-9523-430b-b463-889523630b2f/content
 - https://raw.githubusercontent.com/api-evangelist/university-of-helsinki/refs/heads/main/apis.yml
 plans:
 - id: university-of-helsinki-free-open
   name: Free / Open
   type: free
-  description: Public open APIs (metadata, library, repository, course data) offered at no charge, generally for non-commercial use.
+  description: Anonymous, no credential required. The DSpace HAL REST APIs (helda.helsinki.fi, datakatalogi.helsinki.fi),
+    the three OAI-PMH endpoints, the Gravitee portal catalogue itself and every published OpenAPI. Verified
+    live 2026-08-30.
   entries:
   - label: Open API Access
     name: open_api_access
@@ -40,9 +47,11 @@ plans:
     price: '0.00'
     userMultiplied: false
 - id: university-of-helsinki-affiliation
-  name: Affiliation / Credentialed
+  name: Affiliation / Credentialed (Gravitee plan subscription)
   type: free
-  description: Administrative and identity APIs gated behind institutional SSO, client certificates, or federation membership rather than payment.
+  description: Every API behind gw.api.helsinki.fi. Requires an HY Login Service (or Haka-federated)
+    identity, a registered application, and a subscription to a named plan on that API. Credential is
+    passed in the X-Api-Key header. Free of charge; the gate is affiliation, not money.
   entries:
   - label: Credentialed Access
     name: credentialed_access
@@ -54,6 +63,24 @@ plans:
     unit: 1
     price: '0.00'
     userMultiplied: false
+- id: university-of-helsinki-finbif-self-service
+  name: FinBIF self-service token
+  type: free
+  description: 'The one genuinely open credential in the estate. POST an email address to https://api.laji.fi/api-user
+    and an access token is returned by email; no institutional affiliation is required. Used as an Authorization:
+    Bearer token, optionally with a Person-Token identifying an end user.'
+  entries:
+  - label: FinBIF Access Token
+    name: finbif_access_token
+    type: free
+    metric: requests
+    limit: -1
+    timeFrame: usage
+    geo: global
+    unit: 1
+    price: '0.00'
+    userMultiplied: false
 maintainers:
 - FN: Kin Lane
   email: kin@apievangelist.com
+method: probed

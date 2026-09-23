@@ -1,0 +1,131 @@
+openapi: 3.2.0
+info:
+  title: Laji Google Maps API
+  description: '## Authentication
+
+
+    This API requires an **Access Token**.'
+  version: '1'
+  contact: {}
+servers:
+- url: https://api.laji.fi
+tags:
+- name: Google Maps
+paths:
+  /google-maps/geocode/json:
+    get:
+      operationId: geocode
+      tags:
+      - Google Maps
+      description: The Geocoding API is a service that provides geocoding and reverse geocoding of addresses.
+      parameters:
+      - name: address
+        description: The street address or plus code that you want to geocode.
+        in: query
+        schema:
+          type: string
+      - name: latlng
+        description: The latitude and longitude of the location to geocode.
+        in: query
+        schema:
+          type: string
+      - name: components
+        description: A components filter with elements separated by a pipe (|).
+        in: query
+        schema:
+          type: array
+          items:
+            type: string
+      responses:
+        '200':
+          description: 200 OK
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/GoogleMapsGeocodingResponse'
+      security:
+      - Access token: []
+      - Lang: []
+      - Person token: []
+      summary: Geocode
+      x-summary-source: derived
+components:
+  schemas:
+    GoogleMapsGeocodingResponse:
+      type: object
+      required:
+      - status
+      - results
+      properties:
+        results:
+          type: array
+          items:
+            $ref: '#/components/schemas/GoogleMapsGeocodingResult'
+        status:
+          type: string
+    GoogleMapsAddressComponent:
+      type: object
+      required:
+      - long_name
+      - short_name
+      - types
+      properties:
+        long_name:
+          type: string
+        short_name:
+          type: string
+        types:
+          type: array
+          items:
+            type: string
+    GoogleMapsGeocodingResult:
+      type: object
+      required:
+      - address_components
+      - formatted_address
+      - geometry
+      - place_id
+      - types
+      properties:
+        address_components:
+          type: array
+          items:
+            $ref: '#/components/schemas/GoogleMapsAddressComponent'
+        formatted_address:
+          type: string
+        geometry:
+          type: object
+          required:
+          - location
+          properties:
+            location:
+              type: object
+              required:
+              - lat
+              - lng
+              properties:
+                lat:
+                  type: number
+                lng:
+                  type: number
+        place_id:
+          type: string
+        types:
+          type: array
+          items:
+            type: string
+  securitySchemes:
+    Access_token:
+      scheme: bearer
+      bearerFormat: JWT
+      type: http
+      description: Access token
+    Lang:
+      type: apiKey
+      in: header
+      name: Accept-Language
+      description: Sets the 'Accept-Language' header. One of 'fi', 'sv,' 'en'. Defaults to 'en'.
+    Person_token:
+      type: apiKey
+      in: header
+      name: Person-Token

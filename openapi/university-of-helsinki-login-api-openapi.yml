@@ -1,0 +1,262 @@
+openapi: 3.2.0
+info:
+  title: Laji Login API
+  description: '## Authentication
+
+
+    This API requires an **Access Token**.'
+  version: '1'
+  contact: {}
+servers:
+- url: https://api.laji.fi
+tags:
+- name: Login
+paths:
+  /login:
+    get:
+      operationId: LoginController_getTmpToken
+      parameters:
+      - name: offerPermanent
+        required: true
+        in: query
+        schema:
+          default: false
+          type: boolean
+      responses:
+        '200':
+          description: ''
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/GetTmpTokenDto'
+        '400':
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  errorCode:
+                    type: string
+                  message:
+                    type: string
+                  localized:
+                    type: boolean
+        '401':
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  errorCode:
+                    type: string
+                  message:
+                    type: string
+                  localized:
+                    type: boolean
+        '403':
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  errorCode:
+                    type: string
+                  message:
+                    type: string
+                  localized:
+                    type: boolean
+        '404':
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  errorCode:
+                    type: string
+                  message:
+                    type: string
+                  localized:
+                    type: boolean
+        '406':
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  errorCode:
+                    type: string
+                  message:
+                    type: string
+                  localized:
+                    type: boolean
+        '422':
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  errorCode:
+                    type: string
+                  message:
+                    type: string
+                  localized:
+                    type: boolean
+        '500':
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  errorCode:
+                    type: string
+                  message:
+                    type: string
+                  localized:
+                    type: boolean
+      security:
+      - Access token: []
+      - Lang: []
+      - Person token: []
+      summary: Get temp token and login url to be used for the user authentication
+      tags:
+      - Login
+  /login/check:
+    post:
+      operationId: LoginController_checkTmpToken
+      parameters:
+      - name: tmpToken
+        required: true
+        in: query
+        schema:
+          type: string
+      responses:
+        '201':
+          description: ''
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/CheckTmpTokenDto'
+        '400':
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  errorCode:
+                    type: string
+                  message:
+                    type: string
+                  localized:
+                    type: boolean
+        '401':
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  errorCode:
+                    type: string
+                  message:
+                    type: string
+                  localized:
+                    type: boolean
+        '403':
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  errorCode:
+                    type: string
+                  message:
+                    type: string
+                  localized:
+                    type: boolean
+        '404':
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  errorCode:
+                    type: string
+                  message:
+                    type: string
+                  localized:
+                    type: boolean
+        '406':
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  errorCode:
+                    type: string
+                  message:
+                    type: string
+                  localized:
+                    type: boolean
+        '422':
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  errorCode:
+                    type: string
+                  message:
+                    type: string
+                  localized:
+                    type: boolean
+        '500':
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  errorCode:
+                    type: string
+                  message:
+                    type: string
+                  localized:
+                    type: boolean
+      security:
+      - Access token: []
+      - Lang: []
+      - Person token: []
+      summary: Check if the user has authenticated
+      tags:
+      - Login
+components:
+  schemas:
+    GetTmpTokenDto:
+      type: object
+      properties:
+        loginURL:
+          type: string
+        tmpToken:
+          type: string
+      required:
+      - tmpToken
+    CheckTmpTokenDto:
+      type: object
+      properties:
+        tmpToken:
+          type: string
+      required:
+      - tmpToken
+  securitySchemes:
+    Access_token:
+      scheme: bearer
+      bearerFormat: JWT
+      type: http
+      description: Access token
+    Lang:
+      type: apiKey
+      in: header
+      name: Accept-Language
+      description: Sets the 'Accept-Language' header. One of 'fi', 'sv,' 'en'. Defaults to 'en'.
+    Person_token:
+      type: apiKey
+      in: header
+      name: Person-Token

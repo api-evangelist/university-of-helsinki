@@ -1,0 +1,366 @@
+openapi: 3.2.0
+info:
+  title: Laji Areas API
+  description: '## Authentication
+
+
+    This API requires an **Access Token**.'
+  version: '1'
+  contact: {}
+servers:
+- url: https://api.laji.fi
+tags:
+- name: Areas
+paths:
+  /areas/{id}:
+    get:
+      operationId: AreaController_get
+      parameters:
+      - name: id
+        required: true
+        in: path
+        schema:
+          type: string
+      responses:
+        '200':
+          description: ''
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/store-area'
+        '400':
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  errorCode:
+                    type: string
+                  message:
+                    type: string
+                  localized:
+                    type: boolean
+        '401':
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  errorCode:
+                    type: string
+                  message:
+                    type: string
+                  localized:
+                    type: boolean
+        '403':
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  errorCode:
+                    type: string
+                  message:
+                    type: string
+                  localized:
+                    type: boolean
+        '404':
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  errorCode:
+                    type: string
+                  message:
+                    type: string
+                  localized:
+                    type: boolean
+        '406':
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  errorCode:
+                    type: string
+                  message:
+                    type: string
+                  localized:
+                    type: boolean
+        '422':
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  errorCode:
+                    type: string
+                  message:
+                    type: string
+                  localized:
+                    type: boolean
+        '500':
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  errorCode:
+                    type: string
+                  message:
+                    type: string
+                  localized:
+                    type: boolean
+      security:
+      - Access token: []
+      - Lang: []
+      - Person token: []
+      summary: Get an area by id
+      tags:
+      - Areas
+  /areas:
+    get:
+      operationId: AreaController_getPage
+      parameters:
+      - name: page
+        required: false
+        in: query
+        schema:
+          default: 1
+          type: integer
+      - name: pageSize
+        required: false
+        in: query
+        schema:
+          default: 20
+          type: integer
+      - name: idIn
+        required: false
+        in: query
+        description: Include only items with the given ids. Multiple values are separated by a comma (,).
+        schema:
+          type: string
+      - name: areaType
+        required: false
+        in: query
+        description: Area type
+        schema:
+          type: string
+          enum:
+          - ML.country
+          - ML.biogeographicalProvince
+          - ML.municipality
+          - ML.oldMunicipality
+          - ML.birdAssociationArea
+          - ML.iucnEvaluationArea
+      responses:
+        '200':
+          description: ''
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  currentPage:
+                    type: integer
+                  pageSize:
+                    type: integer
+                  total:
+                    type: integer
+                  lastPage:
+                    type: integer
+                  prevPage:
+                    type: integer
+                  nextPage:
+                    type: integer
+                  results:
+                    type: array
+                    items:
+                      $ref: '#/components/schemas/store-area'
+                required:
+                - currentPage
+                - pageSize
+                - total
+                - lastPage
+                - results
+        '400':
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  errorCode:
+                    type: string
+                  message:
+                    type: string
+                  localized:
+                    type: boolean
+        '401':
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  errorCode:
+                    type: string
+                  message:
+                    type: string
+                  localized:
+                    type: boolean
+        '403':
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  errorCode:
+                    type: string
+                  message:
+                    type: string
+                  localized:
+                    type: boolean
+        '404':
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  errorCode:
+                    type: string
+                  message:
+                    type: string
+                  localized:
+                    type: boolean
+        '406':
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  errorCode:
+                    type: string
+                  message:
+                    type: string
+                  localized:
+                    type: boolean
+        '422':
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  errorCode:
+                    type: string
+                  message:
+                    type: string
+                  localized:
+                    type: boolean
+        '500':
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  errorCode:
+                    type: string
+                  message:
+                    type: string
+                  localized:
+                    type: boolean
+      security:
+      - Access token: []
+      - Lang: []
+      - Person token: []
+      summary: Get a page of areas
+      tags:
+      - Areas
+components:
+  schemas:
+    store-area:
+      type: object
+      properties:
+        '@context':
+          type: string
+          title: Context for the Area
+        id:
+          type: string
+          title: Id for the Area
+        '@type':
+          type: string
+          title: Type for the Area
+        areaType:
+          type: string
+          enum:
+          - ML.country
+          - ML.biogeographicalProvince
+          - ML.municipality
+          - ML.oldMunicipality
+          - ML.elyCentre
+          - ML.province
+          - ML.continent
+          - ML.iucnEvaluationArea
+          - ML.birdAssociationArea
+          description: Aluetyyppi
+          title: Area type
+        countryCodeISOalpha2:
+          type: string
+          description: Country code ISO alpha 2
+          title: Country code
+        countryCodeISOalpha3:
+          type: string
+          description: country code ISO alpha 3
+          title: country code
+        isPartOf:
+          type: string
+          title: Part of
+        isPartOfBirdAssociationArea:
+          type: string
+          title: Is part of bird assocation area
+        isPartOfEnvironmentalELY:
+          type: string
+          title: Is part of Environmental ELY
+        isPartOfProvince:
+          type: string
+          title: Is part of province
+        name:
+          type: string
+        previouslyOfficialName:
+          type: array
+          uniqueItems: false
+          items:
+            type: string
+          minItems: 0
+          title: Previously used name
+        provinceCodeAlpha:
+          $ref: '#/components/schemas/store-multiLang'
+        provinceCodeNumeric:
+          type: string
+          title: Province code numeric
+        ringingDepartmentBirdAssociationAreaCode:
+          type: string
+          title: ringingDepartmentBirdAssociationAreaCode
+        ringingDepartmentMunicipalityCode:
+          type: string
+          title: ringingDepartmentMunicipalityCode
+      required:
+      - areaType
+      - id
+      additionalProperties: false
+    store-multiLang:
+      type: string
+  securitySchemes:
+    Access_token:
+      scheme: bearer
+      bearerFormat: JWT
+      type: http
+      description: Access token
+    Lang:
+      type: apiKey
+      in: header
+      name: Accept-Language
+      description: Sets the 'Accept-Language' header. One of 'fi', 'sv,' 'en'. Defaults to 'en'.
+    Person_token:
+      type: apiKey
+      in: header
+      name: Person-Token

@@ -1,0 +1,851 @@
+{
+  "openapi" : "3.0.0",
+  "info" : {
+    "title" : "Helsinki.fi content",
+    "description" : "The API can be used to fetch content in Helsinki.fi.",
+    "contact" : {
+      "email" : "grp-nxstage-devs@helsinki.fi"
+    },
+    "version" : "1.2.0"
+  },
+  "servers" : [ {
+    "url" : "https://gw.api.helsinki.fi"
+  } ],
+  "tags" : [ {
+    "name" : "news",
+    "description" : "News"
+  }, {
+    "name" : "study-search",
+    "description" : "Study search content. The API returns the study options and/or degree programmes content for University of Helsinki in an indexable format. The API strives to provide each content again if the content or terms related to it are updated. The API is not, however, foolproof and rare corner cases have been identified in the past that have caused the indexed data to be out-of-sync with the master data. This is avoidable by regularly re-indexing the whole index if the correctness of all data is important.\nThe designed workflow for the API is to first request the dataset without timestamp (or with timestamp 0), and then on each call take the largest timestamp in the returned content and making a new request with the same parameters but using that timestamp instead. This should mean that all content currently published is returned in the process.\nRegardless of the timestamp, the calls always return the currently published version of the content and no unpublished versions are returned regardless of the timestamp. All the data in the API is public.\nThe type terms are not available as a full set in any API; you can enquire those from the Helsinki.fi development team if necessary. All the content across the API calls are unique for the content and therefore you can also get the type Ids from the returned results’ type_id fields by removing the taxonomy_term prefix."
+  } ],
+  "paths" : {
+    "/public_web/news/frosmo/{langcode}.json" : {
+      "get" : {
+        "tags" : [ "news" ],
+        "summary" : "Gets the news in a given language.",
+        "description" : "Fetches Helsinki.fi news in the requested language.\n\nOnly fi, sv and en are routed.",
+        "operationId" : "fetchNewsJson",
+        "parameters" : [ {
+          "name" : "langcode",
+          "in" : "path",
+          "description" : "Content language.",
+          "required" : true,
+          "style" : "simple",
+          "explode" : false,
+          "schema" : {
+            "type" : "string",
+            "enum" : [ "fi", "sv", "en" ]
+          }
+        }, {
+          "name" : "items_per_page",
+          "in" : "query",
+          "description" : "Number of news items per page. Only the listed values are accepted. Any other value, for example 1, returns an empty result set rather than falling back to the default.",
+          "required" : false,
+          "style" : "form",
+          "explode" : true,
+          "schema" : {
+            "type" : "integer",
+            "default" : 25,
+            "enum" : [ 5, 10, 25, 50 ]
+          }
+        }, {
+          "name" : "units_and_disciplines[]",
+          "in" : "query",
+          "description" : "Units and disciplines internal taxonomy IDs to filter by. The square brackets are part of the parameter name and are required; sending units_and_disciplines=1234 without them is silently ignored and the unfiltered result set is returned. Repeat the parameter to pass several IDs; multiple values are combined with OR.",
+          "required" : false,
+          "style" : "form",
+          "explode" : true,
+          "schema" : {
+            "type" : "array",
+            "items" : {
+              "type" : "integer"
+            }
+          }
+        }, {
+          "name" : "topics_and_themes[]",
+          "in" : "query",
+          "description" : "Topics and themes internal taxonomy IDs to filter by. The square brackets are part of the parameter name and are required; sending topics_and_themes=770 without them is silently ignored and the unfiltered result set is returned. Repeat the parameter to pass several IDs; multiple values are combined with OR.",
+          "required" : false,
+          "style" : "form",
+          "explode" : true,
+          "schema" : {
+            "type" : "array",
+            "items" : {
+              "type" : "integer"
+            }
+          }
+        }, {
+          "name" : "published_after",
+          "in" : "query",
+          "description" : "Show only news published on or after the given date.",
+          "required" : false,
+          "style" : "form",
+          "explode" : true,
+          "schema" : {
+            "type" : "string",
+            "example" : "2026-01-01"
+          }
+        }, {
+          "name" : "page",
+          "in" : "query",
+          "description" : "Page number to get. Zero-indexed.",
+          "required" : false,
+          "style" : "form",
+          "explode" : true,
+          "schema" : {
+            "type" : "integer",
+            "format" : "int64"
+          }
+        } ],
+        "responses" : {
+          "200" : {
+            "description" : "successful operation",
+            "content" : {
+              "application/json" : {
+                "schema" : {
+                  "type" : "object",
+                  "properties" : {
+                    "nodes" : {
+                      "type" : "array",
+                      "items" : {
+                        "$ref" : "#/components/schemas/NewsNode"
+                      }
+                    }
+                  }
+                }
+              }
+            }
+          },
+          "400" : {
+            "description" : "The requested language is not routed. Only fi, sv and en are available."
+          },
+          "401" : {
+            "description" : "No API key was supplied."
+          },
+          "403" : {
+            "description" : "The supplied API key is not valid for the news plan."
+          }
+        },
+        "security" : [ {
+          "NewsApiKey" : [ ]
+        } ]
+      }
+    },
+    "/public_web/news" : {
+      "get" : {
+        "tags" : [ "news" ],
+        "summary" : "Gets all news in a single response, in Finnish.",
+        "description" : "Returns published news articles in one response. The content language is fixed to Finnish and cannot be selected; use /public_web/news/frosmo/{langcode}.json when the language matters.\nitems_per_page must be set. The page size defaults to 1000 items, and at that size the request does not complete within the gateway timeout, so a call without parameters responds with 502. A non-numeric value falls back to the default and times out the same way.\nThe payload matches the schema below except that published_at is an ISO 8601 date-time rather than dd.mm.yyyy.\nTaxonomy filtering on this route expands the term hierarchy — see the filter parameters.",
+        "operationId" : "fetchNewsJsonUnpaginated",
+        "parameters" : [ {
+          "name" : "items_per_page",
+          "in" : "query",
+          "description" : "Number of news items per page.",
+          "required" : false,
+          "style" : "form",
+          "explode" : true,
+          "schema" : {
+            "type" : "integer",
+            "default" : 1000
+          }
+        }, {
+          "name" : "offset",
+          "in" : "query",
+          "description" : "Number of items to skip before the first returned item.",
+          "required" : false,
+          "style" : "form",
+          "explode" : true,
+          "schema" : {
+            "type" : "integer"
+          }
+        }, {
+          "name" : "page",
+          "in" : "query",
+          "description" : "Page number to get. Zero-indexed.",
+          "required" : false,
+          "style" : "form",
+          "explode" : true,
+          "schema" : {
+            "type" : "integer",
+            "format" : "int64"
+          }
+        }, {
+          "name" : "published_after",
+          "in" : "query",
+          "description" : "Show only news published on or after the given date.",
+          "required" : false,
+          "style" : "form",
+          "explode" : true,
+          "schema" : {
+            "type" : "string",
+            "example" : "2026-01-01"
+          }
+        }, {
+          "name" : "units_and_disciplines[]",
+          "in" : "query",
+          "description" : "Units and disciplines internal taxonomy IDs to filter by. The square brackets are required and the parameter is repeatable, as on the language-specific route.\nOn this route the term hierarchy is expanded: a parent term also matches content tagged only with terms below it in the hierarchy, at any depth. For example, filtering by a faculty term also returns articles tagged only with one of that faculty's departments.",
+          "required" : false,
+          "style" : "form",
+          "explode" : true,
+          "schema" : {
+            "type" : "array",
+            "items" : {
+              "type" : "integer"
+            }
+          }
+        }, {
+          "name" : "topics_and_themes[]",
+          "in" : "query",
+          "description" : "Topics and themes internal taxonomy IDs to filter by. Bracketed, repeatable and hierarchy-expanded, as with units_and_disciplines[] on this route.",
+          "required" : false,
+          "style" : "form",
+          "explode" : true,
+          "schema" : {
+            "type" : "array",
+            "items" : {
+              "type" : "integer"
+            }
+          }
+        } ],
+        "responses" : {
+          "200" : {
+            "description" : "Published news articles.",
+            "content" : {
+              "application/json" : {
+                "schema" : {
+                  "type" : "object",
+                  "properties" : {
+                    "nodes" : {
+                      "type" : "array",
+                      "items" : {
+                        "$ref" : "#/components/schemas/NewsNode"
+                      }
+                    }
+                  }
+                }
+              }
+            }
+          },
+          "401" : {
+            "description" : "No API key was supplied."
+          },
+          "403" : {
+            "description" : "The supplied API key is not valid for the news plan."
+          },
+          "502" : {
+            "description" : "The feed did not complete within the gateway timeout. This is what a call without items_per_page, or with a non-numeric one, returns."
+          }
+        },
+        "security" : [ {
+          "NewsApiKey" : [ ]
+        } ]
+      }
+    },
+    "/public_web/study_search/study_options" : {
+      "get" : {
+        "tags" : [ "study-search" ],
+        "summary" : "Exports study options content.",
+        "operationId" : "fetchStudySearchStudyOptions",
+        "parameters" : [ {
+          "name" : "timestamp",
+          "in" : "query",
+          "description" : "The unix timestamp to limit the results. Shows the content edited or created after this timestamp (and content removed or unpublished after it). A missing or non-numeric value is treated as 0, which returns everything.",
+          "required" : false,
+          "style" : "form",
+          "explode" : true,
+          "schema" : {
+            "type" : "integer"
+          }
+        }, {
+          "name" : "type_ids",
+          "in" : "query",
+          "description" : "Comma-delimited string with the type ids to show. The values are handled as an OR set.",
+          "required" : false,
+          "style" : "form",
+          "explode" : true,
+          "schema" : {
+            "type" : "string"
+          }
+        }, {
+          "name" : "limit",
+          "in" : "query",
+          "description" : "Approximate number of results in the result set.",
+          "required" : false,
+          "style" : "form",
+          "explode" : true,
+          "schema" : {
+            "type" : "integer",
+            "default" : 50
+          }
+        } ],
+        "responses" : {
+          "200" : {
+            "description" : "The response is a JSON string that has the content entities indexed by the content ID. In the end of the data set there are also the removed or unpublished content with the expired key and the used query parameters with the parameters key.",
+            "content" : {
+              "application/json" : {
+                "schema" : {
+                  "type" : "object",
+                  "properties" : {
+                    "expired" : {
+                      "type" : "array",
+                      "description" : "The expired key in the end contains a list of Content reference strings that have been deleted or unpublished. These should be removed from any index. Not all of the listed contents are necessarily returned by an earlier call of the API, so it should not be presumed that all of the content exists or has existed in any index.",
+                      "items" : {
+                        "type" : "string",
+                        "example" : "node:191"
+                      }
+                    },
+                    "parameters" : {
+                      "type" : "object",
+                      "properties" : {
+                        "timestamp" : {
+                          "type" : "integer",
+                          "example" : 1697113107
+                        },
+                        "limit" : {
+                          "type" : "integer",
+                          "example" : 5
+                        },
+                        "type_ids" : {
+                          "type" : "array",
+                          "description" : "Null when the parameter was not supplied.",
+                          "nullable" : true,
+                          "items" : {
+                            "type" : "string",
+                            "example" : "728"
+                          }
+                        },
+                        "count" : {
+                          "type" : "integer",
+                          "description" : "Number of content entities in the response, not counting the expired and parameters keys.",
+                          "example" : 6
+                        }
+                      },
+                      "description" : "The parameters key in the end contains an object with the timestamp, limit and type_ids values used for the query as well as a count element containing the total number of items in the response."
+                    }
+                  },
+                  "additionalProperties" : {
+                    "$ref" : "#/components/schemas/StudyOption"
+                  },
+                  "description" : "Content entities keyed by their numeric content ID, alongside the reserved expired and parameters keys."
+                }
+              }
+            }
+          },
+          "401" : {
+            "description" : "No API key was supplied."
+          },
+          "403" : {
+            "description" : "The supplied API key is not valid for the study search plan."
+          }
+        },
+        "security" : [ {
+          "StudySearchApiKey" : [ ]
+        } ]
+      }
+    },
+    "/public_web/study_search/degree_programmes" : {
+      "get" : {
+        "tags" : [ "study-search" ],
+        "summary" : "Exports degree programmes content.",
+        "operationId" : "fetchStudySearchDegreeProgrammes",
+        "parameters" : [ {
+          "name" : "timestamp",
+          "in" : "query",
+          "description" : "The unix timestamp to limit the results. Shows the content edited or created after this timestamp (and content removed or unpublished after it). A missing or non-numeric value is treated as 0, which returns everything.",
+          "required" : false,
+          "style" : "form",
+          "explode" : true,
+          "schema" : {
+            "type" : "integer"
+          }
+        }, {
+          "name" : "type_ids",
+          "in" : "query",
+          "description" : "Comma-delimited string with the type ids to show. The values are handled as an OR set. These type ids come from a different vocabulary than the ones accepted by the study options operation and are not interchangeable.",
+          "required" : false,
+          "style" : "form",
+          "explode" : true,
+          "schema" : {
+            "type" : "string"
+          }
+        }, {
+          "name" : "limit",
+          "in" : "query",
+          "description" : "Approximate number of results in the result set.",
+          "required" : false,
+          "style" : "form",
+          "explode" : true,
+          "schema" : {
+            "type" : "integer",
+            "default" : 50
+          }
+        } ],
+        "responses" : {
+          "200" : {
+            "description" : "The response is a JSON string that has the content entities indexed by the content ID. In the end of the data set there are also the removed or unpublished content with the expired key and the used query parameters with the parameters key.",
+            "content" : {
+              "application/json" : {
+                "schema" : {
+                  "type" : "object",
+                  "properties" : {
+                    "expired" : {
+                      "type" : "array",
+                      "description" : "The expired key in the end contains a list of Content reference strings that have been deleted, unpublished or moved into the beta state. These should be removed from any index. Not all of the listed contents are necessarily returned by an earlier call of the API, so it should not be presumed that all of the content exists or has existed in any index.",
+                      "items" : {
+                        "type" : "string",
+                        "example" : "group:191"
+                      }
+                    },
+                    "parameters" : {
+                      "type" : "object",
+                      "properties" : {
+                        "timestamp" : {
+                          "type" : "integer",
+                          "example" : 1697113107
+                        },
+                        "limit" : {
+                          "type" : "integer",
+                          "example" : 5
+                        },
+                        "type_ids" : {
+                          "type" : "array",
+                          "description" : "Null when the parameter was not supplied.",
+                          "nullable" : true,
+                          "items" : {
+                            "type" : "string",
+                            "example" : "728"
+                          }
+                        },
+                        "count" : {
+                          "type" : "integer",
+                          "description" : "Number of content entities in the response, not counting the expired and parameters keys.",
+                          "example" : 6
+                        }
+                      },
+                      "description" : "The parameters key in the end contains an object with the timestamp, limit and type_ids values used for the query as well as a count element containing the total number of items in the response."
+                    }
+                  },
+                  "additionalProperties" : {
+                    "$ref" : "#/components/schemas/DegreeProgramme"
+                  },
+                  "description" : "Content entities keyed by their numeric content ID, alongside the reserved expired and parameters keys."
+                }
+              }
+            }
+          },
+          "401" : {
+            "description" : "No API key was supplied."
+          },
+          "403" : {
+            "description" : "The supplied API key is not valid for the study search plan."
+          }
+        },
+        "security" : [ {
+          "StudySearchApiKey" : [ ]
+        } ]
+      }
+    },
+    "/public_web/study_search/info" : {
+      "get" : {
+        "tags" : [ "study-search" ],
+        "summary" : "Gets the study search info.",
+        "description" : "Get the study search configuration info. Returned in all three site languages regardless of the requested language.",
+        "operationId" : "fetchStudySearchInfo",
+        "responses" : {
+          "200" : {
+            "description" : "successful operation",
+            "content" : {
+              "application/json" : {
+                "schema" : {
+                  "$ref" : "#/components/schemas/StudySearchInfo"
+                }
+              }
+            }
+          },
+          "401" : {
+            "description" : "No API key was supplied."
+          },
+          "403" : {
+            "description" : "The supplied API key is not valid for the study search plan."
+          }
+        },
+        "security" : [ {
+          "StudySearchApiKey" : [ ]
+        } ]
+      }
+    }
+  },
+  "components" : {
+    "schemas" : {
+      "NewsNode" : {
+        "type" : "object",
+        "properties" : {
+          "node" : {
+            "type" : "object",
+            "properties" : {
+              "url" : {
+                "type" : "string",
+                "example" : "https://www.example.org/news/test"
+              },
+              "nid" : {
+                "type" : "string",
+                "description" : "Content ID of the article. Serialised as a string, not a number.",
+                "example" : "10"
+              },
+              "title" : {
+                "type" : "string",
+                "example" : "Test news article"
+              },
+              "author" : {
+                "type" : "string",
+                "description" : "Name of the author. Free text, not a reference to a user account. Null when not set.",
+                "nullable" : true,
+                "example" : "Test Person"
+              },
+              "ingress" : {
+                "type" : "string",
+                "description" : "Ingress text. Null when not set.",
+                "nullable" : true
+              },
+              "keywords" : {
+                "type" : "string",
+                "description" : "Keyword terms (separated by comma). An empty string when no keywords are set, never null."
+              },
+              "body" : {
+                "type" : "string",
+                "description" : "Body text flattened for search indexing. Not a markup document and not structured: each paragraph is rendered as comma-separated \"key: value\" pairs and the paragraphs are then joined with commas. The values themselves may contain HTML from the rich text fields. Values containing commas are not escaped, so the field cannot be reliably split back apart."
+              },
+              "fact_box" : {
+                "type" : "string",
+                "description" : "Fact box text, flattened the same way as body. Mainly useful for search indexing."
+              },
+              "additional_content" : {
+                "type" : "string",
+                "description" : "Additional content text, flattened the same way as body. Mainly useful for search indexing."
+              },
+              "published_at" : {
+                "type" : "string",
+                "description" : "Publication date, formatted as dd.mm.yyyy. Derived from the article's authored-on date.",
+                "example" : "05.08.2026"
+              },
+              "article_type" : {
+                "type" : "string",
+                "description" : "Article type terms (separated by comma). An empty string when none are set.",
+                "example" : "News"
+              },
+              "primary_theme_tag" : {
+                "type" : "string",
+                "description" : "Topics and themes terms (separated by comma). An empty string when none are set.",
+                "example" : "Equality"
+              },
+              "secondary_theme_tags" : {
+                "type" : "string",
+                "description" : "Units and disciplines terms (separated by comma). An empty string when none are set.",
+                "example" : "Social Work"
+              },
+              "liftup_image" : {
+                "type" : "string",
+                "description" : "Always an empty string in the current implementation."
+              },
+              "video_url" : {
+                "type" : "string",
+                "description" : "Always an empty string in the current implementation."
+              },
+              "main_image_description" : {
+                "type" : "string",
+                "description" : "Present only when the article has a main image paragraph. Null when that paragraph has no caption.",
+                "nullable" : true
+              },
+              "main_image_credits" : {
+                "type" : "string",
+                "description" : "Present only when the article has a main image paragraph. Null when that paragraph has no credits.",
+                "nullable" : true
+              },
+              "main_image" : {
+                "description" : "Present only when the article has a main image paragraph. An object when the image file resolves, otherwise an empty string, so the type must be checked before reading src.",
+                "oneOf" : [ {
+                  "type" : "object",
+                  "properties" : {
+                    "src" : {
+                      "type" : "string"
+                    },
+                    "alt" : {
+                      "type" : "string",
+                      "nullable" : true
+                    }
+                  }
+                }, {
+                  "type" : "string",
+                  "enum" : [ "" ]
+                } ]
+              }
+            }
+          }
+        }
+      },
+      "StudyOption" : {
+        "type" : "object",
+        "properties" : {
+          "id" : {
+            "type" : "string",
+            "description" : "Content ID. Integer prefixed with ”node:” in this operation.",
+            "example" : "node:140"
+          },
+          "title" : {
+            "description" : "Content title.",
+            "allOf" : [ {
+              "$ref" : "#/components/schemas/Translated"
+            } ]
+          },
+          "timestamp" : {
+            "type" : "string",
+            "description" : "Unix timestamp of last update or content creation, serialised as a decimal string rather than a number. May originate from a referenced taxonomy term rather than the content itself. Note that the timestamp echoed under the parameters key is a number, unlike this one.",
+            "example" : "1704290690"
+          },
+          "ingress" : {
+            "description" : "Content ingress.",
+            "allOf" : [ {
+              "$ref" : "#/components/schemas/Translated"
+            } ]
+          },
+          "type_id" : {
+            "description" : "Type term. Returned as boolean false, not null or an empty object, when the field is empty, so the type must be checked before use.",
+            "oneOf" : [ {
+              "$ref" : "#/components/schemas/TextTerm"
+            }, {
+              "type" : "boolean"
+            } ]
+          },
+          "educational_theme" : {
+            "type" : "array",
+            "description" : "Educational theme terms.",
+            "items" : {
+              "$ref" : "#/components/schemas/TextTerm"
+            }
+          },
+          "teaching_languages" : {
+            "type" : "array",
+            "description" : "Teaching language terms.",
+            "items" : {
+              "$ref" : "#/components/schemas/TextTerm"
+            }
+          },
+          "degree_application_period" : {
+            "type" : "array",
+            "description" : "List of degree application periods. Omitted entirely when the content has no application period set.",
+            "items" : {
+              "$ref" : "#/components/schemas/DegreeApplicationPeriodTerm"
+            }
+          },
+          "url" : {
+            "description" : "URL to content, per language. Absent entirely when no language version of the content is viewable; see the note on Translated.",
+            "allOf" : [ {
+              "$ref" : "#/components/schemas/Translated"
+            } ]
+          },
+          "rendered" : {
+            "description" : "Rendered version of the content. Should only be used for indexing, is not meant to be complete. Absent entirely when no language version of the content is viewable; see the note on Translated.",
+            "allOf" : [ {
+              "$ref" : "#/components/schemas/Translated"
+            } ]
+          },
+          "image" : {
+            "description" : "A image for the content in a standard size. Omitted when no image is set. The URL uses the /s3/files prefix so that the image style is generated on the first request.",
+            "allOf" : [ {
+              "$ref" : "#/components/schemas/Translated"
+            } ]
+          },
+          "course_codes" : {
+            "type" : "object",
+            "additionalProperties" : {
+              "type" : "string",
+              "example" : "HISM-G5111"
+            },
+            "description" : "Course codes collected from the content. Both the keys and the values are the course code. When the content has none, this is serialised as an empty JSON array ([]) rather than an empty object, so check the type before treating it as a map."
+          }
+        }
+      },
+      "DegreeProgramme" : {
+        "type" : "object",
+        "properties" : {
+          "id" : {
+            "type" : "string",
+            "description" : "Content ID. Integer prefixed with ”group:” in this operation.",
+            "example" : "group:140"
+          },
+          "title" : {
+            "description" : "Content title.",
+            "allOf" : [ {
+              "$ref" : "#/components/schemas/Translated"
+            } ]
+          },
+          "timestamp" : {
+            "type" : "string",
+            "description" : "Unix timestamp of last update or content creation, serialised as a decimal string rather than a number. May originate from a referenced taxonomy term rather than the content itself. Note that the timestamp echoed under the parameters key is a number, unlike this one.",
+            "example" : "1704290690"
+          },
+          "teaching_language_details" : {
+            "type" : "array",
+            "description" : "List of teaching language details.",
+            "items" : {
+              "$ref" : "#/components/schemas/TextTerm"
+            }
+          },
+          "educational_theme" : {
+            "type" : "array",
+            "description" : "Educational theme terms.",
+            "items" : {
+              "$ref" : "#/components/schemas/TextTerm"
+            }
+          },
+          "type_id" : {
+            "description" : "Type term. Returned as boolean false, not null or an empty object, when the field is empty, so the type must be checked before use.",
+            "oneOf" : [ {
+              "$ref" : "#/components/schemas/TextTerm"
+            }, {
+              "type" : "boolean"
+            } ]
+          },
+          "units_and_disciplines" : {
+            "type" : "array",
+            "description" : "Units and disciplines terms.",
+            "items" : {
+              "$ref" : "#/components/schemas/TextTerm"
+            }
+          },
+          "teaching_languages" : {
+            "type" : "array",
+            "description" : "Teaching language terms.",
+            "items" : {
+              "$ref" : "#/components/schemas/TextTerm"
+            }
+          },
+          "degree_application_period" : {
+            "type" : "array",
+            "description" : "List of degree application periods. Omitted entirely when the content has no application period set.",
+            "items" : {
+              "$ref" : "#/components/schemas/DegreeApplicationPeriodTerm"
+            }
+          },
+          "url" : {
+            "description" : "URL to content, per language. Absent entirely when no language version of the content is viewable; see the note on Translated.",
+            "allOf" : [ {
+              "$ref" : "#/components/schemas/Translated"
+            } ]
+          },
+          "ingress" : {
+            "description" : "Content ingress. A language is present only when that translation has a hero paragraph, so this may cover fewer languages than url, or be absent entirely.",
+            "allOf" : [ {
+              "$ref" : "#/components/schemas/Translated"
+            } ]
+          },
+          "rendered" : {
+            "description" : "Rendered version of the content. Should only be used for indexing, is not meant to be complete. Absent entirely when no language version of the content is viewable; see the note on Translated.",
+            "allOf" : [ {
+              "$ref" : "#/components/schemas/Translated"
+            } ]
+          },
+          "image" : {
+            "description" : "A image for the content in a standard size. Omitted when no image is set. The URL uses the /s3/files prefix so that the image style is generated on the first request.",
+            "allOf" : [ {
+              "$ref" : "#/components/schemas/Translated"
+            } ]
+          }
+        }
+      },
+      "StudySearchInfo" : {
+        "type" : "object",
+        "properties" : {
+          "application_period_info" : {
+            "$ref" : "#/components/schemas/Translated"
+          },
+          "no_application_period_description" : {
+            "$ref" : "#/components/schemas/Translated"
+          }
+        },
+        "description" : "Editorial texts from the site configuration. A value is null when the corresponding text has not been set."
+      },
+      "TextTerm" : {
+        "type" : "object",
+        "properties" : {
+          "id" : {
+            "type" : "string",
+            "example" : "taxonomy_term:851"
+          },
+          "fi" : {
+            "type" : "string",
+            "nullable" : true,
+            "example" : "Ympäristö ja ympäristön suojelu"
+          },
+          "sv" : {
+            "type" : "string",
+            "nullable" : true,
+            "example" : "Miljö och hållbarhet"
+          },
+          "en" : {
+            "type" : "string",
+            "nullable" : true,
+            "example" : "Environment and sustainability"
+          }
+        },
+        "description" : "A referenced taxonomy term. The language keys are the same ones the referencing content has, so the set of keys varies per content item. When the term itself is not translated into one of those languages, the value falls back to the term's default language. When no language version of the referencing content is viewable, only id is present."
+      },
+      "DegreeApplicationPeriodTerm" : {
+        "type" : "object",
+        "properties" : {
+          "id" : {
+            "type" : "string",
+            "example" : "taxonomy_term:851"
+          },
+          "start" : {
+            "type" : "string",
+            "description" : "Start of the application period. Has no timezone offset, so it is not an RFC 3339 date-time. Null when not set.",
+            "nullable" : true,
+            "example" : "2023-12-01T06:00:00"
+          },
+          "end" : {
+            "type" : "string",
+            "description" : "End of the application period. Has no timezone offset, so it is not an RFC 3339 date-time. Null when not set.",
+            "nullable" : true,
+            "example" : "2024-01-03T13:00:00"
+          },
+          "is_paid" : {
+            "type" : "boolean"
+          }
+        }
+      },
+      "Translated" : {
+        "type" : "object",
+        "properties" : {
+          "fi" : {
+            "type" : "string",
+            "nullable" : true
+          },
+          "sv" : {
+            "type" : "string",
+            "nullable" : true
+          },
+          "en" : {
+            "type" : "string",
+            "nullable" : true
+          }
+        },
+        "description" : "Object containing strings for each language version with the two-letter language code as key. Only the languages the content is published in are present, so the set of keys varies per content item. A key may hold null when the underlying field is empty in that language.\nWhen no language version of the content is viewable, the field is serialised as an empty JSON array ([]) rather than an empty object ({}), because it is built from a PHP list. Check the type before treating it as an object. The same content also omits url, rendered and image entirely, and its referenced terms carry only their id — such an entry has no usable payload beyond the id, and is best skipped by consumers."
+      }
+    },
+    "securitySchemes" : {
+      "NewsApiKey" : {
+        "type" : "apiKey",
+        "description" : "API key issued by the news plan when an application subscribes to it.",
+        "name" : "X-Api-Key",
+        "in" : "header"
+      },
+      "StudySearchApiKey" : {
+        "type" : "apiKey",
+        "description" : "API key issued by the study search plan when an application subscribes to it. Separate from the news plan key.",
+        "name" : "X-Api-Key",
+        "in" : "header"
+      }
+    }
+  }
+}

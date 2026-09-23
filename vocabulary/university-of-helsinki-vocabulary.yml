@@ -1,0 +1,182 @@
+generated: '2026-08-30'
+method: derived
+source: openapi/, https://api.helsinki.fi/portal/, live probes 2026-08-30
+x-operator: institution
+vocabulary:
+  name: University of Helsinki API Vocabulary
+  description: >-
+    The terms a caller needs to read the University of Helsinki's programmable estate correctly.
+    The estate has three tiers that are easy to confuse — a gateway the University built and
+    operates, scholarly infrastructure the University runs on third-party software, and vendor
+    platforms the University merely rents — and most of this vocabulary exists to keep them apart.
+  version: '2026-08-30'
+  terms:
+
+  - term: HY
+    definition: >-
+      Helsingin yliopisto — the University of Helsinki's own abbreviation for itself, used as the
+      prefix on several of its APIs (HY Building API, HY Organisation API, HY Data Catalogue) and
+      throughout its identity claims (hyAccountType, hyPersonSisuId).
+    tags: [Institution, Naming]
+
+  - term: api.helsinki.fi
+    definition: >-
+      The University's API developer portal, a self-hosted Gravitee API Management deployment. It
+      lists fifteen public APIs, serves their documentation and OpenAPI, and issues credentials
+      through plan subscriptions. Its own REST API answers anonymously, which is how the catalogue
+      is readable without an account.
+    tags: [Platform, Institution-operated]
+
+  - term: gw.api.helsinki.fi
+    definition: >-
+      The gateway entrypoint. Every University-operated API in the portal is called at
+      https://gw.api.helsinki.fi/{context}. The bare host returns 404 by design — there is no
+      root document, only context paths.
+    tags: [Platform, Institution-operated]
+
+  - term: Plan (Gravitee)
+    definition: >-
+      The unit of authorization at the University of Helsinki gateway. An application subscribes
+      to one API under one named plan, and the credential is issued against that subscription.
+      There are no OAuth scopes anywhere in this estate; the plan IS the grant. Helsinki.fi
+      content makes this explicit by declaring two separate keys, one per plan.
+    tags: [Access, Core Concept]
+
+  - term: HY Login Service
+    definition: >-
+      The University's single sign-on, operated at login.helsinki.fi as a Shibboleth Identity
+      Provider with an OpenID Connect profile. It is the gate on the developer portal: without an
+      HY (or Haka-federated) identity there is no way to obtain an API credential, because local
+      login and self-registration are both disabled.
+    tags: [Identity, Access]
+
+  - term: Haka
+    definition: >-
+      The Finnish research and education identity federation, operated by CSC and interfederated
+      through eduGAIN. Sixteen helsinki.fi entities are registered in its SAML metadata aggregate —
+      one Identity Provider and fifteen Service Providers. Membership is what makes the
+      University's identity layer machine-readable to the outside world.
+    tags: [Identity, Federation, Standard]
+
+  - term: eduPerson / SCHAC / funetEduPerson
+    definition: >-
+      The three attribute vocabularies the University's OIDC provider releases —
+      eduPersonPrincipalName, eduPersonScopedAffiliation and eduPersonAssurance from eduPerson;
+      schacHomeOrganization and schacPersonalUniqueCode from SCHAC; funetEduPersonLearnerId and
+      funetEduPersonStudentCategory from the Finnish national profile. They are the standard
+      half of the claim set; the hy* claims are the local half.
+    tags: [Identity, Standard]
+
+  - term: Helda
+    definition: >-
+      The University's open institutional repository, a DSpace 7.6.2 deployment at
+      helda.helsinki.fi holding publications, dissertations and theses. It exposes a public HAL
+      REST API and an OAI-PMH interface with fourteen metadata formats. Operated by the
+      University; the software is DSpace's.
+    tags: [Repository, Institution-operated, Open Access]
+
+  - term: HY Data Catalogue (datakatalogi)
+    definition: >-
+      A SECOND, separate DSpace deployment at datakatalogi.helsinki.fi, running DSpace 9.0 and
+      registered in Haka. It catalogues research DATA rather than publications and its OAI-PMH
+      repositoryName is "HyDatacatalogue". Its earliest datestamp is 2026-08-12, so it is new.
+      It is not the same thing as Helda and is easy to miss.
+    tags: [Data Catalog, Institution-operated, Research Data]
+
+  - term: Editori (journals.helsinki.fi)
+    definition: >-
+      The University's open publishing service, a PKP Open Journal Systems deployment with a live
+      OAI-PMH endpoint at /index/oai. Institution-hosted and institution-administered
+      (editori@helsinki.fi); the journal software is PKP's.
+    tags: [Publishing, Institution-hosted, Open Access]
+
+  - term: FinBIF / laji.fi
+    definition: >-
+      The Finnish Biodiversity Information Facility. Its API at api.laji.fi is the single largest
+      contract in this estate — 177 paths and 239 schemas — and it is genuinely the University's
+      engineering: FinBIF is operated by the Finnish Museum of Natural History (Luomus), an
+      institute of the University of Helsinki, which the FinBIF privacy policy names as the data
+      registrar at FI-00014 University of Helsinki. It is the only surface here with a
+      self-service credential.
+    tags: [Research Infrastructure, Institution-operated, Biodiversity]
+
+  - term: Luomus
+    definition: >-
+      Luonnontieteellinen keskusmuseo, the Finnish Museum of Natural History — an independent
+      institute of the University of Helsinki. It runs FinBIF, and it is the reason a laji.fi
+      host counts as institution-operated even though it is not a helsinki.fi domain.
+    tags: [Institution, Unit]
+
+  - term: Sisu / Kori
+    definition: >-
+      The student information system. Sisu is a product of Funidata Oy; Kori is its curriculum and
+      course-data component. The University runs its own instance at sisu.helsinki.fi and the
+      Kori read API answers anonymously there, but the CONTRACT is Funidata's, shared across every
+      Finnish university that buys Sisu. Recorded here as a tenant relationship, never as a
+      University of Helsinki API specification.
+    tags: [Tenant, Student Information System, Vendor Software]
+
+  - term: OTM
+    definition: >-
+      Oppijan tietomalli, the learner data model underneath Sisu. It surfaces in Kori error
+      responses as `fi.helsinki.otm.common.model.OtmId` and in the identifier pattern
+      /([a-zA-Z]{2,5})-[A-Za-z0-9_\-]{1,58}/ — the tell that the software is Funidata's even
+      though the hostname is the University's.
+    tags: [Tenant, Data Model]
+
+  - term: Research Portal (researchportal.helsinki.fi)
+    definition: >-
+      The University's research information portal, an Elsevier Pure deployment. Pure's `ws/api`
+      web service is not publicly exposed on this host (404). Recorded as a tenant relationship;
+      the Pure contract belongs to Elsevier and is not stored here.
+    tags: [Tenant, Research Information, Vendor]
+
+  - term: Helka
+    definition: >-
+      The library discovery service, an Ex Libris Primo deployment (view identifier
+      358UOH_INST:VU1). Tenant. No institution-authored contract.
+    tags: [Tenant, Library, Vendor]
+
+  - term: Flamma
+    definition: >-
+      The University's staff intranet, running on Liferay. Its headless delivery API is published
+      through the University's own gateway as "Flamma Liferay Headless API" — a University-operated
+      endpoint in front of vendor software, which is why it is listed as a surface but no
+      contract is stored for it.
+    tags: [Intranet, Institution-operated, Vendor Software]
+
+  - term: Sovellussalkku
+    definition: >-
+      Literally "application portfolio" — the University's own register of the software it runs.
+      Its API (gw.api.helsinki.fi/ssapi) is one of the more unusual things in the estate: an
+      institution publishing a machine-readable inventory of its own application landscape.
+    tags: [Governance, Institution-operated]
+
+  - term: Efecte
+    definition: >-
+      The University's IT service management platform. The "General Efecte API" on the gateway
+      creates service requests against it — again University-operated plumbing in front of a
+      commercial ITSM product.
+    tags: [ITSM, Institution-operated, Vendor Software]
+
+  - term: Examinarium
+    definition: >-
+      The electronic examination service, registered as a Haka SAML Service Provider at
+      examinarium.helsinki.fi. Machine-readable only through the federation; it exposes no public
+      QTI or assessment interface.
+    tags: [Assessment, Institution-hosted]
+
+  - term: version.helsinki.fi
+    definition: >-
+      The University's self-hosted GitLab, registered in Haka. It is behind a bot challenge on
+      anonymous access, so its API is not publicly readable — but it is where much of the
+      University's own code lives, alongside the public GitHub organizations.
+    tags: [Source Control, Institution-operated]
+
+  - term: Keyless (disabled)
+    definition: >-
+      A Gravitee plan type that would allow anonymous calls. It is DISABLED in this environment.
+      This single setting is why every OpenAPI in the gateway estate describes an endpoint that
+      cannot be exercised without an institutional identity, and why every example in
+      examples/ for those APIs is structural rather than probed.
+    tags: [Access, Core Concept]

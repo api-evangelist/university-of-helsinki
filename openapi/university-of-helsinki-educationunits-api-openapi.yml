@@ -1,0 +1,135 @@
+openapi: 3.2.0
+info:
+  title: Organisation Registry Public Education Units API
+  description: Organisation Registry Public API
+  version: 1.0.0
+servers:
+- url: https://gw.api.helsinki.fi/organisation/info
+security:
+- apiKey: []
+tags:
+- name: EducationUnits
+paths:
+  /v1/educationUnits:
+    get:
+      summary: GET v1/educationUnits
+      operationId: getEducationUnits
+      responses:
+        '200':
+          description: OK
+          content:
+            application/json:
+              schema:
+                type: array
+                items:
+                  $ref: '#/components/schemas/EducationUnit'
+              examples:
+                Human Resources Example:
+                  $ref: '#/components/examples/EducationUnitsExample'
+      tags:
+      - EducationUnits
+  /v2/educationUnits:
+    get:
+      summary: GET v2/educationUnits
+      operationId: getEducationUnitsV2
+      responses:
+        '200':
+          description: OK
+          content:
+            application/json:
+              schema:
+                type: array
+                items:
+                  $ref: '#/components/schemas/EducationUnitV2'
+              examples:
+                Human Resources Example:
+                  $ref: '#/components/examples/EducationUnitsExampleV2'
+      tags:
+      - EducationUnits
+components:
+  examples:
+    EducationUnitsExampleV2:
+      value:
+      - uniqueId: '12345678'
+        code: 444-M00
+        abbreviation: TRA
+        type: maisteriohjelma
+        nameFi: Kääntämisen ja tulkkauksen maisteriohjelma
+        nameEn: Master's Programme in Translation and Interpreting
+        nameSv: Magisterprogrammet i översättning och tolkning
+        educationQualifier: rinnakkainen-koulutusohjelma
+        parent: '11112222'
+      - uniqueId: '87654321'
+        code: '01'
+        abbreviation: null
+        type: kansio
+        nameFi: Helsingin yliopisto
+        nameEn: University of Helsinki
+        nameSv: Helsingfors universitet
+        educationQualifier: null
+        parent: null
+    EducationUnitsExample:
+      value:
+      - uniqueId: '12345678'
+        code: 444-M00
+        abbreviation: TRA
+        type: maisteriohjelma
+        nameFi: Kääntämisen ja tulkkauksen maisteriohjelma
+        nameEn: Master's Programme in Translation and Interpreting
+        nameSv: Magisterprogrammet i översättning och tolkning
+        parent: '11112222'
+      - uniqueId: '87654321'
+        code: '01'
+        abbreviation: null
+        type: kansio
+        nameFi: Helsingin yliopisto
+        nameEn: University of Helsinki
+        nameSv: Helsingfors universitet
+        parent: null
+  schemas:
+    EducationUnitV2:
+      type: object
+      properties:
+        uniqueId:
+          type: string
+        type:
+          type: string
+        code:
+          type: string
+        nameFi:
+          type: string
+        nameEn:
+          type: string
+        nameSv:
+          type: string
+        abbreviation:
+          type: string
+        educationQualifier:
+          type: string
+        parent:
+          type: string
+    EducationUnit:
+      type: object
+      properties:
+        uniqueId:
+          type: string
+        type:
+          type: string
+        code:
+          type: string
+        nameFi:
+          type: string
+        nameEn:
+          type: string
+        nameSv:
+          type: string
+        abbreviation:
+          type: string
+        parent:
+          type: string
+  securitySchemes:
+    apiKey:
+      type: apiKey
+      description: APIKey Auth
+      name: X-Api-Key
+      in: header

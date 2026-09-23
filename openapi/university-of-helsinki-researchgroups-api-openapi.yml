@@ -1,0 +1,72 @@
+openapi: 3.2.0
+info:
+  title: Organisation Registry Public Research Groups API
+  description: Organisation Registry Public API
+  version: 1.0.0
+servers:
+- url: https://gw.api.helsinki.fi/organisation/info
+security:
+- apiKey: []
+tags:
+- name: ResearchGroups
+paths:
+  /v1/researchGroups:
+    get:
+      summary: Fetch nodes in 'tutkimusryhmat' hierarchy
+      operationId: getResearchGroups
+      responses:
+        '200':
+          description: OK
+          content:
+            application/json:
+              schema:
+                type: array
+                items:
+                  $ref: '#/components/schemas/ResearchGroup'
+              examples:
+                Research Groups Example:
+                  $ref: '#/components/examples/ResearchGroups'
+      tags:
+      - ResearchGroups
+components:
+  schemas:
+    ResearchGroup:
+      type: object
+      properties:
+        uniqueId:
+          type: string
+        unitStartDate:
+          type: string
+        type:
+          type: string
+        nameFi:
+          type: string
+        nameEn:
+          type: string
+        nameSv:
+          type: string
+        parent:
+          type: string
+  examples:
+    ResearchGroups:
+      value:
+      - uniqueId: '12345678'
+        unitStartDate: yyyy-MM-dd
+        type: tutkimusryhma
+        nameFi: Psykologia
+        nameEn: Psychology
+        nameSv: Psykologi
+        parent: '87654321'
+      - nameFi: Helsingin yliopisto
+        nameEn: University of Helsinki
+        nameSv: Helsingfors universitet
+        uniqueId: '87654321'
+        parent: null
+        type: yritys_yhteiso
+        unitStartDate: '1640-03-26'
+  securitySchemes:
+    apiKey:
+      type: apiKey
+      description: APIKey Auth
+      name: X-Api-Key
+      in: header

@@ -1,0 +1,69 @@
+openapi: 3.2.0
+info:
+  title: Organisation Registry Public Finance Units Unique Code API
+  description: Organisation Registry Public API
+  version: 1.0.0
+servers:
+- url: https://gw.api.helsinki.fi/organisation/info
+security:
+- apiKey: []
+tags:
+- name: FinanceUnitsUniqueCode
+paths:
+  /v1/financeUnitsUniqueCode:
+    get:
+      summary: GET v1/financeUnits having unique_code = "kylla"
+      operationId: getFinanceUnitsWithPublicCodeExclusive
+      responses:
+        '200':
+          description: OK
+          content:
+            application/json:
+              schema:
+                type: array
+                items:
+                  $ref: '#/components/schemas/FinanceUnitWithUniqueCode'
+              examples:
+                Finance unit example:
+                  $ref: '#/components/examples/FinanceUnitsWithPublicCodeExample'
+      tags:
+      - FinanceUnitsUniqueCode
+components:
+  examples:
+    FinanceUnitsWithPublicCodeExample:
+      value:
+      - uniqueId: '77096679'
+        code: HY
+        type: tulosyksikko
+        publicity: kylla
+        uniqueCode: kylla
+        nameFi: Helsingin yliopisto
+        nameEn: University of Helsinki
+        nameSv: Helsingfors universitet
+        parent: null
+  schemas:
+    FinanceUnitWithUniqueCode:
+      type: object
+      properties:
+        uniqueId:
+          type: string
+        code:
+          type: string
+        type:
+          type: string
+        publicity:
+          type: string
+        uniqueCode:
+          type: string
+        nameFi:
+          type: string
+        nameSv:
+          type: string
+        parent:
+          type: string
+  securitySchemes:
+    apiKey:
+      type: apiKey
+      description: APIKey Auth
+      name: X-Api-Key
+      in: header

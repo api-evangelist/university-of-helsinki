@@ -1,0 +1,113 @@
+openapi: 3.2.0
+info:
+  title: General Efecte /ticket API
+servers:
+- url: https://gw.api.helsinki.fi/efecte
+tags:
+- name: Ticket
+paths:
+  /ticket/post:
+    post:
+      tags:
+      - Ticket
+      summary: Ticket post API
+      operationId: TicketPost
+      requestBody:
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/TicketTemplate'
+        required: true
+      responses:
+        '200':
+          description: OK
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/OrderResponse'
+      security:
+      - Apikey: []
+components:
+  schemas:
+    OrderResponse:
+      type: object
+      properties:
+        status:
+          type: string
+        efecteId:
+          type: string
+    TicketTemplate:
+      type: object
+      properties:
+        customer:
+          type: string
+          description: Customer name (username)
+        customerEmail:
+          type: string
+          description: Customer email
+        requestType:
+          type: string
+          description: Ticket type
+        subject:
+          type: string
+          description: Ticket subject
+        description:
+          type: string
+          description: Ticket message
+        categoryLevel1:
+          type: string
+          description: Category level 1 (efecte_id)
+        categoryLevel2:
+          type: string
+          description: Category level 2 (efecte_id)
+        categoryLevel3:
+          type: string
+          description: Category level 3 (efecte_id)
+        contactType:
+          type: string
+          description: Contact channel, e.g "Verkkolomake". For a list of possible values, contact efecte@helsinki.fi
+        relatedWorkstation:
+          type: string
+          description: Related workstation
+        unit:
+          type: string
+          description: Efecte Unit ID
+        supportGroup:
+          type: string
+          description: Efecte support group ID
+        attachmentFilename:
+          type: string
+          description: Attachment file's name
+        base64Attachment:
+          type: string
+          description: Base64 attachment file
+        supportPerson:
+          type: string
+        relatedSolution:
+          type: string
+        standardMessage:
+          type: string
+        comment:
+          type: string
+        linkIncidents:
+          type: string
+        onifyId:
+          type: string
+        serviceGroup:
+          type: string
+        service:
+          type: string
+        serviceProduct:
+          type: string
+        serviceItem:
+          type: string
+        efecteId:
+          type: string
+        webShopCategory:
+          type: string
+  securitySchemes:
+    Apikey:
+      type: apiKey
+      description: APIKey Auth
+      name: X-Api-Key
+      in: header

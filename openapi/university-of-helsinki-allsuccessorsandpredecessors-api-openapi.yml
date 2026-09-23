@@ -1,0 +1,60 @@
+openapi: 3.2.0
+info:
+  title: Organisation Registry Public All Successors And…
+  description: Organisation Registry Public API
+  version: 1.0.0
+servers:
+- url: https://gw.api.helsinki.fi/organisation/info
+security:
+- apiKey: []
+tags:
+- name: AllSuccessorsAndPredecessors
+paths:
+  /v1/AllSuccessorsAndPredecessors:
+    get:
+      summary: Fetch all successors and predecessors
+      operationId: getAllSuccessorsAndPredecessors
+      responses:
+        '200':
+          description: OK
+          content:
+            application/json:
+              schema:
+                type: array
+                items:
+                  $ref: '#/components/schemas/AllSuccessorsAndPredecessors'
+              examples:
+                AllSuccessorsAndPredecessors example:
+                  $ref: '#/components/examples/AllSuccessorsAndPredecessors'
+      tags:
+      - AllSuccessorsAndPredecessors
+components:
+  examples:
+    AllSuccessorsAndPredecessors:
+      value:
+      - endDate: null
+        predecessor: '18770'
+        startDate: '2023-06-30'
+        successor: '18488'
+      - endDate: null
+        predecessor: '32678'
+        startDate: '2023-12-01'
+        successor: '5935'
+  schemas:
+    AllSuccessorsAndPredecessors:
+      type: object
+      properties:
+        successor:
+          type: string
+        predecessor:
+          type: string
+        startDate:
+          type: string
+        endDate:
+          type: string
+  securitySchemes:
+    apiKey:
+      type: apiKey
+      description: APIKey Auth
+      name: X-Api-Key
+      in: header

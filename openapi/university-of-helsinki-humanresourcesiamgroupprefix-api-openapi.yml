@@ -1,0 +1,76 @@
+openapi: 3.2.0
+info:
+  title: Organisation Registry Public Human Resources Iam Group…
+  description: Organisation Registry Public API
+  version: 1.0.0
+servers:
+- url: https://gw.api.helsinki.fi/organisation/info
+security:
+- apiKey: []
+tags:
+- name: HumanResourcesIamGroupPrefix
+paths:
+  /v1/humanResourcesIamGroupPrefix:
+    get:
+      summary: GET v1/humanResourcesIamGroupPrefix
+      operationId: getHumanResourcesIamGroupPrefix
+      responses:
+        '200':
+          description: OK
+          content:
+            application/json:
+              schema:
+                type: array
+                items:
+                  $ref: '#/components/schemas/HumanResourcesIamGroupPrefix'
+              examples:
+                Human Resources Iam Group Prefix Example:
+                  $ref: '#/components/examples/HumanResourcesIamGroupPrefixExample'
+      tags:
+      - HumanResourcesIamGroupPrefix
+components:
+  examples:
+    HumanResourcesIamGroupPrefixExample:
+      value:
+      - uniqueId: '32132131'
+        code: H123
+        type: henkilosto-osa-alue
+        nameFi: Tutkimusohjelmayksikkö
+        nameEn: Research Programs Unit
+        nameSv: Forskningsprogramenheten
+        iamGroupPrefix: hy-ltdk-rpu
+        parent: '43434233'
+      - uniqueId: '12312312'
+        code: HY
+        type: yritys_yhteiso
+        nameFi: Helsingin yliopisto
+        nameEn: University of Helsinki
+        nameSv: Helsingfors universitet
+        iamGroupPrefix: null
+        parent: null
+  schemas:
+    HumanResourcesIamGroupPrefix:
+      type: object
+      properties:
+        uniqueId:
+          type: string
+        code:
+          type: string
+        type:
+          type: string
+        nameFi:
+          type: string
+        nameEn:
+          type: string
+        nameSv:
+          type: string
+        iamGroupPrefix:
+          type: string
+        parent:
+          type: string
+  securitySchemes:
+    apiKey:
+      type: apiKey
+      description: APIKey Auth
+      name: X-Api-Key
+      in: header

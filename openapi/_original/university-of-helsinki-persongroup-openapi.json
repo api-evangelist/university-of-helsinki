@@ -1,0 +1,263 @@
+{
+  "openapi" : "3.0.1",
+  "info" : {
+    "title" : "HY Person/Group API",
+    "version" : "1.0.0"
+  },
+  "servers" : [ {
+    "url" : "https://gw.api.helsinki.fi/persongroup"
+  } ],
+  "tags" : [ {
+    "name" : "api",
+    "description" : "PersonGroup rest service"
+  } ],
+  "paths" : {
+    "/api/group/{groupname}/{class}/{type}" : {
+      "get" : {
+        "tags" : [ "api" ],
+        "summary" : "Members of a public group",
+        "operationId" : "byGroup",
+        "parameters" : [ {
+          "name" : "groupname",
+          "in" : "path",
+          "description" : "Groupname to search for",
+          "required" : true,
+          "schema" : {
+            "type" : "string"
+          }
+        }, {
+          "name" : "class",
+          "in" : "path",
+          "description" : "Group collection type",
+          "required" : true,
+          "schema" : {
+            "type" : "string",
+            "enum" : [ "degreeProgrammes" ]
+          }
+        }, {
+          "name" : "type",
+          "in" : "path",
+          "description" : "Group collection type",
+          "required" : true,
+          "schema" : {
+            "type" : "string",
+            "enum" : [ "steeringGroups" ]
+          }
+        } ],
+        "responses" : {
+          "200" : {
+            "description" : "Output type",
+            "content" : {
+              "application/json" : {
+                "schema" : {
+                  "$ref" : "#/components/schemas/Group"
+                }
+              }
+            }
+          }
+        },
+        "security" : [ {
+          "Apikey" : [ ]
+        } ]
+      }
+    },
+    "/api/groupnames/{class}/{type}" : {
+      "get" : {
+        "tags" : [ "api" ],
+        "summary" : "Names of available groups",
+        "operationId" : "groupNames",
+        "parameters" : [ {
+          "name" : "class",
+          "in" : "path",
+          "description" : "Group collection class",
+          "required" : true,
+          "schema" : {
+            "type" : "string",
+            "enum" : [ "degreeProgrammes" ]
+          }
+        }, {
+          "name" : "type",
+          "in" : "path",
+          "description" : "Group collection type",
+          "required" : true,
+          "schema" : {
+            "type" : "string",
+            "enum" : [ "steeringGroups" ]
+          }
+        } ],
+        "responses" : {
+          "200" : {
+            "description" : "Output type",
+            "content" : {
+              "application/json" : {
+                "schema" : {
+                  "type" : "array",
+                  "items" : {
+                    "type" : "string"
+                  }
+                }
+              }
+            }
+          }
+        },
+        "security" : [ {
+          "Apikey" : [ ]
+        } ]
+      }
+    },
+    "/api/groups/{class}/{type}" : {
+      "get" : {
+        "tags" : [ "api" ],
+        "summary" : "Names of available groups",
+        "operationId" : "groups",
+        "parameters" : [ {
+          "name" : "class",
+          "in" : "path",
+          "description" : "Group collection class",
+          "required" : true,
+          "schema" : {
+            "type" : "string",
+            "enum" : [ "degreeProgrammes" ]
+          }
+        }, {
+          "name" : "type",
+          "in" : "path",
+          "description" : "Group collection type",
+          "required" : true,
+          "schema" : {
+            "type" : "string",
+            "enum" : [ "steeringGroups" ]
+          }
+        } ],
+        "responses" : {
+          "200" : {
+            "description" : "Output type",
+            "content" : {
+              "application/json" : {
+                "schema" : {
+                  "type" : "array",
+                  "items" : {
+                    "type" : "string"
+                  }
+                }
+              }
+            }
+          }
+        },
+        "security" : [ {
+          "Apikey" : [ ]
+        } ]
+      }
+    },
+    "/api/person/{username}/{class}/{type}" : {
+      "get" : {
+        "tags" : [ "api" ],
+        "summary" : "Public groups of a person",
+        "operationId" : "byPerson",
+        "parameters" : [ {
+          "name" : "username",
+          "in" : "path",
+          "description" : "Groups by person username",
+          "required" : true,
+          "schema" : {
+            "type" : "string"
+          }
+        }, {
+          "name" : "class",
+          "in" : "path",
+          "description" : "Group collection class",
+          "required" : true,
+          "schema" : {
+            "type" : "string",
+            "enum" : [ "degreeProgrammes" ]
+          }
+        }, {
+          "name" : "type",
+          "in" : "path",
+          "description" : "Group collection type",
+          "required" : true,
+          "schema" : {
+            "type" : "string",
+            "enum" : [ "steeringGroups" ]
+          }
+        } ],
+        "responses" : {
+          "200" : {
+            "description" : "Output type",
+            "content" : {
+              "application/json" : {
+                "schema" : {
+                  "type" : "array",
+                  "items" : {
+                    "$ref" : "#/components/schemas/Group"
+                  }
+                }
+              }
+            }
+          }
+        },
+        "security" : [ {
+          "Apikey" : [ ]
+        } ]
+      }
+    },
+    "/api/steeringgroupspeople" : {
+      "get" : {
+        "tags" : [ "api" ],
+        "summary" : "List persons belonging to steering groups.",
+        "operationId" : "steeringGroupsPersons",
+        "responses" : {
+          "200" : {
+            "description" : "Request was successful.",
+            "content" : {
+              "application/json" : {
+                "schema" : {
+                  "type" : "array",
+                  "items" : {
+                    "$ref" : "#/components/schemas/SteeringGroupPerson"
+                  }
+                }
+              }
+            }
+          }
+        },
+        "security" : [ {
+          "Apikey" : [ ]
+        } ]
+      }
+    }
+  },
+  "components" : {
+    "schemas" : {
+      "Group" : {
+        "type" : "object"
+      },
+      "SteeringGroupPerson" : {
+        "type" : "object",
+        "properties" : {
+          "STEERING_GROUP_ORGANIZATION_ID" : {
+            "type" : "string",
+            "description" : "The ORGREK unique ID for the steering group."
+          },
+          "CONTACT_ID" : {
+            "type" : "string",
+            "description" : "Employee number of the person. Null if not an employee."
+          },
+          "STUDENT_NAME" : {
+            "type" : "string",
+            "description" : "The person's name if a student, null if an employee."
+          }
+        }
+      }
+    },
+    "securitySchemes" : {
+      "Apikey" : {
+        "type" : "apiKey",
+        "description" : "APIKey Auth",
+        "name" : "X-Api-Key",
+        "in" : "header"
+      }
+    }
+  },
+  "x-original-swagger-version" : "2.0"
+}

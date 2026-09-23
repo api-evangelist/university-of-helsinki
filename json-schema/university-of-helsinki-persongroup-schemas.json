@@ -1,0 +1,31 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "$id": "https://raw.githubusercontent.com/api-evangelist/university-of-helsinki/main/json-schema/university-of-helsinki-persongroup-schemas.json",
+  "title": "HY Person/Group API — component schemas",
+  "description": "JSON Schema bundle derived from the component schemas of openapi/university-of-helsinki-persongroup-openapi.yml, which was harvested verbatim from the University of Helsinki API portal (https://api.helsinki.fi/portal/environments/DEFAULT/apis/95df7596-c877-4bb1-9f75-96c8774bb107/pages/f393f119-a52b-42be-93f1-19a52bc2beb7/content). Schemas are reproduced unchanged from the provider's own OpenAPI; only the $schema/$id/$defs envelope is ours.",
+  "x-generated": "2026-08-30",
+  "x-method": "derived",
+  "x-source": "openapi/university-of-helsinki-persongroup-openapi.yml",
+  "$defs": {
+    "Group": {
+      "type": "object"
+    },
+    "SteeringGroupPerson": {
+      "type": "object",
+      "properties": {
+        "STEERING_GROUP_ORGANIZATION_ID": {
+          "type": "string",
+          "description": "The ORGREK unique ID for the steering group."
+        },
+        "CONTACT_ID": {
+          "type": "string",
+          "description": "Employee number of the person. Null if not an employee."
+        },
+        "STUDENT_NAME": {
+          "type": "string",
+          "description": "The person's name if a student, null if an employee."
+        }
+      }
+    }
+  }
+}

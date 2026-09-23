@@ -1,0 +1,65 @@
+openapi: 3.2.0
+info:
+  title: Organisation Registry Public Finance Units Public API
+  description: Organisation Registry Public API
+  version: 1.0.0
+servers:
+- url: https://gw.api.helsinki.fi/organisation/info
+security:
+- apiKey: []
+tags:
+- name: FinanceUnitsPublic
+paths:
+  /v1/financeUnitsPublic:
+    get:
+      summary: GET v1/financeUnitsPublic
+      operationId: getFinanceUnitsPublic
+      responses:
+        '200':
+          description: OK
+          content:
+            application/json:
+              schema:
+                type: array
+                items:
+                  $ref: '#/components/schemas/PublicFinanceUnit'
+              examples:
+                Public finance unit example:
+                  $ref: '#/components/examples/PublicFinanceUnitsExample'
+      tags:
+      - FinanceUnitsPublic
+components:
+  examples:
+    PublicFinanceUnitsExample:
+      value:
+      - uniqueId: '77096679'
+        code: HY
+        type: tulosyksikko
+        nameFi: Helsingin yliopisto
+        nameEn: University of Helsinki
+        nameSv: Helsingfors universitet
+        parent: null
+  schemas:
+    PublicFinanceUnit:
+      type: object
+      properties:
+        uniqueId:
+          type: string
+        code:
+          type: string
+        type:
+          type: string
+        nameFi:
+          type: string
+        nameEn:
+          type: string
+        nameSv:
+          type: string
+        parent:
+          type: string
+  securitySchemes:
+    apiKey:
+      type: apiKey
+      description: APIKey Auth
+      name: X-Api-Key
+      in: header

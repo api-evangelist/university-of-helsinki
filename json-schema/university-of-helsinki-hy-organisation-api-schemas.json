@@ -1,0 +1,497 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "$id": "https://raw.githubusercontent.com/api-evangelist/university-of-helsinki/main/json-schema/university-of-helsinki-hy-organisation-api-schemas.json",
+  "title": "Organisation Registry Public API — component schemas",
+  "description": "JSON Schema bundle derived from the component schemas of openapi/university-of-helsinki-hy-organisation-api-openapi.yml, which was harvested verbatim from the University of Helsinki API portal (https://api.helsinki.fi/portal/environments/DEFAULT/apis/1c4778a8-7883-4248-8778-a87883a248d0/pages/9d91dcae-dba9-4c53-91dc-aedba94c5390/content). Schemas are reproduced unchanged from the provider's own OpenAPI; only the $schema/$id/$defs envelope is ours.",
+  "x-generated": "2026-08-30",
+  "x-method": "derived",
+  "x-source": "openapi/university-of-helsinki-hy-organisation-api-openapi.yml",
+  "$defs": {
+    "SteeringGroup": {
+      "type": "object",
+      "properties": {
+        "uniqueId": {
+          "type": "string"
+        },
+        "code": {
+          "type": "string"
+        },
+        "type": {
+          "type": "string"
+        },
+        "nameFi": {
+          "type": "string"
+        },
+        "nameEn": {
+          "type": "string"
+        },
+        "nameSv": {
+          "type": "string"
+        },
+        "parent": {
+          "type": "string"
+        }
+      }
+    },
+    "HumanResourcesIamGroupPrefix": {
+      "type": "object",
+      "properties": {
+        "uniqueId": {
+          "type": "string"
+        },
+        "code": {
+          "type": "string"
+        },
+        "type": {
+          "type": "string"
+        },
+        "nameFi": {
+          "type": "string"
+        },
+        "nameEn": {
+          "type": "string"
+        },
+        "nameSv": {
+          "type": "string"
+        },
+        "iamGroupPrefix": {
+          "type": "string"
+        },
+        "parent": {
+          "type": "string"
+        }
+      }
+    },
+    "HumanResourcesWithLevel": {
+      "type": "object",
+      "properties": {
+        "uniqueId": {
+          "type": "string"
+        },
+        "code": {
+          "type": "string"
+        },
+        "type": {
+          "type": "string"
+        },
+        "nameFi": {
+          "type": "string"
+        },
+        "nameEn": {
+          "type": "string"
+        },
+        "nameSv": {
+          "type": "string"
+        },
+        "level": {
+          "type": "integer"
+        },
+        "parent": {
+          "type": "string"
+        }
+      }
+    },
+    "FinanceUnit": {
+      "type": "object",
+      "properties": {
+        "uniqueId": {
+          "type": "string"
+        },
+        "code": {
+          "type": "string"
+        },
+        "type": {
+          "type": "string"
+        },
+        "publicity": {
+          "type": "string"
+        },
+        "nameFi": {
+          "type": "string"
+        },
+        "nameSv": {
+          "type": "string"
+        },
+        "parent": {
+          "type": "string"
+        }
+      }
+    },
+    "FinanceUnitWithUniqueCode": {
+      "type": "object",
+      "properties": {
+        "uniqueId": {
+          "type": "string"
+        },
+        "code": {
+          "type": "string"
+        },
+        "type": {
+          "type": "string"
+        },
+        "publicity": {
+          "type": "string"
+        },
+        "uniqueCode": {
+          "type": "string"
+        },
+        "nameFi": {
+          "type": "string"
+        },
+        "nameSv": {
+          "type": "string"
+        },
+        "parent": {
+          "type": "string"
+        }
+      }
+    },
+    "PublicFinanceUnit": {
+      "type": "object",
+      "properties": {
+        "uniqueId": {
+          "type": "string"
+        },
+        "code": {
+          "type": "string"
+        },
+        "type": {
+          "type": "string"
+        },
+        "nameFi": {
+          "type": "string"
+        },
+        "nameEn": {
+          "type": "string"
+        },
+        "nameSv": {
+          "type": "string"
+        },
+        "parent": {
+          "type": "string"
+        }
+      }
+    },
+    "OfficialUnit": {
+      "type": "object",
+      "properties": {
+        "uniqueId": {
+          "type": "string"
+        },
+        "type": {
+          "type": "string"
+        },
+        "nameFi": {
+          "type": "string"
+        },
+        "nameEn": {
+          "type": "string"
+        },
+        "nameSv": {
+          "type": "string"
+        },
+        "abbreviation": {
+          "type": "string"
+        },
+        "parent": {
+          "type": "string"
+        }
+      }
+    },
+    "OfficialUnitV2": {
+      "type": "object",
+      "properties": {
+        "uniqueId": {
+          "type": "string"
+        },
+        "type": {
+          "type": "string"
+        },
+        "nameFi": {
+          "type": "string"
+        },
+        "nameEn": {
+          "type": "string"
+        },
+        "nameSv": {
+          "type": "string"
+        },
+        "abbreviation": {
+          "type": "string"
+        },
+        "educationQualifier": {
+          "type": "string"
+        },
+        "parent": {
+          "type": "string"
+        }
+      }
+    },
+    "ResearchResource": {
+      "type": "object",
+      "properties": {
+        "uniqueId": {
+          "type": "string"
+        },
+        "unitStartDate": {
+          "type": "string"
+        },
+        "type": {
+          "type": "string"
+        },
+        "nameFi": {
+          "type": "string"
+        },
+        "nameEn": {
+          "type": "string"
+        },
+        "nameSv": {
+          "type": "string"
+        },
+        "parent": {
+          "type": "string"
+        }
+      }
+    },
+    "ResearchGroup": {
+      "type": "object",
+      "properties": {
+        "uniqueId": {
+          "type": "string"
+        },
+        "unitStartDate": {
+          "type": "string"
+        },
+        "type": {
+          "type": "string"
+        },
+        "nameFi": {
+          "type": "string"
+        },
+        "nameEn": {
+          "type": "string"
+        },
+        "nameSv": {
+          "type": "string"
+        },
+        "parent": {
+          "type": "string"
+        }
+      }
+    },
+    "PublicHierarchyNode": {
+      "type": "object",
+      "properties": {
+        "uniqueId": {
+          "type": "string"
+        },
+        "nameFi": {
+          "type": "string"
+        },
+        "nameEn": {
+          "type": "string"
+        },
+        "nameSv": {
+          "type": "string"
+        }
+      }
+    },
+    "EducationUnit": {
+      "type": "object",
+      "properties": {
+        "uniqueId": {
+          "type": "string"
+        },
+        "type": {
+          "type": "string"
+        },
+        "code": {
+          "type": "string"
+        },
+        "nameFi": {
+          "type": "string"
+        },
+        "nameEn": {
+          "type": "string"
+        },
+        "nameSv": {
+          "type": "string"
+        },
+        "abbreviation": {
+          "type": "string"
+        },
+        "parent": {
+          "type": "string"
+        }
+      }
+    },
+    "EducationUnitV2": {
+      "type": "object",
+      "properties": {
+        "uniqueId": {
+          "type": "string"
+        },
+        "type": {
+          "type": "string"
+        },
+        "code": {
+          "type": "string"
+        },
+        "nameFi": {
+          "type": "string"
+        },
+        "nameEn": {
+          "type": "string"
+        },
+        "nameSv": {
+          "type": "string"
+        },
+        "abbreviation": {
+          "type": "string"
+        },
+        "educationQualifier": {
+          "type": "string"
+        },
+        "parent": {
+          "type": "string"
+        }
+      }
+    },
+    "FinanceAndOldResearch": {
+      "type": "object",
+      "properties": {
+        "uniqueId": {
+          "type": "string"
+        },
+        "type": {
+          "type": "string"
+        },
+        "code": {
+          "type": "string"
+        },
+        "educationCode": {
+          "type": "string"
+        },
+        "nameFi": {
+          "type": "string"
+        },
+        "nameEn": {
+          "type": "string"
+        },
+        "nameSv": {
+          "type": "string"
+        },
+        "unitStartDate": {
+          "type": "string"
+        },
+        "publicity": {
+          "type": "string"
+        },
+        "uniqueCode": {
+          "type": "string"
+        },
+        "parent": {
+          "type": "string"
+        }
+      }
+    },
+    "humanResourcesSubunitToUnit": {
+      "type": "object",
+      "properties": {
+        "subUnitCode": {
+          "type": "string",
+          "description": "The hr_lyhenne of the sub unit"
+        },
+        "unitCode": {
+          "type": "string",
+          "description": "The hr_lyhenne of the greatest parent of the sub unit"
+        },
+        "unitNameFi": {
+          "type": "string",
+          "description": "The name_fi of the greatest parent fo the sub unit"
+        }
+      }
+    },
+    "UniversityOfHelsinkiSubunitToUnit": {
+      "type": "object",
+      "properties": {
+        "subUnitCode": {
+          "type": "string",
+          "description": "The talous_tunnus of the sub unit"
+        },
+        "unitCode": {
+          "type": "string",
+          "description": "The talous_tunnus of the greatest parent of the sub unit"
+        },
+        "unitNameFi": {
+          "type": "string",
+          "description": "The name_fi of the greatest parent fo the sub unit"
+        }
+      }
+    },
+    "NodeAttribute": {
+      "type": "object",
+      "properties": {
+        "uniqueId": {
+          "type": "string",
+          "description": "The node of the attribute"
+        },
+        "key": {
+          "type": "string"
+        },
+        "value": {
+          "type": "string"
+        },
+        "startDate": {
+          "type": "string"
+        },
+        "endDate": {
+          "type": "string"
+        }
+      }
+    },
+    "AllSuccessorsAndPredecessors": {
+      "type": "object",
+      "properties": {
+        "successor": {
+          "type": "string"
+        },
+        "predecessor": {
+          "type": "string"
+        },
+        "startDate": {
+          "type": "string"
+        },
+        "endDate": {
+          "type": "string"
+        }
+      }
+    },
+    "HumanResourcesAndResearchGroups": {
+      "type": "object",
+      "properties": {
+        "uniqueId": {
+          "type": "string"
+        },
+        "code": {
+          "type": "string"
+        },
+        "type": {
+          "type": "string"
+        },
+        "nameFi": {
+          "type": "string"
+        },
+        "nameEn": {
+          "type": "string"
+        },
+        "nameSv": {
+          "type": "string"
+        },
+        "parent": {
+          "type": "string"
+        }
+      }
+    }
+  }
+}

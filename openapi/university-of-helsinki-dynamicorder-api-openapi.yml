@@ -1,0 +1,201 @@
+openapi: 3.2.0
+info:
+  title: General Efecte /dynamicorder API
+servers:
+- url: https://gw.api.helsinki.fi/efecte
+tags:
+- name: /dynamicorder
+paths:
+  /dynamicorder/post_catalogdevice:
+    post:
+      tags:
+      - /dynamicorder
+      summary: Dynamic catalog post API
+      operationId: DynamicCatalogPost
+      requestBody:
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/DynamicOrderTemplate'
+        required: true
+      responses:
+        '200':
+          description: OK
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/OrderResponse'
+      security:
+      - Apikey: []
+  /dynamicorder/post_ceph_subuser:
+    post:
+      tags:
+      - /dynamicorder
+      summary: Dynamic order ceph subuser API
+      operationId: DynamicDataCloudCephSubUserPost
+      requestBody:
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/DynamicOrderTemplate'
+        required: true
+      responses:
+        '200':
+          description: OK
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/OrderResponse'
+      security:
+      - Apikey: []
+  /dynamicorder/post_ceph_tenant:
+    post:
+      tags:
+      - /dynamicorder
+      summary: Dynamic order ceph tenant API
+      operationId: DynamicDataCloudCephTenantPost
+      requestBody:
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/DynamicOrderTemplate'
+        required: true
+      responses:
+        '200':
+          description: OK
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/OrderResponse'
+      security:
+      - Apikey: []
+  /dynamicorder/post_container:
+    post:
+      tags:
+      - /dynamicorder
+      summary: Dynamic order container post API
+      operationId: DynamicOrderPost2
+      requestBody:
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/DynamicOrderTemplate'
+        required: true
+      responses:
+        '200':
+          description: OK
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/OrderResponse'
+      security:
+      - Apikey: []
+  /dynamicorder/post_gpu:
+    post:
+      tags:
+      - /dynamicorder
+      summary: Dynamic order gpu post API
+      operationId: DynamicGPUPost
+      requestBody:
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/DynamicOrderTemplate'
+        required: true
+      responses:
+        '200':
+          description: OK
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/OrderResponse'
+      security:
+      - Apikey: []
+  /dynamicorder/post_incident:
+    post:
+      tags:
+      - /dynamicorder
+      summary: Dynamic order incident post API
+      operationId: DynamicIncidentPost
+      requestBody:
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/DynamicOrderTemplate'
+        required: true
+      responses:
+        '200':
+          description: OK
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/OrderResponse'
+      security:
+      - Apikey: []
+  /dynamicorder/post_order:
+    post:
+      tags:
+      - /dynamicorder
+      summary: Dynamic order post API
+      operationId: DynamicOrderPost
+      requestBody:
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/DynamicOrderTemplate'
+        required: true
+      responses:
+        '200':
+          description: OK
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/OrderResponse'
+      security:
+      - Apikey: []
+  /dynamicorder/post_workstation:
+    post:
+      tags:
+      - /dynamicorder
+      summary: Dynamic order workstation post API
+      operationId: DynamicWorkstationPost
+      requestBody:
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/DynamicOrderTemplate'
+        required: true
+      responses:
+        '200':
+          description: OK
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/OrderResponse'
+      security:
+      - Apikey: []
+components:
+  schemas:
+    OrderResponse:
+      type: object
+      properties:
+        status:
+          type: string
+        efecteId:
+          type: string
+    DynamicOrderTemplate:
+      type: object
+      properties:
+        properties:
+          type: object
+          additionalProperties:
+            type: object
+            x-className:
+              format: java.lang.Object
+              type: string
+  securitySchemes:
+    Apikey:
+      type: apiKey
+      description: APIKey Auth
+      name: X-Api-Key
+      in: header

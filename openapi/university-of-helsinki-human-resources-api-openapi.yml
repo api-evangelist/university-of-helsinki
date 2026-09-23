@@ -1,0 +1,65 @@
+openapi: 3.2.0
+info:
+  title: Organisation Registry Public Human Resources API
+  description: Organisation Registry Public API
+  version: 1.0.0
+servers:
+- url: https://gw.api.helsinki.fi/organisation/info
+security:
+- apiKey: []
+tags:
+- name: Human Resources
+paths:
+  /v1/humanResources:
+    get:
+      summary: GET v1/humanResources
+      operationId: getHumanResources
+      responses:
+        '200':
+          description: OK
+          content:
+            application/json:
+              schema:
+                type: array
+                items:
+                  $ref: '#/components/schemas/SteeringGroup'
+              examples:
+                Human Resources Example:
+                  $ref: '#/components/examples/HumanResourcesExample'
+      tags:
+      - Human Resources
+components:
+  schemas:
+    SteeringGroup:
+      type: object
+      properties:
+        uniqueId:
+          type: string
+        code:
+          type: string
+        type:
+          type: string
+        nameFi:
+          type: string
+        nameEn:
+          type: string
+        nameSv:
+          type: string
+        parent:
+          type: string
+  examples:
+    HumanResourcesExample:
+      value:
+      - uniqueId: '77096679'
+        code: H01
+        type: yritys_yhteiso
+        nameFi: Yliopistopalvelut
+        nameEn: Yliopistopalvelut EN
+        nameSv: Yliopistopalvelut SV
+        parent: null
+  securitySchemes:
+    apiKey:
+      type: apiKey
+      description: APIKey Auth
+      name: X-Api-Key
+      in: header

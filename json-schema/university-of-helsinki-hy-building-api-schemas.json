@@ -1,0 +1,59 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "$id": "https://raw.githubusercontent.com/api-evangelist/university-of-helsinki/main/json-schema/university-of-helsinki-hy-building-api-schemas.json",
+  "title": "HY Building API — component schemas",
+  "description": "JSON Schema bundle derived from the component schemas of openapi/university-of-helsinki-hy-building-api-openapi.yml, which was harvested verbatim from the University of Helsinki API portal (https://api.helsinki.fi/portal/environments/DEFAULT/apis/d7482691-212f-4fd6-8826-91212f2fd681/pages/6921f65f-88f3-4055-a1f6-5f88f3d0552e/content). Schemas are reproduced unchanged from the provider's own OpenAPI; only the $schema/$id/$defs envelope is ours.",
+  "x-generated": "2026-08-30",
+  "x-method": "derived",
+  "x-source": "openapi/university-of-helsinki-hy-building-api-openapi.yml",
+  "$defs": {
+    "Building": {
+      "type": "object",
+      "properties": {
+        "code": {
+          "type": "string",
+          "description": "Building code"
+        },
+        "name": {
+          "type": "string",
+          "description": "Building name"
+        },
+        "address": {
+          "type": "string",
+          "description": "Building address"
+        },
+        "postalNumber": {
+          "type": "string",
+          "description": "City postal area where the building belongs"
+        },
+        "postalBox": {
+          "type": "string",
+          "description": "Postal box of the building"
+        },
+        "city": {
+          "type": "string",
+          "description": "City where the building is located"
+        },
+        "campus": {
+          "type": "string",
+          "description": "Campus where the building belongs"
+        }
+      },
+      "description": "Represents a university building"
+    },
+    "Space": {
+      "type": "object",
+      "properties": {
+        "buildingCode": {
+          "type": "string",
+          "description": "Building code where the space belongs"
+        },
+        "spaceLabel": {
+          "type": "string",
+          "description": "Label of the space"
+        }
+      },
+      "description": "Represents a university space"
+    }
+  }
+}

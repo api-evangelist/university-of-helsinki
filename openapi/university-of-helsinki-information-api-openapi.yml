@@ -1,0 +1,201 @@
+openapi: 3.2.0
+info:
+  title: Laji Information API
+  description: '## Authentication
+
+
+    This API requires an **Access Token**.'
+  version: '1'
+  contact: {}
+servers:
+- url: https://api.laji.fi
+tags:
+- name: Information
+paths:
+  /information/{id}:
+    get:
+      operationId: InformationController_get
+      parameters:
+      - name: id
+        required: true
+        in: path
+        schema:
+          type: string
+      responses:
+        '200':
+          description: ''
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Information'
+        '400':
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  errorCode:
+                    type: string
+                  message:
+                    type: string
+                  localized:
+                    type: boolean
+        '401':
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  errorCode:
+                    type: string
+                  message:
+                    type: string
+                  localized:
+                    type: boolean
+        '403':
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  errorCode:
+                    type: string
+                  message:
+                    type: string
+                  localized:
+                    type: boolean
+        '404':
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  errorCode:
+                    type: string
+                  message:
+                    type: string
+                  localized:
+                    type: boolean
+        '406':
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  errorCode:
+                    type: string
+                  message:
+                    type: string
+                  localized:
+                    type: boolean
+        '422':
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  errorCode:
+                    type: string
+                  message:
+                    type: string
+                  localized:
+                    type: boolean
+        '500':
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  errorCode:
+                    type: string
+                  message:
+                    type: string
+                  localized:
+                    type: boolean
+      security:
+      - Access token: []
+      - Lang: []
+      - Person token: []
+      summary: Get information page by id
+      tags:
+      - Information
+components:
+  schemas:
+    Information:
+      type: object
+      properties:
+        id:
+          type: string
+        content:
+          type: string
+        title:
+          type: string
+        author:
+          type: string
+        posted:
+          type: string
+        featuredImage:
+          $ref: '#/components/schemas/FeaturedImage'
+        tags:
+          default: []
+          type: array
+          items:
+            type: string
+        modified:
+          type: string
+        children:
+          type: array
+          items:
+            $ref: '#/components/schemas/InformationChild'
+        parents:
+          type: array
+          items:
+            $ref: '#/components/schemas/InformationChild'
+      required:
+      - id
+      - content
+      - title
+      - author
+      - posted
+      - tags
+    FeaturedImage:
+      type: object
+      properties:
+        url:
+          type: string
+        caption:
+          type: string
+        alt:
+          type: string
+      required:
+      - url
+      - caption
+    InformationChild:
+      type: object
+      properties:
+        title:
+          type: string
+        id:
+          type: string
+        children:
+          type: array
+          items:
+            $ref: '#/components/schemas/InformationChild'
+      required:
+      - title
+      - id
+  securitySchemes:
+    Access_token:
+      scheme: bearer
+      bearerFormat: JWT
+      type: http
+      description: Access token
+    Lang:
+      type: apiKey
+      in: header
+      name: Accept-Language
+      description: Sets the 'Accept-Language' header. One of 'fi', 'sv,' 'en'. Defaults to 'en'.
+    Person_token:
+      type: apiKey
+      in: header
+      name: Person-Token

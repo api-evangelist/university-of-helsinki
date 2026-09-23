@@ -1,0 +1,386 @@
+openapi: 3.2.0
+info:
+  title: Helsinki.fi content Study Search API
+  description: The API can be used to fetch content in Helsinki.fi.
+  contact:
+    email: grp-nxstage-devs@helsinki.fi
+  version: 1.2.0
+servers:
+- url: https://gw.api.helsinki.fi
+tags:
+- name: study-search
+  description: Study search content.
+paths:
+  /public_web/study_search/study_options:
+    get:
+      tags:
+      - study-search
+      summary: Exports study options content
+      operationId: fetchStudySearchStudyOptions
+      parameters:
+      - name: timestamp
+        in: query
+        description: The unix timestamp to limit the results. Shows the content edited or created after this timestamp (and content removed or unpublished after it). A missing or non-numeric value is treated as 0, which returns everything.
+        required: false
+        style: form
+        explode: true
+        schema:
+          type: integer
+      - name: type_ids
+        in: query
+        description: Comma-delimited string with the type ids to show. The values are handled as an OR set.
+        required: false
+        style: form
+        explode: true
+        schema:
+          type: string
+      - name: limit
+        in: query
+        description: Approximate number of results in the result set.
+        required: false
+        style: form
+        explode: true
+        schema:
+          type: integer
+          default: 50
+      responses:
+        '200':
+          description: The response is a JSON string that has the content entities indexed by the content ID. In the end of the data set there are also the removed or unpublished content with the expired key and the used query parameters with the parameters key.
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  expired:
+                    type: array
+                    description: The expired key in the end contains a list of Content reference strings that have been deleted or unpublished. These should be removed from any index. Not all of the listed contents are necessarily returned by an earlier call of the API, so it should not be presumed that all of the content exists or has existed in any index.
+                    items:
+                      type: string
+                      example: node:191
+                  parameters:
+                    type: object
+                    properties:
+                      timestamp:
+                        type: integer
+                        example: 1697113107
+                      limit:
+                        type: integer
+                        example: 5
+                      type_ids:
+                        type:
+                        - array
+                        - 'null'
+                        description: Null when the parameter was not supplied.
+                        items:
+                          type: string
+                          example: '728'
+                      count:
+                        type: integer
+                        description: Number of content entities in the response, not counting the expired and parameters keys.
+                        example: 6
+                    description: The parameters key in the end contains an object with the timestamp, limit and type_ids values used for the query as well as a count element containing the total number of items in the response.
+                additionalProperties:
+                  $ref: '#/components/schemas/StudyOption'
+                description: Content entities keyed by their numeric content ID, alongside the reserved expired and parameters keys.
+        '401':
+          description: No API key was supplied.
+        '403':
+          description: The supplied API key is not valid for the study search plan.
+      security:
+      - StudySearchApiKey: []
+  /public_web/study_search/degree_programmes:
+    get:
+      tags:
+      - study-search
+      summary: Exports degree programmes content
+      operationId: fetchStudySearchDegreeProgrammes
+      parameters:
+      - name: timestamp
+        in: query
+        description: The unix timestamp to limit the results. Shows the content edited or created after this timestamp (and content removed or unpublished after it). A missing or non-numeric value is treated as 0, which returns everything.
+        required: false
+        style: form
+        explode: true
+        schema:
+          type: integer
+      - name: type_ids
+        in: query
+        description: Comma-delimited string with the type ids to show. The values are handled as an OR set. These type ids come from a different vocabulary than the ones accepted by the study options operation and are not interchangeable.
+        required: false
+        style: form
+        explode: true
+        schema:
+          type: string
+      - name: limit
+        in: query
+        description: Approximate number of results in the result set.
+        required: false
+        style: form
+        explode: true
+        schema:
+          type: integer
+          default: 50
+      responses:
+        '200':
+          description: The response is a JSON string that has the content entities indexed by the content ID. In the end of the data set there are also the removed or unpublished content with the expired key and the used query parameters with the parameters key.
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  expired:
+                    type: array
+                    description: The expired key in the end contains a list of Content reference strings that have been deleted, unpublished or moved into the beta state. These should be removed from any index. Not all of the listed contents are necessarily returned by an earlier call of the API, so it should not be presumed that all of the content exists or has existed in any index.
+                    items:
+                      type: string
+                      example: group:191
+                  parameters:
+                    type: object
+                    properties:
+                      timestamp:
+                        type: integer
+                        example: 1697113107
+                      limit:
+                        type: integer
+                        example: 5
+                      type_ids:
+                        type:
+                        - array
+                        - 'null'
+                        description: Null when the parameter was not supplied.
+                        items:
+                          type: string
+                          example: '728'
+                      count:
+                        type: integer
+                        description: Number of content entities in the response, not counting the expired and parameters keys.
+                        example: 6
+                    description: The parameters key in the end contains an object with the timestamp, limit and type_ids values used for the query as well as a count element containing the total number of items in the response.
+                additionalProperties:
+                  $ref: '#/components/schemas/DegreeProgramme'
+                description: Content entities keyed by their numeric content ID, alongside the reserved expired and parameters keys.
+        '401':
+          description: No API key was supplied.
+        '403':
+          description: The supplied API key is not valid for the study search plan.
+      security:
+      - StudySearchApiKey: []
+  /public_web/study_search/info:
+    get:
+      tags:
+      - study-search
+      summary: Gets the study search info
+      description: Get the study search configuration info. Returned in all three site languages regardless of the requested language.
+      operationId: fetchStudySearchInfo
+      responses:
+        '200':
+          description: successful operation
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/StudySearchInfo'
+        '401':
+          description: No API key was supplied.
+        '403':
+          description: The supplied API key is not valid for the study search plan.
+      security:
+      - StudySearchApiKey: []
+components:
+  schemas:
+    DegreeApplicationPeriodTerm:
+      type: object
+      properties:
+        id:
+          type: string
+          example: taxonomy_term:851
+        start:
+          type:
+          - string
+          - 'null'
+          description: Start of the application period. Has no timezone offset, so it is not an RFC 3339 date-time. Null when not set.
+          example: '2023-12-01T06:00:00'
+        end:
+          type:
+          - string
+          - 'null'
+          description: End of the application period. Has no timezone offset, so it is not an RFC 3339 date-time. Null when not set.
+          example: '2024-01-03T13:00:00'
+        is_paid:
+          type: boolean
+    StudyOption:
+      type: object
+      properties:
+        id:
+          type: string
+          description: Content ID. Integer prefixed with ”node:” in this operation.
+          example: node:140
+        title:
+          description: Content title.
+          allOf:
+          - $ref: '#/components/schemas/Translated'
+        timestamp:
+          type: string
+          description: Unix timestamp of last update or content creation, serialised as a decimal string rather than a number. May originate from a referenced taxonomy term rather than the content itself. Note that the timestamp echoed under the parameters key is a number, unlike this one.
+          example: '1704290690'
+        ingress:
+          description: Content ingress.
+          allOf:
+          - $ref: '#/components/schemas/Translated'
+        type_id:
+          description: Type term. Returned as boolean false, not null or an empty object, when the field is empty, so the type must be checked before use.
+          oneOf:
+          - $ref: '#/components/schemas/TextTerm'
+          - type: boolean
+        educational_theme:
+          type: array
+          description: Educational theme terms.
+          items:
+            $ref: '#/components/schemas/TextTerm'
+        teaching_languages:
+          type: array
+          description: Teaching language terms.
+          items:
+            $ref: '#/components/schemas/TextTerm'
+        degree_application_period:
+          type: array
+          description: List of degree application periods. Omitted entirely when the content has no application period set.
+          items:
+            $ref: '#/components/schemas/DegreeApplicationPeriodTerm'
+        url:
+          description: URL to content, per language. Absent entirely when no language version of the content is viewable; see the note on Translated.
+          allOf:
+          - $ref: '#/components/schemas/Translated'
+        rendered:
+          description: Rendered version of the content. Should only be used for indexing, is not meant to be complete. Absent entirely when no language version of the content is viewable; see the note on Translated.
+          allOf:
+          - $ref: '#/components/schemas/Translated'
+        image:
+          description: A image for the content in a standard size. Omitted when no image is set. The URL uses the /s3/files prefix so that the image style is generated on the first request.
+          allOf:
+          - $ref: '#/components/schemas/Translated'
+        course_codes:
+          type: object
+          additionalProperties:
+            type: string
+            example: HISM-G5111
+          description: Course codes collected from the content. Both the keys and the values are the course code. When the content has none, this is serialised as an empty JSON array ([]) rather than an empty object, so check the type before treating it as a map.
+    TextTerm:
+      type: object
+      properties:
+        id:
+          type: string
+          example: taxonomy_term:851
+        fi:
+          type:
+          - string
+          - 'null'
+          example: Ympäristö ja ympäristön suojelu
+        sv:
+          type:
+          - string
+          - 'null'
+          example: Miljö och hållbarhet
+        en:
+          type:
+          - string
+          - 'null'
+          example: Environment and sustainability
+      description: A referenced taxonomy term. The language keys are the same ones the referencing content has, so the set of keys varies per content item. When the term itself is not translated into one of those languages, the value falls back to the term's default language. When no language version of the referencing content is viewable, only id is present.
+    Translated:
+      type: object
+      properties:
+        fi:
+          type:
+          - string
+          - 'null'
+        sv:
+          type:
+          - string
+          - 'null'
+        en:
+          type:
+          - string
+          - 'null'
+      description: 'Object containing strings for each language version with the two-letter language code as key. Only the languages the content is published in are present, so the set of keys varies per content item. A key may hold null when the underlying field is empty in that language.
+
+        When no language version of the content is viewable, the field is serialised as an empty JSON array ([]) rather than an empty object ({}), because it is built from a PHP list. Check the type before treating it as an object. The same content also omits url, rendered and image entirely, and its referenced terms carry only their id — such an entry has no usable payload beyond the id, and is best skipped by consumers.'
+    DegreeProgramme:
+      type: object
+      properties:
+        id:
+          type: string
+          description: Content ID. Integer prefixed with ”group:” in this operation.
+          example: group:140
+        title:
+          description: Content title.
+          allOf:
+          - $ref: '#/components/schemas/Translated'
+        timestamp:
+          type: string
+          description: Unix timestamp of last update or content creation, serialised as a decimal string rather than a number. May originate from a referenced taxonomy term rather than the content itself. Note that the timestamp echoed under the parameters key is a number, unlike this one.
+          example: '1704290690'
+        teaching_language_details:
+          type: array
+          description: List of teaching language details.
+          items:
+            $ref: '#/components/schemas/TextTerm'
+        educational_theme:
+          type: array
+          description: Educational theme terms.
+          items:
+            $ref: '#/components/schemas/TextTerm'
+        type_id:
+          description: Type term. Returned as boolean false, not null or an empty object, when the field is empty, so the type must be checked before use.
+          oneOf:
+          - $ref: '#/components/schemas/TextTerm'
+          - type: boolean
+        units_and_disciplines:
+          type: array
+          description: Units and disciplines terms.
+          items:
+            $ref: '#/components/schemas/TextTerm'
+        teaching_languages:
+          type: array
+          description: Teaching language terms.
+          items:
+            $ref: '#/components/schemas/TextTerm'
+        degree_application_period:
+          type: array
+          description: List of degree application periods. Omitted entirely when the content has no application period set.
+          items:
+            $ref: '#/components/schemas/DegreeApplicationPeriodTerm'
+        url:
+          description: URL to content, per language. Absent entirely when no language version of the content is viewable; see the note on Translated.
+          allOf:
+          - $ref: '#/components/schemas/Translated'
+        ingress:
+          description: Content ingress. A language is present only when that translation has a hero paragraph, so this may cover fewer languages than url, or be absent entirely.
+          allOf:
+          - $ref: '#/components/schemas/Translated'
+        rendered:
+          description: Rendered version of the content. Should only be used for indexing, is not meant to be complete. Absent entirely when no language version of the content is viewable; see the note on Translated.
+          allOf:
+          - $ref: '#/components/schemas/Translated'
+        image:
+          description: A image for the content in a standard size. Omitted when no image is set. The URL uses the /s3/files prefix so that the image style is generated on the first request.
+          allOf:
+          - $ref: '#/components/schemas/Translated'
+    StudySearchInfo:
+      type: object
+      properties:
+        application_period_info:
+          $ref: '#/components/schemas/Translated'
+        no_application_period_description:
+          $ref: '#/components/schemas/Translated'
+      description: Editorial texts from the site configuration. A value is null when the corresponding text has not been set.
+  securitySchemes:
+    NewsApiKey:
+      type: apiKey
+      description: API key issued by the news plan when an application subscribes to it.
+      name: X-Api-Key
+      in: header
+    StudySearchApiKey:
+      type: apiKey
+      description: API key issued by the study search plan when an application subscribes to it. Separate from the news plan key.
+      name: X-Api-Key
+      in: header

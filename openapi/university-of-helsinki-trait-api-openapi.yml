@@ -1,0 +1,3920 @@
+openapi: 3.2.0
+info:
+  title: Laji Trait API
+  description: '## Authentication
+
+
+    This API requires an **Access Token**.'
+  version: '1'
+  contact: {}
+servers:
+- url: https://api.laji.fi
+tags:
+- name: Trait
+paths:
+  /trait/search:
+    get:
+      summary: Search traits
+      description: Search traits from all published datasets.
+      parameters:
+      - name: pageSize
+        in: query
+        required: false
+        description: Page size
+        schema:
+          type: integer
+          default: 10
+          minimum: 1
+          maximum: 10000
+      - name: page
+        in: query
+        required: false
+        description: Page number
+        schema:
+          type: integer
+          default: 1
+          minimum: 1
+      - name: searchParams
+        in: query
+        required: false
+        description: 'A set of key-value pairs used to filter search results.
+
+          Each key represents a field name in the result model, and its corresponding value specifies the criteria that must be met for the records to match.
+
+          If field is given multiple time as parameter, at least one of the given values must match.
+
+          Example: subject.type=TDF.typeTaxon&trait.id=TDF.1&trait.id=TDF.2&subjectFinBIFTaxon.higherTaxa.kingdom=Animalia'
+        schema:
+          type: object
+          additionalProperties:
+            type: string
+      responses:
+        '200':
+          description: Succesful response
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/LajiBackendTraitAPISearchResponse'
+        '400':
+          description: Illegal arguments
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/LajiBackendTraitAPIError'
+        '500':
+          description: Unknown failure
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/LajiBackendTraitAPIError'
+      tags:
+      - Trait
+      security:
+      - Access token: []
+      - Lang: []
+      - Person token: []
+      operationId: getTraitSearch
+      x-operation-id-source: derived
+  /trait/search/download:
+    get:
+      summary: Download traits
+      description: Search traits from all published datasets and download results as Zipped TSV file. Returns maximum of 1000000 rows.
+      parameters:
+      - name: searchParams
+        in: query
+        required: false
+        description: 'A set of key-value pairs used to filter search results.
+
+          Each key represents a field name in the result model, and its corresponding value specifies the criteria that must be met for the records to match.
+
+          If field is given multiple time as parameter, at least one of the given values must match.
+
+          Example: subject.type=TDF.typeTaxon&trait.id=TDF.1&trait.id=TDF.2&subjectFinBIFTaxon.higherTaxa.kingdom=Animalia'
+        schema:
+          type: object
+          additionalProperties:
+            type: string
+      responses:
+        '200':
+          description: Succesful response
+          content:
+            application/zip:
+              schema:
+                type: string
+                format: binary
+                examples:
+                - Single TSV file ZIP compressed
+        '400':
+          description: Illegal arguments
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/LajiBackendTraitAPIError'
+        '500':
+          description: Unknown failure
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/LajiBackendTraitAPIError'
+      tags:
+      - Trait
+      security:
+      - Access token: []
+      - Lang: []
+      - Person token: []
+      operationId: getTraitSearchDownload
+      x-operation-id-source: derived
+  /trait/rows/{id}:
+    get:
+      summary: Get trait input row by id
+      parameters:
+      - name: id
+        in: path
+        required: true
+        description: Id of the InputRow
+        schema:
+          type: string
+      - name: Person-Token
+        in: header
+        required: false
+        description: Identity of a logged in user
+        schema:
+          type: string
+      responses:
+        '200':
+          description: Succesful response
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/LajiBackendInputRow'
+        '403':
+          description: No access / Invalid authorization
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/LajiBackendTraitAPIError'
+        '404':
+          description: No entity with the given id
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/LajiBackendTraitAPIError'
+        '500':
+          description: Unknown failure
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/LajiBackendTraitAPIError'
+      tags:
+      - Trait
+      security:
+      - Access token: []
+      - Lang: []
+      - Person token: []
+      operationId: getTraitRowsById
+      x-operation-id-source: derived
+    put:
+      summary: Update an input row
+      parameters:
+      - name: id
+        in: path
+        required: true
+        description: Id of the InputRow
+        schema:
+          type: string
+      - name: Person-Token
+        in: header
+        required: false
+        description: Identity of a logged in user
+        schema:
+          type: string
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/LajiBackendInputRow'
+      responses:
+        '200':
+          description: Succesful response
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/LajiBackendInputRow'
+        '400':
+          description: Illegal arguments
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/LajiBackendTraitAPIError'
+        '403':
+          description: No access / Invalid authorization
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/LajiBackendTraitAPIError'
+        '404':
+          description: No entity with the given id
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/LajiBackendTraitAPIError'
+        '422':
+          description: Validation failure - should call validation endpoints before calling upsert operations.
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/LajiBackendTraitAPIError'
+        '500':
+          description: Unknown failure
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/LajiBackendTraitAPIError'
+      tags:
+      - Trait
+      security:
+      - Access token: []
+      - Lang: []
+      - Person token: []
+      operationId: putTraitRowsById
+      x-operation-id-source: derived
+    delete:
+      summary: Delete an input row
+      parameters:
+      - name: id
+        in: path
+        required: true
+        description: Id
+        schema:
+          type: string
+      - name: Person-Token
+        in: header
+        required: false
+        description: Identity of a logged in user
+        schema:
+          type: string
+      responses:
+        '200':
+          description: Succesful response
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/LajiBackendTraitAPIOKResponse'
+        '403':
+          description: No access / Invalid authorization
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/LajiBackendTraitAPIError'
+        '404':
+          description: No entity with the given id
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/LajiBackendTraitAPIError'
+        '422':
+          description: Validation failure - should call validation endpoints before calling upsert operations.
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/LajiBackendTraitAPIError'
+        '500':
+          description: Unknown failure
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/LajiBackendTraitAPIError'
+      tags:
+      - Trait
+      security:
+      - Access token: []
+      - Lang: []
+      - Person token: []
+      operationId: deleteTraitRowsById
+      x-operation-id-source: derived
+  /trait/rows/validate:
+    post:
+      summary: Validate adding a new input row
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/LajiBackendInputRow'
+      parameters:
+      - name: Person-Token
+        in: header
+        required: false
+        description: Identity of a logged in user
+        schema:
+          type: string
+      responses:
+        '200':
+          description: Succesful response
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/LajiBackendValidationResponse'
+        '400':
+          description: Illegal arguments
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/LajiBackendTraitAPIError'
+        '403':
+          description: No access / Invalid authorization
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/LajiBackendTraitAPIError'
+        '500':
+          description: Unknown failure
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/LajiBackendTraitAPIError'
+      tags:
+      - Trait
+      security:
+      - Access token: []
+      - Lang: []
+      - Person token: []
+      operationId: postTraitRowsValidate
+      x-operation-id-source: derived
+  /trait/rows/validate-update/{id}:
+    post:
+      summary: Validate update of an input row
+      parameters:
+      - name: id
+        in: path
+        required: true
+        description: Id of the InputRow
+        schema:
+          type: string
+      - name: Person-Token
+        in: header
+        required: false
+        description: Identity of a logged in user
+        schema:
+          type: string
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/LajiBackendInputRow'
+      responses:
+        '200':
+          description: Succesful response
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/LajiBackendValidationResponse'
+        '400':
+          description: Illegal arguments
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/LajiBackendTraitAPIError'
+        '403':
+          description: No access / Invalid authorization
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/LajiBackendTraitAPIError'
+        '404':
+          description: No entity with the given id
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/LajiBackendTraitAPIError'
+        '500':
+          description: Unknown failure
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/LajiBackendTraitAPIError'
+      tags:
+      - Trait
+      security:
+      - Access token: []
+      - Lang: []
+      - Person token: []
+      operationId: postTraitRowsValidateUpdateById
+      x-operation-id-source: derived
+  /trait/rows/validate-delete/{id}:
+    post:
+      summary: Validate deleting input row
+      parameters:
+      - name: id
+        in: path
+        required: true
+        description: Id
+        schema:
+          type: string
+      - name: Person-Token
+        in: header
+        required: false
+        description: Identity of a logged in user
+        schema:
+          type: string
+      responses:
+        '200':
+          description: Succesful response
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/LajiBackendValidationResponse'
+        '403':
+          description: No access / Invalid authorization
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/LajiBackendTraitAPIError'
+        '404':
+          description: No entity with the given id
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/LajiBackendTraitAPIError'
+        '500':
+          description: Unknown failure
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/LajiBackendTraitAPIError'
+      tags:
+      - Trait
+      security:
+      - Access token: []
+      - Lang: []
+      - Person token: []
+      operationId: postTraitRowsValidateDeleteById
+      x-operation-id-source: derived
+  /trait/rows:
+    post:
+      summary: Insert new input row
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/LajiBackendInputRow'
+      parameters:
+      - name: Person-Token
+        in: header
+        required: false
+        description: Identity of a logged in user
+        schema:
+          type: string
+      responses:
+        '200':
+          description: Succesful response
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/LajiBackendInputRow'
+        '400':
+          description: Illegal arguments
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/LajiBackendTraitAPIError'
+        '403':
+          description: No access / Invalid authorization
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/LajiBackendTraitAPIError'
+        '422':
+          description: Validation failure - should call validation endpoints before calling upsert operations.
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/LajiBackendTraitAPIError'
+        '500':
+          description: Unknown failure
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/LajiBackendTraitAPIError'
+      tags:
+      - Trait
+      security:
+      - Access token: []
+      - Lang: []
+      - Person token: []
+      operationId: postTraitRows
+      x-operation-id-source: derived
+  /trait/rows/tsv2rows/validate:
+    post:
+      summary: Validate TSV to InputRows conversion
+      requestBody:
+        required: true
+        content:
+          text/tab-separated-values:
+            schema:
+              type: string
+      parameters:
+      - name: Person-Token
+        in: header
+        required: false
+        description: Identity of a logged in user
+        schema:
+          type: string
+      - name: datasetId
+        in: query
+        required: true
+        description: Id if the dataset
+        schema:
+          type: string
+      responses:
+        '200':
+          description: Succesful response
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/LajiBackendTraitTSVValidationResponse'
+        '400':
+          description: Illegal arguments
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/LajiBackendTraitAPIError'
+        '500':
+          description: Unknown failure
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/LajiBackendTraitAPIError'
+      tags:
+      - Trait
+      security:
+      - Access token: []
+      - Lang: []
+      - Person token: []
+      operationId: postTraitRowsTsv2rowsValidate
+      x-operation-id-source: derived
+  /trait/rows/tsv2rows:
+    post:
+      summary: Convert TSV lines to InputRows
+      requestBody:
+        required: true
+        content:
+          text/tab-separated-values:
+            schema:
+              type: string
+      parameters:
+      - name: Person-Token
+        in: header
+        required: false
+        description: Identity of a logged in user
+        schema:
+          type: string
+      - name: datasetId
+        in: query
+        required: true
+        description: Id if the dataset
+        schema:
+          type: string
+      responses:
+        '200':
+          description: Succesful response
+          content:
+            application/json:
+              schema:
+                type: array
+                items:
+                  $ref: '#/components/schemas/LajiBackendInputRow'
+        '400':
+          description: Illegal arguments
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/LajiBackendTraitAPIError'
+        '422':
+          description: Validation failure - should call validation endpoint before doing conversion.
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/LajiBackendTraitAPIError'
+        '500':
+          description: Unknown failure
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/LajiBackendTraitAPIError'
+      tags:
+      - Trait
+      security:
+      - Access token: []
+      - Lang: []
+      - Person token: []
+      operationId: postTraitRowsTsv2rows
+      x-operation-id-source: derived
+  /trait/rows/multi/validate:
+    post:
+      summary: Validate adding a batch of input rows
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              type: array
+              items:
+                $ref: '#/components/schemas/LajiBackendInputRow'
+      parameters:
+      - name: Person-Token
+        in: header
+        required: false
+        description: Identity of a logged in user
+        schema:
+          type: string
+      responses:
+        '200':
+          description: Succesful response
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/LajiBackendTraitMultiValidationResponse'
+        '400':
+          description: Illegal arguments
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/LajiBackendTraitAPIError'
+        '403':
+          description: No access / Invalid authorization
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/LajiBackendTraitAPIError'
+        '500':
+          description: Unknown failure
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/LajiBackendTraitAPIError'
+      tags:
+      - Trait
+      security:
+      - Access token: []
+      - Lang: []
+      - Person token: []
+      operationId: postTraitRowsMultiValidate
+      x-operation-id-source: derived
+  /trait/rows/multi:
+    post:
+      summary: Store a batch of input rows
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              type: array
+              items:
+                $ref: '#/components/schemas/LajiBackendInputRow'
+      parameters:
+      - name: Person-Token
+        in: header
+        required: false
+        description: Identity of a logged in user
+        schema:
+          type: string
+      responses:
+        '200':
+          description: Succesful response
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/LajiBackendTraitAPIOKResponse'
+        '400':
+          description: Illegal arguments
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/LajiBackendTraitAPIError'
+        '403':
+          description: No access / Invalid authorization
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/LajiBackendTraitAPIError'
+        '422':
+          description: Validation failure - should call validation endpoint before doing insert.
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/LajiBackendTraitAPIError'
+        '500':
+          description: Unknown failure
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/LajiBackendTraitAPIError'
+      tags:
+      - Trait
+      security:
+      - Access token: []
+      - Lang: []
+      - Person token: []
+      operationId: postTraitRowsMulti
+      x-operation-id-source: derived
+  /trait/rows/search:
+    get:
+      summary: Search input rows
+      description: Search stored traits of a single dataset. Requires permissions to the dataset.
+      parameters:
+      - name: Person-Token
+        in: header
+        required: false
+        description: Identity of a logged in user
+        schema:
+          type: string
+      - name: datasetId
+        in: query
+        required: true
+        description: Id if the dataset
+        schema:
+          type: string
+      - name: pageSize
+        in: query
+        required: false
+        description: Page size
+        schema:
+          type: integer
+          default: 10
+          minimum: 1
+          maximum: 1000
+      - name: searchParams
+        in: query
+        required: false
+        description: 'A set of key-value pairs used to filter search results.
+
+          Each key represents a field name in the result model, and its corresponding value specifies the criteria that must be met for the records to match.
+
+          If field is given multiple time as parameter, at least one of the given values must match.
+
+          Example: subject.type=TDF.typeTaxon&traits.statisticalMethod=TDF.statisticalMethodSD&traits.statisticalMethod=TDF.statisticalMethodAvg'
+        schema:
+          type: object
+          additionalProperties:
+            type: string
+      responses:
+        '200':
+          description: Succesful response
+          content:
+            application/json:
+              schema:
+                type: array
+                items:
+                  $ref: '#/components/schemas/LajiBackendInputRow'
+        '400':
+          description: Illegal arguments
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/LajiBackendTraitAPIError'
+        '403':
+          description: No access / Invalid authorization
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/LajiBackendTraitAPIError'
+        '500':
+          description: Unknown failure
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/LajiBackendTraitAPIError'
+      tags:
+      - Trait
+      security:
+      - Access token: []
+      - Lang: []
+      - Person token: []
+      operationId: getTraitRowsSearch
+      x-operation-id-source: derived
+  /trait/datasets:
+    get:
+      summary: Get all datasets
+      responses:
+        '200':
+          description: Succesful response
+          content:
+            application/json:
+              schema:
+                type: array
+                items:
+                  $ref: '#/components/schemas/LajiBackendDataset'
+        '500':
+          description: Unknown failure
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/LajiBackendTraitAPIError'
+      tags:
+      - Trait
+      security:
+      - Access token: []
+      - Lang: []
+      - Person token: []
+      operationId: getTraitDatasets
+      x-operation-id-source: derived
+    post:
+      summary: Insert new dataset
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/LajiBackendDataset'
+      parameters:
+      - name: Person-Token
+        in: header
+        required: false
+        description: Identity of a logged in user
+        schema:
+          type: string
+      responses:
+        '200':
+          description: Succesful response
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/LajiBackendDataset'
+        '400':
+          description: Illegal arguments
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/LajiBackendTraitAPIError'
+        '403':
+          description: No access / Invalid authorization
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/LajiBackendTraitAPIError'
+        '422':
+          description: Validation failure - should call validation endpoints before calling upsert operations.
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/LajiBackendTraitAPIError'
+        '500':
+          description: Unknown failure
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/LajiBackendTraitAPIError'
+      tags:
+      - Trait
+      security:
+      - Access token: []
+      - Lang: []
+      - Person token: []
+      operationId: postTraitDatasets
+      x-operation-id-source: derived
+  /trait/datasets/{id}:
+    get:
+      summary: Get dataset by id
+      parameters:
+      - name: id
+        in: path
+        required: true
+        description: Id of the Dataset
+        schema:
+          type: string
+      responses:
+        '200':
+          description: Succesful response
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/LajiBackendDataset'
+        '404':
+          description: No entity with the given id
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/LajiBackendTraitAPIError'
+        '500':
+          description: Unknown failure
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/LajiBackendTraitAPIError'
+      tags:
+      - Trait
+      security:
+      - Access token: []
+      - Lang: []
+      - Person token: []
+      operationId: getTraitDatasetsById
+      x-operation-id-source: derived
+    put:
+      summary: Update a dataset
+      parameters:
+      - name: id
+        in: path
+        required: true
+        description: Id of the Dataset
+        schema:
+          type: string
+      - name: Person-Token
+        in: header
+        required: false
+        description: Identity of a logged in user
+        schema:
+          type: string
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/LajiBackendDataset'
+      responses:
+        '200':
+          description: Succesful response
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/LajiBackendDataset'
+        '400':
+          description: Illegal arguments
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/LajiBackendTraitAPIError'
+        '403':
+          description: No access / Invalid authorization
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/LajiBackendTraitAPIError'
+        '404':
+          description: No entity with the given id
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/LajiBackendTraitAPIError'
+        '422':
+          description: Validation failure - should call validation endpoints before calling upsert operations.
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/LajiBackendTraitAPIError'
+        '500':
+          description: Unknown failure
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/LajiBackendTraitAPIError'
+      tags:
+      - Trait
+      security:
+      - Access token: []
+      - Lang: []
+      - Person token: []
+      operationId: putTraitDatasetsById
+      x-operation-id-source: derived
+    delete:
+      summary: Delete a dataset
+      parameters:
+      - name: id
+        in: path
+        required: true
+        description: Id
+        schema:
+          type: string
+      - name: Person-Token
+        in: header
+        required: false
+        description: Identity of a logged in user
+        schema:
+          type: string
+      responses:
+        '200':
+          description: Succesful response
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/LajiBackendTraitAPIOKResponse'
+        '403':
+          description: No access / Invalid authorization
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/LajiBackendTraitAPIError'
+        '404':
+          description: No entity with the given id
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/LajiBackendTraitAPIError'
+        '422':
+          description: Validation failure - should call validation endpoints before calling upsert operations.
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/LajiBackendTraitAPIError'
+        '500':
+          description: Unknown failure
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/LajiBackendTraitAPIError'
+      tags:
+      - Trait
+      security:
+      - Access token: []
+      - Lang: []
+      - Person token: []
+      operationId: deleteTraitDatasetsById
+      x-operation-id-source: derived
+  /trait/datasets/validate:
+    post:
+      summary: Validate adding a new dataset
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/LajiBackendDataset'
+      parameters:
+      - name: Person-Token
+        in: header
+        required: false
+        description: Identity of a logged in user
+        schema:
+          type: string
+      responses:
+        '200':
+          description: Succesful response
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/LajiBackendValidationResponse'
+        '400':
+          description: Illegal arguments
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/LajiBackendTraitAPIError'
+        '403':
+          description: No access / Invalid authorization
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/LajiBackendTraitAPIError'
+        '500':
+          description: Unknown failure
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/LajiBackendTraitAPIError'
+      tags:
+      - Trait
+      security:
+      - Access token: []
+      - Lang: []
+      - Person token: []
+      operationId: postTraitDatasetsValidate
+      x-operation-id-source: derived
+  /trait/datasets/validate-update/{id}:
+    post:
+      summary: Validate dataset update
+      parameters:
+      - name: id
+        in: path
+        required: true
+        description: Id of the Dataset
+        schema:
+          type: string
+      - name: Person-Token
+        in: header
+        required: false
+        description: Identity of a logged in user
+        schema:
+          type: string
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/LajiBackendDataset'
+      responses:
+        '200':
+          description: Succesful response
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/LajiBackendValidationResponse'
+        '400':
+          description: Illegal arguments
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/LajiBackendTraitAPIError'
+        '403':
+          description: No access / Invalid authorization
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/LajiBackendTraitAPIError'
+        '404':
+          description: No entity with the given id
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/LajiBackendTraitAPIError'
+        '500':
+          description: Unknown failure
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/LajiBackendTraitAPIError'
+      tags:
+      - Trait
+      security:
+      - Access token: []
+      - Lang: []
+      - Person token: []
+      operationId: postTraitDatasetsValidateUpdateById
+      x-operation-id-source: derived
+  /trait/datasets/validate-delete/{id}:
+    post:
+      summary: Validate deleting a dataset
+      parameters:
+      - name: id
+        in: path
+        required: true
+        description: Id
+        schema:
+          type: string
+      - name: Person-Token
+        in: header
+        required: false
+        description: Identity of a logged in user
+        schema:
+          type: string
+      responses:
+        '200':
+          description: Succesful response
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/LajiBackendValidationResponse'
+        '403':
+          description: No access / Invalid authorization
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/LajiBackendTraitAPIError'
+        '404':
+          description: No entity with the given id
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/LajiBackendTraitAPIError'
+        '500':
+          description: Unknown failure
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/LajiBackendTraitAPIError'
+      tags:
+      - Trait
+      security:
+      - Access token: []
+      - Lang: []
+      - Person token: []
+      operationId: postTraitDatasetsValidateDeleteById
+      x-operation-id-source: derived
+  /trait/dataset-permissions:
+    get:
+      summary: Get users all permissions (defined by personToken or - in absence - of the…
+      parameters:
+      - name: Person-Token
+        in: header
+        required: false
+        description: Identity of a logged in user
+        schema:
+          type: string
+      responses:
+        '200':
+          description: Succesful response
+          content:
+            application/json:
+              schema:
+                type: array
+                items:
+                  $ref: '#/components/schemas/LajiBackendDatasetPermissions'
+        '403':
+          description: No access / Invalid authorization
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/LajiBackendTraitAPIError'
+        '500':
+          description: Unknown failure
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/LajiBackendTraitAPIError'
+      tags:
+      - Trait
+      security:
+      - Access token: []
+      - Lang: []
+      - Person token: []
+      operationId: getTraitDatasetPermissions
+      x-operation-id-source: derived
+  /trait/dataset-permissions/{datasetId}:
+    get:
+      summary: Get permissions of a dataset
+      parameters:
+      - name: datasetId
+        in: path
+        required: true
+        description: Id of the dataset
+        schema:
+          type: string
+      responses:
+        '200':
+          description: Succesful response
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/LajiBackendDatasetPermissions'
+        '404':
+          description: No entity with the given id
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/LajiBackendTraitAPIError'
+        '500':
+          description: Unknown failure
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/LajiBackendTraitAPIError'
+      tags:
+      - Trait
+      security:
+      - Access token: []
+      - Lang: []
+      - Person token: []
+      operationId: getTraitDatasetPermissionsByDatasetId
+      x-operation-id-source: derived
+    put:
+      summary: Update permissions of a dataset
+      parameters:
+      - name: datasetId
+        in: path
+        required: true
+        description: Id of the dataset
+        schema:
+          type: string
+      - name: Person-Token
+        in: header
+        required: false
+        description: Identity of a logged in user
+        schema:
+          type: string
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/LajiBackendDatasetPermissions'
+      responses:
+        '200':
+          description: Succesful response
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/LajiBackendDatasetPermissions'
+        '400':
+          description: Illegal arguments
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/LajiBackendTraitAPIError'
+        '403':
+          description: No access / Invalid authorization
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/LajiBackendTraitAPIError'
+        '404':
+          description: No entity with the given id
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/LajiBackendTraitAPIError'
+        '422':
+          description: Validation failure - should call validation endpoints before calling upsert operations.
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/LajiBackendTraitAPIError'
+        '500':
+          description: Unknown failure
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/LajiBackendTraitAPIError'
+      tags:
+      - Trait
+      security:
+      - Access token: []
+      - Lang: []
+      - Person token: []
+      operationId: putTraitDatasetPermissionsByDatasetId
+      x-operation-id-source: derived
+  /trait/dataset-permissions/validate-update/{datasetId}:
+    post:
+      summary: Validate permission submission
+      parameters:
+      - name: datasetId
+        in: path
+        required: true
+        description: Id of the dataset
+        schema:
+          type: string
+      - name: Person-Token
+        in: header
+        required: false
+        description: Identity of a logged in user
+        schema:
+          type: string
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/LajiBackendDatasetPermissions'
+      responses:
+        '200':
+          description: Succesful response
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/LajiBackendValidationResponse'
+        '400':
+          description: Illegal arguments
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/LajiBackendTraitAPIError'
+        '403':
+          description: No access / Invalid authorization
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/LajiBackendTraitAPIError'
+        '404':
+          description: No entity with the given id
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/LajiBackendTraitAPIError'
+        '500':
+          description: Unknown failure
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/LajiBackendTraitAPIError'
+      tags:
+      - Trait
+      security:
+      - Access token: []
+      - Lang: []
+      - Person token: []
+      operationId: postTraitDatasetPermissionsValidateUpdateByDatasetId
+      x-operation-id-source: derived
+  /trait/trait-groups:
+    get:
+      summary: Get all trait groups
+      responses:
+        '200':
+          description: Succesful response
+          content:
+            application/json:
+              schema:
+                type: array
+                items:
+                  $ref: '#/components/schemas/LajiBackendTraitGroup'
+        '500':
+          description: Unknown failure
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/LajiBackendTraitAPIError'
+      tags:
+      - Trait
+      security:
+      - Access token: []
+      - Lang: []
+      - Person token: []
+      operationId: getTraitTraitGroups
+      x-operation-id-source: derived
+    post:
+      summary: Insert new trait group
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/LajiBackendTraitGroup'
+      responses:
+        '200':
+          description: Succesful response
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/LajiBackendTraitGroup'
+        '400':
+          description: Illegal arguments
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/LajiBackendTraitAPIError'
+        '403':
+          description: No access / Invalid authorization
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/LajiBackendTraitAPIError'
+        '422':
+          description: Validation failure - should call validation endpoints before calling upsert operations.
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/LajiBackendTraitAPIError'
+        '500':
+          description: Unknown failure
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/LajiBackendTraitAPIError'
+      tags:
+      - Trait
+      security:
+      - Access token: []
+      - Lang: []
+      - Person token: []
+      operationId: postTraitTraitGroups
+      x-operation-id-source: derived
+  /trait/trait-groups/{id}:
+    get:
+      summary: Get trait group by id
+      parameters:
+      - name: id
+        in: path
+        required: true
+        description: Id of the TraitGroup
+        schema:
+          type: string
+      responses:
+        '200':
+          description: Succesful response
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/LajiBackendTraitGroup'
+        '404':
+          description: No entity with the given id
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/LajiBackendTraitAPIError'
+        '500':
+          description: Unknown failure
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/LajiBackendTraitAPIError'
+      tags:
+      - Trait
+      security:
+      - Access token: []
+      - Lang: []
+      - Person token: []
+      operationId: getTraitTraitGroupsById
+      x-operation-id-source: derived
+    put:
+      summary: Update a trait group
+      parameters:
+      - name: id
+        in: path
+        required: true
+        description: Id of the TraitGroup
+        schema:
+          type: string
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/LajiBackendTraitGroup'
+      responses:
+        '200':
+          description: Succesful response
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/LajiBackendTraitGroup'
+        '400':
+          description: Illegal arguments
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/LajiBackendTraitAPIError'
+        '403':
+          description: No access / Invalid authorization
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/LajiBackendTraitAPIError'
+        '404':
+          description: No entity with the given id
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/LajiBackendTraitAPIError'
+        '422':
+          description: Validation failure - should call validation endpoints before calling upsert operations.
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/LajiBackendTraitAPIError'
+        '500':
+          description: Unknown failure
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/LajiBackendTraitAPIError'
+      tags:
+      - Trait
+      security:
+      - Access token: []
+      - Lang: []
+      - Person token: []
+      operationId: putTraitTraitGroupsById
+      x-operation-id-source: derived
+    delete:
+      summary: Delete a trait group
+      parameters:
+      - name: id
+        in: path
+        required: true
+        description: Id
+        schema:
+          type: string
+      responses:
+        '200':
+          description: Succesful response
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/LajiBackendTraitAPIOKResponse'
+        '403':
+          description: No access / Invalid authorization
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/LajiBackendTraitAPIError'
+        '404':
+          description: No entity with the given id
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/LajiBackendTraitAPIError'
+        '422':
+          description: Validation failure - should call validation endpoints before calling upsert operations.
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/LajiBackendTraitAPIError'
+        '500':
+          description: Unknown failure
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/LajiBackendTraitAPIError'
+      tags:
+      - Trait
+      security:
+      - Access token: []
+      - Lang: []
+      - Person token: []
+      operationId: deleteTraitTraitGroupsById
+      x-operation-id-source: derived
+  /trait/trait-groups/validate:
+    post:
+      summary: Validate adding a new trait group
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/LajiBackendTraitGroup'
+      responses:
+        '200':
+          description: Succesful response
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/LajiBackendValidationResponse'
+        '400':
+          description: Illegal arguments
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/LajiBackendTraitAPIError'
+        '403':
+          description: No access / Invalid authorization
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/LajiBackendTraitAPIError'
+        '500':
+          description: Unknown failure
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/LajiBackendTraitAPIError'
+      tags:
+      - Trait
+      security:
+      - Access token: []
+      - Lang: []
+      - Person token: []
+      operationId: postTraitTraitGroupsValidate
+      x-operation-id-source: derived
+  /trait/trait-groups/validate-update/{id}:
+    post:
+      summary: Validate trait group update
+      parameters:
+      - name: id
+        in: path
+        required: true
+        description: Id of the TraitGroup
+        schema:
+          type: string
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/LajiBackendTraitGroup'
+      responses:
+        '200':
+          description: Succesful response
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/LajiBackendValidationResponse'
+        '400':
+          description: Illegal arguments
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/LajiBackendTraitAPIError'
+        '403':
+          description: No access / Invalid authorization
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/LajiBackendTraitAPIError'
+        '404':
+          description: No entity with the given id
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/LajiBackendTraitAPIError'
+        '500':
+          description: Unknown failure
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/LajiBackendTraitAPIError'
+      tags:
+      - Trait
+      security:
+      - Access token: []
+      - Lang: []
+      - Person token: []
+      operationId: postTraitTraitGroupsValidateUpdateById
+      x-operation-id-source: derived
+  /trait/trait-groups/validate-delete/{id}:
+    post:
+      summary: Validate deleting a trait group
+      parameters:
+      - name: id
+        in: path
+        required: true
+        description: Id
+        schema:
+          type: string
+      responses:
+        '200':
+          description: Succesful response
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/LajiBackendValidationResponse'
+        '403':
+          description: No access / Invalid authorization
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/LajiBackendTraitAPIError'
+        '404':
+          description: No entity with the given id
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/LajiBackendTraitAPIError'
+        '500':
+          description: Unknown failure
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/LajiBackendTraitAPIError'
+      tags:
+      - Trait
+      security:
+      - Access token: []
+      - Lang: []
+      - Person token: []
+      operationId: postTraitTraitGroupsValidateDeleteById
+      x-operation-id-source: derived
+  /trait/traits:
+    get:
+      summary: Get all traits
+      responses:
+        '200':
+          description: Succesful response
+          content:
+            application/json:
+              schema:
+                type: array
+                items:
+                  $ref: '#/components/schemas/LajiBackendTrait'
+        '500':
+          description: Unknown failure
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/LajiBackendTraitAPIError'
+      tags:
+      - Trait
+      security:
+      - Access token: []
+      - Lang: []
+      - Person token: []
+      operationId: getTraitTraits
+      x-operation-id-source: derived
+    post:
+      summary: Insert new trait
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/LajiBackendTrait'
+      responses:
+        '200':
+          description: Succesful response
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/LajiBackendTrait'
+        '400':
+          description: Illegal arguments
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/LajiBackendTraitAPIError'
+        '403':
+          description: No access / Invalid authorization
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/LajiBackendTraitAPIError'
+        '422':
+          description: Validation failure - should call validation endpoints before calling upsert operations.
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/LajiBackendTraitAPIError'
+        '500':
+          description: Unknown failure
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/LajiBackendTraitAPIError'
+      tags:
+      - Trait
+      security:
+      - Access token: []
+      - Lang: []
+      - Person token: []
+      operationId: postTraitTraits
+      x-operation-id-source: derived
+  /trait/traits/{id}:
+    get:
+      summary: Get trait by id
+      parameters:
+      - name: id
+        in: path
+        required: true
+        description: Id of the Trait
+        schema:
+          type: string
+      responses:
+        '200':
+          description: Succesful response
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/LajiBackendTrait'
+        '404':
+          description: No entity with the given id
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/LajiBackendTraitAPIError'
+        '500':
+          description: Unknown failure
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/LajiBackendTraitAPIError'
+      tags:
+      - Trait
+      security:
+      - Access token: []
+      - Lang: []
+      - Person token: []
+      operationId: getTraitTraitsById
+      x-operation-id-source: derived
+    put:
+      summary: Update a trait
+      parameters:
+      - name: id
+        in: path
+        required: true
+        description: Id of the Trait
+        schema:
+          type: string
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/LajiBackendTrait'
+      responses:
+        '200':
+          description: Succesful response
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/LajiBackendTrait'
+        '400':
+          description: Illegal arguments
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/LajiBackendTraitAPIError'
+        '403':
+          description: No access / Invalid authorization
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/LajiBackendTraitAPIError'
+        '404':
+          description: No entity with the given id
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/LajiBackendTraitAPIError'
+        '422':
+          description: Validation failure - should call validation endpoints before calling upsert operations.
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/LajiBackendTraitAPIError'
+        '500':
+          description: Unknown failure
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/LajiBackendTraitAPIError'
+      tags:
+      - Trait
+      security:
+      - Access token: []
+      - Lang: []
+      - Person token: []
+      operationId: putTraitTraitsById
+      x-operation-id-source: derived
+    delete:
+      summary: Delete a trait
+      parameters:
+      - name: id
+        in: path
+        required: true
+        description: Id
+        schema:
+          type: string
+      responses:
+        '200':
+          description: Succesful response
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/LajiBackendTraitAPIOKResponse'
+        '403':
+          description: No access / Invalid authorization
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/LajiBackendTraitAPIError'
+        '404':
+          description: No entity with the given id
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/LajiBackendTraitAPIError'
+        '422':
+          description: Validation failure - should call validation endpoints before calling upsert operations.
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/LajiBackendTraitAPIError'
+        '500':
+          description: Unknown failure
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/LajiBackendTraitAPIError'
+      tags:
+      - Trait
+      security:
+      - Access token: []
+      - Lang: []
+      - Person token: []
+      operationId: deleteTraitTraitsById
+      x-operation-id-source: derived
+  /trait/traits/validate:
+    post:
+      summary: Validate adding a new trait
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/LajiBackendTrait'
+      responses:
+        '200':
+          description: Succesful response
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/LajiBackendValidationResponse'
+        '400':
+          description: Illegal arguments
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/LajiBackendTraitAPIError'
+        '403':
+          description: No access / Invalid authorization
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/LajiBackendTraitAPIError'
+        '500':
+          description: Unknown failure
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/LajiBackendTraitAPIError'
+      tags:
+      - Trait
+      security:
+      - Access token: []
+      - Lang: []
+      - Person token: []
+      operationId: postTraitTraitsValidate
+      x-operation-id-source: derived
+  /trait/traits/validate-update/{id}:
+    post:
+      summary: Validate trait update
+      parameters:
+      - name: id
+        in: path
+        required: true
+        description: Id of the Trait
+        schema:
+          type: string
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/LajiBackendTrait'
+      responses:
+        '200':
+          description: Succesful response
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/LajiBackendValidationResponse'
+        '400':
+          description: Illegal arguments
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/LajiBackendTraitAPIError'
+        '403':
+          description: No access / Invalid authorization
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/LajiBackendTraitAPIError'
+        '404':
+          description: No entity with the given id
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/LajiBackendTraitAPIError'
+        '500':
+          description: Unknown failure
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/LajiBackendTraitAPIError'
+      tags:
+      - Trait
+      security:
+      - Access token: []
+      - Lang: []
+      - Person token: []
+      operationId: postTraitTraitsValidateUpdateById
+      x-operation-id-source: derived
+  /trait/traits/validate-delete/{id}:
+    post:
+      summary: Validate deleting a trait
+      parameters:
+      - name: id
+        in: path
+        required: true
+        description: Id
+        schema:
+          type: string
+      responses:
+        '200':
+          description: Succesful response
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/LajiBackendValidationResponse'
+        '403':
+          description: No access / Invalid authorization
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/LajiBackendTraitAPIError'
+        '404':
+          description: No entity with the given id
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/LajiBackendTraitAPIError'
+        '500':
+          description: Unknown failure
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/LajiBackendTraitAPIError'
+      tags:
+      - Trait
+      security:
+      - Access token: []
+      - Lang: []
+      - Person token: []
+      operationId: postTraitTraitsValidateDeleteById
+      x-operation-id-source: derived
+  /trait/units:
+    get:
+      summary: Get all units of measurement
+      responses:
+        '200':
+          description: Succesful response
+          content:
+            application/json:
+              schema:
+                type: array
+                items:
+                  $ref: '#/components/schemas/LajiBackendUnitOfMeasurement'
+        '500':
+          description: Unknown failure
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/LajiBackendTraitAPIError'
+      tags:
+      - Trait
+      security:
+      - Access token: []
+      - Lang: []
+      - Person token: []
+      operationId: getTraitUnits
+      x-operation-id-source: derived
+  /trait/units/{id}:
+    get:
+      summary: Get unit of measurement by id
+      parameters:
+      - name: id
+        in: path
+        required: true
+        description: Id of the UnitOfMeasurement
+        schema:
+          type: string
+      responses:
+        '200':
+          description: Succesful response
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/LajiBackendUnitOfMeasurement'
+        '404':
+          description: No entity with the given id
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/LajiBackendTraitAPIError'
+        '500':
+          description: Unknown failure
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/LajiBackendTraitAPIError'
+      tags:
+      - Trait
+      security:
+      - Access token: []
+      - Lang: []
+      - Person token: []
+      operationId: getTraitUnitsById
+      x-operation-id-source: derived
+components:
+  schemas:
+    LajiBackendHigherTaxa:
+      type: object
+      properties:
+        domain:
+          type: string
+        kingdom:
+          type: string
+        phylum:
+          type: string
+        subphylum:
+          type: string
+        division:
+          type: string
+        class:
+          type: string
+        subclass:
+          type: string
+        order:
+          type: string
+        suborder:
+          type: string
+        superfamily:
+          type: string
+        family:
+          type: string
+        subfamily:
+          type: string
+        tribe:
+          type: string
+        subtribe:
+          type: string
+        genus:
+          type: string
+      required:
+      - domain
+      - kingdom
+      - phylum
+      - subphylum
+      - division
+      - class
+      - subclass
+      - order
+      - suborder
+      - superfamily
+      - family
+      - subfamily
+      - tribe
+      - subtribe
+      - genus
+    LajiBackendTraitSearchDataset:
+      type: object
+      properties:
+        id:
+          type: string
+          description: Qname identifier
+        name:
+          type: string
+        description:
+          type: string
+        citation:
+          type: string
+        intellectualOwner:
+          type: string
+        personResponsible:
+          type: string
+        contactEmail:
+          type: string
+        methods:
+          type: string
+        coverageBasis:
+          type: string
+        doi:
+          type: string
+        gbifDoi:
+          type: string
+        additionalIdentifier:
+          type: array
+          items:
+            type: string
+      required:
+      - id
+      - name
+      - description
+      - citation
+      - intellectualOwner
+      - personResponsible
+      - contactEmail
+      - methods
+      - coverageBasis
+      - doi
+      - gbifDoi
+      - additionalIdentifier
+    LajiBackendDatasetPermissions:
+      type: object
+      properties:
+        datasetId:
+          type: string
+          description: Qname identifier
+        userIds:
+          type: array
+          items:
+            type: string
+      required:
+      - datasetId
+    LajiBackendInputRow:
+      type: object
+      properties:
+        subject:
+          $ref: '#/components/schemas/LajiBackendSubject'
+        traits:
+          type: array
+          items:
+            $ref: '#/components/schemas/LajiBackendTraitValue'
+      required:
+      - subject
+    LajiBackendTraitTSVValidationResponse:
+      type: object
+      properties:
+        pass:
+          type: boolean
+        header:
+          $ref: '#/components/schemas/LajiBackendValidationResponse'
+        rows:
+          type: array
+          items:
+            $ref: '#/components/schemas/LajiBackendValidationResponse'
+      required:
+      - pass
+      - header
+      - rows
+    LajiBackendDataset:
+      type: object
+      properties:
+        id:
+          type: string
+          description: Qname identifier
+        name:
+          type: string
+        description:
+          type: string
+        citation:
+          type: string
+        intellectualOwner:
+          type: string
+        personResponsible:
+          type: string
+        contactEmail:
+          type: string
+        institutionCode:
+          type: string
+        methods:
+          type: string
+        taxonomicCoverage:
+          type: string
+        temporalCoverage:
+          type: string
+        geographicCoverage:
+          type: string
+        coverageBasis:
+          type: string
+        doi:
+          type: string
+        gbifDoi:
+          type: string
+        additionalIdentifier:
+          type: array
+          items:
+            type: string
+        published:
+          type: boolean
+        shareToFinBIF:
+          type: boolean
+        shareToGBIF:
+          type: boolean
+      required:
+      - id
+      - name
+      - description
+      - citation
+      - intellectualOwner
+      - personResponsible
+      - contactEmail
+      - methods
+      - taxonomicCoverage
+      - temporalCoverage
+      - geographicCoverage
+      - coverageBasis
+      - published
+      - shareToFinBIF
+      - shareToGBIF
+    LajiBackendTraitEnumerationValue:
+      type: object
+      properties:
+        id:
+          type: string
+          description: Qname identifier
+        dataEntryName:
+          type: string
+        name:
+          type: string
+        description:
+          type: string
+      required:
+      - id
+      - dataEntryName
+      - name
+      - description
+    LajiBackendTrait:
+      type: object
+      properties:
+        id:
+          type: string
+          description: Qname identifier
+        group:
+          type: string
+          description: Qname identifier
+        dataEntryName:
+          type: string
+        name:
+          type: string
+        description:
+          type: string
+        exampleValues:
+          type: string
+        baseUnit:
+          type: string
+          description: Qname identifier
+          enum:
+          - TDF.umNM
+          - TDF.umUM
+          - TDF.umMM
+          - TDF.umCM
+          - TDF.umM
+          - TDF.umKM
+          - TDF.umG
+          - TDF.umKG
+          - TDF.umA
+          - TDF.umS
+          - TDF.umML
+          - TDF.umL
+          - TDF.umMOL
+          - TDF.umMMOL
+          - TDF.umUMOL
+          - TDF.umHZ
+          - TDF.umP
+          - TDF.umPPT
+          - TDF.umPPM
+          - TDF.umC
+          - TDF.umMM2
+          - TDF.umCM2
+          - TDF.umM2
+          - TDF.umARE
+          - TDF.umHA
+          - TDF.umKM2
+          - TDF.umMM3
+          - TDF.umCM3
+          - TDF.umM3
+          - TDF.umGMOL
+          - TDF.umMOLL
+          - TDF.umCM2H
+          x-enum-origin: TDF.unitOfMeasurementEnum
+        range:
+          type: string
+          description: Qname identifier
+          enum:
+          - xsd:string
+          - xsd:decimal
+          - xsd:integer
+          - xsd:positiveInteger
+          - xsd:nonNegativeInteger
+          - xsd:boolean
+          - MX.taxon
+          x-enum-origin: TDF.rangeEnum
+        enumerations:
+          type: array
+          items:
+            $ref: '#/components/schemas/LajiBackendTraitEnumerationValue'
+        reference:
+          type: string
+        identifiers:
+          type: array
+          items:
+            type: string
+      required:
+      - id
+      - group
+      - dataEntryName
+      - name
+      - description
+      - range
+    LajiBackendTraitSearchTrait:
+      type: object
+      properties:
+        id:
+          type: string
+          description: Qname identifier
+        dataEntryName:
+          type: string
+        name:
+          type: string
+        description:
+          type: string
+        baseUnit:
+          type: string
+          description: Qname identifier
+          enum:
+          - TDF.umNM
+          - TDF.umUM
+          - TDF.umMM
+          - TDF.umCM
+          - TDF.umM
+          - TDF.umKM
+          - TDF.umG
+          - TDF.umKG
+          - TDF.umA
+          - TDF.umS
+          - TDF.umML
+          - TDF.umL
+          - TDF.umMOL
+          - TDF.umMMOL
+          - TDF.umUMOL
+          - TDF.umHZ
+          - TDF.umP
+          - TDF.umPPT
+          - TDF.umPPM
+          - TDF.umC
+          - TDF.umMM2
+          - TDF.umCM2
+          - TDF.umM2
+          - TDF.umARE
+          - TDF.umHA
+          - TDF.umKM2
+          - TDF.umMM3
+          - TDF.umCM3
+          - TDF.umM3
+          - TDF.umGMOL
+          - TDF.umMOLL
+          - TDF.umCM2H
+          x-enum-origin: TDF.unitOfMeasurementEnum
+        range:
+          type: string
+          description: Qname identifier
+          enum:
+          - xsd:string
+          - xsd:decimal
+          - xsd:integer
+          - xsd:positiveInteger
+          - xsd:nonNegativeInteger
+          - xsd:boolean
+          - MX.taxon
+          x-enum-origin: TDF.rangeEnum
+        reference:
+          type: string
+        identifiers:
+          type: array
+          items:
+            type: string
+      required:
+      - id
+      - dataEntryName
+      - name
+      - description
+      - baseUnit
+      - range
+      - reference
+      - identifiers
+    LajiBackendTraitTaxon:
+      type: object
+      properties:
+        id:
+          type: string
+        taxonomicOrder:
+          type: integer
+        taxonRank:
+          type: string
+        scientificName:
+          type: string
+        cursiveName:
+          type: boolean
+        author:
+          type: string
+        higherTaxa:
+          $ref: '#/components/schemas/LajiBackendHigherTaxa'
+        iucnStatus:
+          type: string
+          description: Qname identifier
+          enum:
+          - MX.iucnEX
+          - MX.iucnEW
+          - MX.iucnRE
+          - MX.iucnCR
+          - MX.iucnEN
+          - MX.iucnVU
+          - MX.iucnNT
+          - MX.iucnLC
+          - MX.iucnDD
+          - MX.iucnNA
+          - MX.iucnNE
+          x-enum-origin: MX.iucnStatuses
+        primaryHabitat:
+          type: string
+          description: Qname identifier
+          enum:
+          - MKV.habitatM
+          - MKV.habitatMk
+          - MKV.habitatMkk
+          - MKV.habitatMkt
+          - MKV.habitatMl
+          - MKV.habitatMlt
+          - MKV.habitatMlk
+          - MKV.habitatMt
+          - MKV.habitatMtl
+          - MKV.habitatMtm
+          - MKV.habitatS
+          - MKV.habitatSl
+          - MKV.habitatSla
+          - MKV.habitatSlr
+          - MKV.habitatSlk
+          - MKV.habitatSn
+          - MKV.habitatSnk
+          - MKV.habitatSnr
+          - MKV.habitatSr
+          - MKV.habitatSrk
+          - MKV.habitatSrr
+          - MKV.habitatSk
+          - MKV.habitatSkk
+          - MKV.habitatSkr
+          - MKV.habitatV
+          - MKV.habitatVi
+          - MKV.habitatVik
+          - MKV.habitatVis
+          - MKV.habitatVim
+          - MKV.habitatVia
+          - MKV.habitatVie
+          - MKV.habitatVip
+          - MKV.habitatVs
+          - MKV.habitatVsk
+          - MKV.habitatVsr
+          - MKV.habitatVa
+          - MKV.habitatVj
+          - MKV.habitatVp
+          - MKV.habitatVk
+          - MKV.habitatVl
+          - MKV.habitatR
+          - MKV.habitatRi
+          - MKV.habitatRim
+          - MKV.habitatRimt
+          - MKV.habitatRiml
+          - MKV.habitatRip
+          - MKV.habitatRin
+          - MKV.habitatRil
+          - MKV.habitatRir
+          - MKV.habitatRis
+          - MKV.habitatRih
+          - MKV.habitatRit
+          - MKV.habitatRj
+          - MKV.habitatRjm
+          - MKV.habitatRjmt
+          - MKV.habitatRjml
+          - MKV.habitatRjp
+          - MKV.habitatRjn
+          - MKV.habitatRjl
+          - MKV.habitatRjr
+          - MKV.habitatRjs
+          - MKV.habitatRjh
+          - MKV.habitatRjt
+          - MKV.habitatK
+          - MKV.habitatKk
+          - MKV.habitatKs
+          - MKV.habitatKr
+          - MKV.habitatKl
+          - MKV.habitatKm
+          - MKV.habitatT
+          - MKV.habitatTk
+          - MKV.habitatTn
+          - MKV.habitatTu
+          - MKV.habitatTp
+          - MKV.habitatTl
+          - MKV.habitatTll
+          - MKV.habitatTlk
+          - MKV.habitatTls
+          - MKV.habitatTlr
+          - MKV.habitatTlä
+          - MKV.habitatTs
+          - MKV.habitatTj
+          - MKV.habitatTv
+          - MKV.habitatTa
+          - MKV.habitatI
+          - MKV.habitatIn
+          - MKV.habitatIt
+          - MKV.habitatIk
+          - MKV.habitatIh
+          - MKV.habitatIo
+          - MKV.habitatIv
+          - MKV.habitatIp
+          - MKV.habitatIj
+          - MKV.habitatIr
+          - MKV.habitatU
+          x-enum-origin: MKV.habitatEnum
+        habitatSpecifiers:
+          type: array
+          items:
+            type: string
+            enum:
+            - MKV.habitatSpecificTypeV
+            - MKV.habitatSpecificTypeLU
+            - MKV.habitatSpecificTypeH
+            - MKV.habitatSpecificTypeP
+            - MKV.habitatSpecificTypeJ
+            - MKV.habitatSpecificTypePAK
+            - MKV.habitatSpecificTypeVAK
+            - MKV.habitatSpecificTypeCA
+            - MKV.habitatSpecificTypeRA
+            - MKV.habitatSpecificTypeLK
+            - MKV.habitatSpecificTypeKA
+            - MKV.habitatSpecificTypeKE
+            x-enum-origin: MKV.habitatSpecificTypeEnum
+        sensitive:
+          type: boolean
+      required:
+      - id
+      - taxonomicOrder
+      - taxonRank
+      - scientificName
+      - cursiveName
+      - author
+      - higherTaxa
+      - iucnStatus
+      - primaryHabitat
+      - habitatSpecifiers
+      - sensitive
+    LajiBackendTraitMultiValidationResponse:
+      type: object
+      properties:
+        pass:
+          type: boolean
+        rows:
+          type: array
+          items:
+            $ref: '#/components/schemas/LajiBackendValidationResponse'
+      required:
+      - pass
+      - rows
+    LajiBackendTraitValue:
+      type: object
+      properties:
+        id:
+          type: string
+          description: Qname identifier
+        traitId:
+          type: string
+          description: Qname identifier
+        value:
+          type: string
+        unit:
+          type: string
+          description: Qname identifier
+          enum:
+          - TDF.umNM
+          - TDF.umUM
+          - TDF.umMM
+          - TDF.umCM
+          - TDF.umM
+          - TDF.umKM
+          - TDF.umG
+          - TDF.umKG
+          - TDF.umA
+          - TDF.umS
+          - TDF.umML
+          - TDF.umL
+          - TDF.umMOL
+          - TDF.umMMOL
+          - TDF.umUMOL
+          - TDF.umHZ
+          - TDF.umP
+          - TDF.umPPT
+          - TDF.umPPM
+          - TDF.umC
+          - TDF.umMM2
+          - TDF.umCM2
+          - TDF.umM2
+          - TDF.umARE
+          - TDF.umHA
+          - TDF.umKM2
+          - TDF.umMM3
+          - TDF.umCM3
+          - TDF.umM3
+          - TDF.umGMOL
+          - TDF.umMOLL
+          - TDF.umCM2H
+          x-enum-origin: TDF.unitOfMeasurementEnum
+        statisticalMethod:
+          type: string
+          description: Qname identifier
+          enum:
+          - TDF.statisticalMethodMin
+          - TDF.statisticalMethodMax
+          - TDF.statisticalMethodAvg
+          - TDF.statisticalMethodMedian
+          - TDF.statisticalMethodSD
+          - TDF.statisticalMethodMode
+          x-enum-origin: TDF.statisticalMethodEnum
+        measurementAccuracy:
+          type: number
+        objectTaxonLifeStage:
+          type: string
+          description: Qname identifier
+          enum:
+          - MY.lifeStageAdult
+          - MY.lifeStageNymph
+          - MY.lifeStageLarva
+          - MY.lifeStageEgg
+          - MY.lifeStagePupa
+          - MY.lifeStageJuvenile
+          - MY.lifeStageSubimago
+          - MY.lifeStageImmature
+          - MY.lifeStageFertile
+          - MY.lifeStageSterile
+          - MY.lifeStageTadpole
+          - MY.lifeStageEmbryo
+          - MY.lifeStageSubadult
+          - MY.lifeStageMature
+          - MY.lifeStagePullus
+          - MY.lifeStageHatchedEgg
+          - MY.lifeStageHatchedPupa
+          - MY.lifeStageGall
+          - MY.lifeStageMarks
+          - MY.lifeStageTriungulin
+          - MY.lifeStageExuvia
+          x-enum-origin: MY.lifeStages
+        warnings:
+          type: boolean
+        measurementRemarks:
+          type: string
+        reference:
+          type: string
+      required:
+      - id
+      - traitId
+      - value
+    LajiBackendValidationResponse:
+      type: object
+      properties:
+        pass:
+          type: boolean
+        errors:
+          type: object
+          additionalProperties:
+            type: string
+      required:
+      - pass
+      - errors
+    LajiBackendTraitAPISearchResponse:
+      type: object
+      properties:
+        currentPage:
+          type: integer
+        nextPage:
+          type: integer
+        lastPage:
+          type: integer
+        pageSize:
+          type: integer
+        total:
+          type: integer
+        results:
+          type: array
+          items:
+            $ref: '#/components/schemas/LajiBackendTraitSearchRow'
+        errors:
+          additionalProperties:
+            type: string
+      required:
+      - currentPage
+      - nextPage
+      - lastPage
+      - pageSize
+      - total
+      - results
+      - errors
+    LajiBackendUnitOfMeasurement:
+      type: object
+      properties:
+        id:
+          type: string
+          description: Qname identifier
+        unit:
+          type: string
+        base:
+          type: string
+          description: Qname identifier
+          enum:
+          - TDF.umNM
+          - TDF.umUM
+          - TDF.umMM
+          - TDF.umCM
+          - TDF.umM
+          - TDF.umKM
+          - TDF.umG
+          - TDF.umKG
+          - TDF.umA
+          - TDF.umS
+          - TDF.umML
+          - TDF.umL
+          - TDF.umMOL
+          - TDF.umMMOL
+          - TDF.umUMOL
+          - TDF.umHZ
+          - TDF.umP
+          - TDF.umPPT
+          - TDF.umPPM
+          - TDF.umC
+          - TDF.umMM2
+          - TDF.umCM2
+          - TDF.umM2
+          - TDF.umARE
+          - TDF.umHA
+          - TDF.umKM2
+          - TDF.umMM3
+          - TDF.umCM3
+          - TDF.umM3
+          - TDF.umGMOL
+          - TDF.umMOLL
+          - TDF.umCM2H
+          x-enum-origin: TDF.unitOfMeasurementEnum
+        conversionFactor:
+          type: number
+        isBaseUnit:
+          type: boolean
+      required:
+      - id
+      - unit
+      - base
+      - conversionFactor
+      - isBaseUnit
+    LajiBackendTraitSearchSubject:
+      type: object
+      properties:
+        id:
+          type: string
+          description: Qname identifier
+        type:
+          type: string
+          description: Qname identifier
+          enum:
+          - TDF.typeIndividual
+          - TDF.typePopulationGroup
+          - TDF.typeTaxon
+          x-enum-origin: TDF.typeEnum
+        basisOfRecord:
+          type: string
+          description: Qname identifier
+          enum:
+          - MY.recordBasisPreservedSpecimen
+          - MY.recordBasisHumanObservation
+          - MY.recordBasisHumanObservationSeen
+          - MY.recordBasisHumanObservationHeard
+          - MY.recordBasisHumanObservationHandled
+          - MY.recordBasisHumanObservationPhoto
+          - MY.recordBasisHumanObservationAudio
+          - MY.recordBasisHumanObservationVideo
+          - MY.recordBasisHumanObservationIndirect
+          - MY.recordBasisMachineObservation
+          - MY.recordBasisMachineObservationPhoto
+          - MY.recordBasisMachineObservationVideo
+          - MY.recordBasisMachineObservationAudio
+          - MY.recordBasisMachineObservationGeologger
+          - MY.recordBasisMachineObservationSatelliteTransmitter
+          - MY.recordBasisFossilSpecimen
+          - MY.recordBasisSubfossilSpecimen
+          - MY.recordBasisSubfossilSpecimenAmberInclusion
+          - MY.recordBasisMaterialSample
+          - MY.recordBasisMaterialSampleAir
+          - MY.recordBasisMaterialSampleSoil
+          - MY.recordBasisMaterialSampleWater
+          - MY.recordBasisMicrobialSpecimen
+          - MY.recordBasisLivingSpecimen
+          - MY.recordBasisLiterature
+          x-enum-origin: MY.recordBases
+        finbifOccurrenceId:
+          type: string
+          description: Qname identifier
+        gbifOccurrenceId:
+          type: string
+        otherOccurrenceId:
+          type: string
+        kingdom:
+          type: string
+        scientificName:
+          type: string
+        author:
+          type: string
+        functionalGroupName:
+          type: string
+        otherTaxonId:
+          type: string
+        sex:
+          type: string
+          description: Qname identifier
+          enum:
+          - MY.sexM
+          - MY.sexF
+          - MY.sexW
+          - MY.sexU
+          - MY.sexN
+          - MY.sexX
+          - MY.sexE
+          - MY.sexC
+          x-enum-origin: MY.sexes
+        lifeStage:
+          type: string
+          description: Qname identifier
+          enum:
+          - MY.lifeStageAdult
+          - MY.lifeStageNymph
+          - MY.lifeStageLarva
+          - MY.lifeStageEgg
+          - MY.lifeStagePupa
+          - MY.lifeStageJuvenile
+          - MY.lifeStageSubimago
+          - MY.lifeStageImmature
+          - MY.lifeStageFertile
+          - MY.lifeStageSterile
+          - MY.lifeStageTadpole
+          - MY.lifeStageEmbryo
+          - MY.lifeStageSubadult
+          - MY.lifeStageMature
+          - MY.lifeStagePullus
+          - MY.lifeStageHatchedEgg
+          - MY.lifeStageHatchedPupa
+          - MY.lifeStageGall
+          - MY.lifeStageMarks
+          - MY.lifeStageTriungulin
+          - MY.lifeStageExuvia
+          x-enum-origin: MY.lifeStages
+        ageYears:
+          type: number
+        individualCount:
+          type: integer
+        dateBegin:
+          type: string
+          format: date
+          examples:
+          - YYYY-MM-DD
+        dateEnd:
+          type: string
+          format: date
+          examples:
+          - YYYY-MM-DD
+        yearBegin:
+          type: integer
+        yearEnd:
+          type: integer
+        seasonBegin:
+          type: integer
+        seasonEnd:
+          type: integer
+        lat:
+          type: number
+        lon:
+          type: number
+        latMin:
+          type: number
+        latMax:
+          type: number
+        lonMin:
+          type: number
+        lonMax:
+          type: number
+        coordinateAccuracy:
+          type: integer
+        elevation:
+          type: integer
+        higherGeography:
+          type: string
+        country:
+          type: string
+        municipality:
+          type: string
+        locality:
+          type: string
+        locationIdentifiers:
+          type: string
+        habitat:
+          type: string
+          description: Qname identifier
+          enum:
+          - MY.habitatEnumValue1
+          - MY.habitatEnumValue2
+          - MY.habitatEnumValue3
+          - MY.habitatEnumValue4
+          - MY.habitatEnumValue5
+          - MY.habitatEnumValue6
+          - MY.habitatEnumValue7
+          - MY.habitatEnumValue8
+          - MY.habitatEnumValue9
+          - MY.habitatEnumValue10
+          - MY.habitatEnumValue11
+          - MY.habitatEnumValue12
+          - MY.habitatEnumValue13
+          - MY.habitatEnumValue14
+          - MY.habitatEnumValue15
+          - MY.habitatEnumValue16
+          - MY.habitatEnumValue17
+          - MY.habitatEnumValue18
+          - MY.habitatEnumValue19
+          - MY.habitatEnumValue20
+          - MY.habitatEnumValue21
+          - MY.habitatEnumValue22
+          - MY.habitatEnumValue23
+          - MY.habitatEnumValue24
+          - MY.habitatEnumValue25
+          - MY.habitatEnumValue26
+          - MY.habitatEnumValue27
+          - MY.habitatEnumValue28
+          - MY.habitatEnumValue29
+          - MY.habitatEnumValue30
+          - MY.habitatEnumValue31
+          - MY.habitatEnumValue32
+          - MY.habitatEnumValue33
+          - MY.habitatEnumValue34
+          - MY.habitatEnumValue35
+          - MY.habitatEnumValue36
+          - MY.habitatEnumValue87
+          - MY.habitatEnumValue40
+          - MY.habitatEnumValue41
+          - MY.habitatEnumValue42
+          - MY.habitatEnumValue43
+          - MY.habitatEnumValue44
+          - MY.habitatEnumValue45
+          - MY.habitatEnumValue46
+          - MY.habitatEnumValue47
+          - MY.habitatEnumValue48
+          - MY.habitatEnumValue49
+          - MY.habitatEnumValue50
+          - MY.habitatEnumValue51
+          - MY.habitatEnumValue52
+          - MY.habitatEnumValue53
+          - MY.habitatEnumValue54
+          - MY.habitatEnumValue56
+          - MY.habitatEnumValue57
+          - MY.habitatEnumValue58
+          - MY.habitatEnumValue59
+          - MY.habitatEnumValue60
+          - MY.habitatEnumValue61
+          - MY.habitatEnumValue62
+          - MY.habitatEnumValue64
+          - MY.habitatEnumValue66
+          - MY.habitatEnumValue67
+          - MY.habitatEnumValue68
+          - MY.habitatEnumValue69
+          - MY.habitatEnumValue70
+          - MY.habitatEnumValue71
+          - MY.habitatEnumValue72
+          - MY.habitatEnumValue73
+          - MY.habitatEnumValue74
+          - MY.habitatEnumValue76
+          - MY.habitatEnumValue77
+          - MY.habitatEnumValue78
+          - MY.habitatEnumValue79
+          - MY.habitatEnumValue80
+          - MY.habitatEnumValue81
+          - MY.habitatEnumValue82
+          - MY.habitatEnumValue83
+          - MY.habitatEnumValue84
+          - MY.habitatEnumValue85
+          - MY.habitatEnumValue86
+          - MY.habitatEnumValue88
+          - MY.habitatEnumValue89
+          - MY.habitatEnumValue90
+          - MY.habitatEnumValue91
+          - MY.habitatEnumValue92
+          - MY.habitatEnumValue93
+          - MY.habitatEnumValue94
+          - MY.habitatEnumValue95
+          - MY.habitatEnumValue96
+          - MY.habitatEnumValue97
+          - MY.habitatEnumValue98
+          - MY.habitatEnumValue99
+          - MY.habitatEnumValue100
+          - MY.habitatEnumValue101
+          - MY.habitatEnumValue102
+          - MY.habitatEnumValue103
+          - MY.habitatEnumValue104
+          - MY.habitatEnumValue105
+          - MY.habitatEnumValue106
+          - MY.habitatEnumValue107
+          - MY.habitatEnumValue108
+          - MY.habitatEnumValue109
+          - MY.habitatEnumValue110
+          - MY.habitatEnumValue111
+          - MY.habitatEnumValue112
+          - MY.habitatEnumValue113
+          - MY.habitatEnumValue114
+          - MY.habitatEnumValue115
+          - MY.habitatEnumValue116
+          - MY.habitatEnumValue117
+          - MY.habitatEnumValue118
+          - MY.habitatEnumValue119
+          - MY.habitatEnumValue120
+          - MY.habitatEnumValue121
+          - MY.habitatEnumValue122
+          - MY.habitatEnumValue123
+          - MY.habitatEnumValue124
+          - MY.habitatEnumValue125
+          - MY.habitatEnumValue126
+          - MY.habitatEnumValue127
+          - MY.habitatEnumValue128
+          - MY.habitatEnumValue129
+          - MY.habitatEnumValue130
+          - MY.habitatEnumValue131
+          - MY.habitatEnumValue132
+          - MY.habitatEnumValue133
+          - MY.habitatEnumValue134
+          - MY.habitatEnumValue135
+          - MY.habitatEnumValue136
+          - MY.habitatEnumValue137
+          - MY.habitatEnumValue138
+          - MY.habitatEnumValue139
+          - MY.habitatEnumValue140
+          - MY.habitatEnumValue141
+          - MY.habitatEnumValue142
+          - MY.habitatEnumValue143
+          - MY.habitatEnumValue144
+          - MY.habitatEnumValue145
+          - MY.habitatEnumValue147
+          - MY.habitatEnumValue148
+          - MY.habitatEnumValue149
+          - MY.habitatEnumValue150
+          - MY.habitatEnumValue151
+          - MY.habitatEnumValue152
+          - MY.habitatEnumValue153
+          - MY.habitatEnumValue154
+          - MY.habitatEnumValue155
+          - MY.habitatEnumValue156
+          - MY.habitatEnumValue157
+          - MY.habitatEnumValue158
+          - MY.habitatEnumValue159
+          - MY.habitatEnumValue160
+          - MY.habitatEnumValue161
+          - MY.habitatEnumValue162
+          - MY.habitatEnumValue163
+          - MY.habitatEnumValue164
+          - MY.habitatEnumValue165
+          - MY.habitatEnumValue166
+          - MY.habitatEnumValue167
+          - MY.habitatEnumValue168
+          - MY.habitatEnumValue169
+          - MY.habitatEnumValue170
+          x-enum-origin: MY.habitatEnum
+        occurrenceRemarks:
+          type: string
+        measurementDeterminedBy:
+          type: string
+        measurementDeterminedDate:
+          type: string
+          format: date
+          examples:
+          - YYYY-MM-DD
+        created:
+          type: string
+          format: date
+          examples:
+          - YYYY-MM-DD
+        modified:
+          type: string
+          format: date
+          examples:
+          - YYYY-MM-DD
+      required:
+      - id
+      - type
+      - basisOfRecord
+      - finbifOccurrenceId
+      - gbifOccurrenceId
+      - otherOccurrenceId
+      - kingdom
+      - scientificName
+      - author
+      - functionalGroupName
+      - otherTaxonId
+      - sex
+      - lifeStage
+      - ageYears
+      - individualCount
+      - dateBegin
+      - dateEnd
+      - yearBegin
+      - yearEnd
+      - seasonBegin
+      - seasonEnd
+      - lat
+      - lon
+      - latMin
+      - latMax
+      - lonMin
+      - lonMax
+      - coordinateAccuracy
+      - elevation
+      - higherGeography
+      - country
+      - municipality
+      - locality
+      - locationIdentifiers
+      - habitat
+      - occurrenceRemarks
+      - measurementDeterminedBy
+      - measurementDeterminedDate
+      - created
+      - modified
+    LajiBackendTraitAPIOKResponse:
+      type: object
+      properties:
+        ok:
+          type: string
+          description: ok
+      required:
+      - ok
+    LajiBackendTraitAPIError:
+      type: object
+      properties:
+        status:
+          type: integer
+          description: HTTP Status Code
+        message:
+          type: string
+          description: Error message
+        stacktrace:
+          type: string
+          description: Stacktrace
+      required:
+      - status
+      - message
+      - stacktrace
+    LajiBackendTraitSearchTraitGroup:
+      type: object
+      properties:
+        name:
+          type: string
+      required:
+      - name
+    LajiBackendSubject:
+      type: object
+      properties:
+        id:
+          type: string
+          description: Qname identifier
+        datasetId:
+          type: string
+          description: Qname identifier
+        type:
+          type: string
+          description: Qname identifier
+          enum:
+          - TDF.typeIndividual
+          - TDF.typePopulationGroup
+          - TDF.typeTaxon
+          x-enum-origin: TDF.typeEnum
+        basisOfRecord:
+          type: string
+          description: Qname identifier
+          enum:
+          - MY.recordBasisPreservedSpecimen
+          - MY.recordBasisHumanObservation
+          - MY.recordBasisHumanObservationSeen
+          - MY.recordBasisHumanObservationHeard
+          - MY.recordBasisHumanObservationHandled
+          - MY.recordBasisHumanObservationPhoto
+          - MY.recordBasisHumanObservationAudio
+          - MY.recordBasisHumanObservationVideo
+          - MY.recordBasisHumanObservationIndirect
+          - MY.recordBasisMachineObservation
+          - MY.recordBasisMachineObservationPhoto
+          - MY.recordBasisMachineObservationVideo
+          - MY.recordBasisMachineObservationAudio
+          - MY.recordBasisMachineObservationGeologger
+          - MY.recordBasisMachineObservationSatelliteTransmitter
+          - MY.recordBasisFossilSpecimen
+          - MY.recordBasisSubfossilSpecimen
+          - MY.recordBasisSubfossilSpecimenAmberInclusion
+          - MY.recordBasisMaterialSample
+          - MY.recordBasisMaterialSampleAir
+          - MY.recordBasisMaterialSampleSoil
+          - MY.recordBasisMaterialSampleWater
+          - MY.recordBasisMicrobialSpecimen
+          - MY.recordBasisLivingSpecimen
+          - MY.recordBasisLiterature
+          x-enum-origin: MY.recordBases
+        finbifOccurrenceId:
+          type: string
+          description: Qname identifier
+        gbifOccurrenceId:
+          type: string
+        otherOccurrenceId:
+          type: string
+        kingdom:
+          type: string
+        scientificName:
+          type: string
+        author:
+          type: string
+        functionalGroupName:
+          type: string
+        taxonId:
+          type: string
+          description: Qname identifier
+        gbifTaxonId:
+          type: integer
+        otherTaxonId:
+          type: string
+        sex:
+          type: string
+          description: Qname identifier
+          enum:
+          - MY.sexM
+          - MY.sexF
+          - MY.sexW
+          - MY.sexU
+          - MY.sexN
+          - MY.sexX
+          - MY.sexE
+          - MY.sexC
+          x-enum-origin: MY.sexes
+        lifeStage:
+          type: string
+          description: Qname identifier
+          enum:
+          - MY.lifeStageAdult
+          - MY.lifeStageNymph
+          - MY.lifeStageLarva
+          - MY.lifeStageEgg
+          - MY.lifeStagePupa
+          - MY.lifeStageJuvenile
+          - MY.lifeStageSubimago
+          - MY.lifeStageImmature
+          - MY.lifeStageFertile
+          - MY.lifeStageSterile
+          - MY.lifeStageTadpole
+          - MY.lifeStageEmbryo
+          - MY.lifeStageSubadult
+          - MY.lifeStageMature
+          - MY.lifeStagePullus
+          - MY.lifeStageHatchedEgg
+          - MY.lifeStageHatchedPupa
+          - MY.lifeStageGall
+          - MY.lifeStageMarks
+          - MY.lifeStageTriungulin
+          - MY.lifeStageExuvia
+          x-enum-origin: MY.lifeStages
+        ageYears:
+          type: number
+        individualCount:
+          type: integer
+        dateBegin:
+          type: string
+          format: date
+          examples:
+          - YYYY-MM-DD
+        dateEnd:
+          type: string
+          format: date
+          examples:
+          - YYYY-MM-DD
+        yearBegin:
+          type: integer
+        yearEnd:
+          type: integer
+        seasonBegin:
+          type: integer
+        seasonEnd:
+          type: integer
+        lat:
+          type: number
+        lon:
+          type: number
+        latMin:
+          type: number
+        latMax:
+          type: number
+        lonMin:
+          type: number
+        lonMax:
+          type: number
+        coordinateAccuracy:
+          type: integer
+        elevation:
+          type: integer
+        higherGeography:
+          type: string
+        country:
+          type: string
+        municipality:
+          type: string
+        locality:
+          type: string
+        locationIdentifiers:
+          type: string
+        habitat:
+          type: string
+          description: Qname identifier
+          enum:
+          - MY.habitatEnumValue1
+          - MY.habitatEnumValue2
+          - MY.habitatEnumValue3
+          - MY.habitatEnumValue4
+          - MY.habitatEnumValue5
+          - MY.habitatEnumValue6
+          - MY.habitatEnumValue7
+          - MY.habitatEnumValue8
+          - MY.habitatEnumValue9
+          - MY.habitatEnumValue10
+          - MY.habitatEnumValue11
+          - MY.habitatEnumValue12
+          - MY.habitatEnumValue13
+          - MY.habitatEnumValue14
+          - MY.habitatEnumValue15
+          - MY.habitatEnumValue16
+          - MY.habitatEnumValue17
+          - MY.habitatEnumValue18
+          - MY.habitatEnumValue19
+          - MY.habitatEnumValue20
+          - MY.habitatEnumValue21
+          - MY.habitatEnumValue22
+          - MY.habitatEnumValue23
+          - MY.habitatEnumValue24
+          - MY.habitatEnumValue25
+          - MY.habitatEnumValue26
+          - MY.habitatEnumValue27
+          - MY.habitatEnumValue28
+          - MY.habitatEnumValue29
+          - MY.habitatEnumValue30
+          - MY.habitatEnumValue31
+          - MY.habitatEnumValue32
+          - MY.habitatEnumValue33
+          - MY.habitatEnumValue34
+          - MY.habitatEnumValue35
+          - MY.habitatEnumValue36
+          - MY.habitatEnumValue87
+          - MY.habitatEnumValue40
+          - MY.habitatEnumValue41
+          - MY.habitatEnumValue42
+          - MY.habitatEnumValue43
+          - MY.habitatEnumValue44
+          - MY.habitatEnumValue45
+          - MY.habitatEnumValue46
+          - MY.habitatEnumValue47
+          - MY.habitatEnumValue48
+          - MY.habitatEnumValue49
+          - MY.habitatEnumValue50
+          - MY.habitatEnumValue51
+          - MY.habitatEnumValue52
+          - MY.habitatEnumValue53
+          - MY.habitatEnumValue54
+          - MY.habitatEnumValue56
+          - MY.habitatEnumValue57
+          - MY.habitatEnumValue58
+          - MY.habitatEnumValue59
+          - MY.habitatEnumValue60
+          - MY.habitatEnumValue61
+          - MY.habitatEnumValue62
+          - MY.habitatEnumValue64
+          - MY.habitatEnumValue66
+          - MY.habitatEnumValue67
+          - MY.habitatEnumValue68
+          - MY.habitatEnumValue69
+          - MY.habitatEnumValue70
+          - MY.habitatEnumValue71
+          - MY.habitatEnumValue72
+          - MY.habitatEnumValue73
+          - MY.habitatEnumValue74
+          - MY.habitatEnumValue76
+          - MY.habitatEnumValue77
+          - MY.habitatEnumValue78
+          - MY.habitatEnumValue79
+          - MY.habitatEnumValue80
+          - MY.habitatEnumValue81
+          - MY.habitatEnumValue82
+          - MY.habitatEnumValue83
+          - MY.habitatEnumValue84
+          - MY.habitatEnumValue85
+          - MY.habitatEnumValue86
+          - MY.habitatEnumValue88
+          - MY.habitatEnumValue89
+          - MY.habitatEnumValue90
+          - MY.habitatEnumValue91
+          - MY.habitatEnumValue92
+          - MY.habitatEnumValue93
+          - MY.habitatEnumValue94
+          - MY.habitatEnumValue95
+          - MY.habitatEnumValue96
+          - MY.habitatEnumValue97
+          - MY.habitatEnumValue98
+          - MY.habitatEnumValue99
+          - MY.habitatEnumValue100
+          - MY.habitatEnumValue101
+          - MY.habitatEnumValue102
+          - MY.habitatEnumValue103
+          - MY.habitatEnumValue104
+          - MY.habitatEnumValue105
+          - MY.habitatEnumValue106
+          - MY.habitatEnumValue107
+          - MY.habitatEnumValue108
+          - MY.habitatEnumValue109
+          - MY.habitatEnumValue110
+          - MY.habitatEnumValue111
+          - MY.habitatEnumValue112
+          - MY.habitatEnumValue113
+          - MY.habitatEnumValue114
+          - MY.habitatEnumValue115
+          - MY.habitatEnumValue116
+          - MY.habitatEnumValue117
+          - MY.habitatEnumValue118
+          - MY.habitatEnumValue119
+          - MY.habitatEnumValue120
+          - MY.habitatEnumValue121
+          - MY.habitatEnumValue122
+          - MY.habitatEnumValue123
+          - MY.habitatEnumValue124
+          - MY.habitatEnumValue125
+          - MY.habitatEnumValue126
+          - MY.habitatEnumValue127
+          - MY.habitatEnumValue128
+          - MY.habitatEnumValue129
+          - MY.habitatEnumValue130
+          - MY.habitatEnumValue131
+          - MY.habitatEnumValue132
+          - MY.habitatEnumValue133
+          - MY.habitatEnumValue134
+          - MY.habitatEnumValue135
+          - MY.habitatEnumValue136
+          - MY.habitatEnumValue137
+          - MY.habitatEnumValue138
+          - MY.habitatEnumValue139
+          - MY.habitatEnumValue140
+          - MY.habitatEnumValue141
+          - MY.habitatEnumValue142
+          - MY.habitatEnumValue143
+          - MY.habitatEnumValue144
+          - MY.habitatEnumValue145
+          - MY.habitatEnumValue147
+          - MY.habitatEnumValue148
+          - MY.habitatEnumValue149
+          - MY.habitatEnumValue150
+          - MY.habitatEnumValue151
+          - MY.habitatEnumValue152
+          - MY.habitatEnumValue153
+          - MY.habitatEnumValue154
+          - MY.habitatEnumValue155
+          - MY.habitatEnumValue156
+          - MY.habitatEnumValue157
+          - MY.habitatEnumValue158
+          - MY.habitatEnumValue159
+          - MY.habitatEnumValue160
+          - MY.habitatEnumValue161
+          - MY.habitatEnumValue162
+          - MY.habitatEnumValue163
+          - MY.habitatEnumValue164
+          - MY.habitatEnumValue165
+          - MY.habitatEnumValue166
+          - MY.habitatEnumValue167
+          - MY.habitatEnumValue168
+          - MY.habitatEnumValue169
+          - MY.habitatEnumValue170
+          x-enum-origin: MY.habitatEnum
+        occurrenceRemarks:
+          type: string
+        measurementDeterminedBy:
+          type: string
+        measurementDeterminedDate:
+          type: string
+          format: date
+          examples:
+          - YYYY-MM-DD
+        created:
+          type: string
+          format: date
+          examples:
+          - YYYY-MM-DD
+        modified:
+          type: string
+          format: date
+          examples:
+          - YYYY-MM-DD
+        createdBy:
+          type: string
+        modifiedBy:
+          type: string
+      required:
+      - id
+      - datasetId
+      - type
+      - createdBy
+    LajiBackendTraitSearchRow:
+      type: object
+      properties:
+        id:
+          type: string
+          description: Qname identifier
+        subject:
+          $ref: '#/components/schemas/LajiBackendTraitSearchSubject'
+        year:
+          type: integer
+        month:
+          type: integer
+        day:
+          type: integer
+        eventDate:
+          type: string
+        geodeticDatum:
+          type: string
+        trait:
+          $ref: '#/components/schemas/LajiBackendTraitSearchTrait'
+        traitGroup:
+          $ref: '#/components/schemas/LajiBackendTraitSearchTraitGroup'
+        statisticalMethod:
+          type: string
+          description: Qname identifier
+          enum:
+          - TDF.statisticalMethodMin
+          - TDF.statisticalMethodMax
+          - TDF.statisticalMethodAvg
+          - TDF.statisticalMethodMedian
+          - TDF.statisticalMethodSD
+          - TDF.statisticalMethodMode
+          x-enum-origin: TDF.statisticalMethodEnum
+        value:
+          type: string
+        valueNumeric:
+          type: number
+        unit:
+          type: string
+          description: Qname identifier
+          enum:
+          - TDF.umNM
+          - TDF.umUM
+          - TDF.umMM
+          - TDF.umCM
+          - TDF.umM
+          - TDF.umKM
+          - TDF.umG
+          - TDF.umKG
+          - TDF.umA
+          - TDF.umS
+          - TDF.umML
+          - TDF.umL
+          - TDF.umMOL
+          - TDF.umMMOL
+          - TDF.umUMOL
+          - TDF.umHZ
+          - TDF.umP
+          - TDF.umPPT
+          - TDF.umPPM
+          - TDF.umC
+          - TDF.umMM2
+          - TDF.umCM2
+          - TDF.umM2
+          - TDF.umARE
+          - TDF.umHA
+          - TDF.umKM2
+          - TDF.umMM3
+          - TDF.umCM3
+          - TDF.umM3
+          - TDF.umGMOL
+          - TDF.umMOLL
+          - TDF.umCM2H
+          x-enum-origin: TDF.unitOfMeasurementEnum
+        measurementAccuracy:
+          type: number
+        originalValue:
+          type: string
+        originalValueNumeric:
+          type: number
+        originalUnit:
+          type: string
+          description: Qname identifier
+          enum:
+          - TDF.umNM
+          - TDF.umUM
+          - TDF.umMM
+          - TDF.umCM
+          - TDF.umM
+          - TDF.umKM
+          - TDF.umG
+          - TDF.umKG
+          - TDF.umA
+          - TDF.umS
+          - TDF.umML
+          - TDF.umL
+          - TDF.umMOL
+          - TDF.umMMOL
+          - TDF.umUMOL
+          - TDF.umHZ
+          - TDF.umP
+          - TDF.umPPT
+          - TDF.umPPM
+          - TDF.umC
+          - TDF.umMM2
+          - TDF.umCM2
+          - TDF.umM2
+          - TDF.umARE
+          - TDF.umHA
+          - TDF.umKM2
+          - TDF.umMM3
+          - TDF.umCM3
+          - TDF.umM3
+          - TDF.umGMOL
+          - TDF.umMOLL
+          - TDF.umCM2H
+          x-enum-origin: TDF.unitOfMeasurementEnum
+        originalMeasurementAccuracy:
+          type: number
+        subjectFinBIFTaxon:
+          $ref: '#/components/schemas/LajiBackendTraitTaxon'
+        subjectGBIFTaxon:
+          $ref: '#/components/schemas/LajiBackendTraitTaxon'
+        objectTaxonLifeStage:
+          type: string
+          description: Qname identifier
+          enum:
+          - MY.lifeStageAdult
+          - MY.lifeStageNymph
+          - MY.lifeStageLarva
+          - MY.lifeStageEgg
+          - MY.lifeStagePupa
+          - MY.lifeStageJuvenile
+          - MY.lifeStageSubimago
+          - MY.lifeStageImmature
+          - MY.lifeStageFertile
+          - MY.lifeStageSterile
+          - MY.lifeStageTadpole
+          - MY.lifeStageEmbryo
+          - MY.lifeStageSubadult
+          - MY.lifeStageMature
+          - MY.lifeStagePullus
+          - MY.lifeStageHatchedEgg
+          - MY.lifeStageHatchedPupa
+          - MY.lifeStageGall
+          - MY.lifeStageMarks
+          - MY.lifeStageTriungulin
+          - MY.lifeStageExuvia
+          x-enum-origin: MY.lifeStages
+        objectTaxonVerbatim:
+          type: string
+        objectFinBIFTaxon:
+          $ref: '#/components/schemas/LajiBackendTraitTaxon'
+        objectGBIFTaxon:
+          $ref: '#/components/schemas/LajiBackendTraitTaxon'
+        warnings:
+          type: boolean
+        measurementRemarks:
+          type: string
+        reference:
+          type: string
+        dataset:
+          $ref: '#/components/schemas/LajiBackendTraitSearchDataset'
+        license:
+          type: string
+          description: Qname identifier
+          enum:
+          - MZ.intellectualRightsCC-BY-SA-4.0
+          - MZ.intellectualRightsCC-BY-NC-4.0
+          - MZ.intellectualRightsCC-BY-NC-SA-4.0
+          - MZ.intellectualRightsCC-BY-4.0
+          - MZ.intellectualRightsCC0-4.0
+          - MZ.intellectualRightsODBL-1.0
+          - MZ.intellectualRightsPD
+          - MZ.intellectualRightsARR
+          - MZ.intellectualRightsCC-BY-2.0
+          - MZ.intellectualRightsCC-BY-SA-2.0
+          - MZ.intellectualRightsCC-BY-SA-2.0-DE
+          - MZ.intellectualRightsCC-BY-NC-2.0
+          - MZ.intellectualRightsCC-BY-NC-SA-2.0
+          - MZ.intellectualRightsCC-BY-NC-ND-2.0
+          - MZ.intellectualRightsCC-BY-SA-2.5
+          - MZ.intellectualRightsCC-BY-SA-2.5-SE
+          - MZ.intellectualRightsCC-BY-3.0
+          - MZ.intellectualRightsCC-BY-SA-3.0
+          - MZ.intellectualRightsCC-BY-NC-SA-3.0
+          - MZ.intellectualRightsCC-BY-ND-4.0
+          - MZ.intellectualRightsCC-BY-NC-ND-4.0
+          - MY.intellectualRightsCC-BY
+          - MY.intellectualRightsCC0
+          x-enum-origin: MZ.intellectualRightsEnum
+      required:
+      - id
+      - subject
+      - year
+      - month
+      - day
+      - eventDate
+      - geodeticDatum
+      - trait
+      - traitGroup
+      - statisticalMethod
+      - value
+      - valueNumeric
+      - unit
+      - measurementAccuracy
+      - originalValue
+      - originalValueNumeric
+      - originalUnit
+      - originalMeasurementAccuracy
+      - subjectFinBIFTaxon
+      - subjectGBIFTaxon
+      - objectTaxonLifeStage
+      - objectTaxonVerbatim
+      - objectFinBIFTaxon
+      - objectGBIFTaxon
+      - warnings
+      - measurementRemarks
+      - reference
+      - dataset
+      - license
+    LajiBackendTraitGroup:
+      type: object
+      properties:
+        id:
+          type: string
+          description: Qname identifier
+        name:
+          type: string
+        description:
+          type: string
+      required:
+      - id
+      - name
+      - description
+  securitySchemes:
+    Access_token:
+      scheme: bearer
+      bearerFormat: JWT
+      type: http
+      description: Access token
+    Lang:
+      type: apiKey
+      in: header
+      name: Accept-Language
+      description: Sets the 'Accept-Language' header. One of 'fi', 'sv,' 'en'. Defaults to 'en'.
+    Person_token:
+      type: apiKey
+      in: header
+      name: Person-Token

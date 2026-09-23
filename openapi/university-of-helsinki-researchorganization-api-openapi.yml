@@ -1,0 +1,168 @@
+openapi: 3.2.0
+info:
+  title: University of Helsinki - Contact Search Research…
+  description: ''
+  version: 2.0.0
+servers:
+- url: https://gw.api.helsinki.fi/contact-search
+tags:
+- name: ResearchOrganization
+paths:
+  /research_organizations:
+    get:
+      tags:
+      - ResearchOrganization
+      summary: Retrieves the collection of ResearchOrganization resources
+      description: Retrieves the collection of ResearchOrganization resources.
+      operationId: api_research_organizations_get_collection
+      parameters:
+      - name: page
+        in: query
+        description: The collection page number
+        required: false
+        deprecated: false
+        allowEmptyValue: true
+        style: form
+        explode: false
+        allowReserved: false
+        schema:
+          type: integer
+          default: 1
+      responses:
+        '200':
+          description: ResearchOrganization collection
+          content:
+            application/ld+json:
+              schema:
+                type: object
+                properties:
+                  hydra:member:
+                    type: array
+                    items:
+                      $ref: '#/components/schemas/ResearchOrganization.jsonld-read'
+                  hydra:totalItems:
+                    type: integer
+                    minimum: 0
+                  hydra:view:
+                    type: object
+                    example:
+                      '@id': string
+                      type: string
+                      hydra:first: string
+                      hydra:last: string
+                      hydra:previous: string
+                      hydra:next: string
+                    properties:
+                      '@id':
+                        type: string
+                        format: iri-reference
+                      '@type':
+                        type: string
+                      hydra:first:
+                        type: string
+                        format: iri-reference
+                      hydra:last:
+                        type: string
+                        format: iri-reference
+                      hydra:previous:
+                        type: string
+                        format: iri-reference
+                      hydra:next:
+                        type: string
+                        format: iri-reference
+                  hydra:search:
+                    type: object
+                    properties:
+                      '@type':
+                        type: string
+                      hydra:template:
+                        type: string
+                      hydra:variableRepresentation:
+                        type: string
+                      hydra:mapping:
+                        type: array
+                        items:
+                          type: object
+                          properties:
+                            '@type':
+                              type: string
+                            variable:
+                              type: string
+                            property:
+                              type:
+                              - string
+                              - 'null'
+                            required:
+                              type: boolean
+                required:
+                - hydra:member
+            application/vnd.api+json:
+              schema:
+                type: array
+                items:
+                  $ref: '#/components/schemas/ResearchOrganization-read'
+      deprecated: false
+components:
+  schemas:
+    ResearchOrganization-read:
+      type: object
+      deprecated: false
+      description: Research organization resource.
+      properties:
+        abbreviation:
+          type: string
+        id:
+          type: integer
+        name:
+          type: object
+          items:
+            type: string
+          properties:
+            en:
+              type: string
+            fi:
+              type: string
+            sv:
+              type: string
+        type:
+          type: string
+        parent:
+          type:
+          - integer
+          - 'null'
+        depth:
+          type: integer
+    ResearchOrganization.jsonld-read:
+      type: object
+      deprecated: false
+      description: Research organization resource.
+      properties:
+        '@id':
+          type: string
+          readOnly: true
+        '@type':
+          type: string
+          readOnly: true
+        abbreviation:
+          type: string
+        id:
+          type: integer
+        name:
+          type: object
+          items:
+            type: string
+          properties:
+            en:
+              type: string
+            fi:
+              type: string
+            sv:
+              type: string
+        type:
+          type: string
+        parent:
+          type:
+          - integer
+          - 'null'
+        depth:
+          type: integer

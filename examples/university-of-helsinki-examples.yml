@@ -1,0 +1,298 @@
+generated: '2026-08-30'
+method: probed
+source: live anonymous calls against University of Helsinki hosts, 2026-08-30
+x-operator: institution
+note: 'Request/response examples for the institution-operated surfaces. Two kinds are present and they
+  are labelled differently on purpose. `probed` examples are VERBATIM responses from live anonymous calls
+  — only truncated, never edited. `structural` examples are request shapes read off the provider''s own
+  OpenAPI for endpoints that cannot be called without a credential, because the gateway has keyless access
+  disabled; they carry placeholder values and no response body is invented for them.
+
+  NO PERSON RECORDS APPEAR ANYWHERE IN THIS FILE. The Contact Search, PersonGroup and EmployeeInformation
+  APIs all return staff records; their examples are structural only, with placeholder identifiers, and
+  no live response from any of them has been captured or stored.'
+probed:
+- name: Helda DSpace REST root
+  method: GET
+  url: https://helda.helsinki.fi/server/api
+  status: 200
+  auth: none
+  response:
+    dspaceUI: https://helda.helsinki.fi
+    dspaceName: Helda
+    dspaceServer: https://helda.helsinki.fi/server
+    dspaceVersion: DSpace 9.2
+    type: root
+    _links:
+      actuator:
+        href: https://helda.helsinki.fi/server/actuator
+      authn:
+        href: https://helda.helsinki.fi/server/api/authn
+      authorizations:
+        href: https://helda.helsinki.fi/server/api/authz/authorizations
+      bitstreamformats:
+        href: https://helda.helsinki.fi/server/api/core/bitstreamformats
+      bitstreams:
+        href: https://helda.helsinki.fi/server/api/core/bitstreams
+      browses:
+        href: https://helda.helsinki.fi/server/api/discover/browses
+      bulkaccessconditionoptions:
+        href: https://helda.helsinki.fi/server/api/config/bulkaccessconditionoptions
+      bundles:
+        href: https://helda.helsinki.fi/server/api/core/bundles
+      captcha:
+        href: https://helda.helsinki.fi/server/api/captcha
+      claimedtasks:
+        href: https://helda.helsinki.fi/server/api/workflow/claimedtasks
+      claimedtasks-search:
+        href: https://helda.helsinki.fi/server/api/workflow/claimedtasks/search
+      collections:
+        href: https://helda.helsinki.fi/server/api/core/collections
+      communities:
+        href: https://helda.helsinki.fi/server/api/core/communities
+      contentreport:
+        href: https://helda.helsinki.fi/server/api/contentreport
+- name: HY Data Catalogue DSpace REST root
+  method: GET
+  url: https://datakatalogi.helsinki.fi/server/api
+  status: 200
+  auth: none
+  response:
+    dspaceUI: https://datakatalogi.helsinki.fi
+    dspaceName: HyDatacatalogue
+    dspaceServer: https://datakatalogi.helsinki.fi/server
+    dspaceVersion: DSpace 9.0
+    type: root
+    _links:
+      actuator:
+        href: https://datakatalogi.helsinki.fi/server/actuator
+      authn:
+        href: https://datakatalogi.helsinki.fi/server/api/authn
+      authorizations:
+        href: https://datakatalogi.helsinki.fi/server/api/authz/authorizations
+      bitstreamformats:
+        href: https://datakatalogi.helsinki.fi/server/api/core/bitstreamformats
+      bitstreams:
+        href: https://datakatalogi.helsinki.fi/server/api/core/bitstreams
+      browses:
+        href: https://datakatalogi.helsinki.fi/server/api/discover/browses
+      bulkaccessconditionoptions:
+        href: https://datakatalogi.helsinki.fi/server/api/config/bulkaccessconditionoptions
+      bundles:
+        href: https://datakatalogi.helsinki.fi/server/api/core/bundles
+      captcha:
+        href: https://datakatalogi.helsinki.fi/server/api/captcha
+      claimedtasks:
+        href: https://datakatalogi.helsinki.fi/server/api/workflow/claimedtasks
+      claimedtasks-search:
+        href: https://datakatalogi.helsinki.fi/server/api/workflow/claimedtasks/search
+      collections:
+        href: https://datakatalogi.helsinki.fi/server/api/core/collections
+      communities:
+        href: https://datakatalogi.helsinki.fi/server/api/core/communities
+      contentreport:
+        href: https://datakatalogi.helsinki.fi/server/api/contentreport
+- name: Helda registered metadata schemas
+  method: GET
+  url: https://helda.helsinki.fi/server/api/core/metadataschemas?size=5
+  status: 200
+  auth: none
+  note: Shows datacite, oaire and coar registered alongside dc/dcterms.
+  response:
+    _embedded:
+      metadataschemas:
+      - id: 1
+        prefix: dc
+        namespace: http://dublincore.org/documents/dcmi-terms/
+        type: metadataschema
+        _links:
+          self:
+            href: https://helda.helsinki.fi/server/api/core/metadataschemas/1
+      - id: 2
+        prefix: doria
+        namespace: http://oa.doria.fi
+        type: metadataschema
+        _links:
+          self:
+            href: https://helda.helsinki.fi/server/api/core/metadataschemas/2
+    _links:
+      first:
+        href: https://helda.helsinki.fi/server/api/core/metadataschemas?page=0&size=5
+      self:
+        href: https://helda.helsinki.fi/server/api/core/metadataschemas?size=5
+      next:
+        href: https://helda.helsinki.fi/server/api/core/metadataschemas?page=1&size=5
+      last:
+        href: https://helda.helsinki.fi/server/api/core/metadataschemas?page=5&size=5
+    page:
+      size: 5
+      totalElements: 26
+      totalPages: 6
+      number: 0
+- name: Helda OAI-PMH Identify
+  method: GET
+  url: https://helda.helsinki.fi/server/oai/request?verb=Identify
+  status: 200
+  auth: none
+  response_xml: '<?xml version="1.0" encoding="UTF-8"?><?xml-stylesheet type="text/xsl" href="static/style.xsl"?><OAI-PMH
+    xmlns="http://www.openarchives.org/OAI/2.0/" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+    xsi:schemaLocation="http://www.openarchives.org/OAI/2.0/ http://www.openarchives.org/OAI/2.0/OAI-PMH.xsd"><responseDate>2026-08-30T20:48:07Z</responseDate><request
+    verb="Identify">https://helda.helsinki.fi/server/oai/request</request><Identify><repositoryName>Helda</repositoryName><baseURL>https://helda.helsinki.fi/server/oai/request</baseURL><protocolVersion>2.0</protocolVersion><adminEmail>helda-admin@helsinki.fi</adminEmail><earliestDatestamp>1976-05-13T12:00:47Z</earliestDatestamp><deletedRecord>transient</deletedRecord><granularity>YYYY-MM-DDThh:mm:ssZ</granularity><description><oai-identifier
+    xmlns="http://www.openarchives.org/OAI/2.0/oai-identifier" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+    xsi:schemaLocation="http://www.openarchives.org/OAI/2.0/oai-identifier http://www.openarchives.org/OAI/2.0/oai-identifier.xsd">
+
+    <scheme>oai</scheme>
+
+    <repositoryIdentifier>helda.helsinki.fi</repositoryIdentifier>
+
+    <delimiter>:</delimiter>
+
+    <sampleIdentifier>oai:helda.helsinki.fi:'
+- name: API portal configuration
+  method: GET
+  url: https://api.helsinki.fi/portal/environments/DEFAULT/configuration
+  status: 200
+  auth: none
+  note: The document that states the API key header and which plan security types are enabled.
+  response:
+    portal:
+      entrypoint: https://gw.api.helsinki.fi
+      apikeyHeader: X-Api-Key
+      support:
+        enabled: true
+      applicationCreation:
+        enabled: true
+      userCreation:
+        enabled: false
+      apis:
+        tilesMode:
+          enabled: true
+        categoryMode:
+          enabled: false
+        promotedApiMode:
+          enabled: true
+        apiHeaderShowTags:
+          enabled: false
+        apiHeaderShowCategories:
+          enabled: false
+      analytics:
+        enabled: false
+        trackingId: ''
+      rating:
+        enabled: true
+        comment:
+          mandatory: true
+      uploadMedia:
+        enabled: true
+        maxSizeInBytes: 1000000
+    authentication:
+      forceLogin:
+        enabled: false
+      localLogin:
+        enabled: false
+    scheduler:
+      notificationsInSeconds: 10
+    documentation:
+      url: https://docs.gravitee.io
+    plan:
+      security:
+        apikey:
+          enabled: true
+        sharedApiKey:
+          enabled: false
+        oauth2:
+          enabled: true
+        keyless:
+          enabled: false
+        jwt:
+          enabled: true
+    apiReview:
+      enabled: false
+    analytics:
+      clientTimeout: 30000
+    application:
+      registration:
+        enabled: true
+      types:
+        simple:
+          enabled: true
+        browser:
+          enabled: true
+        web:
+          enabled: true
+        native:
+          enabled: true
+        backend_to_backend:
+          enabled: true
+    recaptcha:
+      enabled: false
+      siteKey: ''
+    alert:
+      enabled: true
+- name: Sisu / Kori error envelope
+  method: GET
+  url: https://sisu.helsinki.fi/kori/api/module-search?limit=1
+  status: 400
+  auth: none
+  x-operator: tenant
+  note: Included as evidence that the tenant surface answers anonymously. The contract is Funidata's,
+    so no spec for it is stored in this repository.
+  response:
+    cause: null
+    stackTrace: []
+    deeper: []
+    message: AT_LEAST_ONE_SEARCH_PARAM_REQUIRED
+    suppressed: []
+    localizedMessage: AT_LEAST_ONE_SEARCH_PARAM_REQUIRED
+structural:
+- name: HY Organisation API — read an organisation
+  method: GET
+  url: https://gw.api.helsinki.fi/organisation/info/organisations/{organisationId}
+  headers:
+    X-Api-Key: '{key issued against your portal subscription}'
+  source: openapi/university-of-helsinki-hy-organisation-api-openapi.yml
+  note: Not called. Keyless access is disabled at the gateway, so no anonymous response exists to record.
+- name: HY Building API — list buildings
+  method: GET
+  url: https://gw.api.helsinki.fi/building/buildings
+  headers:
+    X-Api-Key: '{key issued against your portal subscription}'
+  source: openapi/university-of-helsinki-hy-building-api-openapi.yml
+- name: Helsinki.fi content — news
+  method: GET
+  url: https://gw.api.helsinki.fi/public_web/news
+  headers:
+    X-Api-Key: '{key issued by the news plan}'
+  source: openapi/university-of-helsinki-helsinki-fi-content-openapi.yml
+  note: This API declares two distinct keys, one per plan; the study-search endpoints take StudySearchApiKey
+    instead.
+- name: Contact Search API — search experts
+  method: GET
+  url: https://gw.api.helsinki.fi/contact-search/{path}
+  headers:
+    X-Api-Key: '{key issued against your portal subscription}'
+  source: openapi/university-of-helsinki-contact-search-api-openapi.yml
+  x-pii: 'This API returns records about identifiable staff. Structural only: no live response is stored,
+    no real person appears in this repository, and no agent skill or MCP tool is emitted for it.'
+- name: PersonGroup — group membership
+  method: GET
+  url: https://gw.api.helsinki.fi/persongroup/{group}
+  headers:
+    X-Api-Key: '{key issued against your portal subscription}'
+  source: openapi/university-of-helsinki-persongroup-openapi.yml
+  x-pii: Returns member data about identifiable people. Structural only, same handling as Contact Search.
+- name: FinBIF — register for an access token
+  method: POST
+  url: https://api.laji.fi/api-user
+  body:
+    email: '{your email address}'
+  source: openapi/university-of-helsinki-finbif-laji-openapi.yml
+  note: 'The one self-service credential in the estate: the token is mailed to the address supplied. Not
+    exercised here.'
+- name: FinBIF — authenticated call
+  method: GET
+  url: https://api.laji.fi/{resource}
+  headers:
+    Authorization: Bearer {access token}
+    Accept-Language: en
+  source: openapi/university-of-helsinki-finbif-laji-openapi.yml

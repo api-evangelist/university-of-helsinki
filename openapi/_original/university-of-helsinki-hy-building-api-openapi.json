@@ -1,0 +1,130 @@
+{
+  "openapi" : "3.0.1",
+  "info" : {
+    "title" : "HY Building API",
+    "version" : "1.0.0"
+  },
+  "servers" : [ {
+    "url" : "https://gw.api.helsinki.fi/building"
+  } ],
+  "tags" : [ {
+    "name" : "v1/building/",
+    "description" : "University buildings rest service"
+  }, {
+    "name" : "v1/space/",
+    "description" : "University spaces rest service"
+  } ],
+  "paths" : {
+    "/v1/building/list" : {
+      "get" : {
+        "tags" : [ "v1/building/" ],
+        "summary" : "Buildings as list",
+        "operationId" : "getblist",
+        "responses" : {
+          "200" : {
+            "description" : "Output type",
+            "content" : {
+              "application/json" : {
+                "schema" : {
+                  "type" : "array",
+                  "items" : {
+                    "$ref" : "#/components/schemas/Building"
+                  }
+                }
+              }
+            }
+          }
+        },
+        "security" : [ {
+          "Apikey" : [ ]
+        } ]
+      }
+    },
+    "/v1/space/list" : {
+      "get" : {
+        "tags" : [ "v1/space/" ],
+        "summary" : "Spaces as list",
+        "operationId" : "getslist",
+        "responses" : {
+          "200" : {
+            "description" : "Output type",
+            "content" : {
+              "application/json" : {
+                "schema" : {
+                  "type" : "array",
+                  "items" : {
+                    "$ref" : "#/components/schemas/Space"
+                  }
+                }
+              }
+            }
+          }
+        },
+        "security" : [ {
+          "Apikey" : [ ]
+        } ]
+      }
+    }
+  },
+  "components" : {
+    "schemas" : {
+      "Building" : {
+        "type" : "object",
+        "properties" : {
+          "code" : {
+            "type" : "string",
+            "description" : "Building code"
+          },
+          "name" : {
+            "type" : "string",
+            "description" : "Building name"
+          },
+          "address" : {
+            "type" : "string",
+            "description" : "Building address"
+          },
+          "postalNumber" : {
+            "type" : "string",
+            "description" : "City postal area where the building belongs"
+          },
+          "postalBox" : {
+            "type" : "string",
+            "description" : "Postal box of the building"
+          },
+          "city" : {
+            "type" : "string",
+            "description" : "City where the building is located"
+          },
+          "campus" : {
+            "type" : "string",
+            "description" : "Campus where the building belongs"
+          }
+        },
+        "description" : "Represents a university building"
+      },
+      "Space" : {
+        "type" : "object",
+        "properties" : {
+          "buildingCode" : {
+            "type" : "string",
+            "description" : "Building code where the space belongs"
+          },
+          "spaceLabel" : {
+            "type" : "string",
+            "description" : "Label of the space"
+          }
+        },
+        "description" : "Represents a university space"
+      }
+    },
+    "securitySchemes" : {
+      "Apikey" : {
+        "type" : "apiKey",
+        "description" : "APIKey Auth",
+        "name" : "X-Api-Key",
+        "in" : "header"
+      }
+    }
+  },
+  "x-original-swagger-version" : "2.0"
+}

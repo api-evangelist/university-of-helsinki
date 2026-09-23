@@ -1,0 +1,218 @@
+openapi: 3.2.0
+info:
+  title: General Efecte /order API
+servers:
+- url: https://gw.api.helsinki.fi/efecte
+tags:
+- name: Order
+paths:
+  /order/post:
+    post:
+      tags:
+      - Order
+      summary: Order post API
+      operationId: OrderPost
+      requestBody:
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/OrderTemplate'
+        required: true
+      responses:
+        '200':
+          description: OK
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/OrderResponse'
+      security:
+      - Apikey: []
+components:
+  schemas:
+    OrderResponse:
+      type: object
+      properties:
+        status:
+          type: string
+        efecteId:
+          type: string
+    OrderTemplate:
+      type: object
+      properties:
+        customer:
+          type: string
+        title:
+          type: string
+        description:
+          type: string
+        type:
+          type: string
+        supportGroup:
+          type: string
+        requestType:
+          type: string
+        unit:
+          type: string
+        orgunit:
+          type: string
+        categoryLevel1:
+          type: string
+        categoryLevel2:
+          type: string
+        categoryLevel3:
+          type: string
+        linkIncidents:
+          type: string
+        onifyId:
+          type: string
+        productType:
+          type: string
+        licenseModel:
+          type: string
+        user:
+          type: string
+        folder:
+          type: string
+        orderedBy:
+          type: string
+        workstationName:
+          type: string
+        efecteId:
+          type: string
+        inspector:
+          type: string
+        status:
+          type: string
+        inspectorMessage:
+          type: string
+        vmApplicationid:
+          type: string
+        vmAuthorityInfo:
+          type: string
+        vmFirewall:
+          type: array
+          items:
+            type: string
+        vmLifecycle:
+          type: string
+        vmMonitoring:
+          type: string
+        vmMonitoringServices:
+          type: array
+          items:
+            type: string
+        vmMonitoringDescription:
+          type: string
+        vmPersonalInfo:
+          type: string
+        vmResponsibleNames:
+          type: array
+          items:
+            type: string
+        vmUsers:
+          type: array
+          items:
+            type: string
+        wbs:
+          type: string
+        vmAdmins:
+          type: array
+          items:
+            type: string
+        vmCname:
+          type: string
+        vmCpuCores:
+          type: string
+        vmDatadisks:
+          type: array
+          items:
+            type: string
+        vmServiceWindow:
+          type: string
+        vmMemGB:
+          type: string
+        vmName:
+          type: string
+        vmOs:
+          type: string
+        vmResponsibles:
+          type: array
+          items:
+            type: string
+        role:
+          type: string
+        vmSystemdiskSizeGB:
+          type: string
+        vmSystemdiskType:
+          type: string
+        vmDescription:
+          type: string
+        customerNotes:
+          type: string
+        deliverTo:
+          type: string
+        deliveryAddress:
+          type: string
+        deliveryInfo:
+          type: string
+        orderReference:
+          type: string
+        orderTotal:
+          type: string
+        approvedBy:
+          type: string
+        products:
+          type: array
+          items:
+            type: string
+        workstationModel:
+          type: array
+          items:
+            type: string
+        openshiftProjectResourcequotaCpu:
+          type: number
+          format: double
+        openshiftProjectResourcequotaMemory:
+          type: integer
+          format: int32
+        openshiftProjectResourcequotaStorage:
+          type: integer
+          format: int32
+        openshiftProjectResourcequotaStorageclassnames:
+          type: string
+        openshiftProjectProductOwner:
+          type: string
+        openshiftProjectSovellussalkkuUrl:
+          type: string
+        openshiftProjectTechnicalContact:
+          type: array
+          items:
+            type: string
+        openshiftProjectAdminRolebindingGroup:
+          type: string
+        openshiftProjectResponsible:
+          type: string
+        vdiDesktop:
+          type: string
+        vdiPool:
+          type: string
+        vdiBegin:
+          type: string
+        vdiEnd:
+          type: string
+        vmBackup:
+          type: boolean
+        vmHttps:
+          type: boolean
+        vmSpecialCert:
+          type: boolean
+        vmResponsibleGroups:
+          type: array
+          items:
+            type: string
+  securitySchemes:
+    Apikey:
+      type: apiKey
+      description: APIKey Auth
+      name: X-Api-Key
+      in: header

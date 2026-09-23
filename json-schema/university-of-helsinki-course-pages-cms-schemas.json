@@ -1,0 +1,59 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "$id": "https://raw.githubusercontent.com/api-evangelist/university-of-helsinki/main/json-schema/university-of-helsinki-course-pages-cms-schemas.json",
+  "title": "University of Helsinki - Courses content machine - JSON API — component schemas",
+  "description": "JSON Schema bundle derived from the component schemas of openapi/university-of-helsinki-course-pages-cms-openapi.yml, which was harvested verbatim from the University of Helsinki API portal (https://api.helsinki.fi/portal/environments/DEFAULT/apis/84151a51-494f-48a2-951a-51494fa8a225/pages/a17ce8c6-0e70-4ab4-bce8-c60e704ab466/content). Schemas are reproduced unchanged from the provider's own OpenAPI; only the $schema/$id/$defs envelope is ours.",
+  "x-generated": "2026-08-30",
+  "x-method": "derived",
+  "x-source": "openapi/university-of-helsinki-course-pages-cms-openapi.yml",
+  "$defs": {
+    "node--course": {
+      "title": "node:course Schema",
+      "required": [
+        "data"
+      ],
+      "type": "object",
+      "properties": {
+        "data": {
+          "type": "object",
+          "additionalProperties": false,
+          "description": "\\\"Resource objects\\\" appear in a JSON:API document to represent resources."
+        },
+        "meta": {
+          "type": "object",
+          "additionalProperties": true,
+          "description": "Non-standard meta-information that can not be represented as an attribute or relationship."
+        },
+        "links": {
+          "type": "object",
+          "additionalProperties": {
+            "required": [
+              "href"
+            ],
+            "type": "object",
+            "properties": {
+              "href": {
+                "type": "string",
+                "description": "A string containing the link's URL . ",
+                "format": "uri - reference"
+              },
+              "meta": {
+                "type": "object",
+                "additionalProperties": true,
+                "description": "Non-standard meta-information that can not be represented as an attribute or relationship."
+              }
+            },
+            "description": "A link **MUST** be represented as either: a string containing the link's URL or a link object . "
+          }
+        },
+        "jsonapi": {
+          "type": "object",
+          "additionalProperties": false,
+          "description": "An object describing the server's implementation"
+        }
+      },
+      "additionalProperties": true,
+      "description": "Contains information related to a course, such as introduction text and an image."
+    }
+  }
+}

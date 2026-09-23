@@ -1,0 +1,47 @@
+openapi: 3.2.0
+info:
+  title: HY Building V1/space/ API
+  version: 1.0.0
+  description: University spaces rest service
+servers:
+- url: https://gw.api.helsinki.fi/building
+tags:
+- name: v1/space/
+  description: University spaces rest service
+paths:
+  /v1/space/list:
+    get:
+      tags:
+      - v1/space/
+      summary: Spaces as list
+      operationId: getslist
+      responses:
+        '200':
+          description: Output type
+          content:
+            application/json:
+              schema:
+                type: array
+                items:
+                  $ref: '#/components/schemas/Space'
+      security:
+      - Apikey: []
+components:
+  schemas:
+    Space:
+      type: object
+      properties:
+        buildingCode:
+          type: string
+          description: Building code where the space belongs
+        spaceLabel:
+          type: string
+          description: Label of the space
+      description: Represents a university space
+  securitySchemes:
+    Apikey:
+      type: apiKey
+      description: APIKey Auth
+      name: X-Api-Key
+      in: header
+x-original-swagger-version: '2.0'

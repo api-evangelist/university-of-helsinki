@@ -1,0 +1,83 @@
+openapi: 3.2.0
+info:
+  title: Organisation Registry Public Human Resources With Level API
+  description: Organisation Registry Public API
+  version: 1.0.0
+servers:
+- url: https://gw.api.helsinki.fi/organisation/info
+security:
+- apiKey: []
+tags:
+- name: HumanResourcesWithLevel
+paths:
+  /v1/humanResourcesWithLevel:
+    get:
+      summary: Fetch units in human resources and their level on the tree
+      operationId: getHumanResourcesWithLevel
+      parameters:
+      - name: level
+        in: query
+        description: Fetch hierarchies up to level or the whole tree if not set
+        required: false
+        style: form
+        explode: true
+      responses:
+        '200':
+          description: OK
+          content:
+            application/json:
+              schema:
+                type: array
+                items:
+                  $ref: '#/components/schemas/HumanResourcesWithLevel'
+              examples:
+                Human Resources With level example:
+                  $ref: '#/components/examples/HumanResourcesWithLevel'
+      tags:
+      - HumanResourcesWithLevel
+components:
+  schemas:
+    HumanResourcesWithLevel:
+      type: object
+      properties:
+        uniqueId:
+          type: string
+        code:
+          type: string
+        type:
+          type: string
+        nameFi:
+          type: string
+        nameEn:
+          type: string
+        nameSv:
+          type: string
+        level:
+          type: integer
+        parent:
+          type: string
+  examples:
+    HumanResourcesWithLevel:
+      value:
+      - level: 0
+        uniqueId: '12345678'
+        nameFi: Helsingin yliopisto
+        nameEn: Helsingin yliopisto in English
+        nameSv: Helsingin yliopisto på Svenska
+        type: kansio
+        code: HY
+        parent: null
+      - level: 1
+        uniqueId: '32132132'
+        nameFi: Tiedekunnat
+        nameSv: Fakulteterna
+        nameEn: Faculties
+        type: kansio
+        code: F600
+        parent: '12345678'
+  securitySchemes:
+    apiKey:
+      type: apiKey
+      description: APIKey Auth
+      name: X-Api-Key
+      in: header

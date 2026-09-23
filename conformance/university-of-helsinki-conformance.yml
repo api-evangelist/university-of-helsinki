@@ -1,0 +1,149 @@
+generated: '2026-08-30'
+method: probed
+source: live probes against helsinki.fi, laji.fi and haka.funet.fi hosts, 2026-08-30
+regime: education
+x-operator: institution
+note: >-
+  Conformance for the Kin Score `education` regulatory regime, measured against live endpoints
+  rather than prose claims. Every `conforms: true` below names a URL that was fetched and the
+  exact element in the response that carries the evidence. Nothing was credited from a
+  documentation page saying a standard is supported. The University of Helsinki's genuine
+  strength here is scholarly and identity infrastructure — OAI-PMH, SAML/Shibboleth, OIDC with
+  eduPerson claims, ORCID and DataCite metadata — not the teaching-and-learning interoperability
+  family (OneRoster, Ed-Fi, Caliper, QTI), which it does not expose publicly at all.
+standards:
+- id: oai-pmh
+  conforms: true
+  evidence: >-
+    THREE independent live OAI-PMH 2.0 endpoints on the institution's own hosts.
+    (1) https://helda.helsinki.fi/server/oai/request?verb=Identify -> 200 text/xml,
+    repositoryName "Helda", adminEmail helda-admin@helsinki.fi, earliestDatestamp 1976-05-13,
+    granularity YYYY-MM-DDThh:mm:ssZ. ListMetadataFormats returns FOURTEEN prefixes:
+    oai_dc, qdc, qdc_helda, qdc_finna, dim, xoai, mods, mets, didl, ore, rdf, marc, etdms, rioxx.
+    (2) https://datakatalogi.helsinki.fi/server/oai/request?verb=Identify -> 200 text/xml,
+    repositoryName "HyDatacatalogue", adminEmail datakatalogi@helsinki.fi.
+    (3) https://journals.helsinki.fi/index/oai?verb=Identify -> 200 text/xml, repositoryName
+    "Editori - Avoimen julkaisemisen palvelu", adminEmail editori@helsinki.fi, formats
+    oai_dc, marcxml, oai_marc, rfc1807.
+- id: shibboleth
+  conforms: true
+  evidence: >-
+    https://login.helsinki.fi/idp/shibboleth -> 200, a Shibboleth IdP SAML metadata document.
+    md:EntityDescriptor entityID="https://login.helsinki.fi/shibboleth" with an
+    md:IDPSSODescriptor and shibmd:Scope regexp="false" of `helsinki.fi`, plus a signing
+    X509Certificate CN=login.helsinki.fi valid 2024-08-15 to 2044-08-15. The document is served
+    from the stock Shibboleth template (its comment banner still reads "This is example metadata
+    only"), so it is the IdP's self-description rather than the federation-signed copy — the
+    federation-signed entity is the one below.
+- id: saml
+  conforms: true
+  evidence: >-
+    SIXTEEN helsinki.fi entityIDs appear in the Haka federation SAML 2.0 metadata aggregate
+    https://haka.funet.fi/metadata/haka-metadata.xml (200, text/xml, 3,696,289 bytes): the IdP
+    https://login.helsinki.fi/shibboleth plus fifteen service providers — helda, blogs,
+    journals, moodle, mooc, examinarium, wiki, workgroups, kamu, crowd.it, jakaja.it,
+    xwiki-qa.it, disa.cs, datakatalogi and version.helsinki.fi. Haka is the Finnish research and
+    education federation and interfederates through eduGAIN, so these entities are reachable
+    internationally.
+- id: orcid
+  conforms: true
+  evidence: >-
+    ORCID is a first-class identifier in Helda's DSpace registry, not an incidental text field.
+    https://helda.helsinki.fi/server/api/core/metadatafields/search/byFieldName?query=orcid ->
+    200, TEN registered fields: dc.contributor.orcid, person.identifier.orcid, eperson.orcid,
+    eperson.orcid.scope, and the DSpace ORCID integration set (dspace.orcid.authenticated,
+    dspace.orcid.scope, dspace.orcid.sync-mode, dspace.orcid.sync-profile,
+    dspace.orcid.sync-publications, dspace.orcid.sync-fundings) — the sync fields exist only
+    when ORCID member integration is configured.
+- id: datacite
+  conforms: true
+  evidence: >-
+    A `datacite` metadata schema is registered in BOTH institution-operated DSpace instances.
+    https://helda.helsinki.fi/server/api/core/metadataschemas -> 200 lists prefixes including
+    `datacite`, `oaire` and `coar`; the same call against datakatalogi.helsinki.fi returns the
+    same three. Registered datacite fields include datacite.geoLocation,
+    datacite.relation.isReferencedBy, datacite.relation.isReviewedBy,
+    datacite.relation.isSupplementedBy and datacite.subject.fos.
+- id: lti
+  conforms: partial
+  evidence: >-
+    The institution's Moodle runs LTI 1.3 / LTI Advantage platform endpoints, live and anonymous:
+    https://moodle.helsinki.fi/mod/lti/certs.php -> 200 application/json, an RFC 7517 JWKS with an
+    RS256 RSA key, and https://moodle.helsinki.fi/mod/lti/auth.php -> 200, the OIDC third-party
+    initiation endpoint. PARTIAL because the platform is a Moodle deployment rather than a
+    University-authored contract, no LTI tool registration is publicly documented, and
+    https://moodle.helsinki.fi/.well-known/openid-configuration returns 404.
+- id: scim
+  conforms: false
+  evidence: >-
+    No SCIM service provider is exposed. /scim/v2/ServiceProviderConfig returns 404 on both
+    gw.api.helsinki.fi (404 text/plain) and api.helsinki.fi (404 text/html). Provisioning at the
+    University runs through the PersonGroup and EmployeeInformation gateway APIs, which are
+    bespoke and not SCIM-shaped.
+- id: oneroster
+  conforms: false
+  evidence: No 1EdTech OneRoster endpoint on any probed helsinki.fi host; no OneRoster claim in any of the thirteen harvested OpenAPI documents.
+- id: ed-fi
+  conforms: false
+  evidence: Ed-Fi is a US K-12 data standard with no adoption footprint in Finnish higher education; nothing found on any probed host.
+- id: caliper
+  conforms: false
+  evidence: No Caliper Analytics sensor or event store endpoint found on moodle.helsinki.fi or any gateway API.
+- id: qti
+  conforms: false
+  evidence: >-
+    examinarium.helsinki.fi (the electronic examination service) is a registered Haka SAML SP but
+    exposes no public QTI import/export interface, and no QTI reference appears in any harvested
+    contract.
+- id: crossref
+  conforms: false
+  evidence: >-
+    Not demonstrated. journals.helsinki.fi (Editori, PKP OJS) is the plausible Crossref
+    depositor, but its OAI-PMH ListMetadataFormats returns only oai_dc, marcxml, oai_marc and
+    rfc1807, with no Crossref schema, and no public deposit or DOI-registration interface was
+    found. Recorded false rather than assumed.
+adjacent_standards:
+- id: openapi-3.x
+  conforms: true
+  evidence: >-
+    Thirteen OpenAPI documents, all served publicly and all describing hosts the institution
+    operates: eleven at openapi/_original/ harvested from the University's own Gravitee portal
+    (six 3.0.0, four 3.0.1, one 3.0.3, one 3.1.0) plus the FinBIF Laji API 3.0.0 (177 paths,
+    239 component schemas). Combined: 267 paths and 316 component schemas.
+- id: openid-connect-discovery
+  conforms: true
+  evidence: >-
+    https://login.helsinki.fi/.well-known/openid-configuration -> 200 application/json.
+    issuer https://login.helsinki.fi; authorization, token, userinfo and jwks endpoints all under
+    /idp/profile/oidc/; jwks_uri https://login.helsinki.fi/idp/profile/oidc/keyset -> 200.
+    scopes_supported [openid, profile, email, groups, offline_access]. claims_supported carries
+    the full eduPerson, SCHAC and funetEduPerson vocabularies (eduPersonPrincipalName,
+    eduPersonScopedAffiliation, eduPersonAssurance, schacHomeOrganization,
+    funetEduPersonLearnerId) alongside institution-local hy* claims. Saved at
+    well-known/university-of-helsinki-openid-configuration.json.
+  caveat: >-
+    code_challenge_methods_supported is absent — the discovery document does not advertise PKCE,
+    while implicit flow and the `id_token token` response types are advertised.
+- id: rfc9116-security-txt
+  conforms: true
+  evidence: >-
+    https://www.helsinki.fi/.well-known/security.txt -> 200 text/plain with Contact,
+    Expires (2027-12-30), Preferred-Languages (en, fi) and a Canonical field.
+- id: rfc9457-problem-details
+  conforms: false
+  evidence: Zero operations across all thirteen specs declare application/problem+json. See errors/university-of-helsinki-problem-types.yml.
+- id: dspace-rest-hal
+  conforms: true
+  evidence: >-
+    https://helda.helsinki.fi/server/api -> 200 application/hal+json, DSpace 7.6.2 HAL root;
+    https://datakatalogi.helsinki.fi/server/api -> 200 application/hal+json, DSpace 9.0 HAL root
+    with dspaceName "HyDatacatalogue".
+not_conformant_and_worth_saying:
+- >-
+  No llms.txt. https://www.helsinki.fi/llms.txt returns 403 (the CDN blocks the path rather than
+  serving a document), so there is no agent-facing catalogue on the main site.
+- >-
+  No /.well-known/api-catalog, no OpenAPI index, and no apis.json anywhere on the estate. The
+  fifteen gateway APIs are discoverable ONLY through the Gravitee portal's own REST API at
+  https://api.helsinki.fi/portal/environments/DEFAULT/apis, which is undocumented as a
+  discovery surface even though it answers anonymously.

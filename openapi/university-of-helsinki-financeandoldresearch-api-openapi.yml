@@ -1,0 +1,102 @@
+openapi: 3.2.0
+info:
+  title: Organisation Registry Public Finance And Old Research API
+  description: Organisation Registry Public API
+  version: 1.0.0
+servers:
+- url: https://gw.api.helsinki.fi/organisation/info
+security:
+- apiKey: []
+tags:
+- name: FinanceAndOldResearch
+paths:
+  /v1/FinanceAndOldResearch:
+    get:
+      summary: Fetch nodes in 'talous' and 'vanha_yksikko' hierarchies that have certain…
+      operationId: getFinanceAndOldResearch
+      responses:
+        '200':
+          description: OK
+          content:
+            application/json:
+              schema:
+                type: array
+                items:
+                  $ref: '#/components/schemas/FinanceAndOldResearch'
+              examples:
+                FinanceAndOldResearch example:
+                  $ref: '#/components/examples/FinanceAndOldResearchExample'
+      tags:
+      - FinanceAndOldResearch
+components:
+  schemas:
+    FinanceAndOldResearch:
+      type: object
+      properties:
+        uniqueId:
+          type: string
+        type:
+          type: string
+        code:
+          type: string
+        educationCode:
+          type: string
+        nameFi:
+          type: string
+        nameEn:
+          type: string
+        nameSv:
+          type: string
+        unitStartDate:
+          type: string
+        publicity:
+          type: string
+        uniqueCode:
+          type: string
+        parent:
+          type: string
+  examples:
+    FinanceAndOldResearchExample:
+      value:
+      - code: HY
+        educationCode: null
+        nameEn: University of Helsinki
+        nameFi: Helsingin yliopisto
+        nameSv: Helsingfors universitet
+        abbreviation: hyh
+        parent: null
+        publicity: kylla
+        type: yritys_yhteiso
+        uniqueCode: kylla
+        uniqueId: '42785051'
+        unitStartDate: '1640-03-26'
+      - code: H8230
+        educationCode: '1234'
+        nameEn: Hyytiälä Forestry Field Station
+        nameFi: Hyytiälän metsäasema
+        nameSv: 'Hyytiälä forststation '
+        abbreviation: null
+        parent: '54032432'
+        publicity: kylla
+        type: alayksikko
+        uniqueCode: kylla
+        uniqueId: '61962952'
+        unitStartDate: null
+      - code: null
+        educationCode: H0123
+        nameEn: Unit
+        nameFi: Yksikkö
+        nameSv: Unit
+        abbreviation: null
+        parent: '99999999'
+        publicity: kylla
+        type: alayksikko
+        uniqueCode: kylla
+        uniqueId: '99998888'
+        unitStartDate: null
+  securitySchemes:
+    apiKey:
+      type: apiKey
+      description: APIKey Auth
+      name: X-Api-Key
+      in: header

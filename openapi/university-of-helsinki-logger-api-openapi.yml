@@ -1,0 +1,251 @@
+openapi: 3.2.0
+info:
+  title: Laji Logger API
+  description: '## Authentication
+
+
+    This API requires an **Access Token**.'
+  version: '1'
+  contact: {}
+servers:
+- url: https://api.laji.fi
+tags:
+- name: Logger
+paths:
+  /logger/{level}:
+    post:
+      operationId: LoggerController_log
+      parameters:
+      - name: level
+        required: true
+        in: path
+        description: Log level
+        schema:
+          enum:
+          - error
+          - info
+          - warn
+          type: string
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              type: object
+              additionalProperties: true
+              example:
+                message: log message
+                meta: {}
+      responses:
+        '204':
+          description: ''
+        '400':
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  errorCode:
+                    type: string
+                  message:
+                    type: string
+                  localized:
+                    type: boolean
+        '401':
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  errorCode:
+                    type: string
+                  message:
+                    type: string
+                  localized:
+                    type: boolean
+        '403':
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  errorCode:
+                    type: string
+                  message:
+                    type: string
+                  localized:
+                    type: boolean
+        '404':
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  errorCode:
+                    type: string
+                  message:
+                    type: string
+                  localized:
+                    type: boolean
+        '406':
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  errorCode:
+                    type: string
+                  message:
+                    type: string
+                  localized:
+                    type: boolean
+        '422':
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  errorCode:
+                    type: string
+                  message:
+                    type: string
+                  localized:
+                    type: boolean
+        '500':
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  errorCode:
+                    type: string
+                  message:
+                    type: string
+                  localized:
+                    type: boolean
+      security:
+      - Access token: []
+      - Lang: []
+      - Person token: []
+      summary: Send a log event
+      tags:
+      - Logger
+  /logger/status:
+    get:
+      operationId: LoggerController_getStatus
+      parameters:
+      - name: minutesBack
+        required: true
+        in: query
+        schema:
+          type: number
+      responses:
+        '200':
+          description: ''
+        '400':
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  errorCode:
+                    type: string
+                  message:
+                    type: string
+                  localized:
+                    type: boolean
+        '401':
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  errorCode:
+                    type: string
+                  message:
+                    type: string
+                  localized:
+                    type: boolean
+        '403':
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  errorCode:
+                    type: string
+                  message:
+                    type: string
+                  localized:
+                    type: boolean
+        '404':
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  errorCode:
+                    type: string
+                  message:
+                    type: string
+                  localized:
+                    type: boolean
+        '406':
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  errorCode:
+                    type: string
+                  message:
+                    type: string
+                  localized:
+                    type: boolean
+        '422':
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  errorCode:
+                    type: string
+                  message:
+                    type: string
+                  localized:
+                    type: boolean
+        '500':
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  errorCode:
+                    type: string
+                  message:
+                    type: string
+                  localized:
+                    type: boolean
+      security:
+      - Access token: []
+      - Lang: []
+      - Person token: []
+      summary: Get info if there's log events
+      tags:
+      - Logger
+components:
+  securitySchemes:
+    Access_token:
+      scheme: bearer
+      bearerFormat: JWT
+      type: http
+      description: Access token
+    Lang:
+      type: apiKey
+      in: header
+      name: Accept-Language
+      description: Sets the 'Accept-Language' header. One of 'fi', 'sv,' 'en'. Defaults to 'en'.
+    Person_token:
+      type: apiKey
+      in: header
+      name: Person-Token

@@ -1,0 +1,829 @@
+{
+  "openapi" : "3.0.0",
+  "info" : {
+    "title" : "General Efecte API"
+  },
+  "servers" : [ {
+    "url" : "https://gw.api.helsinki.fi/efecte"
+  } ],
+  "tags" : [ {
+    "name" : "/ticket"
+  }, {
+    "name" : "/order"
+  }, {
+    "name" : "/machine"
+  }, {
+    "name" : "/dynamicorder"
+  } ],
+  "paths" : {
+    "/ticket/post" : {
+      "post" : {
+        "tags" : [ "/ticket" ],
+        "summary" : "Ticket post API",
+        "operationId" : "TicketPost",
+        "requestBody" : {
+          "content" : {
+            "application/json" : {
+              "schema" : {
+                "$ref" : "#/components/schemas/TicketTemplate"
+              }
+            }
+          },
+          "required" : true
+        },
+        "responses" : {
+          "200" : {
+            "description" : "OK",
+            "content" : {
+              "application/json" : {
+                "schema" : {
+                  "$ref" : "#/components/schemas/OrderResponse"
+                }
+              }
+            }
+          }
+        },
+        "security" : [ {
+          "Apikey" : [ ]
+        } ]
+      }
+    },
+    "/order/post" : {
+      "post" : {
+        "tags" : [ "/order" ],
+        "summary" : "Order post API",
+        "operationId" : "OrderPost",
+        "requestBody" : {
+          "content" : {
+            "application/json" : {
+              "schema" : {
+                "$ref" : "#/components/schemas/OrderTemplate"
+              }
+            }
+          },
+          "required" : true
+        },
+        "responses" : {
+          "200" : {
+            "description" : "OK",
+            "content" : {
+              "application/json" : {
+                "schema" : {
+                  "$ref" : "#/components/schemas/OrderResponse"
+                }
+              }
+            }
+          }
+        },
+        "security" : [ {
+          "Apikey" : [ ]
+        } ]
+      }
+    },
+    "/machine/vdi/post" : {
+      "post" : {
+        "tags" : [ "/machine" ],
+        "summary" : "VDI Machine Post API",
+        "operationId" : "VDIMachinePost",
+        "requestBody" : {
+          "content" : {
+            "application/json" : {
+              "schema" : {
+                "$ref" : "#/components/schemas/VDIMachine"
+              }
+            }
+          },
+          "required" : true
+        },
+        "responses" : {
+          "200" : {
+            "description" : "OK",
+            "content" : {
+              "application/json" : {
+                "schema" : {
+                  "$ref" : "#/components/schemas/OrderResponse"
+                }
+              }
+            }
+          }
+        },
+        "security" : [ {
+          "Apikey" : [ ]
+        } ]
+      }
+    },
+    "/dynamicorder/post_catalogdevice" : {
+      "post" : {
+        "tags" : [ "/dynamicorder" ],
+        "summary" : "Dynamic catalog post API",
+        "operationId" : "DynamicCatalogPost",
+        "requestBody" : {
+          "content" : {
+            "application/json" : {
+              "schema" : {
+                "$ref" : "#/components/schemas/DynamicOrderTemplate"
+              }
+            }
+          },
+          "required" : true
+        },
+        "responses" : {
+          "200" : {
+            "description" : "OK",
+            "content" : {
+              "application/json" : {
+                "schema" : {
+                  "$ref" : "#/components/schemas/OrderResponse"
+                }
+              }
+            }
+          }
+        },
+        "security" : [ {
+          "Apikey" : [ ]
+        } ]
+      }
+    },
+    "/dynamicorder/post_ceph_subuser" : {
+      "post" : {
+        "tags" : [ "/dynamicorder" ],
+        "summary" : "Dynamic order ceph subuser API",
+        "operationId" : "DynamicDataCloudCephSubUserPost",
+        "requestBody" : {
+          "content" : {
+            "application/json" : {
+              "schema" : {
+                "$ref" : "#/components/schemas/DynamicOrderTemplate"
+              }
+            }
+          },
+          "required" : true
+        },
+        "responses" : {
+          "200" : {
+            "description" : "OK",
+            "content" : {
+              "application/json" : {
+                "schema" : {
+                  "$ref" : "#/components/schemas/OrderResponse"
+                }
+              }
+            }
+          }
+        },
+        "security" : [ {
+          "Apikey" : [ ]
+        } ]
+      }
+    },
+    "/dynamicorder/post_ceph_tenant" : {
+      "post" : {
+        "tags" : [ "/dynamicorder" ],
+        "summary" : "Dynamic order ceph tenant API",
+        "operationId" : "DynamicDataCloudCephTenantPost",
+        "requestBody" : {
+          "content" : {
+            "application/json" : {
+              "schema" : {
+                "$ref" : "#/components/schemas/DynamicOrderTemplate"
+              }
+            }
+          },
+          "required" : true
+        },
+        "responses" : {
+          "200" : {
+            "description" : "OK",
+            "content" : {
+              "application/json" : {
+                "schema" : {
+                  "$ref" : "#/components/schemas/OrderResponse"
+                }
+              }
+            }
+          }
+        },
+        "security" : [ {
+          "Apikey" : [ ]
+        } ]
+      }
+    },
+    "/dynamicorder/post_container" : {
+      "post" : {
+        "tags" : [ "/dynamicorder" ],
+        "summary" : "Dynamic order container post API",
+        "operationId" : "DynamicOrderPost2",
+        "requestBody" : {
+          "content" : {
+            "application/json" : {
+              "schema" : {
+                "$ref" : "#/components/schemas/DynamicOrderTemplate"
+              }
+            }
+          },
+          "required" : true
+        },
+        "responses" : {
+          "200" : {
+            "description" : "OK",
+            "content" : {
+              "application/json" : {
+                "schema" : {
+                  "$ref" : "#/components/schemas/OrderResponse"
+                }
+              }
+            }
+          }
+        },
+        "security" : [ {
+          "Apikey" : [ ]
+        } ]
+      }
+    },
+    "/dynamicorder/post_gpu" : {
+      "post" : {
+        "tags" : [ "/dynamicorder" ],
+        "summary" : "Dynamic order gpu post API",
+        "operationId" : "DynamicGPUPost",
+        "requestBody" : {
+          "content" : {
+            "application/json" : {
+              "schema" : {
+                "$ref" : "#/components/schemas/DynamicOrderTemplate"
+              }
+            }
+          },
+          "required" : true
+        },
+        "responses" : {
+          "200" : {
+            "description" : "OK",
+            "content" : {
+              "application/json" : {
+                "schema" : {
+                  "$ref" : "#/components/schemas/OrderResponse"
+                }
+              }
+            }
+          }
+        },
+        "security" : [ {
+          "Apikey" : [ ]
+        } ]
+      }
+    },
+    "/dynamicorder/post_incident" : {
+      "post" : {
+        "tags" : [ "/dynamicorder" ],
+        "summary" : "Dynamic order incident post API",
+        "operationId" : "DynamicIncidentPost",
+        "requestBody" : {
+          "content" : {
+            "application/json" : {
+              "schema" : {
+                "$ref" : "#/components/schemas/DynamicOrderTemplate"
+              }
+            }
+          },
+          "required" : true
+        },
+        "responses" : {
+          "200" : {
+            "description" : "OK",
+            "content" : {
+              "application/json" : {
+                "schema" : {
+                  "$ref" : "#/components/schemas/OrderResponse"
+                }
+              }
+            }
+          }
+        },
+        "security" : [ {
+          "Apikey" : [ ]
+        } ]
+      }
+    },
+    "/dynamicorder/post_order" : {
+      "post" : {
+        "tags" : [ "/dynamicorder" ],
+        "summary" : "Dynamic order post API",
+        "operationId" : "DynamicOrderPost",
+        "requestBody" : {
+          "content" : {
+            "application/json" : {
+              "schema" : {
+                "$ref" : "#/components/schemas/DynamicOrderTemplate"
+              }
+            }
+          },
+          "required" : true
+        },
+        "responses" : {
+          "200" : {
+            "description" : "OK",
+            "content" : {
+              "application/json" : {
+                "schema" : {
+                  "$ref" : "#/components/schemas/OrderResponse"
+                }
+              }
+            }
+          }
+        },
+        "security" : [ {
+          "Apikey" : [ ]
+        } ]
+      }
+    },
+    "/dynamicorder/post_workstation" : {
+      "post" : {
+        "tags" : [ "/dynamicorder" ],
+        "summary" : "Dynamic order workstation post API",
+        "operationId" : "DynamicWorkstationPost",
+        "requestBody" : {
+          "content" : {
+            "application/json" : {
+              "schema" : {
+                "$ref" : "#/components/schemas/DynamicOrderTemplate"
+              }
+            }
+          },
+          "required" : true
+        },
+        "responses" : {
+          "200" : {
+            "description" : "OK",
+            "content" : {
+              "application/json" : {
+                "schema" : {
+                  "$ref" : "#/components/schemas/OrderResponse"
+                }
+              }
+            }
+          }
+        },
+        "security" : [ {
+          "Apikey" : [ ]
+        } ]
+      }
+    }
+  },
+  "components" : {
+    "schemas" : {
+      "TicketTemplate" : {
+        "type" : "object",
+        "properties" : {
+          "customer" : {
+            "type" : "string",
+            "description" : "Customer name (username)"
+          },
+          "customerEmail" : {
+            "type" : "string",
+            "description" : "Customer email"
+          },
+          "requestType" : {
+            "type" : "string",
+            "description" : "Ticket type"
+          },
+          "subject" : {
+            "type" : "string",
+            "description" : "Ticket subject"
+          },
+          "description" : {
+            "type" : "string",
+            "description" : "Ticket message"
+          },
+          "categoryLevel1" : {
+            "type" : "string",
+            "description" : "Category level 1 (efecte_id)"
+          },
+          "categoryLevel2" : {
+            "type" : "string",
+            "description" : "Category level 2 (efecte_id)"
+          },
+          "categoryLevel3" : {
+            "type" : "string",
+            "description" : "Category level 3 (efecte_id)"
+          },
+          "contactType" : {
+            "type" : "string",
+            "description" : "Contact channel, e.g \"Verkkolomake\". For a list of possible values, contact efecte@helsinki.fi"
+          },
+          "relatedWorkstation" : {
+            "type" : "string",
+            "description" : "Related workstation"
+          },
+          "unit" : {
+            "type" : "string",
+            "description" : "Efecte Unit ID"
+          },
+          "supportGroup" : {
+            "type" : "string",
+            "description" : "Efecte support group ID"
+          },
+          "attachmentFilename" : {
+            "type" : "string",
+            "description" : "Attachment file's name"
+          },
+          "base64Attachment" : {
+            "type" : "string",
+            "description" : "Base64 attachment file"
+          },
+          "supportPerson" : {
+            "type" : "string"
+          },
+          "relatedSolution" : {
+            "type" : "string"
+          },
+          "standardMessage" : {
+            "type" : "string"
+          },
+          "comment" : {
+            "type" : "string"
+          },
+          "linkIncidents" : {
+            "type" : "string"
+          },
+          "onifyId" : {
+            "type" : "string"
+          },
+          "serviceGroup" : {
+            "type" : "string"
+          },
+          "service" : {
+            "type" : "string"
+          },
+          "serviceProduct" : {
+            "type" : "string"
+          },
+          "serviceItem" : {
+            "type" : "string"
+          },
+          "efecteId" : {
+            "type" : "string"
+          },
+          "webShopCategory" : {
+            "type" : "string"
+          }
+        }
+      },
+      "DynamicOrderTemplate" : {
+        "type" : "object",
+        "properties" : {
+          "properties" : {
+            "type" : "object",
+            "additionalProperties" : {
+              "type" : "object",
+              "x-className" : {
+                "format" : "java.lang.Object",
+                "type" : "string"
+              }
+            }
+          }
+        }
+      },
+      "OrderTemplate" : {
+        "type" : "object",
+        "properties" : {
+          "customer" : {
+            "type" : "string"
+          },
+          "title" : {
+            "type" : "string"
+          },
+          "description" : {
+            "type" : "string"
+          },
+          "type" : {
+            "type" : "string"
+          },
+          "supportGroup" : {
+            "type" : "string"
+          },
+          "requestType" : {
+            "type" : "string"
+          },
+          "unit" : {
+            "type" : "string"
+          },
+          "orgunit" : {
+            "type" : "string"
+          },
+          "categoryLevel1" : {
+            "type" : "string"
+          },
+          "categoryLevel2" : {
+            "type" : "string"
+          },
+          "categoryLevel3" : {
+            "type" : "string"
+          },
+          "linkIncidents" : {
+            "type" : "string"
+          },
+          "onifyId" : {
+            "type" : "string"
+          },
+          "productType" : {
+            "type" : "string"
+          },
+          "licenseModel" : {
+            "type" : "string"
+          },
+          "user" : {
+            "type" : "string"
+          },
+          "folder" : {
+            "type" : "string"
+          },
+          "orderedBy" : {
+            "type" : "string"
+          },
+          "workstationName" : {
+            "type" : "string"
+          },
+          "efecteId" : {
+            "type" : "string"
+          },
+          "inspector" : {
+            "type" : "string"
+          },
+          "status" : {
+            "type" : "string"
+          },
+          "inspectorMessage" : {
+            "type" : "string"
+          },
+          "vmApplicationid" : {
+            "type" : "string"
+          },
+          "vmAuthorityInfo" : {
+            "type" : "string"
+          },
+          "vmFirewall" : {
+            "type" : "array",
+            "items" : {
+              "type" : "string"
+            }
+          },
+          "vmLifecycle" : {
+            "type" : "string"
+          },
+          "vmMonitoring" : {
+            "type" : "string"
+          },
+          "vmMonitoringServices" : {
+            "type" : "array",
+            "items" : {
+              "type" : "string"
+            }
+          },
+          "vmMonitoringDescription" : {
+            "type" : "string"
+          },
+          "vmPersonalInfo" : {
+            "type" : "string"
+          },
+          "vmResponsibleNames" : {
+            "type" : "array",
+            "items" : {
+              "type" : "string"
+            }
+          },
+          "vmUsers" : {
+            "type" : "array",
+            "items" : {
+              "type" : "string"
+            }
+          },
+          "wbs" : {
+            "type" : "string"
+          },
+          "vmAdmins" : {
+            "type" : "array",
+            "items" : {
+              "type" : "string"
+            }
+          },
+          "vmCname" : {
+            "type" : "string"
+          },
+          "vmCpuCores" : {
+            "type" : "string"
+          },
+          "vmDatadisks" : {
+            "type" : "array",
+            "items" : {
+              "type" : "string"
+            }
+          },
+          "vmServiceWindow" : {
+            "type" : "string"
+          },
+          "vmMemGB" : {
+            "type" : "string"
+          },
+          "vmName" : {
+            "type" : "string"
+          },
+          "vmOs" : {
+            "type" : "string"
+          },
+          "vmResponsibles" : {
+            "type" : "array",
+            "items" : {
+              "type" : "string"
+            }
+          },
+          "role" : {
+            "type" : "string"
+          },
+          "vmSystemdiskSizeGB" : {
+            "type" : "string"
+          },
+          "vmSystemdiskType" : {
+            "type" : "string"
+          },
+          "vmDescription" : {
+            "type" : "string"
+          },
+          "customerNotes" : {
+            "type" : "string"
+          },
+          "deliverTo" : {
+            "type" : "string"
+          },
+          "deliveryAddress" : {
+            "type" : "string"
+          },
+          "deliveryInfo" : {
+            "type" : "string"
+          },
+          "orderReference" : {
+            "type" : "string"
+          },
+          "orderTotal" : {
+            "type" : "string"
+          },
+          "approvedBy" : {
+            "type" : "string"
+          },
+          "products" : {
+            "type" : "array",
+            "items" : {
+              "type" : "string"
+            }
+          },
+          "workstationModel" : {
+            "type" : "array",
+            "items" : {
+              "type" : "string"
+            }
+          },
+          "openshiftProjectResourcequotaCpu" : {
+            "type" : "number",
+            "format" : "double"
+          },
+          "openshiftProjectResourcequotaMemory" : {
+            "type" : "integer",
+            "format" : "int32"
+          },
+          "openshiftProjectResourcequotaStorage" : {
+            "type" : "integer",
+            "format" : "int32"
+          },
+          "openshiftProjectResourcequotaStorageclassnames" : {
+            "type" : "string"
+          },
+          "openshiftProjectProductOwner" : {
+            "type" : "string"
+          },
+          "openshiftProjectSovellussalkkuUrl" : {
+            "type" : "string"
+          },
+          "openshiftProjectTechnicalContact" : {
+            "type" : "array",
+            "items" : {
+              "type" : "string"
+            }
+          },
+          "openshiftProjectAdminRolebindingGroup" : {
+            "type" : "string"
+          },
+          "openshiftProjectResponsible" : {
+            "type" : "string"
+          },
+          "vdiDesktop" : {
+            "type" : "string"
+          },
+          "vdiPool" : {
+            "type" : "string"
+          },
+          "vdiBegin" : {
+            "type" : "string"
+          },
+          "vdiEnd" : {
+            "type" : "string"
+          },
+          "vmBackup" : {
+            "type" : "boolean"
+          },
+          "vmHttps" : {
+            "type" : "boolean"
+          },
+          "vmSpecialCert" : {
+            "type" : "boolean"
+          },
+          "vmResponsibleGroups" : {
+            "type" : "array",
+            "items" : {
+              "type" : "string"
+            }
+          }
+        }
+      },
+      "OrderResponse" : {
+        "type" : "object",
+        "properties" : {
+          "status" : {
+            "type" : "string"
+          },
+          "efecteId" : {
+            "type" : "string"
+          }
+        }
+      },
+      "VDIMachine" : {
+        "type" : "object",
+        "properties" : {
+          "efecteId" : {
+            "type" : "string"
+          },
+          "name" : {
+            "type" : "string"
+          },
+          "os" : {
+            "type" : "string"
+          },
+          "numCpu" : {
+            "type" : "string"
+          },
+          "ram" : {
+            "type" : "string"
+          },
+          "diskType" : {
+            "type" : "string"
+          },
+          "diskSize" : {
+            "type" : "string"
+          },
+          "vlan" : {
+            "type" : "string"
+          },
+          "vsphereCluster" : {
+            "type" : "string"
+          },
+          "vsphereContainer" : {
+            "type" : "string"
+          },
+          "gpu" : {
+            "type" : "string"
+          },
+          "catalogId" : {
+            "type" : "string"
+          },
+          "assignedUser" : {
+            "type" : "string"
+          },
+          "maintenanceWindow" : {
+            "type" : "string"
+          },
+          "desktopPool" : {
+            "type" : "string"
+          },
+          "activeFrom" : {
+            "type" : "string"
+          },
+          "activeTill" : {
+            "type" : "string"
+          },
+          "status" : {
+            "type" : "string"
+          },
+          "order" : {
+            "type" : "string"
+          }
+        }
+      }
+    },
+    "securitySchemes" : {
+      "Apikey" : {
+        "type" : "apiKey",
+        "description" : "APIKey Auth",
+        "name" : "X-Api-Key",
+        "in" : "header"
+      }
+    }
+  }
+}

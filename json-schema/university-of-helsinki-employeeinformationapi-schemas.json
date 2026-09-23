@@ -1,0 +1,87 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "$id": "https://raw.githubusercontent.com/api-evangelist/university-of-helsinki/main/json-schema/university-of-helsinki-employeeinformationapi-schemas.json",
+  "title": "EmployeeInformationAPI — component schemas",
+  "description": "JSON Schema bundle derived from the component schemas of openapi/university-of-helsinki-employeeinformationapi-openapi.yml, which was harvested verbatim from the University of Helsinki API portal (https://api.helsinki.fi/portal/environments/DEFAULT/apis/35bd0790-a504-47a9-bd07-90a50427a9e9/pages/26466b06-ac09-4ef7-866b-06ac09eef78e/content). Schemas are reproduced unchanged from the provider's own OpenAPI; only the $schema/$id/$defs envelope is ours.",
+  "x-generated": "2026-08-30",
+  "x-method": "derived",
+  "x-source": "openapi/university-of-helsinki-employeeinformationapi-openapi.yml",
+  "$defs": {
+    "Person": {
+      "type": "object",
+      "properties": {
+        "employeeNumber": {
+          "type": "integer",
+          "format": "int32",
+          "example": 1234567
+        },
+        "titles": {
+          "type": "array",
+          "description": "List of currently active employee titles. An employee may have multiple titles due to multiple employment contracts. Future or past titles are excluded.",
+          "example": [
+            {
+              "fi": "professori",
+              "en": "Professor",
+              "sv": "professor"
+            },
+            {
+              "fi": "dosentuuri",
+              "en": "Docentship",
+              "sv": "docentur"
+            }
+          ],
+          "items": {
+            "$ref": "#/components/schemas/Title"
+          }
+        },
+        "username": {
+          "type": "string",
+          "example": "janedoe"
+        },
+        "lastName": {
+          "type": "string",
+          "example": "Doe"
+        },
+        "firstName": {
+          "type": "string",
+          "example": "Jane"
+        },
+        "email": {
+          "type": "string",
+          "example": "jane.doe@helsinki.fi"
+        }
+      },
+      "description": "Represents a person entity"
+    },
+    "Title": {
+      "type": "object",
+      "properties": {
+        "fi": {
+          "type": "string",
+          "example": "kirjastosihteeri"
+        },
+        "en": {
+          "type": "string",
+          "example": "Assistant Librarian"
+        },
+        "sv": {
+          "type": "string",
+          "example": "bibliotekssekreterare"
+        }
+      },
+      "description": "Represents a title with multi-language support (Finnish, English, and Swedish)",
+      "example": [
+        {
+          "fi": "professori",
+          "en": "Professor",
+          "sv": "professor"
+        },
+        {
+          "fi": "dosentuuri",
+          "en": "Docentship",
+          "sv": "docentur"
+        }
+      ]
+    }
+  }
+}

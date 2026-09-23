@@ -1,0 +1,636 @@
+openapi: 3.2.0
+info:
+  title: University Of Helsinki News API
+  version: '1.0'
+  description: 'Operations tagged News across 2 of this provider''s published API definitions: university-of-helsinki-finbif-laji-openapi.json, university-of-helsinki-helsinki-fi-content-openapi.json. Each path carries the servers of the definition it was published in.'
+servers:
+- url: https://api.laji.fi
+- url: https://gw.api.helsinki.fi
+tags:
+- name: News
+paths:
+  /news:
+    get:
+      operationId: NewsController_getPage
+      parameters:
+      - name: page
+        required: false
+        in: query
+        schema:
+          default: 1
+          type: integer
+      - name: pageSize
+        required: false
+        in: query
+        schema:
+          default: 20
+          type: integer
+      - name: tag
+        required: false
+        in: query
+        description: Show only news with the given tag(s). Multiple values are separated by a comma (,).
+        schema:
+          type: string
+      responses:
+        '200':
+          description: ''
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/NewsPagedDto'
+        '400':
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  errorCode:
+                    type: string
+                  message:
+                    type: string
+                  localized:
+                    type: boolean
+        '401':
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  errorCode:
+                    type: string
+                  message:
+                    type: string
+                  localized:
+                    type: boolean
+        '403':
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  errorCode:
+                    type: string
+                  message:
+                    type: string
+                  localized:
+                    type: boolean
+        '404':
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  errorCode:
+                    type: string
+                  message:
+                    type: string
+                  localized:
+                    type: boolean
+        '406':
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  errorCode:
+                    type: string
+                  message:
+                    type: string
+                  localized:
+                    type: boolean
+        '422':
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  errorCode:
+                    type: string
+                  message:
+                    type: string
+                  localized:
+                    type: boolean
+        '500':
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  errorCode:
+                    type: string
+                  message:
+                    type: string
+                  localized:
+                    type: boolean
+      security:
+      - Access token: []
+      - Lang: []
+      - Person token: []
+      summary: Get a page of news
+      tags:
+      - News
+    servers:
+    - url: https://api.laji.fi
+  /news/{id}:
+    get:
+      operationId: NewsController_get
+      parameters:
+      - name: id
+        required: true
+        in: path
+        schema:
+          type: string
+      responses:
+        '200':
+          description: ''
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/LajiBackendCMSNode'
+        '400':
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  errorCode:
+                    type: string
+                  message:
+                    type: string
+                  localized:
+                    type: boolean
+        '401':
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  errorCode:
+                    type: string
+                  message:
+                    type: string
+                  localized:
+                    type: boolean
+        '403':
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  errorCode:
+                    type: string
+                  message:
+                    type: string
+                  localized:
+                    type: boolean
+        '404':
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  errorCode:
+                    type: string
+                  message:
+                    type: string
+                  localized:
+                    type: boolean
+        '406':
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  errorCode:
+                    type: string
+                  message:
+                    type: string
+                  localized:
+                    type: boolean
+        '422':
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  errorCode:
+                    type: string
+                  message:
+                    type: string
+                  localized:
+                    type: boolean
+        '500':
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  errorCode:
+                    type: string
+                  message:
+                    type: string
+                  localized:
+                    type: boolean
+      security:
+      - Access token: []
+      - Lang: []
+      - Person token: []
+      summary: Get news item
+      tags:
+      - News
+    servers:
+    - url: https://api.laji.fi
+  /public_web/news/frosmo/{langcode}.json:
+    get:
+      tags:
+      - News
+      summary: Gets the news in a given language
+      description: 'Fetches Helsinki.fi news in the requested language.
+
+
+        Only fi, sv and en are routed.'
+      operationId: fetchNewsJson
+      parameters:
+      - name: langcode
+        in: path
+        description: Content language.
+        required: true
+        style: simple
+        explode: false
+        schema:
+          type: string
+          enum:
+          - fi
+          - sv
+          - en
+      - name: items_per_page
+        in: query
+        description: Number of news items per page. Only the listed values are accepted. Any other value, for example 1, returns an empty result set rather than falling back to the default.
+        required: false
+        style: form
+        explode: true
+        schema:
+          type: integer
+          default: 25
+          enum:
+          - 5
+          - 10
+          - 25
+          - 50
+      - name: units_and_disciplines[]
+        in: query
+        description: Units and disciplines internal taxonomy IDs to filter by. The square brackets are part of the parameter name and are required; sending units_and_disciplines=1234 without them is silently ignored and the unfiltered result set is returned. Repeat the parameter to pass several IDs; multiple values are combined with OR.
+        required: false
+        style: form
+        explode: true
+        schema:
+          type: array
+          items:
+            type: integer
+      - name: topics_and_themes[]
+        in: query
+        description: Topics and themes internal taxonomy IDs to filter by. The square brackets are part of the parameter name and are required; sending topics_and_themes=770 without them is silently ignored and the unfiltered result set is returned. Repeat the parameter to pass several IDs; multiple values are combined with OR.
+        required: false
+        style: form
+        explode: true
+        schema:
+          type: array
+          items:
+            type: integer
+      - name: published_after
+        in: query
+        description: Show only news published on or after the given date.
+        required: false
+        style: form
+        explode: true
+        schema:
+          type: string
+          example: '2026-01-01'
+      - name: page
+        in: query
+        description: Page number to get. Zero-indexed.
+        required: false
+        style: form
+        explode: true
+        schema:
+          type: integer
+          format: int64
+      responses:
+        '200':
+          description: successful operation
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  nodes:
+                    type: array
+                    items:
+                      $ref: '#/components/schemas/NewsNode'
+        '400':
+          description: The requested language is not routed. Only fi, sv and en are available.
+        '401':
+          description: No API key was supplied.
+        '403':
+          description: The supplied API key is not valid for the news plan.
+      security:
+      - NewsApiKey: []
+    servers:
+    - url: https://gw.api.helsinki.fi
+  /public_web/news:
+    get:
+      tags:
+      - News
+      summary: Gets all news in a single response, in Finnish
+      description: 'Returns published news articles in one response. The content language is fixed to Finnish and cannot be selected; use /public_web/news/frosmo/{langcode}.json when the language matters.
+
+        items_per_page must be set. The page size defaults to 1000 items, and at that size the request does not complete within the gateway timeout, so a call without parameters responds with 502. A non-numeric value falls back to the default and times out the same way.
+
+        The payload matches the schema below except that published_at is an ISO 8601 date-time rather than dd.mm.yyyy.
+
+        Taxonomy filtering on this route expands the term hierarchy — see the filter parameters.'
+      operationId: fetchNewsJsonUnpaginated
+      parameters:
+      - name: items_per_page
+        in: query
+        description: Number of news items per page.
+        required: false
+        style: form
+        explode: true
+        schema:
+          type: integer
+          default: 1000
+      - name: offset
+        in: query
+        description: Number of items to skip before the first returned item.
+        required: false
+        style: form
+        explode: true
+        schema:
+          type: integer
+      - name: page
+        in: query
+        description: Page number to get. Zero-indexed.
+        required: false
+        style: form
+        explode: true
+        schema:
+          type: integer
+          format: int64
+      - name: published_after
+        in: query
+        description: Show only news published on or after the given date.
+        required: false
+        style: form
+        explode: true
+        schema:
+          type: string
+          example: '2026-01-01'
+      - name: units_and_disciplines[]
+        in: query
+        description: 'Units and disciplines internal taxonomy IDs to filter by. The square brackets are required and the parameter is repeatable, as on the language-specific route.
+
+          On this route the term hierarchy is expanded: a parent term also matches content tagged only with terms below it in the hierarchy, at any depth. For example, filtering by a faculty term also returns articles tagged only with one of that faculty''s departments.'
+        required: false
+        style: form
+        explode: true
+        schema:
+          type: array
+          items:
+            type: integer
+      - name: topics_and_themes[]
+        in: query
+        description: Topics and themes internal taxonomy IDs to filter by. Bracketed, repeatable and hierarchy-expanded, as with units_and_disciplines[] on this route.
+        required: false
+        style: form
+        explode: true
+        schema:
+          type: array
+          items:
+            type: integer
+      responses:
+        '200':
+          description: Published news articles.
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  nodes:
+                    type: array
+                    items:
+                      $ref: '#/components/schemas/NewsNode'
+        '401':
+          description: No API key was supplied.
+        '403':
+          description: The supplied API key is not valid for the news plan.
+        '502':
+          description: The feed did not complete within the gateway timeout. This is what a call without items_per_page, or with a non-numeric one, returns.
+      security:
+      - NewsApiKey: []
+    servers:
+    - url: https://gw.api.helsinki.fi
+components:
+  schemas:
+    FeaturedImage:
+      type: object
+      properties:
+        url:
+          type: string
+        caption:
+          type: string
+        alt:
+          type: string
+      required:
+      - url
+      - caption
+    LajiBackendNewsNode:
+      type: object
+      properties:
+        external:
+          type: boolean
+        externalURL:
+          type: string
+        tag:
+          type: string
+        id:
+          type: string
+        content:
+          type: string
+        title:
+          type: string
+        author:
+          type: string
+        posted:
+          type: string
+        featuredImage:
+          $ref: '#/components/schemas/FeaturedImage'
+        modified:
+          type: string
+      required:
+      - external
+      - id
+    NewsPagedDto:
+      type: object
+      properties:
+        results:
+          type: array
+          items:
+            $ref: '#/components/schemas/LajiBackendNewsNode'
+        currentPage:
+          type: number
+        pageSize:
+          type: number
+        total:
+          type: number
+        lastPage:
+          type: number
+        prevPage:
+          type: number
+        nextPage:
+          type: number
+        '@context':
+          type: string
+      required:
+      - results
+      - currentPage
+      - pageSize
+      - total
+      - lastPage
+      - '@context'
+    LajiBackendCMSNode:
+      type: object
+      properties:
+        id:
+          type: string
+        content:
+          type: string
+        title:
+          type: string
+        author:
+          type: string
+        posted:
+          type: string
+        tags:
+          type: array
+          items:
+            type: string
+        featuredImage:
+          $ref: '#/components/schemas/FeaturedImage'
+        modified:
+          type: string
+      required:
+      - id
+    NewsNode:
+      type: object
+      properties:
+        node:
+          type: object
+          properties:
+            url:
+              type: string
+              example: https://www.example.org/news/test
+            nid:
+              type: string
+              description: Content ID of the article. Serialised as a string, not a number.
+              example: '10'
+            title:
+              type: string
+              example: Test news article
+            author:
+              type:
+              - string
+              - 'null'
+              description: Name of the author. Free text, not a reference to a user account. Null when not set.
+              example: Test Person
+            ingress:
+              type:
+              - string
+              - 'null'
+              description: Ingress text. Null when not set.
+            keywords:
+              type: string
+              description: Keyword terms (separated by comma). An empty string when no keywords are set, never null.
+            body:
+              type: string
+              description: 'Body text flattened for search indexing. Not a markup document and not structured: each paragraph is rendered as comma-separated "key: value" pairs and the paragraphs are then joined with commas. The values themselves may contain HTML from the rich text fields. Values containing commas are not escaped, so the field cannot be reliably split back apart.'
+            fact_box:
+              type: string
+              description: Fact box text, flattened the same way as body. Mainly useful for search indexing.
+            additional_content:
+              type: string
+              description: Additional content text, flattened the same way as body. Mainly useful for search indexing.
+            published_at:
+              type: string
+              description: Publication date, formatted as dd.mm.yyyy. Derived from the article's authored-on date.
+              example: 05.08.2026
+            article_type:
+              type: string
+              description: Article type terms (separated by comma). An empty string when none are set.
+              example: News
+            primary_theme_tag:
+              type: string
+              description: Topics and themes terms (separated by comma). An empty string when none are set.
+              example: Equality
+            secondary_theme_tags:
+              type: string
+              description: Units and disciplines terms (separated by comma). An empty string when none are set.
+              example: Social Work
+            liftup_image:
+              type: string
+              description: Always an empty string in the current implementation.
+            video_url:
+              type: string
+              description: Always an empty string in the current implementation.
+            main_image_description:
+              type:
+              - string
+              - 'null'
+              description: Present only when the article has a main image paragraph. Null when that paragraph has no caption.
+            main_image_credits:
+              type:
+              - string
+              - 'null'
+              description: Present only when the article has a main image paragraph. Null when that paragraph has no credits.
+            main_image:
+              description: Present only when the article has a main image paragraph. An object when the image file resolves, otherwise an empty string, so the type must be checked before reading src.
+              oneOf:
+              - type: object
+                properties:
+                  src:
+                    type: string
+                  alt:
+                    type:
+                    - string
+                    - 'null'
+              - type: string
+                enum:
+                - ''
+  securitySchemes:
+    Access_token:
+      scheme: bearer
+      bearerFormat: JWT
+      type: http
+      description: Access token
+    Lang:
+      type: apiKey
+      in: header
+      name: Accept-Language
+      description: Sets the 'Accept-Language' header. One of 'fi', 'sv,' 'en'. Defaults to 'en'.
+    Person_token:
+      type: apiKey
+      in: header
+      name: Person-Token
+    NewsApiKey:
+      type: apiKey
+      description: API key issued by the news plan when an application subscribes to it.
+      name: X-Api-Key
+      in: header
+    StudySearchApiKey:
+      type: apiKey
+      description: API key issued by the study search plan when an application subscribes to it. Separate from the news plan key.
+      name: X-Api-Key
+      in: header
+x-refined-from:
+- university-of-helsinki-finbif-laji-openapi.json
+- university-of-helsinki-helsinki-fi-content-openapi.json

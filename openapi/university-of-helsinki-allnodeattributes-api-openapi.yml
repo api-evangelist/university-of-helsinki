@@ -1,0 +1,65 @@
+openapi: 3.2.0
+info:
+  title: Organisation Registry Public All Node Attributes API
+  description: Organisation Registry Public API
+  version: 1.0.0
+servers:
+- url: https://gw.api.helsinki.fi/organisation/info
+security:
+- apiKey: []
+tags:
+- name: AllNodeAttributes
+paths:
+  /v1/AllNodeAttributes:
+    get:
+      summary: Fetch all nodes' attributes
+      operationId: getAllNodeAttributes
+      responses:
+        '200':
+          description: OK
+          content:
+            application/json:
+              schema:
+                type: array
+                items:
+                  $ref: '#/components/schemas/NodeAttribute'
+              examples:
+                AllNodeAttributes example:
+                  $ref: '#/components/examples/AllNodeAttributes'
+      tags:
+      - AllNodeAttributes
+components:
+  examples:
+    AllNodeAttributes:
+      value:
+      - endDate: null
+        key: name_sv
+        startDate: '2024-09-03'
+        uniqueId: '100000048'
+        value: testbarnfakulten
+      - endDate: null
+        key: name_en
+        startDate: '2024-09-03'
+        uniqueId: '100000048'
+        value: testchildfaculty
+  schemas:
+    NodeAttribute:
+      type: object
+      properties:
+        uniqueId:
+          type: string
+          description: The node of the attribute
+        key:
+          type: string
+        value:
+          type: string
+        startDate:
+          type: string
+        endDate:
+          type: string
+  securitySchemes:
+    apiKey:
+      type: apiKey
+      description: APIKey Auth
+      name: X-Api-Key
+      in: header

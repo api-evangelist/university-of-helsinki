@@ -1,0 +1,55 @@
+openapi: 3.2.0
+info:
+  title: University of Helsinki - Contact Search Suggestion API
+  description: ''
+  version: 2.0.0
+servers:
+- url: https://gw.api.helsinki.fi/contact-search
+tags:
+- name: Suggestion
+paths:
+  /suggestions:
+    get:
+      tags:
+      - Suggestion
+      summary: Retrieves the collection of Suggestion resources
+      description: Retrieves the collection of Suggestion resources.
+      operationId: api_suggestions_get_collection
+      parameters:
+      - name: q
+        in: query
+        description: ''
+        required: true
+        deprecated: false
+        allowEmptyValue: true
+        style: form
+        explode: false
+        allowReserved: false
+        schema:
+          type: string
+      responses:
+        '200':
+          description: Suggestion collection
+          content:
+            application/ld+json:
+              schema:
+                type: array
+                items:
+                  $ref: '#/components/schemas/Suggestion'
+      deprecated: false
+components:
+  schemas:
+    Suggestion:
+      type: object
+      deprecated: false
+      description: Suggestion resource.
+      properties:
+        id:
+          type: string
+        suggestion:
+          type: array
+          items:
+            type: string
+      required:
+      - id
+      - suggestion

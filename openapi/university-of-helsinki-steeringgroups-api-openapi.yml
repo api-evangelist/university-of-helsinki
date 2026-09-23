@@ -1,0 +1,65 @@
+openapi: 3.2.0
+info:
+  title: Organisation Registry Public Steering Groups API
+  description: Organisation Registry Public API
+  version: 1.0.0
+servers:
+- url: https://gw.api.helsinki.fi/organisation/info
+security:
+- apiKey: []
+tags:
+- name: SteeringGroups
+paths:
+  /v1/steeringGroups:
+    get:
+      summary: GET v1/steeringGroups
+      operationId: getSteeringGroups
+      responses:
+        '200':
+          description: OK
+          content:
+            application/json:
+              schema:
+                type: array
+                items:
+                  $ref: '#/components/schemas/SteeringGroup'
+              examples:
+                Steering Group Example:
+                  $ref: '#/components/examples/SteeringGroupExample'
+      tags:
+      - SteeringGroups
+components:
+  schemas:
+    SteeringGroup:
+      type: object
+      properties:
+        uniqueId:
+          type: string
+        code:
+          type: string
+        type:
+          type: string
+        nameFi:
+          type: string
+        nameEn:
+          type: string
+        nameSv:
+          type: string
+        parent:
+          type: string
+  examples:
+    SteeringGroupExample:
+      value:
+      - uniqueId: '16549737'
+        code: null
+        type: kansio
+        nameFi: Lääketieteellinen tiedekunta
+        nameEn: Faculty of Medicine
+        nameSv: Medicinska fakulteten
+        parent: null
+  securitySchemes:
+    apiKey:
+      type: apiKey
+      description: APIKey Auth
+      name: X-Api-Key
+      in: header

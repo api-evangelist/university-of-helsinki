@@ -1,0 +1,70 @@
+generated: '2026-08-30'
+method: derived
+source: openapi/
+x-operator: institution
+format: heterogeneous
+rfc9457: false
+note: >-
+  There is no single error contract across the University of Helsinki estate, and that is the
+  finding. Each of the thirteen institution-operated OpenAPI documents was parsed for its declared
+  error responses. None of them uses RFC 9457 `application/problem+json`; none defines a shared
+  error component that more than one API references. The gateway (Gravitee) does not normalise
+  error bodies either — it passes the upstream service's shape through. A client integrating two
+  University of Helsinki APIs must write two error handlers.
+declared_status_codes:
+  '200': 291
+  '500': 229
+  '403': 218
+  '400': 211
+  '404': 185
+  '422': 171
+  '401': 155
+  '406': 150
+  '429': 24
+  '201': 17
+  '204': 9
+  '502': 1
+  default: 3
+  note: >-
+    Counts are declared responses summed across all thirteen specs, dominated by FinBIF
+    (api.laji.fi), which is the only API in the estate that declares a full error set on every
+    operation. 429 appears on 24 operations, all FinBIF — no gateway API declares a rate-limit
+    status at all.
+content_types:
+  application/json: 1091
+  text/plain: 24
+  none_declared: 40
+  application/problem+json: 0
+families:
+- family: finbif-nest-envelope
+  applies_to: openapi/university-of-helsinki-finbif-laji-openapi.yml
+  content_type: application/json
+  note: >-
+    The FinBIF API declares 400/401/403/404/406/422/429/500 on essentially every operation with a
+    JSON body. It is the only surface in the estate with a systematic error vocabulary.
+- family: sisu-kori-otm-envelope
+  applies_to: null
+  content_type: application/json
+  operator: tenant
+  note: >-
+    Observed live on sisu.helsinki.fi, NOT from a saved contract — the Sisu/Kori error envelope is
+    Funidata's, not the University's, so no spec is stored for it here. Shape:
+    {cause, stackTrace, deeper[], message, suppressed, localizedMessage}, with `message` carrying
+    an uppercase token such as AT_LEAST_ONE_SEARCH_PARAM_REQUIRED. Java stack-trace scaffolding is
+    present in the public response body.
+  evidence:
+  - url: https://sisu.helsinki.fi/kori/api/module-search?limit=1
+    status: 400
+    note: Returned the envelope above without any credential.
+- family: undeclared
+  applies_to:
+  - openapi/university-of-helsinki-dawa-sync-api-openapi.yml
+  - openapi/university-of-helsinki-sovellussalkku-api-openapi.yml
+  note: >-
+    Two specs declare no error responses whatsoever and no securitySchemes, despite being served
+    behind a gateway on which keyless access is disabled. Their published contract cannot be
+    called as written.
+recommendations:
+- Adopt RFC 9457 `application/problem+json` as the estate-wide error media type.
+- Declare a shared error component in the gateway and reference it from every API.
+- Declare 401 and 429 on every gateway API — the plan model guarantees both are reachable.

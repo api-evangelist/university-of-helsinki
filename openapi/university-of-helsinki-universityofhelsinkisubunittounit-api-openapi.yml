@@ -1,0 +1,59 @@
+openapi: 3.2.0
+info:
+  title: Organisation Registry Public University Of Helsinki Subunit…
+  description: Organisation Registry Public API
+  version: 1.0.0
+servers:
+- url: https://gw.api.helsinki.fi/organisation/info
+security:
+- apiKey: []
+tags:
+- name: UniversityOfHelsinkiSubunitToUnit
+paths:
+  /v1/UniversityOfHelsinkiSubunitToUnit:
+    get:
+      summary: Fetch certain units in konserni with their greatest parent
+      operationId: getUniversityOfHelsinkiSubunitToUnit
+      responses:
+        '200':
+          description: OK
+          content:
+            application/json:
+              schema:
+                type: array
+                items:
+                  $ref: '#/components/schemas/UniversityOfHelsinkiSubunitToUnit'
+              examples:
+                PersonnelUnitMap example:
+                  $ref: '#/components/examples/UniversityOfHelsinkiSubunitToUnit'
+      tags:
+      - UniversityOfHelsinkiSubunitToUnit
+components:
+  schemas:
+    UniversityOfHelsinkiSubunitToUnit:
+      type: object
+      properties:
+        subUnitCode:
+          type: string
+          description: The talous_tunnus of the sub unit
+        unitCode:
+          type: string
+          description: The talous_tunnus of the greatest parent of the sub unit
+        unitNameFi:
+          type: string
+          description: The name_fi of the greatest parent fo the sub unit
+  examples:
+    UniversityOfHelsinkiSubunitToUnit:
+      value:
+      - subUnitCode: KP
+        unitCode: KP
+        unitNameFi: Helsingin yliopiston kiinteistöpalvelut
+      - subUnitCode: KP01
+        unitCode: KP
+        unitNameFi: Helsingin yliopiston kiinteistöpalvelut
+  securitySchemes:
+    apiKey:
+      type: apiKey
+      description: APIKey Auth
+      name: X-Api-Key
+      in: header

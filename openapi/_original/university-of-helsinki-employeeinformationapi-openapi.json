@@ -1,0 +1,139 @@
+{
+  "openapi" : "3.0.0",
+  "info" : {
+    "title" : "EmployeeInformationAPI",
+    "contact" : {
+      "name" : "Helsingin yliopiston tietotekniikkakeskus, integraatiopalvelut",
+      "url" : "https://www.helsinki.fi",
+      "email" : "tike-integraatiopalvelu@helsinki.fi"
+    },
+    "version" : "2.0.0"
+  },
+  "servers" : [ {
+    "url" : "https://gw.api.helsinki.fi/employeeinformation"
+  } ],
+  "tags" : [ {
+    "name" : "/v1",
+    "description" : "Employee Information REST service"
+  } ],
+  "paths" : {
+    "/v1/" : {
+      "get" : {
+        "tags" : [ "/v1" ],
+        "summary" : "Searches and returns employee information based on the provided search query parameter.                  Returns matching employees with their basic information including employee number, username, first                  name, lastname and email address. Possible null values are included in the response. The response                  contains a maximum of five matching employees. The data is refreshed once every 24 hours from the                  source systems.",
+        "operationId" : "findMatchingEmployees",
+        "parameters" : [ {
+          "name" : "search",
+          "in" : "query",
+          "description" : "The query parameter for finding matching employees. Must be at least 3 characters long.                     Supports exact and partial matching with usernames and names. Also supports multi-word queries with                     first names and lastnames.",
+          "required" : true,
+          "style" : "form",
+          "explode" : true,
+          "schema" : {
+            "type" : "string"
+          }
+        } ],
+        "responses" : {
+          "200" : {
+            "description" : "Output type",
+            "content" : {
+              "application/json" : {
+                "schema" : {
+                  "type" : "array",
+                  "items" : {
+                    "$ref" : "#/components/schemas/Person"
+                  }
+                }
+              }
+            }
+          }
+        },
+        "security" : [ {
+          "Apikey" : [ ]
+        } ]
+      }
+    }
+  },
+  "components" : {
+    "schemas" : {
+      "Person" : {
+        "type" : "object",
+        "properties" : {
+          "employeeNumber" : {
+            "type" : "integer",
+            "format" : "int32",
+            "example" : 1234567
+          },
+          "titles" : {
+            "type" : "array",
+            "description" : "List of currently active employee titles. An employee may have multiple titles due to multiple employment contracts. Future or past titles are excluded.",
+            "example" : [ {
+              "fi" : "professori",
+              "en" : "Professor",
+              "sv" : "professor"
+            }, {
+              "fi" : "dosentuuri",
+              "en" : "Docentship",
+              "sv" : "docentur"
+            } ],
+            "items" : {
+              "$ref" : "#/components/schemas/Title"
+            }
+          },
+          "username" : {
+            "type" : "string",
+            "example" : "janedoe"
+          },
+          "lastName" : {
+            "type" : "string",
+            "example" : "Doe"
+          },
+          "firstName" : {
+            "type" : "string",
+            "example" : "Jane"
+          },
+          "email" : {
+            "type" : "string",
+            "example" : "jane.doe@helsinki.fi"
+          }
+        },
+        "description" : "Represents a person entity"
+      },
+      "Title" : {
+        "type" : "object",
+        "properties" : {
+          "fi" : {
+            "type" : "string",
+            "example" : "kirjastosihteeri"
+          },
+          "en" : {
+            "type" : "string",
+            "example" : "Assistant Librarian"
+          },
+          "sv" : {
+            "type" : "string",
+            "example" : "bibliotekssekreterare"
+          }
+        },
+        "description" : "Represents a title with multi-language support (Finnish, English, and Swedish)",
+        "example" : [ {
+          "fi" : "professori",
+          "en" : "Professor",
+          "sv" : "professor"
+        }, {
+          "fi" : "dosentuuri",
+          "en" : "Docentship",
+          "sv" : "docentur"
+        } ]
+      }
+    },
+    "securitySchemes" : {
+      "Apikey" : {
+        "type" : "apiKey",
+        "description" : "APIKey Auth",
+        "name" : "X-Api-Key",
+        "in" : "header"
+      }
+    }
+  }
+}

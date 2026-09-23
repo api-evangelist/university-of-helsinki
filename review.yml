@@ -1,46 +1,156 @@
----
 name: University of Helsinki
 description: University of Helsinki public developer/API footprint review for APIs.json cataloging.
 url: https://raw.githubusercontent.com/api-evangelist/university-of-helsinki/refs/heads/main/review.yml
 created: '2026-06-03'
-modified: '2026-06-03'
+modified: '2026-08-30'
 reviews:
-  - date: '2026-06-03'
-    rating: 3
-    summary: >-
-      Verified live: Helda institutional repository runs DSpace 7.6.2 with a
-      working public REST API (/server/api returns HAL root) and a valid
-      OAI-PMH interface (/server/oai/request Identify returns repositoryName
-      "Helda"). The official GitHub organization UniversityofHelsinki (42 public
-      repos) and UH-StudentServices org both resolve. The Sisu/Kori student
-      information system (Funidata) exists and offers GraphQL/REST APIs but is
-      institution/partner-gated with no public self-service docs for the UH
-      tenant. The previously cited Helsinki University Library API
-      (api.hulib.helsinki.fi) did NOT resolve (connection refused) and was not
-      cataloged as a live API. No fabricated endpoints; only directly probed
-      URLs are reported.
-    endpoints:
-      - url: https://helda.helsinki.fi/server/api
-        status: 200
-        note: DSpace 7.6.2 REST API root, returns HAL _links JSON.
-      - url: https://helda.helsinki.fi/server/oai/request?verb=Identify
-        status: 200
-        note: OAI-PMH Identify returns valid XML, repositoryName "Helda".
-      - url: https://helda.helsinki.fi/server/api/discover/search/objects?query=test
-        status: 200
-        note: DSpace discovery/search endpoint responds.
-      - url: https://github.com/UniversityofHelsinki
-        status: 200
-        note: Official GitHub org, 42 public repos (managed by Computer Centre).
-      - url: https://github.com/UH-StudentServices
-        status: 200
-        note: Official Student Services / OPA GitHub org.
-      - url: https://www.helsinki.fi/en
-        status: 200
-        note: Official university website.
-      - url: https://sis-helsinki.funidata.fi
-        status: 302
-        note: Sisu student information system instance (auth-gated, redirects).
-      - url: http://api.hulib.helsinki.fi/
-        status: 0
-        note: Library API host did not resolve / connection refused; not cataloged as live.
+- date: '2026-08-30'
+  rating: 4
+  summary: 'Re-profiled under the university pipeline (operator axis). The 2026-06-03 review was not
+    wrong about what it found, but it found a small fraction of what exists: it recorded Helda and treated
+    Sisu as a University GraphQL API, and it entirely missed the University of Helsinki''s own API gateway.
+    api.helsinki.fi is a self-hosted Gravitee API Management deployment whose portal REST API answers
+    anonymously and lists FIFTEEN public, running APIs behind gw.api.helsinki.fi — organisations, buildings,
+    employee and group directories, service management, network registry, the application-portfolio
+    register, and the CMS behind helsinki.fi and the course pages. Twelve of the fifteen serve a full
+    OpenAPI through an anonymous Swagger page; all twelve were harvested and stored pristine. A thirteenth
+    contract, the FinBIF Laji API (177 paths, 239 schemas), is operated by Luomus, the Finnish Museum
+    of Natural History, which the FinBIF privacy policy names as "University of Helsinki, Finnish Museum
+    of Natural History", Business ID 0313471-7. Also newly catalogued: a SECOND DSpace instance at datakatalogi.helsinki.fi
+    (DSpace 9.0, research data), the Editori OAI-PMH endpoint, and the identity layer — a Shibboleth
+    IdP with SAML metadata, a full OpenID Connect discovery document releasing eduPerson/SCHAC/funetEduPerson
+    claims, and sixteen helsinki.fi entities in the Haka federation aggregate. NO VENDOR CONTRACT WAS
+    SAVED: Sisu/Kori (Funidata), the research portal (Elsevier Pure) and Helka (Ex Libris Primo) are
+    recorded as tenancy with x-operator: tenant and no specification. The gateway has keyless plans
+    disabled and portal self-registration off, so the catalogue and every spec are public while a credential
+    requires an institutional or Haka identity — the estate is discoverable but not exercisable anonymously.
+    The Contact Search, PersonGroup and EmployeeInformation APIs return records about identifiable staff;
+    no live response from any of them was captured, and no agent skill or MCP tool is emitted for them.'
+  endpoints:
+  - url: https://api.helsinki.fi/portal/
+    status: 200
+    note: Gravitee developer portal, University-operated.
+  - url: https://api.helsinki.fi/portal/environments/DEFAULT/apis?size=200
+    status: 200
+    note: 15 public APIs, all running:true, public:true.
+  - url: https://api.helsinki.fi/portal/environments/DEFAULT/configuration
+    status: 200
+    note: apikeyHeader X-Api-Key; plan.security keyless=false, sharedApiKey=false; localLogin=false;
+      userCreation=false.
+  - url: https://api.helsinki.fi/portal/environments/DEFAULT/pages/0ff46388-9523-430b-b463-889523630b2f/content
+    status: 200
+    note: '"How to get started" — sign in with HY Login Service, create an application, subscribe to
+      a plan.'
+  - url: https://gw.api.helsinki.fi/
+    status: 404
+    note: Gateway root has no document by design; only context paths.
+  - url: https://api.laji.fi/openapi
+    status: 200
+    note: FinBIF Swagger UI; spec extracted from swagger-ui-init.js — OpenAPI 3.0.0, 177 paths, 239
+      schemas.
+  - url: https://info.laji.fi/en/privacy-policy/
+    status: 200
+    note: Names University of Helsinki, Finnish Museum of Natural History (Business ID 0313471-7) as
+      registrar. This is the ownership evidence for api.laji.fi.
+  - url: https://helda.helsinki.fi/server/api
+    status: 200
+    note: DSpace 7.6.2 HAL root.
+  - url: https://helda.helsinki.fi/server/oai/request?verb=ListMetadataFormats
+    status: 200
+    note: 14 metadata prefixes incl. qdc_finna, rioxx, etdms, marc.
+  - url: https://helda.helsinki.fi/server/api/core/metadataschemas
+    status: 200
+    note: datacite, oaire and coar schemas registered.
+  - url: https://helda.helsinki.fi/server/api/core/metadatafields/search/byFieldName?query=orcid
+    status: 200
+    note: 10 ORCID fields incl. the DSpace ORCID member-integration sync set.
+  - url: https://datakatalogi.helsinki.fi/server/api
+    status: 200
+    note: DSpace 9.0, dspaceName HyDatacatalogue — NOT previously catalogued.
+  - url: https://datakatalogi.helsinki.fi/server/oai/request?verb=Identify
+    status: 200
+    note: OAI-PMH 2.0, earliest datestamp 2026-08-12.
+  - url: https://journals.helsinki.fi/index/oai?verb=Identify
+    status: 200
+    note: Editori (PKP OJS) OAI-PMH, adminEmail editori@helsinki.fi.
+  - url: https://login.helsinki.fi/idp/shibboleth
+    status: 200
+    note: Shibboleth IdP SAML metadata, entityID https://login.helsinki.fi/shibboleth, shibmd:Scope
+      helsinki.fi.
+  - url: https://login.helsinki.fi/.well-known/openid-configuration
+    status: 200
+    note: OIDC discovery; scopes openid/profile/email/groups/offline_access; eduPerson, SCHAC and funetEduPerson
+      claims. No PKCE advertised; implicit flow advertised.
+  - url: https://haka.funet.fi/metadata/haka-metadata.xml
+    status: 200
+    note: 16 helsinki.fi entityIDs — 1 IdP + 15 SPs incl. helda, moodle, mooc, examinarium, datakatalogi,
+      version.
+  - url: https://moodle.helsinki.fi/mod/lti/certs.php
+    status: 200
+    note: LTI 1.3 platform JWKS (RS256). LTI recorded as partial conformance.
+  - url: https://gw.api.helsinki.fi/scim/v2/ServiceProviderConfig
+    status: 404
+    note: No SCIM anywhere on the estate.
+  - url: https://sisu.helsinki.fi/kori/api/module-search?limit=1
+    status: 400
+    note: TENANT. Funidata OTM error envelope, answered anonymously. No spec saved under this institution.
+  - url: https://researchportal.helsinki.fi/
+    status: 200
+    note: TENANT. Elsevier Pure. ws/api not exposed (404); /en/persons/ 403 to crawlers.
+  - url: https://helka.helsinki.fi/
+    status: 200
+    note: TENANT. Ex Libris Primo, view 358UOH_INST:VU1.
+  - url: https://www.helsinki.fi/.well-known/security.txt
+    status: 200
+    note: RFC 9116, Expires 2027-12-30.
+  - url: https://www.helsinki.fi/llms.txt
+    status: 403
+    note: No llms.txt; the CDN blocks the path.
+  - url: https://wiki.helsinki.fi/X/me05mC
+    status: 401
+    note: HY Developers wiki linked by the portal is auth-gated; not emitted as a pointer.
+  - url: https://version.helsinki.fi/
+    status: 200
+    note: University-operated GitLab, bot-challenged on anonymous access. Live, not dead; API not publicly
+      readable.
+  - url: https://studies.helsinki.fi/instructions/article/using-ai-support-learning
+    status: 200
+    note: Institutional AI guidance for students — recorded as AIPolicy.
+  - url: https://studies.helsinki.fi/courses
+    status: 200
+    note: Public course catalog — recorded as CourseCatalog.
+- date: '2026-06-03'
+  rating: 3
+  summary: 'Verified live: Helda institutional repository runs DSpace 7.6.2 with a working public REST
+    API (/server/api returns HAL root) and a valid OAI-PMH interface (/server/oai/request Identify returns
+    repositoryName "Helda"). The official GitHub organization UniversityofHelsinki (42 public repos)
+    and UH-StudentServices org both resolve. The Sisu/Kori student information system (Funidata) exists
+    and offers GraphQL/REST APIs but is institution/partner-gated with no public self-service docs for
+    the UH tenant. The previously cited Helsinki University Library API (api.hulib.helsinki.fi) did
+    NOT resolve (connection refused) and was not cataloged as a live API. No fabricated endpoints; only
+    directly probed URLs are reported.'
+  endpoints:
+  - url: https://helda.helsinki.fi/server/api
+    status: 200
+    note: DSpace 7.6.2 REST API root, returns HAL _links JSON.
+  - url: https://helda.helsinki.fi/server/oai/request?verb=Identify
+    status: 200
+    note: OAI-PMH Identify returns valid XML, repositoryName "Helda".
+  - url: https://helda.helsinki.fi/server/api/discover/search/objects?query=test
+    status: 200
+    note: DSpace discovery/search endpoint responds.
+  - url: https://github.com/UniversityofHelsinki
+    status: 200
+    note: Official GitHub org, 42 public repos (managed by Computer Centre).
+  - url: https://github.com/UH-StudentServices
+    status: 200
+    note: Official Student Services / OPA GitHub org.
+  - url: https://www.helsinki.fi/en
+    status: 200
+    note: Official university website.
+  - url: https://sis-helsinki.funidata.fi
+    status: 302
+    note: Sisu student information system instance (auth-gated, redirects).
+  - url: http://api.hulib.helsinki.fi/
+    status: 0
+    note: Library API host did not resolve / connection refused; not cataloged as live.

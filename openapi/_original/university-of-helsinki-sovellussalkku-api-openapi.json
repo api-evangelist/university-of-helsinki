@@ -1,0 +1,83 @@
+{
+  "openapi" : "3.0.1",
+  "info" : {
+    "title" : "Sovellussalkku API",
+    "version" : "0.3"
+  },
+  "servers" : [ {
+    "url" : "https://gw.api.helsinki.fi/ssapi"
+  } ],
+  "tags" : [ {
+    "name" : "ss",
+    "description" : "Sovellussalkku rest service"
+  } ],
+  "paths" : {
+    "/ss/row/" : {
+      "get" : {
+        "tags" : [ "/ss" ],
+        "operationId" : "verb86",
+        "responses" : {
+          "200" : {
+            "description" : "Output type",
+            "content" : { }
+          }
+        }
+      }
+    },
+    "/ss/search/{key}/{needle}" : {
+      "get" : {
+        "tags" : [ "ss" ],
+        "summary" : "Supported keys [perustiedot,riskitasot], needle is an entityid",
+        "operationId" : "verb19",
+        "parameters" : [ {
+          "name" : "key",
+          "in" : "path",
+          "required" : true,
+          "schema" : {
+            "type" : "string"
+          }
+        }, {
+          "name" : "needle",
+          "in" : "path",
+          "required" : true,
+          "schema" : {
+            "type" : "string"
+          }
+        } ],
+        "responses" : {
+          "200" : {
+            "description" : "Output type",
+            "content" : {
+              "application/json" : {
+                "schema" : {
+                  "type" : "string"
+                }
+              }
+            }
+          }
+        }
+      }
+    },
+    "/ss/search/list" : {
+      "get" : {
+        "tags" : [ "ss" ],
+        "summary" : "Get a list of entityid,name mappings",
+        "operationId" : "verb20",
+        "responses" : {
+          "200" : {
+            "description" : "Output type",
+            "content" : {
+              "application/json" : {
+                "schema" : {
+                  "type" : "string"
+                }
+              }
+            }
+          }
+        }
+      }
+    }
+  },
+  "components" : { },
+  "x-original-swagger-version" : "2.0"
+}

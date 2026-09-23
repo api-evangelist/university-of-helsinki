@@ -1,0 +1,1325 @@
+openapi: 3.2.0
+info:
+  title: Laji Collections API
+  description: '## Authentication
+
+
+    This API requires an **Access Token**.'
+  version: '1'
+  contact: {}
+servers:
+- url: https://api.laji.fi
+tags:
+- name: Collections
+paths:
+  /collections:
+    get:
+      operationId: CollectionsController_getPage
+      parameters:
+      - name: page
+        required: false
+        in: query
+        schema:
+          default: 1
+          type: integer
+      - name: pageSize
+        required: false
+        in: query
+        schema:
+          default: 20
+          type: integer
+      - name: idIn
+        required: false
+        in: query
+        description: Comma separated ids
+        schema:
+          type: string
+      - name: selectedFields
+        required: false
+        in: query
+        description: 'Select fields to include in the result. Multiple values are separated by a comma (,). Allows any value in the
+
+          schema. If the response is a page-like object (has "results"), it allows any field in the results'' schema'
+        schema:
+          type: string
+      responses:
+        '200':
+          description: ''
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  currentPage:
+                    type: integer
+                  pageSize:
+                    type: integer
+                  total:
+                    type: integer
+                  lastPage:
+                    type: integer
+                  prevPage:
+                    type: integer
+                  nextPage:
+                    type: integer
+                  results:
+                    type: array
+                    items:
+                      $ref: '#/components/schemas/SensitiveCollection'
+                required:
+                - currentPage
+                - pageSize
+                - total
+                - lastPage
+                - results
+        '400':
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  errorCode:
+                    type: string
+                  message:
+                    type: string
+                  localized:
+                    type: boolean
+        '401':
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  errorCode:
+                    type: string
+                  message:
+                    type: string
+                  localized:
+                    type: boolean
+        '403':
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  errorCode:
+                    type: string
+                  message:
+                    type: string
+                  localized:
+                    type: boolean
+        '404':
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  errorCode:
+                    type: string
+                  message:
+                    type: string
+                  localized:
+                    type: boolean
+        '406':
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  errorCode:
+                    type: string
+                  message:
+                    type: string
+                  localized:
+                    type: boolean
+        '422':
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  errorCode:
+                    type: string
+                  message:
+                    type: string
+                  localized:
+                    type: boolean
+        '500':
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  errorCode:
+                    type: string
+                  message:
+                    type: string
+                  localized:
+                    type: boolean
+      security:
+      - Access token: []
+      - Lang: []
+      - Person token: []
+      summary: Get a page of all collections
+      tags:
+      - Collections
+  /collections/roots:
+    get:
+      operationId: CollectionsController_findRoots
+      parameters:
+      - name: page
+        required: false
+        in: query
+        schema:
+          default: 1
+          type: integer
+      - name: pageSize
+        required: false
+        in: query
+        schema:
+          default: 20
+          type: integer
+      responses:
+        '200':
+          description: ''
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  currentPage:
+                    type: integer
+                  pageSize:
+                    type: integer
+                  total:
+                    type: integer
+                  lastPage:
+                    type: integer
+                  prevPage:
+                    type: integer
+                  nextPage:
+                    type: integer
+                  results:
+                    type: array
+                    items:
+                      $ref: '#/components/schemas/SensitiveCollection'
+                required:
+                - currentPage
+                - pageSize
+                - total
+                - lastPage
+                - results
+        '400':
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  errorCode:
+                    type: string
+                  message:
+                    type: string
+                  localized:
+                    type: boolean
+        '401':
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  errorCode:
+                    type: string
+                  message:
+                    type: string
+                  localized:
+                    type: boolean
+        '403':
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  errorCode:
+                    type: string
+                  message:
+                    type: string
+                  localized:
+                    type: boolean
+        '404':
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  errorCode:
+                    type: string
+                  message:
+                    type: string
+                  localized:
+                    type: boolean
+        '406':
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  errorCode:
+                    type: string
+                  message:
+                    type: string
+                  localized:
+                    type: boolean
+        '422':
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  errorCode:
+                    type: string
+                  message:
+                    type: string
+                  localized:
+                    type: boolean
+        '500':
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  errorCode:
+                    type: string
+                  message:
+                    type: string
+                  localized:
+                    type: boolean
+      security:
+      - Access token: []
+      - Lang: []
+      - Person token: []
+      summary: Get a page of all root collections
+      tags:
+      - Collections
+  /collections/tree:
+    get:
+      operationId: CollectionsController_getTree
+      parameters: []
+      responses:
+        '200':
+          description: ''
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  results:
+                    type: array
+                    items:
+                      $ref: '#/components/schemas/ExpandedSensitiveCollection'
+                  '@context':
+                    type: string
+        '400':
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  errorCode:
+                    type: string
+                  message:
+                    type: string
+                  localized:
+                    type: boolean
+        '401':
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  errorCode:
+                    type: string
+                  message:
+                    type: string
+                  localized:
+                    type: boolean
+        '403':
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  errorCode:
+                    type: string
+                  message:
+                    type: string
+                  localized:
+                    type: boolean
+        '404':
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  errorCode:
+                    type: string
+                  message:
+                    type: string
+                  localized:
+                    type: boolean
+        '406':
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  errorCode:
+                    type: string
+                  message:
+                    type: string
+                  localized:
+                    type: boolean
+        '422':
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  errorCode:
+                    type: string
+                  message:
+                    type: string
+                  localized:
+                    type: boolean
+        '500':
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  errorCode:
+                    type: string
+                  message:
+                    type: string
+                  localized:
+                    type: boolean
+      security:
+      - Access token: []
+      - Lang: []
+      - Person token: []
+      summary: Get collection tree
+      tags:
+      - Collections
+  /collections/{id}:
+    get:
+      operationId: CollectionsController_get
+      parameters:
+      - name: id
+        required: true
+        in: path
+        schema:
+          type: string
+      responses:
+        '200':
+          description: ''
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/SensitiveCollection'
+        '400':
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  errorCode:
+                    type: string
+                  message:
+                    type: string
+                  localized:
+                    type: boolean
+        '401':
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  errorCode:
+                    type: string
+                  message:
+                    type: string
+                  localized:
+                    type: boolean
+        '403':
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  errorCode:
+                    type: string
+                  message:
+                    type: string
+                  localized:
+                    type: boolean
+        '404':
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  errorCode:
+                    type: string
+                  message:
+                    type: string
+                  localized:
+                    type: boolean
+        '406':
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  errorCode:
+                    type: string
+                  message:
+                    type: string
+                  localized:
+                    type: boolean
+        '422':
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  errorCode:
+                    type: string
+                  message:
+                    type: string
+                  localized:
+                    type: boolean
+        '500':
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  errorCode:
+                    type: string
+                  message:
+                    type: string
+                  localized:
+                    type: boolean
+      security:
+      - Access token: []
+      - Lang: []
+      - Person token: []
+      summary: Get collection by id
+      tags:
+      - Collections
+  /collections/{id}/children:
+    get:
+      operationId: CollectionsController_findChildren
+      parameters:
+      - name: id
+        required: true
+        in: path
+        schema:
+          type: string
+      - name: page
+        required: false
+        in: query
+        schema:
+          default: 1
+          type: integer
+      - name: pageSize
+        required: false
+        in: query
+        schema:
+          default: 20
+          type: integer
+      responses:
+        '200':
+          description: ''
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  currentPage:
+                    type: integer
+                  pageSize:
+                    type: integer
+                  total:
+                    type: integer
+                  lastPage:
+                    type: integer
+                  prevPage:
+                    type: integer
+                  nextPage:
+                    type: integer
+                  results:
+                    type: array
+                    items:
+                      $ref: '#/components/schemas/SensitiveCollection'
+                required:
+                - currentPage
+                - pageSize
+                - total
+                - lastPage
+                - results
+        '400':
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  errorCode:
+                    type: string
+                  message:
+                    type: string
+                  localized:
+                    type: boolean
+        '401':
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  errorCode:
+                    type: string
+                  message:
+                    type: string
+                  localized:
+                    type: boolean
+        '403':
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  errorCode:
+                    type: string
+                  message:
+                    type: string
+                  localized:
+                    type: boolean
+        '404':
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  errorCode:
+                    type: string
+                  message:
+                    type: string
+                  localized:
+                    type: boolean
+        '406':
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  errorCode:
+                    type: string
+                  message:
+                    type: string
+                  localized:
+                    type: boolean
+        '422':
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  errorCode:
+                    type: string
+                  message:
+                    type: string
+                  localized:
+                    type: boolean
+        '500':
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  errorCode:
+                    type: string
+                  message:
+                    type: string
+                  localized:
+                    type: boolean
+      security:
+      - Access token: []
+      - Lang: []
+      - Person token: []
+      summary: Get child collections
+      tags:
+      - Collections
+components:
+  schemas:
+    SensitiveCollection:
+      type: object
+      properties:
+        '@context':
+          type: string
+          title: Context for the Collection
+        id:
+          type: string
+          title: Id for the Collection
+        '@type':
+          type: string
+          title: Type for the Collection
+        secureLevel:
+          type: string
+          enum:
+          - ''
+          - MX.secureLevelNone
+          - MX.secureLevelKM1
+          - MX.secureLevelKM5
+          - MX.secureLevelKM10
+          - MX.secureLevelKM25
+          - MX.secureLevelKM50
+          - MX.secureLevelKM100
+          - MX.secureLevelHighest
+          - MX.secureLevelNoShow
+          description: Secure level (salaus-/karkeistustaso) for the data
+          title: Secure level
+        abbreviation:
+          type: string
+          description: Unofficial abbreviation (or acronym) for this collection
+          title: Unofficial abbreviation
+        additionalIdentifier:
+          type: array
+          uniqueItems: false
+          items:
+            type: string
+          minItems: 0
+          title: Identifier of this dataset/collection in other databases
+        allowedForDwStatistics:
+          type: boolean
+          description: Admin field. Is it allowed to use collection with data warehouse /statistic endpoints.
+          title: Allowed for DW statistics
+        boundingBoxLatMax:
+          type: string
+          title: Bounding box latitude max (WGS84)
+        boundingBoxLatMin:
+          type: string
+          title: Bounding box latitude min (WGS84)
+        boundingBoxLonMax:
+          type: string
+          title: Bounding box longitude max (WGS84)
+        boundingBoxLonMin:
+          type: string
+          title: Bounding box longitude min (WGS84)
+        citation:
+          type: string
+          description: Example how to cite this collection in a scientific article, if using organization, name and abbreviation is not enough.
+          title: Citation recommendation
+        collectionCode:
+          type: string
+          description: Collection code for natural history specimen collection, such as H-BR
+          title: Specimen collection code
+        collectionName:
+          type: string
+        collectionQuality:
+          type: string
+          enum:
+          - ''
+          - MY.collectionQualityEnum3
+          - MY.collectionQualityEnum2
+          - MY.collectionQualityEnum1
+          description: Quality classification for the collection.
+          title: Collection quality
+        collectionSize:
+          type: string
+          description: How many specimens, records or such does the collection contain? Fill in approximate number, describe more in notes if necessary.
+          title: Size (approx.)
+        collectionType:
+          type: string
+          enum:
+          - ''
+          - MY.collectionTypeSpecimens
+          - MY.collectionTypeLiving
+          - MY.collectionTypeMonitoring
+          - MY.collectionTypeObservations
+          - MY.collectionTypePublicationdata
+          - MY.collectionTypePublication
+          - MY.collectionTypeMixed
+          - MY.collectionTypeOther
+          - MY.collectionTypeGardenArea
+          - MY.collectionTypeIndoorGardenArea
+          - MY.collectionTypeOutdoorGardenArea
+          - MY.collectionTypeGardenSublocation
+          - MY.collectionTypeTrait
+          description: Type of the collection (specimen, monitoring etc).
+          title: Type
+        concealmentBasis:
+          $ref: '#/components/schemas/store-multiLang'
+        contactEmail:
+          type: string
+          description: Personal or general (e.g. group of people in the organisation) email address to reach the person(s) responsible.
+          title: Contact email
+        coverageBasis:
+          $ref: '#/components/schemas/store-multiLang'
+        dataDownloadURL:
+          type: array
+          uniqueItems: false
+          items:
+            type: string
+          minItems: 0
+          title: Data download URL
+        dataNotes:
+          type: string
+          description: 'Diary-like notes about the data, with date/time. For example "2020-08-19: Changed country names Fönland to Finland", or "Specimens collected during 2019 are missing coordinates due to malfunctioning GPS"'
+          title: Notes about the data
+        dataQuality:
+          type: string
+          enum:
+          - ''
+          - MY.dataQuality1
+          - MY.dataQuality2
+          - MY.dataQuality3
+          - MY.dataQuality4
+          - MY.dataQuality5
+          - MY.dataQualityNA
+          description: Quality estimation for the data in this collection
+          title: Data quality
+        dataQualityDescription:
+          $ref: '#/components/schemas/store-multiLang'
+        dataQuarantinePeriod:
+          type: integer
+          description: Embargo period in years after which data is opened
+          title: Embargo in years
+        dataUseTerms:
+          $ref: '#/components/schemas/store-multiLang'
+        description:
+          $ref: '#/components/schemas/store-multiLang'
+        digitizedSize:
+          type: string
+          description: How many percent of the collection is in digital form, e.g. in a database or Excel file? Fill in approximate number, describe more in notes if necessary.
+          title: '% digitized (approx.)'
+        doi:
+          type: string
+          title: DOI provided by FinBIF
+        downloadRequestHandler:
+          type: array
+          uniqueItems: false
+          items:
+            type: string
+          minItems: 0
+          description: Admin field. The identifier of the person responsible for handling requests for restricted data for this set (typically same person who's responsible for the collection)
+          title: Download request handler
+        editNotes:
+          type: string
+          description: Reason for this edit or notes about it.
+          title: Notes about this edit
+        gbifDoi:
+          type: string
+          description: Admin field. DOI received from GBIF after the collection has been published.
+          title: Collection DOI from GBIF
+        geographicCoverage:
+          $ref: '#/components/schemas/store-multiLang'
+        hierarchyType:
+          type: string
+          enum:
+          - MY.hierarchyTypeDocumentParent
+          - MY.hierarchyTypeCollectionParent
+          description: Type of the collection within the collection hierarchy tree.
+          title: Hierarchical type
+        institutionCode:
+          type: string
+          description: Institution code for natural history specimen collection holding institution, such as H, MHZ or TUR
+          title: Institution code
+        intellectualDescription:
+          $ref: '#/components/schemas/store-multiLang'
+        intellectualOwner:
+          type: string
+          description: Name of the institution or organisation publishing the data.
+          title: Publisher name (en)
+        intellectualRights:
+          type: string
+          enum:
+          - MY.intellectualRightsCC-BY
+          - MY.intellectualRightsCC0
+          - MY.intellectualRightsPD
+          - MY.intellectualRightsARR
+          description: License which is used when publishing data that belongs to this collection.
+          title: License for use
+        internalUseOnly:
+          type: boolean
+          description: Is the data to be used only within Kotka?
+          title: Internal use only
+        isPartOf:
+          type: string
+          description: Which parent or larger collection this is part of.
+          title: Is part of
+        language:
+          type: string
+          description: Language the data is (mainly) written in, if applicable.
+          title: Language
+        longName:
+          $ref: '#/components/schemas/store-multiLang'
+        metadataCreator:
+          type: string
+          title: Person responsible for this metadata
+        metadataStatus:
+          type: string
+          enum:
+          - ''
+          - MY.metadataStatusPreliminary
+          - MY.metadataStatusSatisfactory
+          - MY.metadataStatusComprehensive
+          - MY.metadataStatusHidden
+          description: Indication of how comprehensive the information on this form is.
+          title: Status of this metadata
+        methods:
+          $ref: '#/components/schemas/store-multiLang'
+        notes:
+          type: string
+          description: Additional information to the data in each section.
+          title: Notes
+        onlineUrl:
+          $ref: '#/components/schemas/store-multiLang'
+        personResponsible:
+          type: string
+          description: Person(s) responsible for the collection (Lastname, Firstname; Lastname, Firstname).
+          title: Person responsible
+        publicAccess:
+          type: boolean
+          description: Used for botanic garden collections. Is the collection/garden area accessible to public or not.
+          title: Accessibility to public
+        publicationDescription:
+          $ref: '#/components/schemas/store-multiLang'
+        publicationTerms:
+          type: string
+          enum:
+          - ''
+          - MY.publicationTermsFree
+          - MY.publicationTermsOfficial
+          - MY.publicationTermsInternal
+          - MY.publicationTermsNone
+          description: How can Luomus publish the data, if it is owned by third party?
+          title: Publication terms
+        publisherShortname:
+          $ref: '#/components/schemas/store-multiLang'
+        shareToFEO:
+          type: string
+          title: Share to FEO
+        shareToGbif:
+          type: string
+          description: 'Admin field. Can the data be shared to GBIF or not: Given collection ID means data is shared under that collection.'
+          title: Share to GBIF
+        taxonomicCoverage:
+          $ref: '#/components/schemas/store-multiLang'
+        temporalCoverage:
+          $ref: '#/components/schemas/store-multiLang'
+        typesSize:
+          type: string
+          description: How many TYPE specimens does the collection contain?  Fill in approximate number, describe more in notes if necessary.
+          title: Amount of type specimens (approx.)
+        dateCreated:
+          type: string
+          format: date-time
+          title: Created
+        dateEdited:
+          type: string
+          format: date-time
+          title: Edited
+        owner:
+          type: string
+          description: Team or organisation that owns the record and can edit it.
+          title: Owner of record
+        publicityRestrictions:
+          type: string
+          enum:
+          - ''
+          - MZ.publicityRestrictionsPublic
+          - MZ.publicityRestrictionsProtected
+          - MZ.publicityRestrictionsPrivate
+          description: 'PUBLIC: all data can be published; PROTECTED: exact locality is hidden (100*100km square); PRIVATE: most of the data is hidden. Empty value means same as public.'
+          title: Publicity restrictions
+        hasChildren:
+          type: boolean
+        longNameMultiLang:
+          type: object
+          properties:
+            fi:
+              $ref: '#/components/schemas/store-multiLang'
+            sv:
+              $ref: '#/components/schemas/store-multiLang'
+            en:
+              $ref: '#/components/schemas/store-multiLang'
+          _patchMultiLang: false
+        descriptionMultiLang:
+          type: object
+          properties:
+            fi:
+              $ref: '#/components/schemas/store-multiLang'
+            sv:
+              $ref: '#/components/schemas/store-multiLang'
+            en:
+              $ref: '#/components/schemas/store-multiLang'
+          _patchMultiLang: false
+        onlineUrlMultiLang:
+          type: object
+          properties:
+            fi:
+              $ref: '#/components/schemas/store-multiLang'
+            sv:
+              $ref: '#/components/schemas/store-multiLang'
+            en:
+              $ref: '#/components/schemas/store-multiLang'
+          _patchMultiLang: false
+      required:
+      - contactEmail
+      - description
+      - hierarchyType
+      - intellectualRights
+      - personResponsible
+      - id
+      additionalProperties: false
+    ExpandedSensitiveCollection:
+      type: object
+      properties:
+        '@context':
+          type: string
+          title: Context for the Collection
+        id:
+          type: string
+          title: Id for the Collection
+        '@type':
+          type: string
+          title: Type for the Collection
+        secureLevel:
+          type: string
+          enum:
+          - ''
+          - MX.secureLevelNone
+          - MX.secureLevelKM1
+          - MX.secureLevelKM5
+          - MX.secureLevelKM10
+          - MX.secureLevelKM25
+          - MX.secureLevelKM50
+          - MX.secureLevelKM100
+          - MX.secureLevelHighest
+          - MX.secureLevelNoShow
+          description: Secure level (salaus-/karkeistustaso) for the data
+          title: Secure level
+        abbreviation:
+          type: string
+          description: Unofficial abbreviation (or acronym) for this collection
+          title: Unofficial abbreviation
+        additionalIdentifier:
+          type: array
+          uniqueItems: false
+          items:
+            type: string
+          minItems: 0
+          title: Identifier of this dataset/collection in other databases
+        allowedForDwStatistics:
+          type: boolean
+          description: Admin field. Is it allowed to use collection with data warehouse /statistic endpoints.
+          title: Allowed for DW statistics
+        boundingBoxLatMax:
+          type: string
+          title: Bounding box latitude max (WGS84)
+        boundingBoxLatMin:
+          type: string
+          title: Bounding box latitude min (WGS84)
+        boundingBoxLonMax:
+          type: string
+          title: Bounding box longitude max (WGS84)
+        boundingBoxLonMin:
+          type: string
+          title: Bounding box longitude min (WGS84)
+        citation:
+          type: string
+          description: Example how to cite this collection in a scientific article, if using organization, name and abbreviation is not enough.
+          title: Citation recommendation
+        collectionCode:
+          type: string
+          description: Collection code for natural history specimen collection, such as H-BR
+          title: Specimen collection code
+        collectionName:
+          type: string
+        collectionQuality:
+          type: string
+          enum:
+          - ''
+          - MY.collectionQualityEnum3
+          - MY.collectionQualityEnum2
+          - MY.collectionQualityEnum1
+          description: Quality classification for the collection.
+          title: Collection quality
+        collectionSize:
+          type: string
+          description: How many specimens, records or such does the collection contain? Fill in approximate number, describe more in notes if necessary.
+          title: Size (approx.)
+        collectionType:
+          type: string
+          enum:
+          - ''
+          - MY.collectionTypeSpecimens
+          - MY.collectionTypeLiving
+          - MY.collectionTypeMonitoring
+          - MY.collectionTypeObservations
+          - MY.collectionTypePublicationdata
+          - MY.collectionTypePublication
+          - MY.collectionTypeMixed
+          - MY.collectionTypeOther
+          - MY.collectionTypeGardenArea
+          - MY.collectionTypeIndoorGardenArea
+          - MY.collectionTypeOutdoorGardenArea
+          - MY.collectionTypeGardenSublocation
+          - MY.collectionTypeTrait
+          description: Type of the collection (specimen, monitoring etc).
+          title: Type
+        concealmentBasis:
+          $ref: '#/components/schemas/store-multiLang'
+        contactEmail:
+          type: string
+          description: Personal or general (e.g. group of people in the organisation) email address to reach the person(s) responsible.
+          title: Contact email
+        coverageBasis:
+          $ref: '#/components/schemas/store-multiLang'
+        dataDownloadURL:
+          type: array
+          uniqueItems: false
+          items:
+            type: string
+          minItems: 0
+          title: Data download URL
+        dataNotes:
+          type: string
+          description: 'Diary-like notes about the data, with date/time. For example "2020-08-19: Changed country names Fönland to Finland", or "Specimens collected during 2019 are missing coordinates due to malfunctioning GPS"'
+          title: Notes about the data
+        dataQuality:
+          type: string
+          enum:
+          - ''
+          - MY.dataQuality1
+          - MY.dataQuality2
+          - MY.dataQuality3
+          - MY.dataQuality4
+          - MY.dataQuality5
+          - MY.dataQualityNA
+          description: Quality estimation for the data in this collection
+          title: Data quality
+        dataQualityDescription:
+          $ref: '#/components/schemas/store-multiLang'
+        dataQuarantinePeriod:
+          type: integer
+          description: Embargo period in years after which data is opened
+          title: Embargo in years
+        dataUseTerms:
+          $ref: '#/components/schemas/store-multiLang'
+        description:
+          $ref: '#/components/schemas/store-multiLang'
+        digitizedSize:
+          type: string
+          description: How many percent of the collection is in digital form, e.g. in a database or Excel file? Fill in approximate number, describe more in notes if necessary.
+          title: '% digitized (approx.)'
+        doi:
+          type: string
+          title: DOI provided by FinBIF
+        downloadRequestHandler:
+          type: array
+          uniqueItems: false
+          items:
+            type: string
+          minItems: 0
+          description: Admin field. The identifier of the person responsible for handling requests for restricted data for this set (typically same person who's responsible for the collection)
+          title: Download request handler
+        editNotes:
+          type: string
+          description: Reason for this edit or notes about it.
+          title: Notes about this edit
+        gbifDoi:
+          type: string
+          description: Admin field. DOI received from GBIF after the collection has been published.
+          title: Collection DOI from GBIF
+        geographicCoverage:
+          $ref: '#/components/schemas/store-multiLang'
+        hierarchyType:
+          type: string
+          enum:
+          - MY.hierarchyTypeDocumentParent
+          - MY.hierarchyTypeCollectionParent
+          description: Type of the collection within the collection hierarchy tree.
+          title: Hierarchical type
+        institutionCode:
+          type: string
+          description: Institution code for natural history specimen collection holding institution, such as H, MHZ or TUR
+          title: Institution code
+        intellectualDescription:
+          $ref: '#/components/schemas/store-multiLang'
+        intellectualOwner:
+          type: string
+          description: Name of the institution or organisation publishing the data.
+          title: Publisher name (en)
+        intellectualRights:
+          type: string
+          enum:
+          - MY.intellectualRightsCC-BY
+          - MY.intellectualRightsCC0
+          - MY.intellectualRightsPD
+          - MY.intellectualRightsARR
+          description: License which is used when publishing data that belongs to this collection.
+          title: License for use
+        internalUseOnly:
+          type: boolean
+          description: Is the data to be used only within Kotka?
+          title: Internal use only
+        isPartOf:
+          type: string
+          description: Which parent or larger collection this is part of.
+          title: Is part of
+        language:
+          type: string
+          description: Language the data is (mainly) written in, if applicable.
+          title: Language
+        longName:
+          $ref: '#/components/schemas/store-multiLang'
+        metadataCreator:
+          type: string
+          title: Person responsible for this metadata
+        metadataStatus:
+          type: string
+          enum:
+          - ''
+          - MY.metadataStatusPreliminary
+          - MY.metadataStatusSatisfactory
+          - MY.metadataStatusComprehensive
+          - MY.metadataStatusHidden
+          description: Indication of how comprehensive the information on this form is.
+          title: Status of this metadata
+        methods:
+          $ref: '#/components/schemas/store-multiLang'
+        notes:
+          type: string
+          description: Additional information to the data in each section.
+          title: Notes
+        onlineUrl:
+          $ref: '#/components/schemas/store-multiLang'
+        personResponsible:
+          type: string
+          description: Person(s) responsible for the collection (Lastname, Firstname; Lastname, Firstname).
+          title: Person responsible
+        publicAccess:
+          type: boolean
+          description: Used for botanic garden collections. Is the collection/garden area accessible to public or not.
+          title: Accessibility to public
+        publicationDescription:
+          $ref: '#/components/schemas/store-multiLang'
+        publicationTerms:
+          type: string
+          enum:
+          - ''
+          - MY.publicationTermsFree
+          - MY.publicationTermsOfficial
+          - MY.publicationTermsInternal
+          - MY.publicationTermsNone
+          description: How can Luomus publish the data, if it is owned by third party?
+          title: Publication terms
+        publisherShortname:
+          $ref: '#/components/schemas/store-multiLang'
+        shareToFEO:
+          type: string
+          title: Share to FEO
+        shareToGbif:
+          type: string
+          description: 'Admin field. Can the data be shared to GBIF or not: Given collection ID means data is shared under that collection.'
+          title: Share to GBIF
+        taxonomicCoverage:
+          $ref: '#/components/schemas/store-multiLang'
+        temporalCoverage:
+          $ref: '#/components/schemas/store-multiLang'
+        typesSize:
+          type: string
+          description: How many TYPE specimens does the collection contain?  Fill in approximate number, describe more in notes if necessary.
+          title: Amount of type specimens (approx.)
+        dateCreated:
+          type: string
+          format: date-time
+          title: Created
+        dateEdited:
+          type: string
+          format: date-time
+          title: Edited
+        owner:
+          type: string
+          description: Team or organisation that owns the record and can edit it.
+          title: Owner of record
+        publicityRestrictions:
+          type: string
+          enum:
+          - ''
+          - MZ.publicityRestrictionsPublic
+          - MZ.publicityRestrictionsProtected
+          - MZ.publicityRestrictionsPrivate
+          description: 'PUBLIC: all data can be published; PROTECTED: exact locality is hidden (100*100km square); PRIVATE: most of the data is hidden. Empty value means same as public.'
+          title: Publicity restrictions
+        hasChildren:
+          type: boolean
+        longNameMultiLang:
+          type: object
+          properties:
+            fi:
+              $ref: '#/components/schemas/store-multiLang'
+            sv:
+              $ref: '#/components/schemas/store-multiLang'
+            en:
+              $ref: '#/components/schemas/store-multiLang'
+          _patchMultiLang: false
+        descriptionMultiLang:
+          type: object
+          properties:
+            fi:
+              $ref: '#/components/schemas/store-multiLang'
+            sv:
+              $ref: '#/components/schemas/store-multiLang'
+            en:
+              $ref: '#/components/schemas/store-multiLang'
+          _patchMultiLang: false
+        onlineUrlMultiLang:
+          type: object
+          properties:
+            fi:
+              $ref: '#/components/schemas/store-multiLang'
+            sv:
+              $ref: '#/components/schemas/store-multiLang'
+            en:
+              $ref: '#/components/schemas/store-multiLang'
+          _patchMultiLang: false
+        children:
+          type: array
+          items:
+            $ref: '#/components/schemas/ExpandedSensitiveCollection'
+      required:
+      - contactEmail
+      - description
+      - hierarchyType
+      - intellectualRights
+      - personResponsible
+      - id
+      additionalProperties: false
+    store-multiLang:
+      type: string
+  securitySchemes:
+    Access_token:
+      scheme: bearer
+      bearerFormat: JWT
+      type: http
+      description: Access token
+    Lang:
+      type: apiKey
+      in: header
+      name: Accept-Language
+      description: Sets the 'Accept-Language' header. One of 'fi', 'sv,' 'en'. Defaults to 'en'.
+    Person_token:
+      type: apiKey
+      in: header
+      name: Person-Token

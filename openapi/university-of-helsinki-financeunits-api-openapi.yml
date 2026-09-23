@@ -1,0 +1,114 @@
+openapi: 3.2.0
+info:
+  title: Organisation Registry Public Finance Units API
+  description: Organisation Registry Public API
+  version: 1.0.0
+servers:
+- url: https://gw.api.helsinki.fi/organisation/info
+security:
+- apiKey: []
+tags:
+- name: FinanceUnits
+paths:
+  /v1/financeUnits:
+    get:
+      summary: GET v1/financeUnits
+      operationId: getFinanceUnits
+      responses:
+        '200':
+          description: OK
+          content:
+            application/json:
+              schema:
+                type: array
+                items:
+                  $ref: '#/components/schemas/FinanceUnit'
+              examples:
+                Finance unit example:
+                  $ref: '#/components/examples/FinanceUnitsExample'
+      tags:
+      - FinanceUnits
+  /v2/financeUnits:
+    get:
+      summary: GET v2/financeUnits
+      operationId: getFinanceUnitsWithPublicCode
+      responses:
+        '200':
+          description: OK
+          content:
+            application/json:
+              schema:
+                type: array
+                items:
+                  $ref: '#/components/schemas/FinanceUnitWithUniqueCode'
+              examples:
+                Finance unit example:
+                  $ref: '#/components/examples/FinanceUnitsWithPublicCodeExample'
+      tags:
+      - FinanceUnits
+components:
+  examples:
+    FinanceUnitsWithPublicCodeExample:
+      value:
+      - uniqueId: '77096679'
+        code: HY
+        type: tulosyksikko
+        publicity: kylla
+        uniqueCode: kylla
+        nameFi: Helsingin yliopisto
+        nameEn: University of Helsinki
+        nameSv: Helsingfors universitet
+        parent: null
+    FinanceUnitsExample:
+      value:
+      - uniqueId: '77096679'
+        code: HY
+        type: tulosyksikko
+        publicity: kylla
+        nameFi: Helsingin yliopisto
+        nameEn: University of Helsinki
+        nameSv: Helsingfors universitet
+        parent: null
+  schemas:
+    FinanceUnit:
+      type: object
+      properties:
+        uniqueId:
+          type: string
+        code:
+          type: string
+        type:
+          type: string
+        publicity:
+          type: string
+        nameFi:
+          type: string
+        nameSv:
+          type: string
+        parent:
+          type: string
+    FinanceUnitWithUniqueCode:
+      type: object
+      properties:
+        uniqueId:
+          type: string
+        code:
+          type: string
+        type:
+          type: string
+        publicity:
+          type: string
+        uniqueCode:
+          type: string
+        nameFi:
+          type: string
+        nameSv:
+          type: string
+        parent:
+          type: string
+  securitySchemes:
+    apiKey:
+      type: apiKey
+      description: APIKey Auth
+      name: X-Api-Key
+      in: header

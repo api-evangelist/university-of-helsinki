@@ -1,0 +1,401 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "$id": "https://raw.githubusercontent.com/api-evangelist/university-of-helsinki/main/json-schema/university-of-helsinki-serviceapi-schemas.json",
+  "title": "ServiceAPI — component schemas",
+  "description": "JSON Schema bundle derived from the component schemas of openapi/university-of-helsinki-serviceapi-openapi.yml, which was harvested verbatim from the University of Helsinki API portal (https://api.helsinki.fi/portal/environments/DEFAULT/apis/e570cb70-673a-41cc-b0cb-70673a81cc0c/pages/011dab13-6773-40e2-9dab-13677360e232/content). Schemas are reproduced unchanged from the provider's own OpenAPI; only the $schema/$id/$defs envelope is ours.",
+  "x-generated": "2026-08-30",
+  "x-method": "derived",
+  "x-source": "openapi/university-of-helsinki-serviceapi-openapi.yml",
+  "$defs": {
+    "ServiceProduct": {
+      "type": "object",
+      "properties": {
+        "additionalServices": {
+          "type": "string",
+          "example": "Yliopiston ulkopuoliset henkilöt voivat saada..."
+        },
+        "additionalServicesEn": {
+          "type": "string",
+          "example": "People outside the University may receive a personal user account..."
+        },
+        "additionalServicesSv": {
+          "type": "string",
+          "example": "Personer utanför universitetet kan få..."
+        },
+        "efecteId": {
+          "type": "string",
+          "description": "Unique identifier of the service product in the source system. Can be null.",
+          "example": "SVV-00152"
+        },
+        "scheduledMaintenance": {
+          "type": "string"
+        },
+        "scheduledMaintenanceEn": {
+          "type": "string"
+        },
+        "scheduledMaintenanceSv": {
+          "type": "string"
+        },
+        "service": {
+          "type": "string",
+          "example": "Käyttäjätunnus"
+        },
+        "serviceDescription": {
+          "type": "string",
+          "example": "Henkilökohtainen käyttäjätunnus on Helsingin yliopiston verkkopalveluiden kuten sähköpostin..."
+        },
+        "serviceDescriptionEn": {
+          "type": "string",
+          "example": "A personal user account is a user account that includes the user’s digital identity..."
+        },
+        "serviceDescriptionSv": {
+          "type": "string",
+          "example": "Ett personligt användarnamn är ett användarnamn som krävs för att använda..."
+        },
+        "serviceIncludes": {
+          "type": "string",
+          "example": "Käyttäjätunnus (ns. AD-tunnus, joka muodostuu 4-8 kirjaimesta) sekä..."
+        },
+        "serviceIncludesEn": {
+          "type": "string",
+          "example": "User account (an AD account consisting of 4–8 letters) and..."
+        },
+        "serviceIncludesSv": {
+          "type": "string",
+          "example": "Användarnamn (s.k. AD-användarnamn som består av 4-8 bokstäver) och..."
+        },
+        "serviceInfo": {
+          "type": "string",
+          "example": "Yliopiston henkilökunta saa käyttäjätunnuksen..."
+        },
+        "serviceInfoEn": {
+          "type": "string",
+          "example": "The University staff can obtain a user account through the..."
+        },
+        "serviceInfoSv": {
+          "type": "string",
+          "example": "Universitetets personal får användarnamn via Helpdesk med hjälp av en..."
+        },
+        "serviceManager": {
+          "type": "string"
+        },
+        "serviceManagerEn": {
+          "type": "string"
+        },
+        "serviceManagerSv": {
+          "type": "string"
+        },
+        "serviceProductName": {
+          "type": "string",
+          "example": "Henkilökohtainen käyttäjätunnus"
+        },
+        "serviceProductNameEn": {
+          "type": "string",
+          "example": "Personal user account"
+        },
+        "serviceProductNameSv": {
+          "type": "string",
+          "example": "Personligt användarnamn"
+        },
+        "serviceTargetGroups": {
+          "type": "array",
+          "example": [
+            "Oppija",
+            "Työntekijä",
+            "Ulkopuoliset"
+          ],
+          "items": {
+            "type": "string",
+            "example": "[\"Oppija\",\"Työntekijä\",\"Ulkopuoliset\"]"
+          }
+        },
+        "serviceTargetGroupsEn": {
+          "type": "array",
+          "items": {
+            "type": "string"
+          }
+        },
+        "serviceTargetGroupsSv": {
+          "type": "array",
+          "items": {
+            "type": "string"
+          }
+        },
+        "serviceUnit": {
+          "type": "string"
+        },
+        "serviceUnitEn": {
+          "type": "string"
+        },
+        "serviceUnitSv": {
+          "type": "string"
+        },
+        "support": {
+          "type": "string",
+          "example": "Käyttäjätuesta vastaa ensisijaisesti..."
+        },
+        "supportEn": {
+          "type": "string",
+          "example": "User support is primarily provided by..."
+        },
+        "supportSv": {
+          "type": "string",
+          "example": "Det är i första hand Helpdesk som ansvarar för användarstödet. Vid behov hjälper experter..."
+        }
+      }
+    },
+    "Service": {
+      "type": "object",
+      "properties": {
+        "efecteId": {
+          "type": "string",
+          "description": "Unique identifier of the service in the source system. Can be null.",
+          "example": "SVCE-00263"
+        },
+        "serviceName": {
+          "type": "string",
+          "example": "Asiakaspalvelun välineet"
+        },
+        "serviceDescription": {
+          "type": "string",
+          "example": "Asiakaspalvelun välineiden avulla tuotetaan palvelua..."
+        },
+        "shortDescription": {
+          "type": "string",
+          "example": "Vakioidut välineet ja prosessit asiakaspalvelun tuottamiseen yliopistolla"
+        },
+        "support": {
+          "type": "string"
+        },
+        "serviceInfo": {
+          "type": "string"
+        },
+        "responsibilities": {
+          "type": "string",
+          "example": "Tietotekniikkakeskus yleensä vastaa palveluun sisältyvien..."
+        },
+        "additionalInformation": {
+          "type": "string"
+        },
+        "serviceUnit": {
+          "type": "string",
+          "example": "Tietotekniikkakeskus"
+        },
+        "serviceType": {
+          "type": "string"
+        },
+        "additionalServiceGroups": {
+          "type": "array",
+          "items": {
+            "type": "string"
+          }
+        },
+        "servicePromise": {
+          "type": "string"
+        },
+        "serviceGroup": {
+          "type": "string",
+          "example": "12. Yhteiset ratkaisut"
+        },
+        "serviceGroupNameEn": {
+          "type": "string"
+        },
+        "serviceGroupNameSv": {
+          "type": "string"
+        },
+        "serviceTargetGroups": {
+          "type": "array",
+          "example": [
+            "Yksiköt"
+          ],
+          "items": {
+            "type": "string",
+            "example": "[\"Yksiköt\"]"
+          }
+        },
+        "serviceNameEn": {
+          "type": "string",
+          "example": "Customer service tools"
+        },
+        "serviceUnitEn": {
+          "type": "string",
+          "example": "Center for Information Technology"
+        },
+        "shortDescriptionEn": {
+          "type": "string",
+          "example": "Standard tools and processes for providing customer service at the university"
+        },
+        "serviceDescriptionEn": {
+          "type": "string",
+          "example": "Customer service tools are used to provide..."
+        },
+        "supportEn": {
+          "type": "string"
+        },
+        "serviceTargetGroupsEn": {
+          "type": "array",
+          "example": [
+            "Units"
+          ],
+          "items": {
+            "type": "string",
+            "example": "[\"Units\"]"
+          }
+        },
+        "serviceInfoEn": {
+          "type": "string",
+          "example": "The service is available by contacting the unit’s IT Center..."
+        },
+        "responsibilitiesEn": {
+          "type": "string",
+          "example": "The IT Center is usually responsible for configuring"
+        },
+        "additionalInformationEn": {
+          "type": "string"
+        },
+        "servicePromiseEn": {
+          "type": "string"
+        },
+        "serviceNameSv": {
+          "type": "string",
+          "example": "Kundtjänstens verktyg"
+        },
+        "serviceUnitSv": {
+          "type": "string",
+          "example": "Center för informationsteknologi"
+        },
+        "shortDescriptionSv": {
+          "type": "string",
+          "example": "Standardiserade verktyg och processer som erbjuds för kundservice vid universitetet"
+        },
+        "serviceDescriptionSv": {
+          "type": "string",
+          "example": "Kundtjänstens verktyg används för att erbjuda tjänster..."
+        },
+        "supportSv": {
+          "type": "string"
+        },
+        "serviceTargetGroupsSv": {
+          "type": "array",
+          "example": [
+            "Enheter"
+          ],
+          "items": {
+            "type": "string",
+            "example": "[\"Enheter\"]"
+          }
+        },
+        "serviceInfoSv": {
+          "type": "string",
+          "example": "Du kan ta i bruk tjänsten genom att kontakta kundansvarig för din enhets IT-center."
+        },
+        "responsibilitiesSv": {
+          "type": "string"
+        },
+        "additionalInformationSv": {
+          "type": "string"
+        },
+        "servicePromiseSv": {
+          "type": "string"
+        },
+        "serviceOwnerUnitRef": {
+          "type": "string"
+        },
+        "serviceOwnerUnit": {
+          "type": "string"
+        },
+        "serviceOwnerUnitSv": {
+          "type": "string"
+        },
+        "serviceOwnerUnitEn": {
+          "type": "string"
+        },
+        "serviceOwner": {
+          "type": "array",
+          "example": [
+            "Esa Esimerkki",
+            "Elli Esimerkki"
+          ],
+          "items": {
+            "type": "string",
+            "example": "[\"Esa Esimerkki\",\"Elli Esimerkki\"]"
+          }
+        },
+        "serviceOwnerSv": {
+          "type": "array",
+          "example": [
+            "Esa Esimerkki",
+            "Elli Esimerkki"
+          ],
+          "items": {
+            "type": "string",
+            "example": "[\"Esa Esimerkki\",\"Elli Esimerkki\"]"
+          }
+        },
+        "serviceOwnerEn": {
+          "type": "array",
+          "example": [
+            "Esa Esimerkki",
+            "Elli Esimerkki"
+          ],
+          "items": {
+            "type": "string",
+            "example": "[\"Esa Esimerkki\",\"Elli Esimerkki\"]"
+          }
+        },
+        "serviceOwnerText": {
+          "type": "string"
+        },
+        "serviceOwnerTextSv": {
+          "type": "string"
+        },
+        "serviceOwnerTextEn": {
+          "type": "string"
+        },
+        "businessOwnerRef": {
+          "type": "string"
+        },
+        "serviceManager": {
+          "type": "array",
+          "example": [
+            "Esa Esimerkki",
+            "Elli Esimerkki"
+          ],
+          "items": {
+            "type": "string",
+            "example": "[\"Esa Esimerkki\",\"Elli Esimerkki\"]"
+          }
+        },
+        "serviceManagerSv": {
+          "type": "array",
+          "example": [
+            "Esa Esimerkki",
+            "Elli Esimerkki"
+          ],
+          "items": {
+            "type": "string",
+            "example": "[\"Esa Esimerkki\",\"Elli Esimerkki\"]"
+          }
+        },
+        "serviceManagerEn": {
+          "type": "array",
+          "example": [
+            "Esa Esimerkki",
+            "Elli Esimerkki"
+          ],
+          "items": {
+            "type": "string",
+            "example": "[\"Esa Esimerkki\",\"Elli Esimerkki\"]"
+          }
+        },
+        "serviceProducts": {
+          "type": "array",
+          "items": {
+            "$ref": "#/components/schemas/ServiceProduct"
+          }
+        }
+      },
+      "description": "Represents a service entity with multi-language support (Finnish, English, and Swedish)"
+    }
+  }
+}

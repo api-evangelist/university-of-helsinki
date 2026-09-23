@@ -1,0 +1,85 @@
+openapi: 3.2.0
+info:
+  title: General Efecte /machine API
+servers:
+- url: https://gw.api.helsinki.fi/efecte
+tags:
+- name: Machine
+paths:
+  /machine/vdi/post:
+    post:
+      tags:
+      - Machine
+      summary: VDI Machine Post API
+      operationId: VDIMachinePost
+      requestBody:
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/VDIMachine'
+        required: true
+      responses:
+        '200':
+          description: OK
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/OrderResponse'
+      security:
+      - Apikey: []
+components:
+  schemas:
+    OrderResponse:
+      type: object
+      properties:
+        status:
+          type: string
+        efecteId:
+          type: string
+    VDIMachine:
+      type: object
+      properties:
+        efecteId:
+          type: string
+        name:
+          type: string
+        os:
+          type: string
+        numCpu:
+          type: string
+        ram:
+          type: string
+        diskType:
+          type: string
+        diskSize:
+          type: string
+        vlan:
+          type: string
+        vsphereCluster:
+          type: string
+        vsphereContainer:
+          type: string
+        gpu:
+          type: string
+        catalogId:
+          type: string
+        assignedUser:
+          type: string
+        maintenanceWindow:
+          type: string
+        desktopPool:
+          type: string
+        activeFrom:
+          type: string
+        activeTill:
+          type: string
+        status:
+          type: string
+        order:
+          type: string
+  securitySchemes:
+    Apikey:
+      type: apiKey
+      description: APIKey Auth
+      name: X-Api-Key
+      in: header
