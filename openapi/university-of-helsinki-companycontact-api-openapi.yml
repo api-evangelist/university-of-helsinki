@@ -261,30 +261,6 @@ paths:
       deprecated: false
 components:
   schemas:
-    CompanyTitle.jsonld-read:
-      type: object
-      deprecated: false
-      description: Company Title resource.
-      properties:
-        '@id':
-          type: string
-          readOnly: true
-        '@type':
-          type: string
-          readOnly: true
-        id:
-          type: string
-        name:
-          type: object
-          items:
-            type: string
-          properties:
-            en:
-              type: string
-            fi:
-              type: string
-            sv:
-              type: string
     CompanyOrganization.jsonld-read:
       type: object
       deprecated: false
@@ -337,6 +313,24 @@ components:
           type:
           - string
           - 'null'
+    CompanyTitle-read:
+      type: object
+      deprecated: false
+      description: Company Title resource.
+      properties:
+        id:
+          type: string
+        name:
+          type: object
+          items:
+            type: string
+          properties:
+            en:
+              type: string
+            fi:
+              type: string
+            sv:
+              type: string
     CompanyContact-read:
       type: object
       deprecated: false
@@ -421,11 +415,17 @@ components:
           type:
           - string
           - 'null'
-    CompanyTitle-read:
+    CompanyTitle.jsonld-read:
       type: object
       deprecated: false
       description: Company Title resource.
       properties:
+        '@id':
+          type: string
+          readOnly: true
+        '@type':
+          type: string
+          readOnly: true
         id:
           type: string
         name:

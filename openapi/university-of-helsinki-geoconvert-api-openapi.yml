@@ -360,70 +360,6 @@ paths:
       - Person token: []
 components:
   schemas:
-    GeoConvertErrorResponse:
-      properties:
-        detail:
-          type: string
-          title: Detail
-          description: Error message
-          examples:
-          - Conversion ID not found
-      type: object
-      required:
-      - detail
-      title: ErrorResponse
-    GeoConvertHTTPValidationError:
-      properties:
-        detail:
-          items:
-            $ref: '#/components/schemas/GeoConvertValidationError'
-          type: array
-          title: Detail
-      type: object
-      title: HTTPValidationError
-      required:
-      - detail
-    GeoConvertHealthResponse:
-      properties:
-        status:
-          type: string
-          title: Status
-          description: Service health status
-          examples:
-          - ok
-        processing:
-          type: string
-          title: Processing
-          description: Number of active conversions
-          examples:
-          - 2 conversions right now
-      type: object
-      required:
-      - status
-      - processing
-      title: HealthResponse
-    GeoConvertBody_convert_with_file__post:
-      properties:
-        file:
-          type: string
-          format: binary
-          title: File
-          description: ZIP file containing TSV data
-      type: object
-      required:
-      - file
-      title: Body_convert_with_file__post
-    GeoConvertBody_convert_gis_to_table_convert_to_table_post:
-      properties:
-        file:
-          type: string
-          format: binary
-          title: File
-          description: GIS file to convert (GeoJSON, GPKG, KML, GML, or ZIP for Shapefiles)
-      type: object
-      required:
-      - file
-      title: Body_convert_gis_to_table_convert_to_table_post
     GeoConvertValidationError:
       properties:
         loc:
@@ -445,6 +381,48 @@ components:
       - msg
       - type
       title: ValidationError
+    GeoConvertHealthResponse:
+      properties:
+        status:
+          type: string
+          title: Status
+          description: Service health status
+          examples:
+          - ok
+        processing:
+          type: string
+          title: Processing
+          description: Number of active conversions
+          examples:
+          - 2 conversions right now
+      type: object
+      required:
+      - status
+      - processing
+      title: HealthResponse
+    GeoConvertHTTPValidationError:
+      properties:
+        detail:
+          items:
+            $ref: '#/components/schemas/GeoConvertValidationError'
+          type: array
+          title: Detail
+      type: object
+      title: HTTPValidationError
+      required:
+      - detail
+    GeoConvertErrorResponse:
+      properties:
+        detail:
+          type: string
+          title: Detail
+          description: Error message
+          examples:
+          - Conversion ID not found
+      type: object
+      required:
+      - detail
+      title: ErrorResponse
     GeoConvertStatusResponse:
       properties:
         id:
@@ -477,6 +455,28 @@ components:
       - status
       - progress_percent
       title: StatusResponse
+    GeoConvertBody_convert_gis_to_table_convert_to_table_post:
+      properties:
+        file:
+          type: string
+          format: binary
+          title: File
+          description: GIS file to convert (GeoJSON, GPKG, KML, GML, or ZIP for Shapefiles)
+      type: object
+      required:
+      - file
+      title: Body_convert_gis_to_table_convert_to_table_post
+    GeoConvertBody_convert_with_file__post:
+      properties:
+        file:
+          type: string
+          format: binary
+          title: File
+          description: ZIP file containing TSV data
+      type: object
+      required:
+      - file
+      title: Body_convert_with_file__post
   securitySchemes:
     Access_token:
       scheme: bearer

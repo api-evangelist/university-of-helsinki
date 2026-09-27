@@ -51,33 +51,6 @@ paths:
       x-summary-source: derived
 components:
   schemas:
-    GoogleMapsGeocodingResponse:
-      type: object
-      required:
-      - status
-      - results
-      properties:
-        results:
-          type: array
-          items:
-            $ref: '#/components/schemas/GoogleMapsGeocodingResult'
-        status:
-          type: string
-    GoogleMapsAddressComponent:
-      type: object
-      required:
-      - long_name
-      - short_name
-      - types
-      properties:
-        long_name:
-          type: string
-        short_name:
-          type: string
-        types:
-          type: array
-          items:
-            type: string
     GoogleMapsGeocodingResult:
       type: object
       required:
@@ -109,6 +82,33 @@ components:
                 lng:
                   type: number
         place_id:
+          type: string
+        types:
+          type: array
+          items:
+            type: string
+    GoogleMapsGeocodingResponse:
+      type: object
+      required:
+      - status
+      - results
+      properties:
+        results:
+          type: array
+          items:
+            $ref: '#/components/schemas/GoogleMapsGeocodingResult'
+        status:
+          type: string
+    GoogleMapsAddressComponent:
+      type: object
+      required:
+      - long_name
+      - short_name
+      - types
+      properties:
+        long_name:
+          type: string
+        short_name:
           type: string
         types:
           type: array

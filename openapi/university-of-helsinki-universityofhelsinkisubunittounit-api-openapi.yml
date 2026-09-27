@@ -29,6 +29,15 @@ paths:
       tags:
       - UniversityOfHelsinkiSubunitToUnit
 components:
+  examples:
+    UniversityOfHelsinkiSubunitToUnit:
+      value:
+      - subUnitCode: KP
+        unitCode: KP
+        unitNameFi: Helsingin yliopiston kiinteistöpalvelut
+      - subUnitCode: KP01
+        unitCode: KP
+        unitNameFi: Helsingin yliopiston kiinteistöpalvelut
   schemas:
     UniversityOfHelsinkiSubunitToUnit:
       type: object
@@ -42,15 +51,6 @@ components:
         unitNameFi:
           type: string
           description: The name_fi of the greatest parent fo the sub unit
-  examples:
-    UniversityOfHelsinkiSubunitToUnit:
-      value:
-      - subUnitCode: KP
-        unitCode: KP
-        unitNameFi: Helsingin yliopiston kiinteistöpalvelut
-      - subUnitCode: KP01
-        unitCode: KP
-        unitNameFi: Helsingin yliopiston kiinteistöpalvelut
   securitySchemes:
     apiKey:
       type: apiKey

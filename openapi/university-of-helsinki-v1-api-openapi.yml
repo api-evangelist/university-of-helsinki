@@ -84,26 +84,6 @@ paths:
     - url: https://gw.api.helsinki.fi/serviceapi
 components:
   schemas:
-    Title:
-      type: object
-      properties:
-        fi:
-          type: string
-          example: kirjastosihteeri
-        en:
-          type: string
-          example: Assistant Librarian
-        sv:
-          type: string
-          example: bibliotekssekreterare
-      description: Represents a title with multi-language support (Finnish, English, and Swedish)
-      example:
-      - fi: professori
-        en: Professor
-        sv: professor
-      - fi: dosentuuri
-        en: Docentship
-        sv: docentur
     Person:
       type: object
       properties:
@@ -136,6 +116,26 @@ components:
           type: string
           example: jane.doe@helsinki.fi
       description: Represents a person entity
+    Title:
+      type: object
+      properties:
+        fi:
+          type: string
+          example: kirjastosihteeri
+        en:
+          type: string
+          example: Assistant Librarian
+        sv:
+          type: string
+          example: bibliotekssekreterare
+      description: Represents a title with multi-language support (Finnish, English, and Swedish)
+      example:
+      - fi: professori
+        en: Professor
+        sv: professor
+      - fi: dosentuuri
+        en: Docentship
+        sv: docentur
     ServiceProduct:
       type: object
       properties:

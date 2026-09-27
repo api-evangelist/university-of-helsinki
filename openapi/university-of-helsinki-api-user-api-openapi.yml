@@ -445,6 +445,13 @@ paths:
       - API User
 components:
   schemas:
+    ApiUserUpdateDto:
+      type: object
+      properties:
+        systemID:
+          type: string
+      required:
+      - systemID
     ApiUserEntity:
       type: object
       properties:
@@ -464,13 +471,6 @@ components:
       - accessToken
       - email
       - created
-    ApiUserUpdateDto:
-      type: object
-      properties:
-        systemID:
-          type: string
-      required:
-      - systemID
   securitySchemes:
     Access_token:
       scheme: bearer

@@ -29,25 +29,6 @@ paths:
       tags:
       - HumanResourcesIamGroupPrefix
 components:
-  examples:
-    HumanResourcesIamGroupPrefixExample:
-      value:
-      - uniqueId: '32132131'
-        code: H123
-        type: henkilosto-osa-alue
-        nameFi: Tutkimusohjelmayksikkö
-        nameEn: Research Programs Unit
-        nameSv: Forskningsprogramenheten
-        iamGroupPrefix: hy-ltdk-rpu
-        parent: '43434233'
-      - uniqueId: '12312312'
-        code: HY
-        type: yritys_yhteiso
-        nameFi: Helsingin yliopisto
-        nameEn: University of Helsinki
-        nameSv: Helsingfors universitet
-        iamGroupPrefix: null
-        parent: null
   schemas:
     HumanResourcesIamGroupPrefix:
       type: object
@@ -68,6 +49,25 @@ components:
           type: string
         parent:
           type: string
+  examples:
+    HumanResourcesIamGroupPrefixExample:
+      value:
+      - uniqueId: '32132131'
+        code: H123
+        type: henkilosto-osa-alue
+        nameFi: Tutkimusohjelmayksikkö
+        nameEn: Research Programs Unit
+        nameSv: Forskningsprogramenheten
+        iamGroupPrefix: hy-ltdk-rpu
+        parent: '43434233'
+      - uniqueId: '12312312'
+        code: HY
+        type: yritys_yhteiso
+        nameFi: Helsingin yliopisto
+        nameEn: University of Helsinki
+        nameSv: Helsingfors universitet
+        iamGroupPrefix: null
+        parent: null
   securitySchemes:
     apiKey:
       type: apiKey

@@ -187,26 +187,28 @@ paths:
       - StudySearchApiKey: []
 components:
   schemas:
-    DegreeApplicationPeriodTerm:
+    TextTerm:
       type: object
       properties:
         id:
           type: string
           example: taxonomy_term:851
-        start:
+        fi:
           type:
           - string
           - 'null'
-          description: Start of the application period. Has no timezone offset, so it is not an RFC 3339 date-time. Null when not set.
-          example: '2023-12-01T06:00:00'
-        end:
+          example: Ympäristö ja ympäristön suojelu
+        sv:
           type:
           - string
           - 'null'
-          description: End of the application period. Has no timezone offset, so it is not an RFC 3339 date-time. Null when not set.
-          example: '2024-01-03T13:00:00'
-        is_paid:
-          type: boolean
+          example: Miljö och hållbarhet
+        en:
+          type:
+          - string
+          - 'null'
+          example: Environment and sustainability
+      description: A referenced taxonomy term. The language keys are the same ones the referencing content has, so the set of keys varies per content item. When the term itself is not translated into one of those languages, the value falls back to the term's default language. When no language version of the referencing content is viewable, only id is present.
     StudyOption:
       type: object
       properties:
@@ -264,28 +266,6 @@ components:
             type: string
             example: HISM-G5111
           description: Course codes collected from the content. Both the keys and the values are the course code. When the content has none, this is serialised as an empty JSON array ([]) rather than an empty object, so check the type before treating it as a map.
-    TextTerm:
-      type: object
-      properties:
-        id:
-          type: string
-          example: taxonomy_term:851
-        fi:
-          type:
-          - string
-          - 'null'
-          example: Ympäristö ja ympäristön suojelu
-        sv:
-          type:
-          - string
-          - 'null'
-          example: Miljö och hållbarhet
-        en:
-          type:
-          - string
-          - 'null'
-          example: Environment and sustainability
-      description: A referenced taxonomy term. The language keys are the same ones the referencing content has, so the set of keys varies per content item. When the term itself is not translated into one of those languages, the value falls back to the term's default language. When no language version of the referencing content is viewable, only id is present.
     Translated:
       type: object
       properties:
@@ -304,6 +284,14 @@ components:
       description: 'Object containing strings for each language version with the two-letter language code as key. Only the languages the content is published in are present, so the set of keys varies per content item. A key may hold null when the underlying field is empty in that language.
 
         When no language version of the content is viewable, the field is serialised as an empty JSON array ([]) rather than an empty object ({}), because it is built from a PHP list. Check the type before treating it as an object. The same content also omits url, rendered and image entirely, and its referenced terms carry only their id — such an entry has no usable payload beyond the id, and is best skipped by consumers.'
+    StudySearchInfo:
+      type: object
+      properties:
+        application_period_info:
+          $ref: '#/components/schemas/Translated'
+        no_application_period_description:
+          $ref: '#/components/schemas/Translated'
+      description: Editorial texts from the site configuration. A value is null when the corresponding text has not been set.
     DegreeProgramme:
       type: object
       properties:
@@ -365,14 +353,26 @@ components:
           description: A image for the content in a standard size. Omitted when no image is set. The URL uses the /s3/files prefix so that the image style is generated on the first request.
           allOf:
           - $ref: '#/components/schemas/Translated'
-    StudySearchInfo:
+    DegreeApplicationPeriodTerm:
       type: object
       properties:
-        application_period_info:
-          $ref: '#/components/schemas/Translated'
-        no_application_period_description:
-          $ref: '#/components/schemas/Translated'
-      description: Editorial texts from the site configuration. A value is null when the corresponding text has not been set.
+        id:
+          type: string
+          example: taxonomy_term:851
+        start:
+          type:
+          - string
+          - 'null'
+          description: Start of the application period. Has no timezone offset, so it is not an RFC 3339 date-time. Null when not set.
+          example: '2023-12-01T06:00:00'
+        end:
+          type:
+          - string
+          - 'null'
+          description: End of the application period. Has no timezone offset, so it is not an RFC 3339 date-time. Null when not set.
+          example: '2024-01-03T13:00:00'
+        is_paid:
+          type: boolean
   securitySchemes:
     NewsApiKey:
       type: apiKey

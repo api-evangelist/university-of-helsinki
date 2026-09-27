@@ -444,6 +444,29 @@ components:
       required:
       - url
       - caption
+    LajiBackendCMSNode:
+      type: object
+      properties:
+        id:
+          type: string
+        content:
+          type: string
+        title:
+          type: string
+        author:
+          type: string
+        posted:
+          type: string
+        tags:
+          type: array
+          items:
+            type: string
+        featuredImage:
+          $ref: '#/components/schemas/FeaturedImage'
+        modified:
+          type: string
+      required:
+      - id
     LajiBackendNewsNode:
       type: object
       properties:
@@ -498,29 +521,6 @@ components:
       - total
       - lastPage
       - '@context'
-    LajiBackendCMSNode:
-      type: object
-      properties:
-        id:
-          type: string
-        content:
-          type: string
-        title:
-          type: string
-        author:
-          type: string
-        posted:
-          type: string
-        tags:
-          type: array
-          items:
-            type: string
-        featuredImage:
-          $ref: '#/components/schemas/FeaturedImage'
-        modified:
-          type: string
-      required:
-      - id
     NewsNode:
       type: object
       properties:

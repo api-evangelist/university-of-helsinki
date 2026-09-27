@@ -1,0 +1,51 @@
+openapi: 3.2.0
+info:
+  title: HY Person/Group Groupnames API
+  version: 1.0.0
+servers:
+- url: https://gw.api.helsinki.fi/persongroup
+tags:
+- name: Groupnames
+paths:
+  /api/groupnames/{class}/{type}:
+    get:
+      tags:
+      - Groupnames
+      summary: Names of available groups
+      operationId: groupNames
+      parameters:
+      - name: class
+        in: path
+        description: Group collection class
+        required: true
+        schema:
+          type: string
+          enum:
+          - degreeProgrammes
+      - name: type
+        in: path
+        description: Group collection type
+        required: true
+        schema:
+          type: string
+          enum:
+          - steeringGroups
+      responses:
+        '200':
+          description: Output type
+          content:
+            application/json:
+              schema:
+                type: array
+                items:
+                  type: string
+      security:
+      - Apikey: []
+components:
+  securitySchemes:
+    Apikey:
+      type: apiKey
+      description: APIKey Auth
+      name: X-Api-Key
+      in: header
+x-original-swagger-version: '2.0'

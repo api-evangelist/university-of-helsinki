@@ -121,6 +121,18 @@ paths:
       - Information
 components:
   schemas:
+    FeaturedImage:
+      type: object
+      properties:
+        url:
+          type: string
+        caption:
+          type: string
+        alt:
+          type: string
+      required:
+      - url
+      - caption
     Information:
       type: object
       properties:
@@ -158,18 +170,6 @@ components:
       - author
       - posted
       - tags
-    FeaturedImage:
-      type: object
-      properties:
-        url:
-          type: string
-        caption:
-          type: string
-        alt:
-          type: string
-      required:
-      - url
-      - caption
     InformationChild:
       type: object
       properties:

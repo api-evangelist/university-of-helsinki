@@ -43,18 +43,6 @@ paths:
       tags:
       - NodesInMultipleHierarchies
 components:
-  schemas:
-    PublicHierarchyNode:
-      type: object
-      properties:
-        uniqueId:
-          type: string
-        nameFi:
-          type: string
-        nameEn:
-          type: string
-        nameSv:
-          type: string
   examples:
     PublicHierarchyNodesExample:
       value:
@@ -70,6 +58,18 @@ components:
         nameFi: Medicum
         nameSv: Medicum
         uniqueId: '81552327'
+  schemas:
+    PublicHierarchyNode:
+      type: object
+      properties:
+        uniqueId:
+          type: string
+        nameFi:
+          type: string
+        nameEn:
+          type: string
+        nameSv:
+          type: string
   securitySchemes:
     apiKey:
       type: apiKey

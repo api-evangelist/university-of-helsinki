@@ -1003,6 +1003,18 @@ paths:
       - Metadata
 components:
   schemas:
+    MetadataClass:
+      type: object
+      properties:
+        class:
+          type: string
+        label:
+          type: string
+        shortName:
+          type: string
+      required:
+      - class
+      - shortName
     Alt:
       type: object
       properties:
@@ -1053,18 +1065,6 @@ components:
       - hasMany
       - sortOrder
       - isEmbeddable
-    MetadataClass:
-      type: object
-      properties:
-        class:
-          type: string
-        label:
-          type: string
-        shortName:
-          type: string
-      required:
-      - class
-      - shortName
   securitySchemes:
     Access_token:
       scheme: bearer

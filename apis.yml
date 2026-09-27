@@ -3440,6 +3440,159 @@ apis:
     url: https://api.laji.fi/openapi
   - type: Documentation
     url: https://info.laji.fi/en/
+- aid: university-of-helsinki:university-of-helsinki-group-api
+  name: University of Helsinki Group API
+  description: The Group API from University of Helsinki — 1 operation(s) for group.
+  humanURL: https://api.helsinki.fi/portal/
+  baseURL: https://api.helsinki.fi/portal/environments/DEFAULT
+  tags:
+  - Group
+  properties:
+  - type: OpenAPI
+    url: openapi/university-of-helsinki-group-api-openapi.yml
+  - type: DeveloperPortal
+    url: https://api.helsinki.fi/portal/
+  - type: JSONSchema
+    url: json-schema/university-of-helsinki-hy-organisation-api-schemas.json
+  - type: JSONSchema
+    url: json-schema/university-of-helsinki-contact-search-api-schemas.json
+  - type: JSONSchema
+    url: json-schema/university-of-helsinki-course-pages-cms-schemas.json
+  - type: JSONSchema
+    url: json-schema/university-of-helsinki-helsinki-fi-content-schemas.json
+  - type: JSONSchema
+    url: json-schema/university-of-helsinki-hy-building-api-schemas.json
+  - type: JSONSchema
+    url: json-schema/university-of-helsinki-serviceapi-schemas.json
+  - type: JSONSchema
+    url: json-schema/university-of-helsinki-employeeinformationapi-schemas.json
+  - type: JSONSchema
+    url: json-schema/university-of-helsinki-persongroup-schemas.json
+  - type: JSONSchema
+    url: json-schema/university-of-helsinki-general-efecte-api-schemas.json
+  - type: JSONSchema
+    url: json-schema/university-of-helsinki-network-registry-api-schemas.json
+  - type: JSONSchema
+    url: json-schema/university-of-helsinki-finbif-laji-schemas.json
+  - type: APIReference
+    url: https://api.laji.fi/openapi
+  - type: Documentation
+    url: https://info.laji.fi/en/
+- aid: university-of-helsinki:university-of-helsinki-groupnames-api
+  name: University of Helsinki Groupnames API
+  description: The Groupnames API from University of Helsinki — 1 operation(s) for groupnames.
+  humanURL: https://api.helsinki.fi/portal/
+  baseURL: https://api.helsinki.fi/portal/environments/DEFAULT
+  tags:
+  - Groupnames
+  properties:
+  - type: OpenAPI
+    url: openapi/university-of-helsinki-groupnames-api-openapi.yml
+  - type: DeveloperPortal
+    url: https://api.helsinki.fi/portal/
+  - type: JSONSchema
+    url: json-schema/university-of-helsinki-hy-organisation-api-schemas.json
+  - type: JSONSchema
+    url: json-schema/university-of-helsinki-contact-search-api-schemas.json
+  - type: JSONSchema
+    url: json-schema/university-of-helsinki-course-pages-cms-schemas.json
+  - type: JSONSchema
+    url: json-schema/university-of-helsinki-helsinki-fi-content-schemas.json
+  - type: JSONSchema
+    url: json-schema/university-of-helsinki-hy-building-api-schemas.json
+  - type: JSONSchema
+    url: json-schema/university-of-helsinki-serviceapi-schemas.json
+  - type: JSONSchema
+    url: json-schema/university-of-helsinki-employeeinformationapi-schemas.json
+  - type: JSONSchema
+    url: json-schema/university-of-helsinki-persongroup-schemas.json
+  - type: JSONSchema
+    url: json-schema/university-of-helsinki-general-efecte-api-schemas.json
+  - type: JSONSchema
+    url: json-schema/university-of-helsinki-network-registry-api-schemas.json
+  - type: JSONSchema
+    url: json-schema/university-of-helsinki-finbif-laji-schemas.json
+  - type: APIReference
+    url: https://api.laji.fi/openapi
+  - type: Documentation
+    url: https://info.laji.fi/en/
+- aid: university-of-helsinki:university-of-helsinki-groups-api
+  name: University of Helsinki Groups API
+  description: The Groups API from University of Helsinki — 1 operation(s) for groups.
+  humanURL: https://api.helsinki.fi/portal/
+  baseURL: https://api.helsinki.fi/portal/environments/DEFAULT
+  tags:
+  - Groups
+  properties:
+  - type: OpenAPI
+    url: openapi/university-of-helsinki-groups-api-openapi.yml
+  - type: DeveloperPortal
+    url: https://api.helsinki.fi/portal/
+  - type: JSONSchema
+    url: json-schema/university-of-helsinki-hy-organisation-api-schemas.json
+  - type: JSONSchema
+    url: json-schema/university-of-helsinki-contact-search-api-schemas.json
+  - type: JSONSchema
+    url: json-schema/university-of-helsinki-course-pages-cms-schemas.json
+  - type: JSONSchema
+    url: json-schema/university-of-helsinki-helsinki-fi-content-schemas.json
+  - type: JSONSchema
+    url: json-schema/university-of-helsinki-hy-building-api-schemas.json
+  - type: JSONSchema
+    url: json-schema/university-of-helsinki-serviceapi-schemas.json
+  - type: JSONSchema
+    url: json-schema/university-of-helsinki-employeeinformationapi-schemas.json
+  - type: JSONSchema
+    url: json-schema/university-of-helsinki-persongroup-schemas.json
+  - type: JSONSchema
+    url: json-schema/university-of-helsinki-general-efecte-api-schemas.json
+  - type: JSONSchema
+    url: json-schema/university-of-helsinki-network-registry-api-schemas.json
+  - type: JSONSchema
+    url: json-schema/university-of-helsinki-finbif-laji-schemas.json
+  - type: APIReference
+    url: https://api.laji.fi/openapi
+  - type: Documentation
+    url: https://info.laji.fi/en/
+- aid: university-of-helsinki:university-of-helsinki-steeringgroupspeople-api
+  name: University of Helsinki Steeringgroupspeople API
+  description: >-
+    The Steeringgroupspeople API from University of Helsinki — 1 operation(s) for steeringgroupspeople.
+  humanURL: https://api.helsinki.fi/portal/
+  baseURL: https://api.helsinki.fi/portal/environments/DEFAULT
+  tags:
+  - Steeringgroupspeople
+  properties:
+  - type: OpenAPI
+    url: openapi/university-of-helsinki-steeringgroupspeople-api-openapi.yml
+  - type: DeveloperPortal
+    url: https://api.helsinki.fi/portal/
+  - type: JSONSchema
+    url: json-schema/university-of-helsinki-hy-organisation-api-schemas.json
+  - type: JSONSchema
+    url: json-schema/university-of-helsinki-contact-search-api-schemas.json
+  - type: JSONSchema
+    url: json-schema/university-of-helsinki-course-pages-cms-schemas.json
+  - type: JSONSchema
+    url: json-schema/university-of-helsinki-helsinki-fi-content-schemas.json
+  - type: JSONSchema
+    url: json-schema/university-of-helsinki-hy-building-api-schemas.json
+  - type: JSONSchema
+    url: json-schema/university-of-helsinki-serviceapi-schemas.json
+  - type: JSONSchema
+    url: json-schema/university-of-helsinki-employeeinformationapi-schemas.json
+  - type: JSONSchema
+    url: json-schema/university-of-helsinki-persongroup-schemas.json
+  - type: JSONSchema
+    url: json-schema/university-of-helsinki-general-efecte-api-schemas.json
+  - type: JSONSchema
+    url: json-schema/university-of-helsinki-network-registry-api-schemas.json
+  - type: JSONSchema
+    url: json-schema/university-of-helsinki-finbif-laji-schemas.json
+  - type: APIReference
+    url: https://api.laji.fi/openapi
+  - type: Documentation
+    url: https://info.laji.fi/en/
 - aid: university-of-helsinki:university-of-helsinki-human-resources-api
   name: University of Helsinki Human Resources API
   description: >-

@@ -29,6 +29,18 @@ paths:
       tags:
       - HumanResourcesSubunitToUnit
 components:
+  examples:
+    humanResourcesSubunitToUnit:
+      value:
+      - subUnitCode: H01
+        unitCode: H01
+        unitNameFi: Yliopistopalvelut
+      - subUnitCode: H022
+        unitCode: H01
+        unitNameFi: Yliopistopalvelut
+      - subUnitCode: H02201
+        unitCode: H01
+        unitNameFi: Yliopistopalvelut
   schemas:
     humanResourcesSubunitToUnit:
       type: object
@@ -42,18 +54,6 @@ components:
         unitNameFi:
           type: string
           description: The name_fi of the greatest parent fo the sub unit
-  examples:
-    humanResourcesSubunitToUnit:
-      value:
-      - subUnitCode: H01
-        unitCode: H01
-        unitNameFi: Yliopistopalvelut
-      - subUnitCode: H022
-        unitCode: H01
-        unitNameFi: Yliopistopalvelut
-      - subUnitCode: H02201
-        unitCode: H01
-        unitNameFi: Yliopistopalvelut
   securitySchemes:
     apiKey:
       type: apiKey

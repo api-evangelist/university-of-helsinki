@@ -95,6 +95,10 @@
     "university-of-helsinki-universityofhelsinkigroup-api-openapi.yml",
     "university-of-helsinki-universityofhelsinkisubunittounit-api-openapi.yml",
     "university-of-helsinki-hosts-api-openapi.yml",
+    "university-of-helsinki-group-api-openapi.yml",
+    "university-of-helsinki-groupnames-api-openapi.yml",
+    "university-of-helsinki-groups-api-openapi.yml",
+    "university-of-helsinki-steeringgroupspeople-api-openapi.yml",
     "university-of-helsinki-ss-api-openapi.yml"
   ],
   "archived": [
@@ -216,14 +220,24 @@
     "university-of-helsinki-network-registry-api-openapi.json: tagged paths PATCH /hosts/name/{nimi} -> Hosts",
     "university-of-helsinki-network-registry-api-openapi.json: declared missing tag: Hosts",
     "university-of-helsinki-persongroup-openapi.json: upgraded openapi 3.0.1 -> OpenAPI 3.2.0",
+    "university-of-helsinki-persongroup-openapi.json: tagged paths GET /api/group/{groupname}/{class}/{type} -> Group",
+    "university-of-helsinki-persongroup-openapi.json: tagged paths GET /api/groupnames/{class}/{type} -> Groupnames",
+    "university-of-helsinki-persongroup-openapi.json: tagged paths GET /api/groups/{class}/{type} -> Groups",
+    "university-of-helsinki-persongroup-openapi.json: tagged paths GET /api/person/{username}/{class}/{type} -> Person",
+    "university-of-helsinki-persongroup-openapi.json: tagged paths GET /api/steeringgroupspeople -> Steeringgroupspeople",
+    "university-of-helsinki-persongroup-openapi.json: declared missing tag: Group",
+    "university-of-helsinki-persongroup-openapi.json: declared missing tag: Groupnames",
+    "university-of-helsinki-persongroup-openapi.json: declared missing tag: Groups",
+    "university-of-helsinki-persongroup-openapi.json: declared missing tag: Person",
+    "university-of-helsinki-persongroup-openapi.json: declared missing tag: Steeringgroupspeople",
     "university-of-helsinki-serviceapi-openapi.json: upgraded openapi 3.0.0 -> OpenAPI 3.2.0",
     "university-of-helsinki-sovellussalkku-api-openapi.json: upgraded openapi 3.0.1 -> OpenAPI 3.2.0",
     "university-of-helsinki-sovellussalkku-api-openapi.json: declared missing tag: /ss",
-    "tag '/api' spans 2 source specs (university-of-helsinki-dawa-sync-api-openapi.json, university-of-helsinki-persongroup-openapi.json): per-path servers applied",
     "tag '/v1' spans 2 source specs (university-of-helsinki-employeeinformationapi-openapi.json, university-of-helsinki-serviceapi-openapi.json): per-path servers applied",
     "tag 'News' spans 2 source specs (university-of-helsinki-finbif-laji-openapi.json, university-of-helsinki-helsinki-fi-content-openapi.json): per-path servers applied",
+    "tag 'Person' spans 2 source specs (university-of-helsinki-finbif-laji-openapi.json, university-of-helsinki-persongroup-openapi.json): per-path servers applied",
     "superseded outputs removed: university-of-helsinki-human-resources-api-openapi.yml",
-    "apis.yml register: written (+1 apis, 93 total)"
+    "apis.yml register: written (+5 apis, 97 total)"
   ],
   "skipped": [
     "_original/university-of-helsinki-serviceapi-openapi.yml: archived document superseded by a larger archived document",

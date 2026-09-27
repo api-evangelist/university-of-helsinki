@@ -264,6 +264,8 @@ paths:
       - Checklist Versions
 components:
   schemas:
+    store-multiLang:
+      type: string
     store-checklistVersion:
       type: object
       properties:
@@ -290,8 +292,6 @@ components:
       additionalProperties: false
       required:
       - id
-    store-multiLang:
-      type: string
   securitySchemes:
     Access_token:
       scheme: bearer

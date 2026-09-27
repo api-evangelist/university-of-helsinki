@@ -104,11 +104,17 @@ paths:
       deprecated: false
 components:
   schemas:
-    ResearchOrganization-read:
+    ResearchOrganization.jsonld-read:
       type: object
       deprecated: false
       description: Research organization resource.
       properties:
+        '@id':
+          type: string
+          readOnly: true
+        '@type':
+          type: string
+          readOnly: true
         abbreviation:
           type: string
         id:
@@ -132,17 +138,11 @@ components:
           - 'null'
         depth:
           type: integer
-    ResearchOrganization.jsonld-read:
+    ResearchOrganization-read:
       type: object
       deprecated: false
       description: Research organization resource.
       properties:
-        '@id':
-          type: string
-          readOnly: true
-        '@type':
-          type: string
-          readOnly: true
         abbreviation:
           type: string
         id:

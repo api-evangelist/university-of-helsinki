@@ -383,6 +383,59 @@ paths:
       x-operation-id-source: derived
 components:
   schemas:
+    HostSearchSpecification:
+      type: object
+      properties:
+        nimi:
+          maxLength: 150
+          type: string
+          example: host*.fe
+        eth:
+          maxLength: 12
+          type: string
+          example: DEAD*BE?F
+        laitos:
+          maxLength: 20
+          type: string
+        rakennus:
+          maxLength: 20
+          type: string
+        vlan:
+          maxLength: 40
+          type: string
+        vh:
+          maxLength: 50
+          type: string
+        ra:
+          maxLength: 13
+          type: string
+        ip:
+          maxLength: 15
+          type: string
+        ipv6:
+          maxLength: 39
+          type: string
+        laite:
+          maxLength: 150
+          type: string
+        huone:
+          maxLength: 150
+          type: string
+        kayttaja:
+          maxLength: 150
+          type: string
+        dhcp:
+          maxLength: 50
+          type: string
+        cname:
+          maxLength: 150
+          type: string
+        flags:
+          maxLength: 50
+          type: string
+        routingscope:
+          maxLength: 40
+          type: string
     NewHostRequirements:
       required:
       - laitos
@@ -492,59 +545,13 @@ components:
           maxLength: 40
           type: string
           example: public
-    HostSearchSpecification:
-      type: object
-      properties:
-        nimi:
-          maxLength: 150
-          type: string
-          example: host*.fe
-        eth:
-          maxLength: 12
-          type: string
-          example: DEAD*BE?F
-        laitos:
-          maxLength: 20
-          type: string
-        rakennus:
-          maxLength: 20
-          type: string
-        vlan:
-          maxLength: 40
-          type: string
-        vh:
-          maxLength: 50
-          type: string
-        ra:
-          maxLength: 13
-          type: string
-        ip:
-          maxLength: 15
-          type: string
-        ipv6:
-          maxLength: 39
-          type: string
-        laite:
-          maxLength: 150
-          type: string
-        huone:
-          maxLength: 150
-          type: string
-        kayttaja:
-          maxLength: 150
-          type: string
-        dhcp:
-          maxLength: 50
-          type: string
-        cname:
-          maxLength: 150
-          type: string
-        flags:
-          maxLength: 50
-          type: string
-        routingscope:
-          maxLength: 40
-          type: string
+  headers:
+    NetdataMessage:
+      description: Further information on the operation result
+      style: simple
+      explode: false
+      schema:
+        type: string
   parameters:
     NetdataRef:
       name: X-Netdata-Reference
@@ -556,13 +563,6 @@ components:
       schema:
         maxLength: 50
         pattern: ^[-_+a-zA-Z0-9]+$
-        type: string
-  headers:
-    NetdataMessage:
-      description: Further information on the operation result
-      style: simple
-      explode: false
-      schema:
         type: string
   securitySchemes:
     api_key:

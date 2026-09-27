@@ -474,8 +474,6 @@ components:
           type: string
       required:
       - key
-    LajiBackendLocalizedText:
-      type: string
     TaxonAutocompleteResponse:
       type: object
       properties:
@@ -574,6 +572,8 @@ components:
       - type
       - key
       - value
+    LajiBackendLocalizedText:
+      type: string
   securitySchemes:
     Access_token:
       scheme: bearer

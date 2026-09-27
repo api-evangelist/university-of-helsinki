@@ -24445,241 +24445,6 @@ paths:
       - Taxa
 components:
   schemas:
-    LajiBackendImage:
-      type: object
-      properties:
-        author:
-          type: string
-        caption:
-          type: string
-        captureDateTime:
-          type: string
-        copyrightOwner:
-          type: string
-        fullURL:
-          type: string
-        id:
-          type: string
-          description: Qname identifier
-        keywords:
-          type: array
-          items:
-            type: string
-        largeURL:
-          type: string
-        licenseAbbreviation:
-          type: string
-        licenseFullname:
-          type: string
-        licenseId:
-          type: string
-          description: Qname identifier
-        lifeStage:
-          type: array
-          items:
-            type: string
-        plantLifeStage:
-          type: array
-          items:
-            type: string
-        sex:
-          type: array
-          items:
-            type: string
-        side:
-          type: string
-          description: Qname identifier
-        sortOrder:
-          type: integer
-        source:
-          type: string
-          description: Qname identifier
-        squareThumbnailURL:
-          type: string
-        taxon:
-          $ref: '#/components/schemas/LajiBackendSimpleTaxon'
-        taxonDescriptionCaption:
-          $ref: '#/components/schemas/LajiBackendLocalizedText'
-        thumbnailURL:
-          type: string
-        type:
-          type: string
-          description: Qname identifier
-        uploadDateTime:
-          type: string
-        primaryForTaxon:
-          type: boolean
-      required:
-      - author
-      - caption
-      - captureDateTime
-      - copyrightOwner
-      - fullURL
-      - id
-      - keywords
-      - largeURL
-      - licenseAbbreviation
-      - licenseId
-      - lifeStage
-      - plantLifeStage
-      - sex
-      - side
-      - sortOrder
-      - source
-      - squareThumbnailURL
-      - taxon
-      - taxonDescriptionCaption
-      - thumbnailURL
-      - type
-      - uploadDateTime
-      - primaryForTaxon
-    LajiBackendTaxonSearchResponse:
-      type: array
-      items:
-        type: object
-        properties:
-          matchingName:
-            type: string
-            description: Name that matched the search word
-          nameType:
-            type: string
-            description: Type of the name.
-            enum:
-            - MX.scientificName
-            - MX.vernacularName
-            - MX.hasSynonym
-            - MX.hasBasionym
-            - MX.alternativeVernacularName
-            - MX.hasMisappliedName
-            - MX.birdlifeCode
-            - MX.obsoleteVernacularName
-            - MX.euringCode
-            - MX.hasSubjectiveSynonym
-            - MX.hasAlternativeName
-            - MX.hasOrthographicVariant
-            - MX.hasObjectiveSynonym
-            - MX.hasMisspelledName
-            - MX.colloquialVernacularName
-            - MX.hasUncertainSynonym
-            - MX.hasHomotypicSynonym
-            - MX.tradeName
-            - MX.hasHeterotypicSynonym
-          id:
-            type: string
-            description: Taxon identifier of the taxon that has the matching name; in the short Qname format, for example 'MX.123'
-          checklist:
-            type: string
-            description: Checklist identifier of the matching taxon; in the short Qname format, for example 'MR.1'. For taxa not part of any checklist the value is 'undefined'.
-          scientificName:
-            type: string
-            description: Accepted scientific name of the taxon that has the matching name
-          scientificNameAuthorship:
-            type: string
-            description: Author of the above mentioned scientific name
-          taxonRank:
-            type: string
-            description: Taxonomic rank of the taxon that has the matching name; in the short Qname format, for example 'MX.genus'
-          cursiveName:
-            type: boolean
-            description: Should the matching name be cursived
-          finnish:
-            type: boolean
-            description: Is the taxon that has the mathing name marked as a Finnish taxon
-          species:
-            type: boolean
-            description: Is the taxon that has the mathing name species level or lower, or a higher taxon
-          vernacularName:
-            $ref: '#/components/schemas/LajiBackendLocalizedText'
-          informalGroups:
-            type: array
-            items:
-              type: object
-              properties:
-                id:
-                  type: string
-                  description: Identifier of the informal taxon group that the matching taxon belongs to); in the short Qname format, for example 'MVL.1'
-                name:
-                  $ref: '#/components/schemas/LajiBackendLocalizedText'
-              required:
-              - id
-              - name
-          kingdomScientificName:
-            type: string
-            description: Scientific name of the kingdom that the matching taxon belongs to
-          type:
-            type: string
-            description: Type of the matching name
-            enum:
-            - exactMatches
-            - partialMatches
-            - likelyMatches
-        required:
-        - matchingName
-        - nameType
-        - id
-        - checklist
-        - scientificName
-        - scientificNameAuthorship
-        - taxonRank
-        - cursiveName
-        - finnish
-        - species
-        - vernacularName
-        - informalGroups
-        - kingdomScientificName
-        - type
-    LajiBackendContext:
-      type: object
-      properties:
-        id:
-          type: string
-        title:
-          type: string
-        groups:
-          type: array
-          items:
-            type: object
-            properties:
-              group:
-                type: string
-              title:
-                $ref: '#/components/schemas/LajiBackendLocalizedText'
-              variables:
-                type: array
-                items:
-                  type: object
-                  properties:
-                    variable:
-                      type: string
-                    title:
-                      $ref: '#/components/schemas/LajiBackendLocalizedText'
-                    content:
-                      $ref: '#/components/schemas/LajiBackendLocalizedText'
-                  required:
-                  - variable
-                  - title
-                  - content
-            required:
-            - group
-            - title
-            - variables
-        speciesCardAuthors:
-          type: object
-          properties:
-            variable:
-              type: string
-            title:
-              $ref: '#/components/schemas/LajiBackendLocalizedText'
-            content:
-              $ref: '#/components/schemas/LajiBackendLocalizedText'
-          required:
-          - variable
-          - title
-          - content
-      required:
-      - id
-      - groups
-      - speciesCardAuthors
     LajiBackendHabitatObject:
       type: object
       properties:
@@ -24700,161 +24465,6 @@ components:
       - habitatSpecificTypes
       - id
       - order
-    LajiBackendOccurrence:
-      type: object
-      properties:
-        area:
-          type: string
-          description: Qname identifier
-        id:
-          type: string
-          description: Qname identifier
-        notes:
-          type: string
-        occurrenceCount:
-          type: integer
-        specimenURI:
-          type: string
-        status:
-          type: string
-          description: Qname identifier
-        threatened:
-          type: boolean
-        year:
-          type: integer
-      required:
-      - area
-      - id
-      - notes
-      - occurrenceCount
-      - specimenURI
-      - status
-      - threatened
-      - year
-    LajiBackendLocalizedURL:
-      type: object
-      properties:
-        locale:
-          type: string
-        uri:
-          type: string
-      required:
-      - locale
-      - uri
-    LajiBackendEvaluation:
-      type: object
-      properties:
-        evaluationYear:
-          type: integer
-        redListStatus:
-          type: string
-          enum:
-          - MX.iucnEX
-          - MX.iucnEW
-          - MX.iucnRE
-          - MX.iucnCR
-          - MX.iucnEN
-          - MX.iucnVU
-          - MX.iucnNT
-          - MX.iucnLC
-          - MX.iucnDD
-          - MX.iucnNA
-          - MX.iucnNE
-          x-enum-origin: MX.iucnStatuses
-        externalPopulationImpactOnRedListStatus:
-          type: string
-          enum:
-          - MKV.externalPopulationImpactOnRedListStatusEnumMinus1
-          - MKV.externalPopulationImpactOnRedListStatusEnumMinus2
-          - MKV.externalPopulationImpactOnRedListStatusEnumPlus1
-          - MKV.externalPopulationImpactOnRedListStatusEnumPlus2
-          x-enum-origin: MKV.externalPopulationImpactOnRedListStatusEnum
-        criteriaForStatus:
-          type: string
-        possiblyRE:
-          type: string
-          enum:
-          - MX.iucnRE
-          - MX.iucnEW
-          - MX.iucnEX
-          x-enum-origin: MKV.possiblyREEnum
-        reasonForStatusChange:
-          type: array
-          items:
-            type: string
-            enum:
-            - MKV.reasonForStatusChangeGenuine
-            - MKV.reasonForStatusChangeGenuineBeforePreviousEvaluation
-            - MKV.reasonForStatusChangeChangesInCriteria
-            - MKV.reasonForStatusChangeMoreInformation
-            - MKV.reasonForStatusChangeChangesInTaxonomy
-            - MKV.reasonForStatusChangeError
-            - MKV.reasonForStatusChangeErroneousInformation
-            - MKV.reasonForStatusChangeOther
-            x-enum-origin: MKV.reasonForStatusChangeEnum
-        lastSightingNotes:
-          type: string
-        primaryHabitat:
-          $ref: '#/components/schemas/LajiBackendHabitatObject'
-        secondaryHabitats:
-          type: array
-          items:
-            $ref: '#/components/schemas/LajiBackendHabitatObject'
-        primaryHabitatSearchStrings:
-          type: array
-          items:
-            type: string
-        anyHabitatSearchStrings:
-          type: array
-          items:
-            type: string
-        endangermentReasons:
-          type: array
-          items:
-            type: string
-        primaryEndangermentReason:
-          type: string
-        threats:
-          type: array
-          items:
-            type: string
-        primaryThreat:
-          type: string
-        occurrences:
-          type: array
-          items:
-            $ref: '#/components/schemas/LajiBackendOccurrence'
-        threatenedAtArea:
-          type: array
-          items:
-            type: string
-        calculatedRedListIndex:
-          type: integer
-        calculatedCorrectedRedListIndex:
-          type: integer
-        correctedStatusForRedListIndex:
-          type: string
-      required:
-      - evaluationYear
-      - redListStatus
-      - externalPopulationImpactOnRedListStatus
-      - criteriaForStatus
-      - possiblyRE
-      - reasonForStatusChange
-      - lastSightingNotes
-      - primaryHabitat
-      - secondaryHabitats
-      - primaryHabitatSearchStrings
-      - anyHabitatSearchStrings
-      - endangermentReasons
-      - primaryEndangermentReason
-      - threats
-      - primaryThreat
-      - occurrences
-      - threatenedAtArea
-      - calculatedRedListIndex
-      - calculatedCorrectedRedListIndex
-      - correctedStatusForRedListIndex
     LajiBackendBoldRecords:
       type: object
       properties:
@@ -24888,47 +24498,10 @@ components:
       required:
       - id
       - occurrenceCount
-    LajiBackendSimpleTaxon:
-      type: object
-      properties:
-        id:
-          type: string
-        scientificName:
-          type: string
-        scientificNameAuthorship:
-          type: string
-        vernacularName:
-          type: string
-        taxonRank:
-          type: string
-        cursiveName:
-          type: boolean
-        notes:
-          type: string
-        bold:
-          $ref: '#/components/schemas/LajiBackendBoldRecords'
-        hasBold:
-          type: boolean
-      required:
-      - id
-      - scientificName
-      - scientificNameAuthorship
-      - taxonRank
-      - cursiveName
-      - notes
-      - bold
-      - hasBold
-    LajiBackendRedListStatus:
-      type: object
-      properties:
-        status:
-          type: string
-          description: Qname identifier
-        year:
-          type: integer
-      required:
-      - status
-      - year
+    LajiBackendContent:
+      type: array
+      items:
+        $ref: '#/components/schemas/LajiBackendContext'
     LajiBackendTaxon:
       type: object
       properties:
@@ -25494,12 +25067,439 @@ components:
       - colloquialVernacularNameMultiLang
       - obsoleteVernacularNameMultiLang
       - tradeNameMultiLang
-    LajiBackendContent:
+    LajiBackendTaxonSearchResponse:
       type: array
       items:
-        $ref: '#/components/schemas/LajiBackendContext'
+        type: object
+        properties:
+          matchingName:
+            type: string
+            description: Name that matched the search word
+          nameType:
+            type: string
+            description: Type of the name.
+            enum:
+            - MX.scientificName
+            - MX.vernacularName
+            - MX.hasSynonym
+            - MX.hasBasionym
+            - MX.alternativeVernacularName
+            - MX.hasMisappliedName
+            - MX.birdlifeCode
+            - MX.obsoleteVernacularName
+            - MX.euringCode
+            - MX.hasSubjectiveSynonym
+            - MX.hasAlternativeName
+            - MX.hasOrthographicVariant
+            - MX.hasObjectiveSynonym
+            - MX.hasMisspelledName
+            - MX.colloquialVernacularName
+            - MX.hasUncertainSynonym
+            - MX.hasHomotypicSynonym
+            - MX.tradeName
+            - MX.hasHeterotypicSynonym
+          id:
+            type: string
+            description: Taxon identifier of the taxon that has the matching name; in the short Qname format, for example 'MX.123'
+          checklist:
+            type: string
+            description: Checklist identifier of the matching taxon; in the short Qname format, for example 'MR.1'. For taxa not part of any checklist the value is 'undefined'.
+          scientificName:
+            type: string
+            description: Accepted scientific name of the taxon that has the matching name
+          scientificNameAuthorship:
+            type: string
+            description: Author of the above mentioned scientific name
+          taxonRank:
+            type: string
+            description: Taxonomic rank of the taxon that has the matching name; in the short Qname format, for example 'MX.genus'
+          cursiveName:
+            type: boolean
+            description: Should the matching name be cursived
+          finnish:
+            type: boolean
+            description: Is the taxon that has the mathing name marked as a Finnish taxon
+          species:
+            type: boolean
+            description: Is the taxon that has the mathing name species level or lower, or a higher taxon
+          vernacularName:
+            $ref: '#/components/schemas/LajiBackendLocalizedText'
+          informalGroups:
+            type: array
+            items:
+              type: object
+              properties:
+                id:
+                  type: string
+                  description: Identifier of the informal taxon group that the matching taxon belongs to); in the short Qname format, for example 'MVL.1'
+                name:
+                  $ref: '#/components/schemas/LajiBackendLocalizedText'
+              required:
+              - id
+              - name
+          kingdomScientificName:
+            type: string
+            description: Scientific name of the kingdom that the matching taxon belongs to
+          type:
+            type: string
+            description: Type of the matching name
+            enum:
+            - exactMatches
+            - partialMatches
+            - likelyMatches
+        required:
+        - matchingName
+        - nameType
+        - id
+        - checklist
+        - scientificName
+        - scientificNameAuthorship
+        - taxonRank
+        - cursiveName
+        - finnish
+        - species
+        - vernacularName
+        - informalGroups
+        - kingdomScientificName
+        - type
+    LajiBackendEvaluation:
+      type: object
+      properties:
+        evaluationYear:
+          type: integer
+        redListStatus:
+          type: string
+          enum:
+          - MX.iucnEX
+          - MX.iucnEW
+          - MX.iucnRE
+          - MX.iucnCR
+          - MX.iucnEN
+          - MX.iucnVU
+          - MX.iucnNT
+          - MX.iucnLC
+          - MX.iucnDD
+          - MX.iucnNA
+          - MX.iucnNE
+          x-enum-origin: MX.iucnStatuses
+        externalPopulationImpactOnRedListStatus:
+          type: string
+          enum:
+          - MKV.externalPopulationImpactOnRedListStatusEnumMinus1
+          - MKV.externalPopulationImpactOnRedListStatusEnumMinus2
+          - MKV.externalPopulationImpactOnRedListStatusEnumPlus1
+          - MKV.externalPopulationImpactOnRedListStatusEnumPlus2
+          x-enum-origin: MKV.externalPopulationImpactOnRedListStatusEnum
+        criteriaForStatus:
+          type: string
+        possiblyRE:
+          type: string
+          enum:
+          - MX.iucnRE
+          - MX.iucnEW
+          - MX.iucnEX
+          x-enum-origin: MKV.possiblyREEnum
+        reasonForStatusChange:
+          type: array
+          items:
+            type: string
+            enum:
+            - MKV.reasonForStatusChangeGenuine
+            - MKV.reasonForStatusChangeGenuineBeforePreviousEvaluation
+            - MKV.reasonForStatusChangeChangesInCriteria
+            - MKV.reasonForStatusChangeMoreInformation
+            - MKV.reasonForStatusChangeChangesInTaxonomy
+            - MKV.reasonForStatusChangeError
+            - MKV.reasonForStatusChangeErroneousInformation
+            - MKV.reasonForStatusChangeOther
+            x-enum-origin: MKV.reasonForStatusChangeEnum
+        lastSightingNotes:
+          type: string
+        primaryHabitat:
+          $ref: '#/components/schemas/LajiBackendHabitatObject'
+        secondaryHabitats:
+          type: array
+          items:
+            $ref: '#/components/schemas/LajiBackendHabitatObject'
+        primaryHabitatSearchStrings:
+          type: array
+          items:
+            type: string
+        anyHabitatSearchStrings:
+          type: array
+          items:
+            type: string
+        endangermentReasons:
+          type: array
+          items:
+            type: string
+        primaryEndangermentReason:
+          type: string
+        threats:
+          type: array
+          items:
+            type: string
+        primaryThreat:
+          type: string
+        occurrences:
+          type: array
+          items:
+            $ref: '#/components/schemas/LajiBackendOccurrence'
+        threatenedAtArea:
+          type: array
+          items:
+            type: string
+        calculatedRedListIndex:
+          type: integer
+        calculatedCorrectedRedListIndex:
+          type: integer
+        correctedStatusForRedListIndex:
+          type: string
+      required:
+      - evaluationYear
+      - redListStatus
+      - externalPopulationImpactOnRedListStatus
+      - criteriaForStatus
+      - possiblyRE
+      - reasonForStatusChange
+      - lastSightingNotes
+      - primaryHabitat
+      - secondaryHabitats
+      - primaryHabitatSearchStrings
+      - anyHabitatSearchStrings
+      - endangermentReasons
+      - primaryEndangermentReason
+      - threats
+      - primaryThreat
+      - occurrences
+      - threatenedAtArea
+      - calculatedRedListIndex
+      - calculatedCorrectedRedListIndex
+      - correctedStatusForRedListIndex
+    LajiBackendRedListStatus:
+      type: object
+      properties:
+        status:
+          type: string
+          description: Qname identifier
+        year:
+          type: integer
+      required:
+      - status
+      - year
+    LajiBackendImage:
+      type: object
+      properties:
+        author:
+          type: string
+        caption:
+          type: string
+        captureDateTime:
+          type: string
+        copyrightOwner:
+          type: string
+        fullURL:
+          type: string
+        id:
+          type: string
+          description: Qname identifier
+        keywords:
+          type: array
+          items:
+            type: string
+        largeURL:
+          type: string
+        licenseAbbreviation:
+          type: string
+        licenseFullname:
+          type: string
+        licenseId:
+          type: string
+          description: Qname identifier
+        lifeStage:
+          type: array
+          items:
+            type: string
+        plantLifeStage:
+          type: array
+          items:
+            type: string
+        sex:
+          type: array
+          items:
+            type: string
+        side:
+          type: string
+          description: Qname identifier
+        sortOrder:
+          type: integer
+        source:
+          type: string
+          description: Qname identifier
+        squareThumbnailURL:
+          type: string
+        taxon:
+          $ref: '#/components/schemas/LajiBackendSimpleTaxon'
+        taxonDescriptionCaption:
+          $ref: '#/components/schemas/LajiBackendLocalizedText'
+        thumbnailURL:
+          type: string
+        type:
+          type: string
+          description: Qname identifier
+        uploadDateTime:
+          type: string
+        primaryForTaxon:
+          type: boolean
+      required:
+      - author
+      - caption
+      - captureDateTime
+      - copyrightOwner
+      - fullURL
+      - id
+      - keywords
+      - largeURL
+      - licenseAbbreviation
+      - licenseId
+      - lifeStage
+      - plantLifeStage
+      - sex
+      - side
+      - sortOrder
+      - source
+      - squareThumbnailURL
+      - taxon
+      - taxonDescriptionCaption
+      - thumbnailURL
+      - type
+      - uploadDateTime
+      - primaryForTaxon
+    LajiBackendOccurrence:
+      type: object
+      properties:
+        area:
+          type: string
+          description: Qname identifier
+        id:
+          type: string
+          description: Qname identifier
+        notes:
+          type: string
+        occurrenceCount:
+          type: integer
+        specimenURI:
+          type: string
+        status:
+          type: string
+          description: Qname identifier
+        threatened:
+          type: boolean
+        year:
+          type: integer
+      required:
+      - area
+      - id
+      - notes
+      - occurrenceCount
+      - specimenURI
+      - status
+      - threatened
+      - year
+    LajiBackendContext:
+      type: object
+      properties:
+        id:
+          type: string
+        title:
+          type: string
+        groups:
+          type: array
+          items:
+            type: object
+            properties:
+              group:
+                type: string
+              title:
+                $ref: '#/components/schemas/LajiBackendLocalizedText'
+              variables:
+                type: array
+                items:
+                  type: object
+                  properties:
+                    variable:
+                      type: string
+                    title:
+                      $ref: '#/components/schemas/LajiBackendLocalizedText'
+                    content:
+                      $ref: '#/components/schemas/LajiBackendLocalizedText'
+                  required:
+                  - variable
+                  - title
+                  - content
+            required:
+            - group
+            - title
+            - variables
+        speciesCardAuthors:
+          type: object
+          properties:
+            variable:
+              type: string
+            title:
+              $ref: '#/components/schemas/LajiBackendLocalizedText'
+            content:
+              $ref: '#/components/schemas/LajiBackendLocalizedText'
+          required:
+          - variable
+          - title
+          - content
+      required:
+      - id
+      - groups
+      - speciesCardAuthors
+    LajiBackendSimpleTaxon:
+      type: object
+      properties:
+        id:
+          type: string
+        scientificName:
+          type: string
+        scientificNameAuthorship:
+          type: string
+        vernacularName:
+          type: string
+        taxonRank:
+          type: string
+        cursiveName:
+          type: boolean
+        notes:
+          type: string
+        bold:
+          $ref: '#/components/schemas/LajiBackendBoldRecords'
+        hasBold:
+          type: boolean
+      required:
+      - id
+      - scientificName
+      - scientificNameAuthorship
+      - taxonRank
+      - cursiveName
+      - notes
+      - bold
+      - hasBold
     LajiBackendLocalizedText:
       type: string
+    LajiBackendLocalizedURL:
+      type: object
+      properties:
+        locale:
+          type: string
+        uri:
+          type: string
+      required:
+      - locale
+      - uri
   securitySchemes:
     Access_token:
       scheme: bearer

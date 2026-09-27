@@ -1,0 +1,47 @@
+openapi: 3.2.0
+info:
+  title: HY Person/Group Steeringgroupspeople API
+  version: 1.0.0
+servers:
+- url: https://gw.api.helsinki.fi/persongroup
+tags:
+- name: Steeringgroupspeople
+paths:
+  /api/steeringgroupspeople:
+    get:
+      tags:
+      - Steeringgroupspeople
+      summary: List persons belonging to steering groups
+      operationId: steeringGroupsPersons
+      responses:
+        '200':
+          description: Request was successful.
+          content:
+            application/json:
+              schema:
+                type: array
+                items:
+                  $ref: '#/components/schemas/SteeringGroupPerson'
+      security:
+      - Apikey: []
+components:
+  schemas:
+    SteeringGroupPerson:
+      type: object
+      properties:
+        STEERING_GROUP_ORGANIZATION_ID:
+          type: string
+          description: The ORGREK unique ID for the steering group.
+        CONTACT_ID:
+          type: string
+          description: Employee number of the person. Null if not an employee.
+        STUDENT_NAME:
+          type: string
+          description: The person's name if a student, null if an employee.
+  securitySchemes:
+    Apikey:
+      type: apiKey
+      description: APIKey Auth
+      name: X-Api-Key
+      in: header
+x-original-swagger-version: '2.0'

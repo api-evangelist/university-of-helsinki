@@ -29,13 +29,6 @@ paths:
       - Apikey: []
 components:
   schemas:
-    OrderResponse:
-      type: object
-      properties:
-        status:
-          type: string
-        efecteId:
-          type: string
     OrderTemplate:
       type: object
       properties:
@@ -210,6 +203,13 @@ components:
           type: array
           items:
             type: string
+    OrderResponse:
+      type: object
+      properties:
+        status:
+          type: string
+        efecteId:
+          type: string
   securitySchemes:
     Apikey:
       type: apiKey

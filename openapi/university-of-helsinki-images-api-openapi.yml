@@ -1047,6 +1047,50 @@ paths:
       - Images
 components:
   schemas:
+    FileUploadResponse:
+      type: object
+      properties:
+        name:
+          type: string
+        fileName:
+          type: string
+        id:
+          type: string
+        expires:
+          type: number
+      required:
+      - name
+      - fileName
+      - id
+      - expires
+    ImagesPagedDto:
+      type: object
+      properties:
+        results:
+          type: array
+          items:
+            $ref: '#/components/schemas/Image'
+        currentPage:
+          type: number
+        pageSize:
+          type: number
+        total:
+          type: number
+        lastPage:
+          type: number
+        prevPage:
+          type: number
+        nextPage:
+          type: number
+        '@context':
+          type: string
+      required:
+      - results
+      - currentPage
+      - pageSize
+      - total
+      - lastPage
+      - '@context'
     Image:
       type: object
       properties:
@@ -1109,50 +1153,6 @@ components:
       - largeURL
       - squareThumbnailURL
       - thumbnailURL
-    FileUploadResponse:
-      type: object
-      properties:
-        name:
-          type: string
-        fileName:
-          type: string
-        id:
-          type: string
-        expires:
-          type: number
-      required:
-      - name
-      - fileName
-      - id
-      - expires
-    ImagesPagedDto:
-      type: object
-      properties:
-        results:
-          type: array
-          items:
-            $ref: '#/components/schemas/Image'
-        currentPage:
-          type: number
-        pageSize:
-          type: number
-        total:
-          type: number
-        lastPage:
-          type: number
-        prevPage:
-          type: number
-        nextPage:
-          type: number
-        '@context':
-          type: string
-      required:
-      - results
-      - currentPage
-      - pageSize
-      - total
-      - lastPage
-      - '@context'
   securitySchemes:
     Access_token:
       scheme: bearer

@@ -48,22 +48,6 @@ paths:
       - OfficialUnits
 components:
   examples:
-    OfficialUnitsExample:
-      value:
-      - uniqueId: '12312312'
-        type: tiedekunta
-        nameFi: Lääketieteellinen tiedekunta
-        nameEn: Doctoral Programme in Drug Research
-        nameSv: Doktorandprogrammet i läkemedelsforskning
-        abbreviation: LÄÄK
-        parent: '98765432'
-      - uniqueId: '32131231'
-        type: tiedekunta
-        nameFi: Lääketieteellinen tiedekunta
-        nameEn: Doctoral Programme in Drug Research
-        nameSv: Doktorandprogrammet i läkemedelsforskning
-        abbreviation: null
-        parent: '98765432'
     OfficialUnitsExampleV2:
       value:
       - uniqueId: '12312312'
@@ -82,7 +66,40 @@ components:
         educationQualifier: null
         abbreviation: null
         parent: '98765432'
+    OfficialUnitsExample:
+      value:
+      - uniqueId: '12312312'
+        type: tiedekunta
+        nameFi: Lääketieteellinen tiedekunta
+        nameEn: Doctoral Programme in Drug Research
+        nameSv: Doktorandprogrammet i läkemedelsforskning
+        abbreviation: LÄÄK
+        parent: '98765432'
+      - uniqueId: '32131231'
+        type: tiedekunta
+        nameFi: Lääketieteellinen tiedekunta
+        nameEn: Doctoral Programme in Drug Research
+        nameSv: Doktorandprogrammet i läkemedelsforskning
+        abbreviation: null
+        parent: '98765432'
   schemas:
+    OfficialUnit:
+      type: object
+      properties:
+        uniqueId:
+          type: string
+        type:
+          type: string
+        nameFi:
+          type: string
+        nameEn:
+          type: string
+        nameSv:
+          type: string
+        abbreviation:
+          type: string
+        parent:
+          type: string
     OfficialUnitV2:
       type: object
       properties:
@@ -99,23 +116,6 @@ components:
         abbreviation:
           type: string
         educationQualifier:
-          type: string
-        parent:
-          type: string
-    OfficialUnit:
-      type: object
-      properties:
-        uniqueId:
-          type: string
-        type:
-          type: string
-        nameFi:
-          type: string
-        nameEn:
-          type: string
-        nameSv:
-          type: string
-        abbreviation:
           type: string
         parent:
           type: string

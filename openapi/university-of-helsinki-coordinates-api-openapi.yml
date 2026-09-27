@@ -154,8 +154,6 @@ components:
       - address_components
       - types
       - place_id
-    MultiLangDto:
-      type: string
     AddressComponent:
       type: object
       properties:
@@ -170,6 +168,8 @@ components:
       required:
       - short_name
       - types
+    MultiLangDto:
+      type: string
   securitySchemes:
     Access_token:
       scheme: bearer

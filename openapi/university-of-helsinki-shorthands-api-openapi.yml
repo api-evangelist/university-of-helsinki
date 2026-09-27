@@ -473,6 +473,38 @@ paths:
       x-summary-source: derived
 components:
   schemas:
+    LineTransectUnitShorthandResponseDto:
+      type: object
+      properties:
+        key:
+          type: string
+        value:
+          type: string
+        matchType:
+          type: string
+        unit:
+          type: object
+        interpretedFrom:
+          type: object
+          properties:
+            taxon:
+              type: string
+            count:
+              type: string
+            maleIndividualCount:
+              type: string
+            femaleIndividualCount:
+              type: string
+          required:
+          - taxon
+          - count
+          - maleIndividualCount
+          - femaleIndividualCount
+      required:
+      - key
+      - value
+      - unit
+      - interpretedFrom
     LajiBackendTaxonSearchResponse:
       type: array
       items:
@@ -570,38 +602,6 @@ components:
         - type
     LajiBackendLocalizedText:
       type: string
-    LineTransectUnitShorthandResponseDto:
-      type: object
-      properties:
-        key:
-          type: string
-        value:
-          type: string
-        matchType:
-          type: string
-        unit:
-          type: object
-        interpretedFrom:
-          type: object
-          properties:
-            taxon:
-              type: string
-            count:
-              type: string
-            maleIndividualCount:
-              type: string
-            femaleIndividualCount:
-              type: string
-          required:
-          - taxon
-          - count
-          - maleIndividualCount
-          - femaleIndividualCount
-      required:
-      - key
-      - value
-      - unit
-      - interpretedFrom
     TripReportUnitListResultDto:
       type: object
       properties:

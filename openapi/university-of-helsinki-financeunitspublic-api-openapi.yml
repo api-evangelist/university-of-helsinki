@@ -29,16 +29,6 @@ paths:
       tags:
       - FinanceUnitsPublic
 components:
-  examples:
-    PublicFinanceUnitsExample:
-      value:
-      - uniqueId: '77096679'
-        code: HY
-        type: tulosyksikko
-        nameFi: Helsingin yliopisto
-        nameEn: University of Helsinki
-        nameSv: Helsingfors universitet
-        parent: null
   schemas:
     PublicFinanceUnit:
       type: object
@@ -57,6 +47,16 @@ components:
           type: string
         parent:
           type: string
+  examples:
+    PublicFinanceUnitsExample:
+      value:
+      - uniqueId: '77096679'
+        code: HY
+        type: tulosyksikko
+        nameFi: Helsingin yliopisto
+        nameEn: University of Helsinki
+        nameSv: Helsingfors universitet
+        parent: null
   securitySchemes:
     apiKey:
       type: apiKey

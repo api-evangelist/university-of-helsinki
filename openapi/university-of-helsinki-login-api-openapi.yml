@@ -229,18 +229,18 @@ paths:
       - Login
 components:
   schemas:
+    CheckTmpTokenDto:
+      type: object
+      properties:
+        tmpToken:
+          type: string
+      required:
+      - tmpToken
     GetTmpTokenDto:
       type: object
       properties:
         loginURL:
           type: string
-        tmpToken:
-          type: string
-      required:
-      - tmpToken
-    CheckTmpTokenDto:
-      type: object
-      properties:
         tmpToken:
           type: string
       required:

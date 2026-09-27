@@ -405,6 +405,220 @@ paths:
       x-summary-source: derived
 components:
   schemas:
+    store-notification:
+      type: object
+      properties:
+        '@context':
+          type: string
+          title: Context for the MHN.notification
+        id:
+          type: string
+          title: Id for the MHN.notification
+        '@type':
+          type: string
+          title: Type for the MHN.notification
+        annotation:
+          $ref: '#/components/schemas/store-annotation'
+        created:
+          type: string
+          format: date-time
+          title: Created
+        friendRequest:
+          type: string
+          title: Friend request from
+        friendRequestAccepted:
+          type: string
+          title: Friend request accepted by
+        notificationReason:
+          type: string
+          enum:
+          - ''
+          - MHN.notificationReasonOwnDocumentAnnotated
+          - MHN.notificationReasonAnnotatedDocumentAnnotated
+          title: Notification reason
+        seen:
+          type: boolean
+          title: Seen
+        toPerson:
+          type: string
+          title: Notification is for
+      required:
+      - created
+      - toPerson
+      additionalProperties: false
+    StoreDeleteResponse:
+      type: object
+      properties:
+        affected:
+          type: number
+      required:
+      - affected
+    store-annotation:
+      type: object
+      properties:
+        '@context':
+          type: string
+          title: Context for the MAN.annotation
+        id:
+          type: string
+          title: Id for the MAN.annotation
+        '@type':
+          type: string
+          title: Type for the MAN.annotation
+        addedTags:
+          type: array
+          uniqueItems: false
+          items:
+            type: string
+          minItems: 0
+          title: Added tags
+        annotationByPerson:
+          type: string
+          title: Person Id
+        annotationBySystem:
+          type: string
+          title: System Id
+        annotationClass:
+          type: string
+          enum:
+          - ''
+          - MAN.annotationClassReliable
+          - MAN.annotationClassLikely
+          - MAN.annotationClassNeutral
+          - MAN.annotationClassSuspicious
+          - MAN.annotationClassUnreliable
+          - MAN.annotationClassAcknowledged
+          - MAN.annotationClassSpam
+          title: My evaluation of the observation
+        atlasCode:
+          type: string
+          enum:
+          - ''
+          - MY.atlasCodeEnum1
+          - MY.atlasCodeEnum2
+          - MY.atlasCodeEnum3
+          - MY.atlasCodeEnum4
+          - MY.atlasCodeEnum5
+          - MY.atlasCodeEnum6
+          - MY.atlasCodeEnum61
+          - MY.atlasCodeEnum62
+          - MY.atlasCodeEnum63
+          - MY.atlasCodeEnum64
+          - MY.atlasCodeEnum65
+          - MY.atlasCodeEnum66
+          - MY.atlasCodeEnum7
+          - MY.atlasCodeEnum71
+          - MY.atlasCodeEnum72
+          - MY.atlasCodeEnum73
+          - MY.atlasCodeEnum74
+          - MY.atlasCodeEnum75
+          - MY.atlasCodeEnum8
+          - MY.atlasCodeEnum81
+          - MY.atlasCodeEnum82
+          title: Overriding Breeding Index
+        byRole:
+          type: string
+          enum:
+          - ''
+          - MMAN.expert
+          - MMAN.basic
+          - MMAN.owner
+          - MMAN.formAdmin
+          - MMAN.ictAdmin
+          title: Annotators role
+        censusAnnotation:
+          type: array
+          uniqueItems: false
+          items:
+            type: string
+            enum:
+            - ''
+            - MAN.countError
+            - MAN.innerCountError
+            - MAN.otherError
+          minItems: 0
+          title: Census annotation
+        created:
+          type: string
+          format: date-time
+          title: Creation time
+        createdTimestamp:
+          type: integer
+          minimum: 0
+          title: Created timestamp
+        deletedTimestamp:
+          type: integer
+          minimum: 0
+          title: Deleted timestamp
+        identification:
+          $ref: '#/components/schemas/store-identification'
+        invasiveControlEffectiveness:
+          type: string
+          enum:
+          - ''
+          - MY.invasiveControlEffectivenessFull
+          - MY.invasiveControlEffectivenessPartial
+          - MY.invasiveControlEffectivenessNone
+          - MY.invasiveControlEffectivenessNotFound
+          title: Annotation type for invasive control
+        lineTransectAnnotation:
+          type: array
+          uniqueItems: false
+          items:
+            type: string
+            enum:
+            - ''
+            - MAN.birdCountError
+            - MAN.innerCountError
+            - MAN.otherError
+          minItems: 0
+          title: Line transect annotation
+        notes:
+          type: string
+          title: Comment
+        occurrenceAtTimeOfAnnotation:
+          $ref: '#/components/schemas/store-annotationOccurrence'
+        opinion:
+          type: string
+          title: Suggested identification
+        removedTags:
+          type: array
+          uniqueItems: false
+          items:
+            type: string
+          minItems: 0
+          title: Removed tags
+        rootID:
+          type: string
+          title: Root ID
+        targetID:
+          type: string
+          title: Target Id
+        type:
+          type: string
+          enum:
+          - ''
+          - MAN.typeOpinion
+          - MAN.typeInvasiveControlEffectiveness
+          - MAN.typeUnidentifiable
+          - MAN.typeAdmin
+          title: My evaluation of the observation
+        createdBySystem:
+          type: string
+          title: Deleted by system
+        deleted:
+          type: boolean
+          title: Soft delete
+        deletedByPerson:
+          type: string
+          title: Deleted by person
+        deletedDateTime:
+          type: string
+          format: date-time
+          title: Deleted at
+      required:
+      - rootID
+      additionalProperties: false
     store-annotationOccurrence:
       type: object
       properties:
@@ -705,220 +919,6 @@ components:
       - taxonVerbatim
       - publicityRestrictions
       - sortOrder
-    StoreDeleteResponse:
-      type: object
-      properties:
-        affected:
-          type: number
-      required:
-      - affected
-    store-annotation:
-      type: object
-      properties:
-        '@context':
-          type: string
-          title: Context for the MAN.annotation
-        id:
-          type: string
-          title: Id for the MAN.annotation
-        '@type':
-          type: string
-          title: Type for the MAN.annotation
-        addedTags:
-          type: array
-          uniqueItems: false
-          items:
-            type: string
-          minItems: 0
-          title: Added tags
-        annotationByPerson:
-          type: string
-          title: Person Id
-        annotationBySystem:
-          type: string
-          title: System Id
-        annotationClass:
-          type: string
-          enum:
-          - ''
-          - MAN.annotationClassReliable
-          - MAN.annotationClassLikely
-          - MAN.annotationClassNeutral
-          - MAN.annotationClassSuspicious
-          - MAN.annotationClassUnreliable
-          - MAN.annotationClassAcknowledged
-          - MAN.annotationClassSpam
-          title: My evaluation of the observation
-        atlasCode:
-          type: string
-          enum:
-          - ''
-          - MY.atlasCodeEnum1
-          - MY.atlasCodeEnum2
-          - MY.atlasCodeEnum3
-          - MY.atlasCodeEnum4
-          - MY.atlasCodeEnum5
-          - MY.atlasCodeEnum6
-          - MY.atlasCodeEnum61
-          - MY.atlasCodeEnum62
-          - MY.atlasCodeEnum63
-          - MY.atlasCodeEnum64
-          - MY.atlasCodeEnum65
-          - MY.atlasCodeEnum66
-          - MY.atlasCodeEnum7
-          - MY.atlasCodeEnum71
-          - MY.atlasCodeEnum72
-          - MY.atlasCodeEnum73
-          - MY.atlasCodeEnum74
-          - MY.atlasCodeEnum75
-          - MY.atlasCodeEnum8
-          - MY.atlasCodeEnum81
-          - MY.atlasCodeEnum82
-          title: Overriding Breeding Index
-        byRole:
-          type: string
-          enum:
-          - ''
-          - MMAN.expert
-          - MMAN.basic
-          - MMAN.owner
-          - MMAN.formAdmin
-          - MMAN.ictAdmin
-          title: Annotators role
-        censusAnnotation:
-          type: array
-          uniqueItems: false
-          items:
-            type: string
-            enum:
-            - ''
-            - MAN.countError
-            - MAN.innerCountError
-            - MAN.otherError
-          minItems: 0
-          title: Census annotation
-        created:
-          type: string
-          format: date-time
-          title: Creation time
-        createdTimestamp:
-          type: integer
-          minimum: 0
-          title: Created timestamp
-        deletedTimestamp:
-          type: integer
-          minimum: 0
-          title: Deleted timestamp
-        identification:
-          $ref: '#/components/schemas/store-identification'
-        invasiveControlEffectiveness:
-          type: string
-          enum:
-          - ''
-          - MY.invasiveControlEffectivenessFull
-          - MY.invasiveControlEffectivenessPartial
-          - MY.invasiveControlEffectivenessNone
-          - MY.invasiveControlEffectivenessNotFound
-          title: Annotation type for invasive control
-        lineTransectAnnotation:
-          type: array
-          uniqueItems: false
-          items:
-            type: string
-            enum:
-            - ''
-            - MAN.birdCountError
-            - MAN.innerCountError
-            - MAN.otherError
-          minItems: 0
-          title: Line transect annotation
-        notes:
-          type: string
-          title: Comment
-        occurrenceAtTimeOfAnnotation:
-          $ref: '#/components/schemas/store-annotationOccurrence'
-        opinion:
-          type: string
-          title: Suggested identification
-        removedTags:
-          type: array
-          uniqueItems: false
-          items:
-            type: string
-          minItems: 0
-          title: Removed tags
-        rootID:
-          type: string
-          title: Root ID
-        targetID:
-          type: string
-          title: Target Id
-        type:
-          type: string
-          enum:
-          - ''
-          - MAN.typeOpinion
-          - MAN.typeInvasiveControlEffectiveness
-          - MAN.typeUnidentifiable
-          - MAN.typeAdmin
-          title: My evaluation of the observation
-        createdBySystem:
-          type: string
-          title: Deleted by system
-        deleted:
-          type: boolean
-          title: Soft delete
-        deletedByPerson:
-          type: string
-          title: Deleted by person
-        deletedDateTime:
-          type: string
-          format: date-time
-          title: Deleted at
-      required:
-      - rootID
-      additionalProperties: false
-    store-notification:
-      type: object
-      properties:
-        '@context':
-          type: string
-          title: Context for the MHN.notification
-        id:
-          type: string
-          title: Id for the MHN.notification
-        '@type':
-          type: string
-          title: Type for the MHN.notification
-        annotation:
-          $ref: '#/components/schemas/store-annotation'
-        created:
-          type: string
-          format: date-time
-          title: Created
-        friendRequest:
-          type: string
-          title: Friend request from
-        friendRequestAccepted:
-          type: string
-          title: Friend request accepted by
-        notificationReason:
-          type: string
-          enum:
-          - ''
-          - MHN.notificationReasonOwnDocumentAnnotated
-          - MHN.notificationReasonAnnotatedDocumentAnnotated
-          title: Notification reason
-        seen:
-          type: boolean
-          title: Seen
-        toPerson:
-          type: string
-          title: Notification is for
-      required:
-      - created
-      - toPerson
-      additionalProperties: false
   securitySchemes:
     Access_token:
       scheme: bearer
