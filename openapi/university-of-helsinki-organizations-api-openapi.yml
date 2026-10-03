@@ -266,8 +266,6 @@ paths:
       - Organizations
 components:
   schemas:
-    MultiLangDto:
-      type: string
     SensitiveOrganization:
       type: object
       properties:
@@ -285,6 +283,8 @@ components:
           type: string
       required:
       - '@context'
+    MultiLangDto:
+      type: string
   securitySchemes:
     Access_token:
       scheme: bearer

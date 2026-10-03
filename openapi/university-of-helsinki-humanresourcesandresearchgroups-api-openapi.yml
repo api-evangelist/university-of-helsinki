@@ -29,6 +29,24 @@ paths:
       tags:
       - HumanResourcesAndResearchGroups
 components:
+  schemas:
+    HumanResourcesAndResearchGroups:
+      type: object
+      properties:
+        uniqueId:
+          type: string
+        code:
+          type: string
+        type:
+          type: string
+        nameFi:
+          type: string
+        nameEn:
+          type: string
+        nameSv:
+          type: string
+        parent:
+          type: string
   examples:
     HumanResourcesAndResearchGroups:
       value:
@@ -48,24 +66,6 @@ components:
         type: tutkimusryhma
         uniqueId: '99897622'
         unitStartDate: '2017-09-01'
-  schemas:
-    HumanResourcesAndResearchGroups:
-      type: object
-      properties:
-        uniqueId:
-          type: string
-        code:
-          type: string
-        type:
-          type: string
-        nameFi:
-          type: string
-        nameEn:
-          type: string
-        nameSv:
-          type: string
-        parent:
-          type: string
   securitySchemes:
     apiKey:
       type: apiKey

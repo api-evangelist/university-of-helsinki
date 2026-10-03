@@ -29,6 +29,23 @@ paths:
       tags:
       - ResearchGroups
 components:
+  examples:
+    ResearchGroups:
+      value:
+      - uniqueId: '12345678'
+        unitStartDate: yyyy-MM-dd
+        type: tutkimusryhma
+        nameFi: Psykologia
+        nameEn: Psychology
+        nameSv: Psykologi
+        parent: '87654321'
+      - nameFi: Helsingin yliopisto
+        nameEn: University of Helsinki
+        nameSv: Helsingfors universitet
+        uniqueId: '87654321'
+        parent: null
+        type: yritys_yhteiso
+        unitStartDate: '1640-03-26'
   schemas:
     ResearchGroup:
       type: object
@@ -47,23 +64,6 @@ components:
           type: string
         parent:
           type: string
-  examples:
-    ResearchGroups:
-      value:
-      - uniqueId: '12345678'
-        unitStartDate: yyyy-MM-dd
-        type: tutkimusryhma
-        nameFi: Psykologia
-        nameEn: Psychology
-        nameSv: Psykologi
-        parent: '87654321'
-      - nameFi: Helsingin yliopisto
-        nameEn: University of Helsinki
-        nameSv: Helsingfors universitet
-        uniqueId: '87654321'
-        parent: null
-        type: yritys_yhteiso
-        unitStartDate: '1640-03-26'
   securitySchemes:
     apiKey:
       type: apiKey

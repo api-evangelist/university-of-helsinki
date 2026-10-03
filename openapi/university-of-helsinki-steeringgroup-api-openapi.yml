@@ -215,11 +215,107 @@ paths:
       deprecated: false
 components:
   schemas:
-    HrOrganization-read:
+    Organization-read:
       type: object
       deprecated: false
-      description: HR organization resource.
+      description: Organization resource.
       properties:
+        id:
+          type: integer
+        name:
+          type: object
+          items:
+            type: string
+          properties:
+            en:
+              type: string
+            fi:
+              type: string
+            sv:
+              type: string
+        type:
+          type: string
+        parent:
+          type:
+          - integer
+          - 'null'
+        depth:
+          type: integer
+    Organization.jsonld-read:
+      type: object
+      deprecated: false
+      description: Organization resource.
+      properties:
+        '@id':
+          type: string
+          readOnly: true
+        '@type':
+          type: string
+          readOnly: true
+        '@context':
+          oneOf:
+          - type: string
+          - type: object
+            additionalProperties: true
+            properties:
+              '@vocab':
+                type: string
+              hydra:
+                type: string
+                enum:
+                - http://www.w3.org/ns/hydra/core#
+            required:
+            - '@vocab'
+            - hydra
+          readOnly: true
+        id:
+          type: integer
+        name:
+          type: object
+          items:
+            type: string
+          properties:
+            en:
+              type: string
+            fi:
+              type: string
+            sv:
+              type: string
+        type:
+          type: string
+        parent:
+          type:
+          - integer
+          - 'null'
+        depth:
+          type: integer
+    SteeringGroup.jsonld-read:
+      type: object
+      deprecated: false
+      description: Steering Group resource.
+      properties:
+        '@id':
+          type: string
+          readOnly: true
+        '@type':
+          type: string
+          readOnly: true
+        '@context':
+          oneOf:
+          - type: string
+          - type: object
+            additionalProperties: true
+            properties:
+              '@vocab':
+                type: string
+              hydra:
+                type: string
+                enum:
+                - http://www.w3.org/ns/hydra/core#
+            required:
+            - '@vocab'
+            - hydra
+          readOnly: true
         id:
           type: integer
         name:
@@ -265,6 +361,36 @@ components:
           type:
           - string
           - 'null'
+    HrOrganization-read:
+      type: object
+      deprecated: false
+      description: HR organization resource.
+      properties:
+        id:
+          type: integer
+        name:
+          type: object
+          items:
+            type: string
+          properties:
+            en:
+              type: string
+            fi:
+              type: string
+            sv:
+              type: string
+        type:
+          type: string
+        parent:
+          type:
+          - integer
+          - 'null'
+        depth:
+          type: integer
+        code:
+          type:
+          - string
+          - 'null'
     FieldOfScience.jsonld-read:
       type: object
       deprecated: false
@@ -291,6 +417,190 @@ components:
               type: string
       required:
       - label
+    HrOrganization.jsonld-read:
+      type: object
+      deprecated: false
+      description: HR organization resource.
+      properties:
+        '@id':
+          type: string
+          readOnly: true
+        '@type':
+          type: string
+          readOnly: true
+        '@context':
+          oneOf:
+          - type: string
+          - type: object
+            additionalProperties: true
+            properties:
+              '@vocab':
+                type: string
+              hydra:
+                type: string
+                enum:
+                - http://www.w3.org/ns/hydra/core#
+            required:
+            - '@vocab'
+            - hydra
+          readOnly: true
+        id:
+          type: integer
+        name:
+          type: object
+          items:
+            type: string
+          properties:
+            en:
+              type: string
+            fi:
+              type: string
+            sv:
+              type: string
+        type:
+          type: string
+        parent:
+          type:
+          - integer
+          - 'null'
+        depth:
+          type: integer
+        code:
+          type:
+          - string
+          - 'null'
+    KeywordGroup-read:
+      type: object
+      deprecated: false
+      description: ''
+      properties:
+        value:
+          anyOf:
+          - $ref: '#/components/schemas/FieldOfScience-read'
+          - type: 'null'
+          owl:maxCardinality: 1
+        additional:
+          type: object
+          items:
+            type: string
+          properties:
+            en:
+              type: array
+              items:
+                type: string
+            fi:
+              type: array
+              items:
+                type: string
+            sv:
+              type: array
+              items:
+                type: string
+      required:
+      - additional
+      - value
+    Title-read:
+      type: object
+      deprecated: false
+      description: Title resource.
+      properties:
+        id:
+          type: string
+        name:
+          type: object
+          items:
+            type: string
+          properties:
+            en:
+              type: string
+            fi:
+              type: string
+            sv:
+              type: string
+    Title.jsonld-read:
+      type: object
+      deprecated: false
+      description: Title resource.
+      properties:
+        '@id':
+          type: string
+          readOnly: true
+        '@type':
+          type: string
+          readOnly: true
+        id:
+          type: string
+        name:
+          type: object
+          items:
+            type: string
+          properties:
+            en:
+              type: string
+            fi:
+              type: string
+            sv:
+              type: string
+    SteeringGroup-read:
+      type: object
+      deprecated: false
+      description: Steering Group resource.
+      properties:
+        id:
+          type: integer
+        name:
+          type: object
+          items:
+            type: string
+          properties:
+            en:
+              type: string
+            fi:
+              type: string
+            sv:
+              type: string
+        type:
+          type: string
+        parent:
+          type:
+          - integer
+          - 'null'
+        depth:
+          type: integer
+        code:
+          type:
+          - string
+          - 'null'
+    KeywordGroup.jsonld-read:
+      type: object
+      deprecated: false
+      description: ''
+      properties:
+        value:
+          anyOf:
+          - $ref: '#/components/schemas/FieldOfScience.jsonld-read'
+          - type: 'null'
+          owl:maxCardinality: 1
+        additional:
+          type: object
+          items:
+            type: string
+          properties:
+            en:
+              type: array
+              items:
+                type: string
+            fi:
+              type: array
+              items:
+                type: string
+            sv:
+              type: array
+              items:
+                type: string
+      required:
+      - additional
+      - value
     Contact.jsonld-read:
       type: object
       deprecated: false
@@ -475,10 +785,10 @@ components:
       - firstnames
       - fullname
       - lastname
-    Organization.jsonld-read:
+    SteeringGroupMember.jsonld-read:
       type: object
       deprecated: false
-      description: Organization resource.
+      description: Steering Group Member resource.
       properties:
         '@id':
           type: string
@@ -486,70 +796,18 @@ components:
         '@type':
           type: string
           readOnly: true
-        '@context':
-          oneOf:
-          - type: string
-          - type: object
-            additionalProperties: true
-            properties:
-              '@vocab':
-                type: string
-              hydra:
-                type: string
-                enum:
-                - http://www.w3.org/ns/hydra/core#
-            required:
-            - '@vocab'
-            - hydra
+        id:
+          type: integer
           readOnly: true
-        id:
-          type: integer
-        name:
-          type: object
-          items:
-            type: string
-          properties:
-            en:
-              type: string
-            fi:
-              type: string
-            sv:
-              type: string
-        type:
-          type: string
-        parent:
-          type:
-          - integer
-          - 'null'
-        depth:
-          type: integer
-    SteeringGroup-read:
-      type: object
-      deprecated: false
-      description: Steering Group resource.
-      properties:
-        id:
-          type: integer
-        name:
-          type: object
-          items:
-            type: string
-          properties:
-            en:
-              type: string
-            fi:
-              type: string
-            sv:
-              type: string
-        type:
-          type: string
-        parent:
-          type:
-          - integer
-          - 'null'
-        depth:
-          type: integer
-        code:
+        contact:
+          anyOf:
+          - $ref: '#/components/schemas/Contact.jsonld-read'
+          - type: 'null'
+          owl:maxCardinality: 1
+        steeringGroup:
+          $ref: '#/components/schemas/SteeringGroup.jsonld-read'
+          owl:maxCardinality: 1
+        studentName:
           type:
           - string
           - 'null'
@@ -573,154 +831,6 @@ components:
               type: string
       required:
       - label
-    Title-read:
-      type: object
-      deprecated: false
-      description: Title resource.
-      properties:
-        id:
-          type: string
-        name:
-          type: object
-          items:
-            type: string
-          properties:
-            en:
-              type: string
-            fi:
-              type: string
-            sv:
-              type: string
-    Organization-read:
-      type: object
-      deprecated: false
-      description: Organization resource.
-      properties:
-        id:
-          type: integer
-        name:
-          type: object
-          items:
-            type: string
-          properties:
-            en:
-              type: string
-            fi:
-              type: string
-            sv:
-              type: string
-        type:
-          type: string
-        parent:
-          type:
-          - integer
-          - 'null'
-        depth:
-          type: integer
-    SteeringGroup.jsonld-read:
-      type: object
-      deprecated: false
-      description: Steering Group resource.
-      properties:
-        '@id':
-          type: string
-          readOnly: true
-        '@type':
-          type: string
-          readOnly: true
-        '@context':
-          oneOf:
-          - type: string
-          - type: object
-            additionalProperties: true
-            properties:
-              '@vocab':
-                type: string
-              hydra:
-                type: string
-                enum:
-                - http://www.w3.org/ns/hydra/core#
-            required:
-            - '@vocab'
-            - hydra
-          readOnly: true
-        id:
-          type: integer
-        name:
-          type: object
-          items:
-            type: string
-          properties:
-            en:
-              type: string
-            fi:
-              type: string
-            sv:
-              type: string
-        type:
-          type: string
-        parent:
-          type:
-          - integer
-          - 'null'
-        depth:
-          type: integer
-        code:
-          type:
-          - string
-          - 'null'
-    HrOrganization.jsonld-read:
-      type: object
-      deprecated: false
-      description: HR organization resource.
-      properties:
-        '@id':
-          type: string
-          readOnly: true
-        '@type':
-          type: string
-          readOnly: true
-        '@context':
-          oneOf:
-          - type: string
-          - type: object
-            additionalProperties: true
-            properties:
-              '@vocab':
-                type: string
-              hydra:
-                type: string
-                enum:
-                - http://www.w3.org/ns/hydra/core#
-            required:
-            - '@vocab'
-            - hydra
-          readOnly: true
-        id:
-          type: integer
-        name:
-          type: object
-          items:
-            type: string
-          properties:
-            en:
-              type: string
-            fi:
-              type: string
-            sv:
-              type: string
-        type:
-          type: string
-        parent:
-          type:
-          - integer
-          - 'null'
-        depth:
-          type: integer
-        code:
-          type:
-          - string
-          - 'null'
     Contact-read:
       type: object
       deprecated: false
@@ -883,113 +993,3 @@ components:
       - firstnames
       - fullname
       - lastname
-    SteeringGroupMember.jsonld-read:
-      type: object
-      deprecated: false
-      description: Steering Group Member resource.
-      properties:
-        '@id':
-          type: string
-          readOnly: true
-        '@type':
-          type: string
-          readOnly: true
-        id:
-          type: integer
-          readOnly: true
-        contact:
-          anyOf:
-          - $ref: '#/components/schemas/Contact.jsonld-read'
-          - type: 'null'
-          owl:maxCardinality: 1
-        steeringGroup:
-          $ref: '#/components/schemas/SteeringGroup.jsonld-read'
-          owl:maxCardinality: 1
-        studentName:
-          type:
-          - string
-          - 'null'
-    KeywordGroup.jsonld-read:
-      type: object
-      deprecated: false
-      description: ''
-      properties:
-        value:
-          anyOf:
-          - $ref: '#/components/schemas/FieldOfScience.jsonld-read'
-          - type: 'null'
-          owl:maxCardinality: 1
-        additional:
-          type: object
-          items:
-            type: string
-          properties:
-            en:
-              type: array
-              items:
-                type: string
-            fi:
-              type: array
-              items:
-                type: string
-            sv:
-              type: array
-              items:
-                type: string
-      required:
-      - additional
-      - value
-    KeywordGroup-read:
-      type: object
-      deprecated: false
-      description: ''
-      properties:
-        value:
-          anyOf:
-          - $ref: '#/components/schemas/FieldOfScience-read'
-          - type: 'null'
-          owl:maxCardinality: 1
-        additional:
-          type: object
-          items:
-            type: string
-          properties:
-            en:
-              type: array
-              items:
-                type: string
-            fi:
-              type: array
-              items:
-                type: string
-            sv:
-              type: array
-              items:
-                type: string
-      required:
-      - additional
-      - value
-    Title.jsonld-read:
-      type: object
-      deprecated: false
-      description: Title resource.
-      properties:
-        '@id':
-          type: string
-          readOnly: true
-        '@type':
-          type: string
-          readOnly: true
-        id:
-          type: string
-        name:
-          type: object
-          items:
-            type: string
-          properties:
-            en:
-              type: string
-            fi:
-              type: string
-            sv:
-              type: string

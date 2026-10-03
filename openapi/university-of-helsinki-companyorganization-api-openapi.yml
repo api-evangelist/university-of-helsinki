@@ -351,6 +351,36 @@ paths:
       deprecated: false
 components:
   schemas:
+    CompanyOrganization-read:
+      type: object
+      deprecated: false
+      description: Company organization resource.
+      properties:
+        id:
+          type: integer
+        name:
+          type: object
+          items:
+            type: string
+          properties:
+            en:
+              type: string
+            fi:
+              type: string
+            sv:
+              type: string
+        type:
+          type: string
+        parent:
+          type:
+          - integer
+          - 'null'
+        depth:
+          type: integer
+        code:
+          type:
+          - string
+          - 'null'
     CompanyOrganization.jsonld-read:
       type: object
       deprecated: false
@@ -403,132 +433,6 @@ components:
           type:
           - string
           - 'null'
-    CompanyTitle-read:
-      type: object
-      deprecated: false
-      description: Company Title resource.
-      properties:
-        id:
-          type: string
-        name:
-          type: object
-          items:
-            type: string
-          properties:
-            en:
-              type: string
-            fi:
-              type: string
-            sv:
-              type: string
-    CompanyContact-read:
-      type: object
-      deprecated: false
-      description: Company Contact resource.
-      properties:
-        companyOrganizations:
-          type: array
-          items:
-            $ref: '#/components/schemas/CompanyOrganization-read'
-        title:
-          anyOf:
-          - $ref: '#/components/schemas/CompanyTitle-read'
-          - type: 'null'
-          owl:maxCardinality: 1
-        id:
-          type: integer
-        firstnames:
-          type: string
-        lastname:
-          type: string
-        fullname:
-          type: string
-        email:
-          type:
-          - string
-          - 'null'
-        address:
-          type: object
-          items:
-            type: string
-          properties:
-            en:
-              type: string
-            fi:
-              type: string
-            sv:
-              type: string
-        mobileNumber:
-          type:
-          - string
-          - 'null'
-        phoneNumber:
-          type:
-          - string
-          - 'null'
-        isPublic:
-          type: boolean
-          default: true
-          example: true
-      required:
-      - email
-      - firstnames
-      - fullname
-      - lastname
-    CompanyOrganization-read:
-      type: object
-      deprecated: false
-      description: Company organization resource.
-      properties:
-        id:
-          type: integer
-        name:
-          type: object
-          items:
-            type: string
-          properties:
-            en:
-              type: string
-            fi:
-              type: string
-            sv:
-              type: string
-        type:
-          type: string
-        parent:
-          type:
-          - integer
-          - 'null'
-        depth:
-          type: integer
-        code:
-          type:
-          - string
-          - 'null'
-    CompanyTitle.jsonld-read:
-      type: object
-      deprecated: false
-      description: Company Title resource.
-      properties:
-        '@id':
-          type: string
-          readOnly: true
-        '@type':
-          type: string
-          readOnly: true
-        id:
-          type: string
-        name:
-          type: object
-          items:
-            type: string
-          properties:
-            en:
-              type: string
-            fi:
-              type: string
-            sv:
-              type: string
     CompanyContact.jsonld-read:
       type: object
       deprecated: false
@@ -605,3 +509,99 @@ components:
       - firstnames
       - fullname
       - lastname
+    CompanyContact-read:
+      type: object
+      deprecated: false
+      description: Company Contact resource.
+      properties:
+        companyOrganizations:
+          type: array
+          items:
+            $ref: '#/components/schemas/CompanyOrganization-read'
+        title:
+          anyOf:
+          - $ref: '#/components/schemas/CompanyTitle-read'
+          - type: 'null'
+          owl:maxCardinality: 1
+        id:
+          type: integer
+        firstnames:
+          type: string
+        lastname:
+          type: string
+        fullname:
+          type: string
+        email:
+          type:
+          - string
+          - 'null'
+        address:
+          type: object
+          items:
+            type: string
+          properties:
+            en:
+              type: string
+            fi:
+              type: string
+            sv:
+              type: string
+        mobileNumber:
+          type:
+          - string
+          - 'null'
+        phoneNumber:
+          type:
+          - string
+          - 'null'
+        isPublic:
+          type: boolean
+          default: true
+          example: true
+      required:
+      - email
+      - firstnames
+      - fullname
+      - lastname
+    CompanyTitle.jsonld-read:
+      type: object
+      deprecated: false
+      description: Company Title resource.
+      properties:
+        '@id':
+          type: string
+          readOnly: true
+        '@type':
+          type: string
+          readOnly: true
+        id:
+          type: string
+        name:
+          type: object
+          items:
+            type: string
+          properties:
+            en:
+              type: string
+            fi:
+              type: string
+            sv:
+              type: string
+    CompanyTitle-read:
+      type: object
+      deprecated: false
+      description: Company Title resource.
+      properties:
+        id:
+          type: string
+        name:
+          type: object
+          items:
+            type: string
+          properties:
+            en:
+              type: string
+            fi:
+              type: string
+            sv:
+              type: string

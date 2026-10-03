@@ -87,18 +87,6 @@ components:
           type: array
           items:
             type: string
-    GoogleMapsGeocodingResponse:
-      type: object
-      required:
-      - status
-      - results
-      properties:
-        results:
-          type: array
-          items:
-            $ref: '#/components/schemas/GoogleMapsGeocodingResult'
-        status:
-          type: string
     GoogleMapsAddressComponent:
       type: object
       required:
@@ -114,6 +102,18 @@ components:
           type: array
           items:
             type: string
+    GoogleMapsGeocodingResponse:
+      type: object
+      required:
+      - status
+      - results
+      properties:
+        results:
+          type: array
+          items:
+            $ref: '#/components/schemas/GoogleMapsGeocodingResult'
+        status:
+          type: string
   securitySchemes:
     Access_token:
       scheme: bearer

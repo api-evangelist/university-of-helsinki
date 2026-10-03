@@ -272,6 +272,8 @@ paths:
       - Sources
 components:
   schemas:
+    MultiLangDto:
+      type: string
     SensitiveSource:
       type: object
       properties:
@@ -283,8 +285,6 @@ components:
           $ref: '#/components/schemas/MultiLangDto'
       required:
       - description
-    MultiLangDto:
-      type: string
   securitySchemes:
     Access_token:
       scheme: bearer

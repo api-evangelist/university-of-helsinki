@@ -660,8 +660,6 @@ paths:
       - Collections
 components:
   schemas:
-    store-multiLang:
-      type: string
     ExpandedSensitiveCollection:
       type: object
       properties:
@@ -987,6 +985,8 @@ components:
       - personResponsible
       - id
       additionalProperties: false
+    store-multiLang:
+      type: string
     SensitiveCollection:
       type: object
       properties:

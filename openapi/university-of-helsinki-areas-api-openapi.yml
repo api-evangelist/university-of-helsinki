@@ -277,8 +277,6 @@ paths:
       - Areas
 components:
   schemas:
-    store-multiLang:
-      type: string
     store-area:
       type: object
       properties:
@@ -349,6 +347,8 @@ components:
       - areaType
       - id
       additionalProperties: false
+    store-multiLang:
+      type: string
   securitySchemes:
     Access_token:
       scheme: bearer

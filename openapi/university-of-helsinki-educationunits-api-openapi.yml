@@ -47,6 +47,47 @@ paths:
       tags:
       - EducationUnits
 components:
+  schemas:
+    EducationUnit:
+      type: object
+      properties:
+        uniqueId:
+          type: string
+        type:
+          type: string
+        code:
+          type: string
+        nameFi:
+          type: string
+        nameEn:
+          type: string
+        nameSv:
+          type: string
+        abbreviation:
+          type: string
+        parent:
+          type: string
+    EducationUnitV2:
+      type: object
+      properties:
+        uniqueId:
+          type: string
+        type:
+          type: string
+        code:
+          type: string
+        nameFi:
+          type: string
+        nameEn:
+          type: string
+        nameSv:
+          type: string
+        abbreviation:
+          type: string
+        educationQualifier:
+          type: string
+        parent:
+          type: string
   examples:
     EducationUnitsExampleV2:
       value:
@@ -86,47 +127,6 @@ components:
         nameEn: University of Helsinki
         nameSv: Helsingfors universitet
         parent: null
-  schemas:
-    EducationUnitV2:
-      type: object
-      properties:
-        uniqueId:
-          type: string
-        type:
-          type: string
-        code:
-          type: string
-        nameFi:
-          type: string
-        nameEn:
-          type: string
-        nameSv:
-          type: string
-        abbreviation:
-          type: string
-        educationQualifier:
-          type: string
-        parent:
-          type: string
-    EducationUnit:
-      type: object
-      properties:
-        uniqueId:
-          type: string
-        type:
-          type: string
-        code:
-          type: string
-        nameFi:
-          type: string
-        nameEn:
-          type: string
-        nameSv:
-          type: string
-        abbreviation:
-          type: string
-        parent:
-          type: string
   securitySchemes:
     apiKey:
       type: apiKey

@@ -1167,6 +1167,26 @@ paths:
     - url: https://gw.api.helsinki.fi/persongroup
 components:
   schemas:
+    SensitiveProfile:
+      type: object
+      properties:
+        userID:
+          type: string
+        profileDescription:
+          type: string
+        image:
+          type: string
+      required:
+      - id
+      - userID
+      - profileDescription
+      - personalCollectionIdentifier
+      - taxonExpertise
+      - taxonExpertiseNotes
+      - image
+      - friends
+      - blocked
+      - friendRequests
     Person:
       type: object
       properties:
@@ -1220,70 +1240,6 @@ components:
       - role
       - roleAnnotation
       - '@context'
-    SensitivePerson:
-      type: object
-      properties:
-        id:
-          type: string
-        fullName:
-          type: string
-        group:
-          type: string
-        '@context':
-          type: string
-      required:
-      - id
-      - emailAddress
-      - role
-      - roleAnnotation
-      - '@context'
-    store-birdSongRecognitionSkillLevel:
-      type: object
-      properties:
-        '@context':
-          type: string
-          title: Context for the Instances of this class are bird song recognition skill levels of a certain area
-        id:
-          type: string
-          title: Id for the Instances of this class are bird song recognition skill levels of a certain area
-        '@type':
-          type: string
-          title: Type for the Instances of this class are bird song recognition skill levels of a certain area
-        birdSongRecognitionArea:
-          type: string
-          title: Area
-        birdSongRecognitionSkillLevel:
-          type: string
-          enum:
-          - MA.birdSongRecognitionSkillLevelEnum1
-          - MA.birdSongRecognitionSkillLevelEnum2
-          - MA.birdSongRecognitionSkillLevelEnum3
-          - MA.birdSongRecognitionSkillLevelEnum4
-          title: Skill level
-      required:
-      - birdSongRecognitionArea
-      - birdSongRecognitionSkillLevel
-      additionalProperties: false
-    SensitiveProfile:
-      type: object
-      properties:
-        userID:
-          type: string
-        profileDescription:
-          type: string
-        image:
-          type: string
-      required:
-      - id
-      - userID
-      - profileDescription
-      - personalCollectionIdentifier
-      - taxonExpertise
-      - taxonExpertiseNotes
-      - image
-      - friends
-      - blocked
-      - friendRequests
     store-profile:
       type: object
       properties:
@@ -1379,6 +1335,50 @@ components:
           title: profileKey
       required:
       - userID
+      additionalProperties: false
+    SensitivePerson:
+      type: object
+      properties:
+        id:
+          type: string
+        fullName:
+          type: string
+        group:
+          type: string
+        '@context':
+          type: string
+      required:
+      - id
+      - emailAddress
+      - role
+      - roleAnnotation
+      - '@context'
+    store-birdSongRecognitionSkillLevel:
+      type: object
+      properties:
+        '@context':
+          type: string
+          title: Context for the Instances of this class are bird song recognition skill levels of a certain area
+        id:
+          type: string
+          title: Id for the Instances of this class are bird song recognition skill levels of a certain area
+        '@type':
+          type: string
+          title: Type for the Instances of this class are bird song recognition skill levels of a certain area
+        birdSongRecognitionArea:
+          type: string
+          title: Area
+        birdSongRecognitionSkillLevel:
+          type: string
+          enum:
+          - MA.birdSongRecognitionSkillLevelEnum1
+          - MA.birdSongRecognitionSkillLevelEnum2
+          - MA.birdSongRecognitionSkillLevelEnum3
+          - MA.birdSongRecognitionSkillLevelEnum4
+          title: Skill level
+      required:
+      - birdSongRecognitionArea
+      - birdSongRecognitionSkillLevel
       additionalProperties: false
     Group:
       type: object

@@ -825,40 +825,6 @@ paths:
       - Red List Evaluation Groups
 components:
   schemas:
-    IucnRedListTaxonGroupExpanded:
-      type: object
-      properties:
-        '@context':
-          type: string
-          title: Context for the IUCN Red List Evaluation Informal Taxon Group
-        id:
-          type: string
-          title: Id for the IUCN Red List Evaluation Informal Taxon Group
-        '@type':
-          type: string
-          title: Type for the IUCN Red List Evaluation Informal Taxon Group
-        hasIucnSubGroup:
-          $ref: '#/components/schemas/IucnRedListTaxonGroupExpanded'
-        includesInformalTaxonGroup:
-          type: array
-          uniqueItems: false
-          items:
-            type: string
-          minItems: 0
-          title: Includes informal taxon group
-        includesTaxon:
-          type: array
-          uniqueItems: false
-          items:
-            type: string
-          minItems: 0
-          title: Includes taxon
-        name:
-          type: string
-      required:
-      - name
-      - id
-      additionalProperties: false
     store-iucnRedListTaxonGroup:
       type: object
       properties:
@@ -895,6 +861,40 @@ components:
         name:
           type: string
       required: []
+      additionalProperties: false
+    IucnRedListTaxonGroupExpanded:
+      type: object
+      properties:
+        '@context':
+          type: string
+          title: Context for the IUCN Red List Evaluation Informal Taxon Group
+        id:
+          type: string
+          title: Id for the IUCN Red List Evaluation Informal Taxon Group
+        '@type':
+          type: string
+          title: Type for the IUCN Red List Evaluation Informal Taxon Group
+        hasIucnSubGroup:
+          $ref: '#/components/schemas/IucnRedListTaxonGroupExpanded'
+        includesInformalTaxonGroup:
+          type: array
+          uniqueItems: false
+          items:
+            type: string
+          minItems: 0
+          title: Includes informal taxon group
+        includesTaxon:
+          type: array
+          uniqueItems: false
+          items:
+            type: string
+          minItems: 0
+          title: Includes taxon
+        name:
+          type: string
+      required:
+      - name
+      - id
       additionalProperties: false
   securitySchemes:
     Access_token:

@@ -47,6 +47,28 @@ paths:
       tags:
       - FinanceUnits
 components:
+  examples:
+    FinanceUnitsWithPublicCodeExample:
+      value:
+      - uniqueId: '77096679'
+        code: HY
+        type: tulosyksikko
+        publicity: kylla
+        uniqueCode: kylla
+        nameFi: Helsingin yliopisto
+        nameEn: University of Helsinki
+        nameSv: Helsingfors universitet
+        parent: null
+    FinanceUnitsExample:
+      value:
+      - uniqueId: '77096679'
+        code: HY
+        type: tulosyksikko
+        publicity: kylla
+        nameFi: Helsingin yliopisto
+        nameEn: University of Helsinki
+        nameSv: Helsingfors universitet
+        parent: null
   schemas:
     FinanceUnitWithUniqueCode:
       type: object
@@ -84,28 +106,6 @@ components:
           type: string
         parent:
           type: string
-  examples:
-    FinanceUnitsExample:
-      value:
-      - uniqueId: '77096679'
-        code: HY
-        type: tulosyksikko
-        publicity: kylla
-        nameFi: Helsingin yliopisto
-        nameEn: University of Helsinki
-        nameSv: Helsingfors universitet
-        parent: null
-    FinanceUnitsWithPublicCodeExample:
-      value:
-      - uniqueId: '77096679'
-        code: HY
-        type: tulosyksikko
-        publicity: kylla
-        uniqueCode: kylla
-        nameFi: Helsingin yliopisto
-        nameEn: University of Helsinki
-        nameSv: Helsingfors universitet
-        parent: null
   securitySchemes:
     apiKey:
       type: apiKey

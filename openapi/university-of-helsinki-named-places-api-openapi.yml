@@ -904,498 +904,328 @@ paths:
       - Named places
 components:
   schemas:
-    store-document:
+    store-unitFact:
       type: object
       properties:
         '@context':
           type: string
-          title: Context for the Submissions
+          title: Context for the Näytteen / havainnon faktat
         id:
           type: string
-          title: Id for the Submissions
+          title: Id for the Näytteen / havainnon faktat
         '@type':
           type: string
-          title: Type for the Submissions
-        secureLevel:
+          title: Type for the Näytteen / havainnon faktat
+        adultIndividualCount:
+          type: integer
+          title: Adult individual count
+        autocompleteSelectedTaxonID:
+          type: string
+          title: Taxon ID selected from autocomplete
+        birdMultiplier:
+          type: boolean
+          title: K-multiplier
+        broodCount:
+          type: integer
+          minimum: 0
+          title: Brood count
+        destroyedNestCount:
+          type: integer
+          minimum: 0
+          title: Destroyed nests count
+        detOnSite:
           type: string
           enum:
           - ''
-          - MX.secureLevelNone
-          - MX.secureLevelKM1
-          - MX.secureLevelKM5
-          - MX.secureLevelKM10
-          - MX.secureLevelKM25
-          - MX.secureLevelKM50
-          - MX.secureLevelKM100
-          - MX.secureLevelHighest
-          - MX.secureLevelNoShow
-          description: Secure level (salaus-/karkeistustaso) for the data
-          title: Secure level
-        DNASampleLocation:
-          type: string
-          description: Leave empty if no sample taken, or if the sample is recorded separately
-          title: DNA sample location
-        IPEN:
-          type: string
-          description: IPEN Number for the accession
-          title: IPEN
-        URL:
-          type: string
-          description: URL where more information is available about the specimen
-          title: URL
-        acknowledgedWarnings:
-          type: array
-          uniqueItems: false
-          items:
-            type: object
-            additionalProperties: true
-          minItems: 0
-          title: Acknowledged warnings
-        acquiredFrom:
-          type: string
-          description: From who/where the specimen was acquired (if not recorded as a transaction)
-          title: Acquired from
-        acquiredFromOrganization:
-          type: string
-          description: Organization where the accession was acquired from. If the organization is not on the list, add it first.
-          title: Acquired from organization
-        acquisitionDate:
-          type: string
-          description: Date (d.m.yyyy) or year (yyyy) on which the specimen was acquired to the collection. Empty means an old specimen acquired on an unknown date.
-          title: Acquisition date
-        additionalIDs:
-          type: array
-          uniqueItems: false
-          items:
-            type: string
-          minItems: 0
-          description: 'Other identifiers this specimen has, in format ''type:identifier''. For example: ''mzhtypes:123'' (old MAZ-type number)'
-          title: Additional ID's
-        bold:
-          type: array
-          uniqueItems: false
-          items:
-            type: string
-          minItems: 0
-          description: BOLD identifier, usually BOLD Sample ID. You can include additonal comment by separating them with colon, e.g. "AY123456:comments here"
-          title: BOLD
-        caption:
-          type: string
-          title: Document caption
-        cladBookID:
-          type: string
-          description: Clad book id number or such
-          title: Clad book id
-        cladSpecimenID:
-          type: string
-          description: 'Clad specimen id: usually color description and a number'
-          title: Clad specimen id
-        cladVerbatim:
-          type: string
-          description: Verbatim specimen data from clad book
-          title: Clad data verbatim
-        collectionID:
-          type: string
-          description: The collection which this specimen belongs to
-          title: Collection
-        condition:
-          type: string
-          description: Notes on the defects of the specimen (missing parts or such). Empty value means same as "good" or "hyvä" - that there is nothing special to mention about the condition.
-          title: Condition (defects)
-        contacts:
-          type: array
-          items:
-            $ref: '#/components/schemas/store-contact'
-        cultivationInformation:
-          type: string
-          description: Annuality/perenniality or other specialities about cultivation in our conditions.
-          title: Cultivation information
-        dataOrigin:
-          type: array
-          uniqueItems: false
-          items:
-            type: string
-            enum:
-            - ''
-            - MY.dataOriginPaperForm
-            - MY.dataOriginWebForm
-            - MY.dataOriginSpreadsheetFile
-          minItems: 0
-          title: Data origin
-        dataSource:
-          type: string
-          description: Where the data about this specimen or observation is from, in addition to labels. Eg. reference to a publication, field notes or an expedition.
-          title: Data source
-        datasetID:
-          type: array
-          uniqueItems: false
-          items:
-            type: string
-          minItems: 0
-          description: The tags this specimen has
-          title: Tags
-        datatype:
-          type: string
-          title: Datatype
-        deviceID:
-          type: string
-          title: Device ID
-        digitisers:
-          type: array
-          uniqueItems: false
-          items:
-            type: string
-          minItems: 0
-          title: Digitised by
-        documentIdentifications:
-          type: array
-          items:
-            $ref: '#/components/schemas/store-documentIdentification'
-        documentLocation:
-          type: string
-          description: Location of the specimen so that museum personnel can find it. E.g. taxon under which it is stored (if not clear from the identification), or shelf number
-          title: Specimen location
-        duplicatesIn:
-          type: string
-          description: Description where duplicates (specimens of the same individual) are located or have been sent to and by which ID's.
-          title: Duplicates
-        editNotes:
-          type: string
-          description: Reason for this edit or notes about it.
-          title: Notes about this edit
-        editor:
-          type: string
-          title: Editor
-        entered:
-          type: string
-          description: Date the data was first transcribed into electronic format or paper registry
-          title: Date transcribed
-        event:
-          type: array
-          uniqueItems: false
-          items:
-            type: string
-          minItems: 0
-          description: Free-text diary-style information about what has been done to the specimen and when.
-          title: Event
-        exsiccatum:
-          type: string
-          description: Name of the exsiccatum this specimen belongs to and possible exsiccatum number.
-          title: Exsiccatum
-        formID:
-          type: string
-          description: Id of the form that was used for the document
-          title: Form id
-        gatheringEvent:
-          $ref: '#/components/schemas/store-gatheringEvent'
-        genbank:
-          type: array
-          uniqueItems: false
-          items:
-            type: string
-          minItems: 0
-          description: Genbank identifier. You can include additonal comment by separating them with colon, e.g. "AY123456:comments here"
-          title: Genbank
-        hasGathering:
-          type: array
-          uniqueItems: false
-          items:
-            type: string
-          minItems: 0
-          title: hasGathering
-        isTemplate:
-          type: boolean
-          title: Use document as template
-        keywords:
-          type: array
-          uniqueItems: false
-          items:
-            type: string
-          minItems: 0
-          title: Keywords
-        labelsVerbatim:
-          type: string
-          description: All text from labels word-for-word, including spelling errors. Separate each label on its own row, starting from topmost label.
-          title: Verbatim labels
-        language:
-          type: string
-          description: Language the data is (mainly) written in, if applicable.
-          title: Language
-        legID:
-          type: string
-          description: Collecting number (field identifier, keruunumero) for the specimen
-          title: Collecting number
-        locked:
-          type: boolean
-          title: Locked
-        namedPlaceID:
-          type: string
-          title: Named place
-        notes:
-          type: string
-          description: Additional information to the data in each section.
-          title: Notes
-        observationID:
-          type: string
-          description: ID for the observation in another system, e.g. Vihko/Notebook. Format System:identifier.
-          title: Observation ID
-        originalSpecimenID:
-          type: string
-          description: Original catalogue number or other  original identifier of the specimen. E.g. H9000000
-          title: Original catalogue number
-        plannedLocation:
-          type: string
-          description: Garden area where this accession is planned to be located.
-          title: Planned location
-        preservation:
-          type: array
-          uniqueItems: false
-          items:
-            type: string
-            enum:
-            - ''
-            - MY.preservationPressed
-            - MY.preservationDry
-            - MY.preservationCriticalPointDrying
-            - MY.preservationPinned
-            - MY.preservationGlued
-            - MY.preservationLiquid
-            - MY.preservationEthanol
-            - MY.preservationEthanolPure
-            - MY.preservationEthanol70
-            - MY.preservationEthanol80
-            - MY.preservationEthanol80Pure
-            - MY.preservationEthanol96
-            - MY.preservationEthanolMinus20C
-            - MY.preservationEthanolDenatured
-            - MY.preservationEthanolFormalin
-            - MY.preservationEthanolExFormalin
-            - MY.preservationFormalin
-            - MY.preservationBouinSolution
-            - MY.preservationPampelsFluid
-            - MY.preservationGlycerol
-            - MY.preservationParaffin
-            - MY.preservationMercuricChloride
-            - MY.preservationCryopreserved
-            - MY.preservationFrozen
-            - MY.preservationFrozenMinus80C
-            - MY.preservationFreezeDried
-            - MY.preservationGoldPlated
-            - MY.preservationActiveCulture
-            - MY.preservationLiving
-            - MY.preservationSlide
-            - MY.preservationSlideCanadaBalsam
-            - MY.preservationSlideEuparal
-            - MY.preservationSlidePolyviol
-            - MY.preservationStuffed
-            - MY.preservationCast
-            - MY.preservationPlastinated
-            - MY.preservationFrozenMinus80CAndEthanolMinus20C
-          minItems: 0
-          description: Main method of preservation. If parts of the specimen are preserved in different ways, you can choose several methods.
-          title: Preservation
-        primaryDataLocation:
-          type: string
-          description: Location of the primary data if not Kotka.
-          title: Primary data location
-        privateNotes:
-          type: string
-          description: Notes shown within the system for users signed in but not shown publicly anywhere. Use only for notes that absolutely need to be hidden from public view.
-          title: Nonpublic notes
-        publication:
-          type: array
-          uniqueItems: false
-          items:
-            type: string
-          minItems: 0
-          description: Publication references or doi's that refer to this specimen
-          title: Publications
-        rawOCRData:
-          type: string
-          description: Optical character recognition or AI generated data in its raw format, errors and all.
-          title: Raw OCR data
-        relationship:
-          type: array
-          uniqueItems: false
-          items:
-            type: string
-          minItems: 0
-          description: 'Relationship to another taxon OR specimen. Choose relationship type as prefix and give taxon name or specimen identifier thereafter, e.g. "parasite: Parasiticus specius" OR "host:http://tun.fi/JAA.123"'
-          title: Relationship
-        sampleHistory:
-          type: string
-          description: The history of the specimen, for example how it was acquired or in which museums it has been before.
-          title: Specimen history
-        separatedFrom:
-          type: string
-          description: ID of the specimen from which this has been separated
-          title: Separated from specimen
-        separatedTo:
-          type: array
-          uniqueItems: false
-          items:
-            type: string
-          minItems: 0
-          description: ID's of those new specimens that have been separated from this specimen
-          title: Separated to specimen(s)
-        serialNumber:
-          type: string
-          title: Serial number
-        sourceID:
-          type: string
-          title: Source system id
-        status:
+          - MY.duringObservation
+          - MY.afterObservation
+          description: Tehtiinkö lajin määritys havaintotilanteessa vai myöhemmin esimerkiksi internetin tai muiden kanssa keskustelun perusteella?
+          title: Determination on site
+        distanceMeters:
+          type: integer
+          title: Observation distance (m)
+        eggCount:
+          type: integer
+          minimum: 0
+          title: Egg count
+        femalesWithBroodsCount:
+          type: integer
+          minimum: 0
+          title: Females with broods count
+        glowWormMicrohabitat:
           type: string
           enum:
           - ''
-          - MY.statusOk
-          - MY.statusMissing
-          - MY.statusUnrecoverable
-          - MY.statusLost
-          - MY.statusDonated
-          - MY.statusDeposited
-          - MY.statusDeaccessioned
-          - MY.statusDiscarded
-          - MY.statusSpent
-          - MY.statusDestroyed
-          - MY.statusUndefined
-          - MY.statusAxenic
-          - MY.statusNonAxenic
-          - MY.statusNotAvailable
-          - MY.statusDead
-          - MY.statusNoVoucherRetained
-          description: Empty value means same as "ok" - that there is not anything special about the status of the specimen.
-          title: Status
-        temp:
-          type: boolean
-          title: Temporary document
-        templateDescription:
-          type: string
-          title: Template description
-        templateName:
-          type: string
-          title: Template name
-        transcriberNotes:
-          type: string
-          description: Additional information regarding the data entry or transcription process, e.g. unclarities, explanations for interpretations,
-          title: Transcriber's notes
-        transferAgreement:
-          type: string
-          description: Common name of agreement concerning the transfer, if any.
-          title: Transfer agreement
-        unreliableFields:
-          type: string
-          description: List of those fields that contain unreliable data. The list is created automatically.
-          title: Unreliable fields
-        verificationStatus:
-          type: array
-          uniqueItems: false
-          items:
-            type: string
-            enum:
-            - ''
-            - MY.verificationStatusOk
-            - MY.verificationStatusVerify
-            - MY.verificationStatusNeedsCompletion
-            - MY.verificationStatusGeoreference
-            - MY.verificationStatusDet
-            - MY.verificationStatusCheckID
-            - MY.verificationStatusVerifyCoordinates
-          minItems: 0
-          description: Information about the quality of the specimen data. Possible to select several.
-          title: Verification status
-        voucherSpecimenID:
-          type: string
-          description: Identifier of the herbarium voucher specimen or information about it if the identifier is unknown.
-          title: Voucher specimen ID
-        creator:
-          type: string
-          title: Creator
-        dateCreated:
-          type: string
-          format: date-time
-          title: Created
-        dateEdited:
-          type: string
-          format: date-time
-          title: Edited
-        editors:
-          type: array
-          uniqueItems: false
-          items:
-            type: string
-          minItems: 0
-          title: Editors
-        images:
-          type: array
-          uniqueItems: false
-          items:
-            type: string
-          minItems: 0
-          title: Images
-        owner:
-          type: string
-          description: Team or organisation that owns the record and can edit it.
-          title: Owner of record
-        publicityRestrictions:
+          - MY.glowWormMicrohabitatEnum1
+          - MY.glowWormMicrohabitatEnum2
+          - MY.glowWormMicrohabitatEnum3
+          - MY.glowWormMicrohabitatEnum4
+          - MY.glowWormMicrohabitatEnum5
+          - MY.glowWormMicrohabitatEnum6
+          - MY.glowWormMicrohabitatEnumOther
+          title: Micro habitat
+        groundNestCount:
+          type: integer
+          minimum: 0
+          title: Ground nest count
+        individualCountFlock:
+          type: integer
+          minimum: 0
+          title: Parven koko
+        individualCountInner:
+          type: integer
+          minimum: 0
+          title: Yksilömäärä sisällä
+        individualCountOuter:
+          type: integer
+          minimum: 0
+          title: Yksilömäärä alueen ulkopuolella
+        juvenileIndividualCount:
+          type: integer
+          title: Juvenile individual count
+        lineTransectObsType:
           type: string
           enum:
           - ''
-          - MZ.publicityRestrictionsPublic
-          - MZ.publicityRestrictionsProtected
-          - MZ.publicityRestrictionsPrivate
-          description: 'PUBLIC: all data can be published; PROTECTED: exact locality is hidden (100*100km square); PRIVATE: most of the data is hidden. Empty value means same as public.'
-          title: Publicity restrictions
-        scheduledForDeletion:
+          - MY.lineTransectObsTypeSong
+          - MY.lineTransectObsTypeOtherSound
+          - MY.lineTransectObsTypeSeen
+          - MY.lineTransectObsTypeSeenMale
+          - MY.lineTransectObsTypeSeenFemale
+          - MY.lineTransectObsTypeFlyingOverhead
+          - MY.lineTransectObsTypeFlock
+          - MY.lineTransectObsTypeFlockFlyingOverhead
+          - MY.lineTransectObsTypeSeenPair
+          - MY.lineTransectObsTypeSeenBrood
+          - MY.lineTransectObsTypeSeenNest
+          - MY.lineTransectObsTypeUnknown
+          title: Observations quality
+        lineTransectRouteFieldType:
+          type: string
+          enum:
+          - ''
+          - MY.lineTransectRouteFieldTypeInner
+          - MY.lineTransectRouteFieldTypeOuter
+          title: Field Area
+        lolifeDroppingsCount:
+          type: string
+          enum:
+          - ''
+          - MY.lolifeDroppingsCount0
+          - MY.lolifeDroppingsCount1
+          - MY.lolifeDroppingsCount2
+          - MY.lolifeDroppingsCount25
+          - MY.lolifeDroppingsCount3
+          - MY.lolifeDroppingsCount4
+          title: Droppings count
+        lolifeDroppingsQuality:
+          type: string
+          enum:
+          - ''
+          - MY.lolifeDroppingsQuality1
+          - MY.lolifeDroppingsQuality2
+          title: Papanoiden laatu
+        lolifeDroppingsType:
+          type: string
+          enum:
+          - ''
+          - MY.lolifeDroppingsTypeRock
+          - MY.lolifeDroppingsTypeTree
+          - MY.lolifeDroppingsTypeTreeGroup
+          - MY.lolifeDroppingsTypeOther
+          title: Droppings type
+        lolifeNestTree:
+          type: string
+          enum:
+          - ''
+          - MX.38590
+          - MX.37812
+          - MX.37999
+          - MX.37993
+          - MX.38010
+          - MX.38008
+          - MY.lolifeNestTreeOther
+          title: Tree species
+        observationDuration:
+          type: string
+          title: Observation duration
+        observationHours:
+          type: integer
+          title: Observation duration (h)
+          exclusiveMinimum: 0
+        pairCountInner:
+          type: integer
+          minimum: 0
+          title: Parimäärä sisällä
+        pairCountOuter:
+          type: integer
+          minimum: 0
+          title: Parimäärä alueen ulkopuolella
+        pointCountFlock:
+          type: string
+          title: Parvien koot
+        pullusIndividualCount:
+          type: integer
+          minimum: 0
+          title: Pullus individual count
+        runningWaterInVicinity:
           type: boolean
-          title: Scheduled for deletion
-        gatherings:
-          type: array
-          items:
-            $ref: '#/components/schemas/store-gathering'
-      required:
-      - gatherings
-      additionalProperties: false
-    store-unitGathering:
-      type: object
-      properties:
-        '@context':
+          title: Is the plant growing next to running water?
+        taxonConfidenceDescription:
           type: string
-          title: Context for the Havainnon keruutiedot
-        id:
+          description: Oma arvio lajimäärityksen luotettavuudesta
+          title: Estimate on determination confidence
+        traits:
           type: string
-          title: Id for the Havainnon keruutiedot
-        '@type':
+          title: Observed traits
+        treeNestCount:
+          type: integer
+          minimum: 0
+          title: Puupesien määrä
+        waterbirdFemale:
           type: string
-          title: Type for the Havainnon keruutiedot
-        dateBegin:
+          enum:
+          - ''
+          - MY.waterbirdFemaleEnumYes
+          - MY.waterbirdFemaleEnumNo
+          - MY.waterbirdFemaleEnumLonelyPanicking
+          title: Female observed
+        waterbirdJuvenileAgeClass:
           type: string
-          description: Collection date as exact date or start date for a time period.
-          title: Start date
-        dateEnd:
+          enum:
+          - ''
+          - MY.waterbirdJuvenileAgeClassIa
+          - MY.waterbirdJuvenileAgeClassIb
+          - MY.waterbirdJuvenileAgeClassIc
+          - MY.waterbirdJuvenileAgeClassIIa
+          - MY.waterbirdJuvenileAgeClassIIb
+          - MY.waterbirdJuvenileAgeClassIIc
+          - MY.waterbirdJuvenileAgeClassIIIa
+          - MY.waterbirdJuvenileAgeClassUnknown
+          title: Juvenile age class
+        waterbirdJuvenileCountAccurate:
+          type: boolean
+          title: Count accurate?
+        waterbirdObserverOpinionSelectedCensus:
+          type: boolean
+          title: Make an interpretation based on this census
+        waterbirdPairCountOpinionReasoning:
           type: string
-          description: End date for a collection time period, if exact date is not know.
-          title: End date
-        geometry:
-          $ref: '#/components/schemas/store-geometry'
-        habitatDescription:
-          type: string
-          description: Informal description of the habitat.
-          title: Habitat description
-        substrate:
-          type: string
-          description: Type of substrate or name of substrate species.
-          title: Substrate
+          enum:
+          - ''
+          - MY.waterbirdPairCountOpinionReasoningEnum1
+          - MY.waterbirdPairCountOpinionReasoningEnum2
+          - MY.waterbirdPairCountOpinionReasoningEnum3
+          - MY.waterbirdPairCountOpinionReasoningEnumOther
+          title: Reasoning for own interpretation
+        individualCountBiotopeA:
+          type: integer
+          minimum: 0
+          title: Individual count dump
+        individualCountBiotopeB:
+          type: integer
+          minimum: 0
+          title: Individual count urban
+        individualCountBiotopeC:
+          type: integer
+          minimum: 0
+          title: Individual count countryside
+        individualCountBiotopeD:
+          type: integer
+          minimum: 0
+          title: Individual count field
+        individualCountBiotopeE:
+          type: integer
+          minimum: 0
+          title: Individual count forest
+        individualCountBiotopeF:
+          type: integer
+          minimum: 0
+          title: Individual count other biotope
+        individualCountBiotopeG:
+          type: integer
+          minimum: 0
+          title: Individual count cutting open
+        individualCountBiotopeH:
+          type: integer
+          minimum: 0
+          title: Individual count reed
       additionalProperties: false
       required:
       - '@context'
       - id
       - '@type'
-      - dateBegin
-      - dateEnd
-      - geometry
-      - habitatDescription
-      - substrate
+      - adultIndividualCount
+      - autocompleteSelectedTaxonID
+      - birdMultiplier
+      - broodCount
+      - destroyedNestCount
+      - detOnSite
+      - distanceMeters
+      - eggCount
+      - femalesWithBroodsCount
+      - glowWormMicrohabitat
+      - groundNestCount
+      - individualCountFlock
+      - individualCountInner
+      - individualCountOuter
+      - juvenileIndividualCount
+      - lineTransectObsType
+      - lineTransectRouteFieldType
+      - lolifeDroppingsCount
+      - lolifeDroppingsQuality
+      - lolifeDroppingsType
+      - lolifeNestTree
+      - observationDuration
+      - observationHours
+      - pairCountInner
+      - pairCountOuter
+      - pointCountFlock
+      - pullusIndividualCount
+      - runningWaterInVicinity
+      - taxonConfidenceDescription
+      - traits
+      - treeNestCount
+      - waterbirdFemale
+      - waterbirdJuvenileAgeClass
+      - waterbirdJuvenileCountAccurate
+      - waterbirdObserverOpinionSelectedCensus
+      - waterbirdPairCountOpinionReasoning
+      - individualCountBiotopeA
+      - individualCountBiotopeB
+      - individualCountBiotopeC
+      - individualCountBiotopeD
+      - individualCountBiotopeE
+      - individualCountBiotopeF
+      - individualCountBiotopeG
+      - individualCountBiotopeH
+    store-dateRange:
+      type: object
+      properties:
+        '@context':
+          type: string
+          title: Context for the MNP.dateRange
+        id:
+          type: string
+          title: Id for the MNP.dateRange
+        '@type':
+          type: string
+          title: Type for the MNP.dateRange
+        end:
+          type: string
+          format: date
+          title: End
+        start:
+          type: string
+          format: date
+          title: Start
+      additionalProperties: false
+      required:
+      - '@context'
+      - id
+      - '@type'
+      - end
+      - start
     store-gatheringFact:
       type: object
       properties:
@@ -2067,974 +1897,6 @@ components:
       - wayOfTravel
       - wayOfTravelNotes
       - wind
-    store-namedPlace:
-      type: object
-      properties:
-        '@context':
-          type: string
-          title: Context for the MNP.namedPlace
-        id:
-          type: string
-          title: Id for the MNP.namedPlace
-        '@type':
-          type: string
-          title: Type for the MNP.namedPlace
-        acceptedDocument:
-          $ref: '#/components/schemas/store-document'
-        accessibility:
-          type: string
-          enum:
-          - ''
-          - MNP.accessibilityEasy
-          - MNP.accessibilityModerate
-          - MNP.accessibilityDifficult
-          title: Accessibility
-        active:
-          $ref: '#/components/schemas/store-dateRange'
-        alternativeIDs:
-          type: array
-          uniqueItems: false
-          items:
-            type: string
-          minItems: 0
-          title: Alternative IDs
-        biogeographicalProvince:
-          type: array
-          uniqueItems: false
-          items:
-            type: string
-          minItems: 0
-          description: Formal abbreviation. For Finnish eliömaakunnat, use Finnish abbreviation.
-          title: Biogeographical province
-        birdAssociationArea:
-          type: array
-          uniqueItems: false
-          items:
-            type: string
-          minItems: 0
-          title: Bird assocation area
-        collectionID:
-          type: string
-          title: Collection
-        editors:
-          type: array
-          uniqueItems: false
-          items:
-            type: string
-          minItems: 0
-          description: Persons who have rights to see and use the named places in their documents
-          title: Editors
-        geometry:
-          $ref: '#/components/schemas/store-geometry'
-        images:
-          type: array
-          uniqueItems: false
-          items:
-            type: string
-          minItems: 0
-          title: Images
-        locality:
-          type: string
-          title: Paikkatiedot
-        localityDescription:
-          type: string
-          description: Informal description of the exact locality, e.g. '5 km NE of city X, under stone bridge'
-          title: Locality description
-        municipality:
-          type: array
-          uniqueItems: false
-          items:
-            type: string
-          minItems: 0
-          title: Municipality
-        name:
-          type: string
-          title: Name
-        notes:
-          type: string
-          title: Notes
-        owners:
-          type: array
-          uniqueItems: false
-          items:
-            type: string
-          minItems: 0
-          description: Persons who have full use access and rights to edit the named place
-          title: Owners of the named place
-        prepopulatedDocument:
-          $ref: '#/components/schemas/store-document'
-        priority:
-          type: string
-          enum:
-          - ''
-          - MNP.priority1
-          - MNP.priority2
-          - MNP.priority3
-          - MNP.priority4
-          - MNP.priority5
-          title: Priority
-        privateNotes:
-          type: string
-          title: Private notes
-        public:
-          type: boolean
-          description: Is the named place publicaly available. (Defaults to false)
-          title: Publicly available
-        reserve:
-          $ref: '#/components/schemas/store-reserve'
-        tags:
-          type: array
-          uniqueItems: false
-          items:
-            type: string
-            enum:
-            - ''
-            - MNP.tagAccessibilityEasy
-            - MNP.tagAccessibilityModerate
-            - MNP.tagAccessibilityDifficult
-            - MNP.tagHabitatImportant
-            - MNP.tagCensusRare
-            - MNP.tagHabitatFarmland
-            - MNP.tagHabitatMire
-            - MNP.tagHabitatMountain
-            - MNP.tagSuitable
-            - MNP.tagTypeIsland
-            - MNP.tagTypePartialIsland
-            - MNP.tagTypeIslandGroup
-            - MNP.tagTypeWater
-            - MNP.tagTypeShoreline
-            - MNP.tagTypeMixed
-            - MNP.tagTypeUnknown
-            - MNP.tagWishedToBeCounted
-          minItems: 0
-          title: Tags
-        taxonIDs:
-          type: array
-          uniqueItems: false
-          items:
-            type: string
-          minItems: 0
-          title: Taxa
-        samplingMethodNotes:
-          type: string
-          title: Sampling method notes
-      required:
-      - geometry
-      - name
-      additionalProperties: false
-    store-completeList:
-      type: object
-      properties:
-        '@context':
-          type: string
-          title: Context for the MY.completeListClass
-        id:
-          type: string
-          title: Id for the MY.completeListClass
-        '@type':
-          type: string
-          title: Type for the MY.completeListClass
-        completeListTaxonID:
-          type: string
-          title: Species
-        completeListType:
-          type: string
-          enum:
-          - ''
-          - MY.completeListTypeCompleteWithBreedingStatus
-          - MY.completeListTypeComplete
-          - MY.completeListTypeIncomplete
-          title: Species list completeness
-      additionalProperties: false
-      required:
-      - '@context'
-      - id
-      - '@type'
-      - completeListTaxonID
-      - completeListType
-    store-preparation:
-      type: object
-      properties:
-        '@context':
-          type: string
-          title: Context for the MF.preparationClass
-        id:
-          type: string
-          title: Id for the MF.preparationClass
-        '@type':
-          type: string
-          title: Type for the MF.preparationClass
-        preparationDate:
-          type: string
-          description: Date when the preparation/sample was prepared.
-          title: Preparation date
-        preparationMaterials:
-          type: array
-          uniqueItems: false
-          items:
-            type: string
-            enum:
-            - ''
-            - MF.preparationMaterialsAcetone
-            - MF.preparationMaterialsAmmonia
-            - MF.preparationMaterialsBasyntan
-            - MF.preparationMaterialsBorax
-            - MF.preparationMaterialsEulan
-            - MF.preparationMaterialsHydrogenPeroxide
-            - MF.preparationMaterialsMethyleneChloride
-            - MF.preparationMaterialsNovaltan
-            - MF.preparationMaterialsPapaine
-            - MF.preparationMaterialsPlaster
-            - MF.preparationMaterialsPolyurethane
-            - MF.preparationMaterialsPretanix
-            - MF.preparationMaterialsPurifiedGasoline
-            - MF.preparationMaterialsWoodWool
-            - MF.preparationMaterialsCTAB
-            - MF.preparationMaterialsEZNAForensicKit
-            - MF.preparationMaterialsDNEasyBloodAndTissueKit
-            - MF.preparationMaterialsDNEasyPlantKit
-            - MF.preparationMaterialsNucleospinTissueKit
-            - MF.preparationMaterialsNucleospinPlantTwo
-            - MF.preparationMaterialsSaltExtraction
-            - MF.preparationMaterialsDNeasyPlantMiniKit
-            - MF.preparationMaterialsMagAttractHMWDNAKit
-          minItems: 0
-          description: Materials (chemicals, kits etc.) used in the preparation process. It is possible to choose several.
-          title: Preparation process materials
-        preparationProcess:
-          type: array
-          uniqueItems: false
-          items:
-            type: string
-            enum:
-            - ''
-            - MF.preparationProcessTanning
-            - MF.preparationProcessEnzymaticMaceration
-            - MF.preparationProcessDegreasing
-            - MF.preparationProcessBeetleCleaning
-            - MF.preparationProcessPEG
-            - MF.preparationProcessFreezeDrying
-          minItems: 0
-          description: Processes used in the preparation. It is possible to choose several.
-          title: Preparation process
-        preparationProcessNotes:
-          type: string
-          description: Additional information about the preparation process.
-          title: Preparation process notes
-        preparedBy:
-          type: string
-          description: Name of the person who prepared the preparation/sample, preferably in the format 'lastname, firstname'
-          title: Prepared by
-        isPartOf:
-          type: string
-          description: Which parent or larger collection this is part of.
-          title: Is part of
-      additionalProperties: false
-      required:
-      - '@context'
-      - id
-      - '@type'
-      - preparationDate
-      - preparationMaterials
-      - preparationProcess
-      - preparationProcessNotes
-      - preparedBy
-      - isPartOf
-    store-identification:
-      type: object
-      properties:
-        '@context':
-          type: string
-          title: Context for the Identification
-        id:
-          type: string
-          title: Id for the Identification
-        '@type':
-          type: string
-          title: Type for the Identification
-        associatedObservationTaxa:
-          type: string
-          description: 'Write associated observation taxa names here, separated by a semicolon (;). E.g.: "Betula pendula; Betula pubescens; Poaceae". These will form their own units of the type observation.'
-          title: Associated observation taxa
-        author:
-          type: string
-          description: Author for the taxon
-          title: Taxon author
-        det:
-          type: string
-          description: Name of the identifier (person) preferably in format "lastname, firstname"
-          title: Det.
-        detDate:
-          type: string
-          description: Date or year when the identification was done, preferably in format "d.m.Y" or "Y"
-          title: Det. date
-        detMethod:
-          type: string
-          enum:
-          - ''
-          - MY.detMethodFreshSample
-          - MY.detMethodMicroscopy
-          - MY.detMethodPhoto
-          title: Det method
-        detVerbatim:
-          type: string
-          description: Name of the identifier and date of identification in original format (e.g. from the label), errors and all
-          title: Det verbatim from the label or other original source
-        genusQualifier:
-          type: string
-          description: Additional qualifier or specifier at genus level (e.g. aff., cf.)
-          title: Genus qualifier
-        identificationBasis:
-          type: array
-          uniqueItems: false
-          items:
-            type: string
-            enum:
-            - ''
-            - MY.identificationBasisDNA
-            - MY.identificationBasisGenitals
-            - MY.identificationBasisGenitalPreparate
-            - MY.identificationBasisSpores
-            - MY.identificationBasisHandled
-            - MY.identificationBasisChemical
-            - MY.identificationBasisHeard
-            - MY.identificationBasisMicroscope
-            - MY.identificationBasisSeen
-            - MY.identificationBasisPreservedSpecimen
-            - MY.identificationBasisFreshSpecimen
-            - MY.identificationBasisMedia
-          minItems: 0
-          title: Identification basis
-        identificationNotes:
-          type: string
-          description: Additional information on the identification, basis or such
-          title: Identification notes
-        infraAuthor:
-          type: string
-          description: Author for the taxon below species level/infra epithet
-          title: Infra author
-        infraEpithet:
-          type: string
-          description: Taxon name for the epithet below species level
-          title: Infra name
-        infraRank:
-          type: string
-          enum:
-          - ''
-          - MY.infraRankSsp
-          - MY.infraRankVar
-          - MY.infraRankBeta
-          - MY.infraRankB
-          - MY.infraRankForma
-          - MY.infraRankHybrid
-          - MY.infraRankAnamorph
-          - MY.infraRankAggregate
-          - MY.infraRankAberration
-          - MY.infraRankCultivar
-          - MY.infraRankMorpha
-          - MY.infraRankUnknown
-          - MY.infraRankNothosubspecies
-          - MY.infraRankCultivarGroup
-          - MY.infraRankFsp
-          - MY.infraRankNothovar
-          description: Taxonomic level of the epithet below species level
-          title: Infra rank
-        infrasubspecificSubdivision:
-          type: string
-          description: Pathovars, serovars and other infrasubspecific subdivisions of microbes.
-          title: Infrasubspecific subdivision
-        isPartOf:
-          type: string
-          description: Which parent or larger collection this is part of.
-          title: Is part of
-        isTaxonGroup:
-          type: boolean
-          title: Is taxon group
-        preferredIdentification:
-          type: string
-          description: This can be used to select one of the identifications as 'recommended', which is the used as default when displaying information about the specimen.
-          title: Preferred identification
-        sec:
-          type: string
-          description: Publication reference for the taxon concept, that was used in identification
-          title: Taxon concept (sec)
-        speciesQualifier:
-          type: string
-          description: Additional qualifier at species level (e.g. aff., cf., sp. n., coll.)
-          title: Species qualifier
-        taxon:
-          type: string
-          description: Taxon name
-          title: Species
-        taxonID:
-          type: string
-          description: ID for the taxon if has some other than an MX code
-          title: Taxon alternative ID
-        taxonRank:
-          type: string
-          enum:
-          - ''
-          - MX.superdomain
-          - MX.domain
-          - MX.kingdom
-          - MX.subkingdom
-          - MX.infrakingdom
-          - MX.superphylum
-          - MX.phylum
-          - MX.subphylum
-          - MX.infraphylum
-          - MX.superdivision
-          - MX.division
-          - MX.subdivision
-          - MX.infradivision
-          - MX.superclass
-          - MX.class
-          - MX.subclass
-          - MX.infraclass
-          - MX.parvclass
-          - MX.superorder
-          - MX.order
-          - MX.suborder
-          - MX.infraorder
-          - MX.parvorder
-          - MX.superfamily
-          - MX.family
-          - MX.subfamily
-          - MX.tribe
-          - MX.subtribe
-          - MX.supergenus
-          - MX.genus
-          - MX.nothogenus
-          - MX.subgenus
-          - MX.section
-          - MX.subsection
-          - MX.series
-          - MX.subseries
-          - MX.infragenericTaxon
-          - MX.aggregate
-          - MX.speciesAggregate
-          - MX.species
-          - MX.nothospecies
-          - MX.infraspecificTaxon
-          - MX.subspecificAggregate
-          - MX.subspecies
-          - MX.nothosubspecies
-          - MX.variety
-          - MX.subvariety
-          - MX.form
-          - MX.subform
-          - MX.hybrid
-          - MX.anamorph
-          - MX.ecotype
-          - MX.populationGroup
-          - MX.intergenericHybrid
-          - MX.infragenericHybrid
-          - MX.cultivar
-          - MX.group
-          - MX.grex
-          description: Taxonomic level for the identification
-          title: Taxon rank
-        taxonSpecifier:
-          type: string
-          title: Taxon specifier
-        taxonURI:
-          type: string
-          title: Taxon URI
-        taxonVerbatim:
-          type: string
-          description: Taxon name in original format (e.g. from the label), errors and all
-          title: Taxon verbatim
-        publicityRestrictions:
-          type: string
-          enum:
-          - ''
-          - MZ.publicityRestrictionsPublic
-          - MZ.publicityRestrictionsProtected
-          - MZ.publicityRestrictionsPrivate
-          description: 'PUBLIC: all data can be published; PROTECTED: exact locality is hidden (100*100km square); PRIVATE: most of the data is hidden. Empty value means same as public.'
-          title: Publicity restrictions
-        sortOrder:
-          type: integer
-          title: sortOrder
-      additionalProperties: false
-      required:
-      - '@context'
-      - id
-      - '@type'
-      - associatedObservationTaxa
-      - author
-      - det
-      - detDate
-      - detMethod
-      - detVerbatim
-      - genusQualifier
-      - identificationBasis
-      - identificationNotes
-      - infraAuthor
-      - infraEpithet
-      - infraRank
-      - infrasubspecificSubdivision
-      - isPartOf
-      - isTaxonGroup
-      - preferredIdentification
-      - sec
-      - speciesQualifier
-      - taxon
-      - taxonID
-      - taxonRank
-      - taxonSpecifier
-      - taxonURI
-      - taxonVerbatim
-      - publicityRestrictions
-      - sortOrder
-    store-lineTransectNest:
-      type: object
-      properties:
-        '@context':
-          type: string
-          title: Context for the Instances of this class are information about a nest on a line-transect route
-        id:
-          type: string
-          title: Id for the Instances of this class are information about a nest on a line-transect route
-        '@type':
-          type: string
-          title: Type for the Instances of this class are information about a nest on a line-transect route
-        autocompleteSelectedTaxonID:
-          type: string
-          title: Taxon ID selected from autocomplete
-        lineTransectNestMeters:
-          type: integer
-          minimum: 0
-          title: 'Nest position on the line: meters from the start of the line'
-        lineTransectRouteFieldType:
-          type: string
-          enum:
-          - ''
-          - MY.lineTransectRouteFieldTypeInner
-          - MY.lineTransectRouteFieldTypeOuter
-          title: Field Area
-        nestCount:
-          type: integer
-          minimum: 0
-          title: Nest count
-        nestSize:
-          type: string
-          enum:
-          - ''
-          - MY.nestSizeEnum1
-          - MY.nestSizeEnum2
-          - MY.nestSizeEnum3
-          title: Nest Size
-        nestType:
-          type: string
-          enum:
-          - ''
-          - MY.nestTypeTreeCavity
-          - MY.nestTypeTwig
-          - MY.nestTypeNestBox
-          - MY.nestTypeBuilding
-          - MY.nestTypeGroundCavity
-          - MY.nestTypeOther
-          title: Nest type
-        taxon:
-          type: string
-          description: Taxon name
-          title: Species
-      additionalProperties: false
-      required:
-      - '@context'
-      - id
-      - '@type'
-      - autocompleteSelectedTaxonID
-      - lineTransectNestMeters
-      - lineTransectRouteFieldType
-      - nestCount
-      - nestSize
-      - nestType
-      - taxon
-    store-geometry:
-      anyOf:
-      - title: GeoJSON Geometry
-        oneOf:
-        - title: GeoJSON Point
-          type: object
-          required:
-          - type
-          - coordinates
-          properties:
-            type:
-              type: string
-              enum:
-              - Point
-            coordinates:
-              type: array
-              minItems: 2
-              items:
-                type: number
-            bbox:
-              type: array
-              minItems: 4
-              items:
-                type: number
-        - title: GeoJSON LineString
-          type: object
-          required:
-          - type
-          - coordinates
-          properties:
-            type:
-              type: string
-              enum:
-              - LineString
-            coordinates:
-              type: array
-              minItems: 2
-              items:
-                type: array
-                minItems: 2
-                items:
-                  type: number
-            bbox:
-              type: array
-              minItems: 4
-              items:
-                type: number
-        - title: GeoJSON Polygon
-          type: object
-          required:
-          - type
-          - coordinates
-          properties:
-            type:
-              type: string
-              enum:
-              - Polygon
-            coordinates:
-              type: array
-              items:
-                type: array
-                minItems: 4
-                items:
-                  type: array
-                  minItems: 2
-                  items:
-                    type: number
-            bbox:
-              type: array
-              minItems: 4
-              items:
-                type: number
-        - title: GeoJSON MultiPoint
-          type: object
-          required:
-          - type
-          - coordinates
-          properties:
-            type:
-              type: string
-              enum:
-              - MultiPoint
-            coordinates:
-              type: array
-              items:
-                type: array
-                minItems: 2
-                items:
-                  type: number
-            bbox:
-              type: array
-              minItems: 4
-              items:
-                type: number
-        - title: GeoJSON MultiLineString
-          type: object
-          required:
-          - type
-          - coordinates
-          properties:
-            type:
-              type: string
-              enum:
-              - MultiLineString
-            coordinates:
-              type: array
-              items:
-                type: array
-                minItems: 2
-                items:
-                  type: array
-                  minItems: 2
-                  items:
-                    type: number
-            bbox:
-              type: array
-              minItems: 4
-              items:
-                type: number
-        - title: GeoJSON MultiPolygon
-          type: object
-          required:
-          - type
-          - coordinates
-          properties:
-            type:
-              type: string
-              enum:
-              - MultiPolygon
-            coordinates:
-              type: array
-              items:
-                type: array
-                items:
-                  type: array
-                  minItems: 4
-                  items:
-                    type: array
-                    minItems: 2
-                    items:
-                      type: number
-            bbox:
-              type: array
-              minItems: 4
-              items:
-                type: number
-      - title: GeoJSON GeometryCollection
-        type: object
-        required:
-        - type
-        - geometries
-        properties:
-          type:
-            type: string
-            enum:
-            - GeometryCollection
-          geometries:
-            type: array
-            items:
-              oneOf:
-              - title: GeoJSON Point
-                type: object
-                required:
-                - type
-                - coordinates
-                properties:
-                  type:
-                    type: string
-                    enum:
-                    - Point
-                  coordinates:
-                    type: array
-                    minItems: 2
-                    items:
-                      type: number
-                  bbox:
-                    type: array
-                    minItems: 4
-                    items:
-                      type: number
-              - title: GeoJSON LineString
-                type: object
-                required:
-                - type
-                - coordinates
-                properties:
-                  type:
-                    type: string
-                    enum:
-                    - LineString
-                  coordinates:
-                    type: array
-                    minItems: 2
-                    items:
-                      type: array
-                      minItems: 2
-                      items:
-                        type: number
-                  bbox:
-                    type: array
-                    minItems: 4
-                    items:
-                      type: number
-              - title: GeoJSON Polygon
-                type: object
-                required:
-                - type
-                - coordinates
-                properties:
-                  type:
-                    type: string
-                    enum:
-                    - Polygon
-                  coordinates:
-                    type: array
-                    items:
-                      type: array
-                      minItems: 4
-                      items:
-                        type: array
-                        minItems: 2
-                        items:
-                          type: number
-                  bbox:
-                    type: array
-                    minItems: 4
-                    items:
-                      type: number
-              - title: GeoJSON MultiPoint
-                type: object
-                required:
-                - type
-                - coordinates
-                properties:
-                  type:
-                    type: string
-                    enum:
-                    - MultiPoint
-                  coordinates:
-                    type: array
-                    items:
-                      type: array
-                      minItems: 2
-                      items:
-                        type: number
-                  bbox:
-                    type: array
-                    minItems: 4
-                    items:
-                      type: number
-              - title: GeoJSON MultiLineString
-                type: object
-                required:
-                - type
-                - coordinates
-                properties:
-                  type:
-                    type: string
-                    enum:
-                    - MultiLineString
-                  coordinates:
-                    type: array
-                    items:
-                      type: array
-                      minItems: 2
-                      items:
-                        type: array
-                        minItems: 2
-                        items:
-                          type: number
-                  bbox:
-                    type: array
-                    minItems: 4
-                    items:
-                      type: number
-              - title: GeoJSON MultiPolygon
-                type: object
-                required:
-                - type
-                - coordinates
-                properties:
-                  type:
-                    type: string
-                    enum:
-                    - MultiPolygon
-                  coordinates:
-                    type: array
-                    items:
-                      type: array
-                      items:
-                        type: array
-                        minItems: 4
-                        items:
-                          type: array
-                          minItems: 2
-                          items:
-                            type: number
-                  bbox:
-                    type: array
-                    minItems: 4
-                    items:
-                      type: number
-          bbox:
-            type: array
-            minItems: 4
-            items:
-              type: number
-    store-dateRange:
-      type: object
-      properties:
-        '@context':
-          type: string
-          title: Context for the MNP.dateRange
-        id:
-          type: string
-          title: Id for the MNP.dateRange
-        '@type':
-          type: string
-          title: Type for the MNP.dateRange
-        end:
-          type: string
-          format: date
-          title: End
-        start:
-          type: string
-          format: date
-          title: Start
-      additionalProperties: false
-      required:
-      - '@context'
-      - id
-      - '@type'
-      - end
-      - start
-    store-contact:
-      type: object
-      properties:
-        '@context':
-          type: string
-          title: Context for the Contact
-        id:
-          type: string
-          title: Id for the Contact
-        '@type':
-          type: string
-          title: Type for the Contact
-        emailAddress:
-          type: string
-          title: Email address
-        inheritedName:
-          type: string
-          title: Last name
-        preferredName:
-          type: string
-          title: Kutsumanimi
-        city:
-          type: string
-          title: City
-        country:
-          type: string
-          title: Country
-        phoneNumber:
-          type: string
-          title: Phone number
-        postalCode:
-          type: string
-          title: Postal code
-        streetAddress:
-          type: string
-          title: Street address
-      additionalProperties: false
-      required:
-      - '@context'
-      - id
-      - '@type'
-      - emailAddress
-      - inheritedName
-      - preferredName
-      - city
-      - country
-      - phoneNumber
-      - postalCode
-      - streetAddress
     store-typeSpecimen:
       type: object
       properties:
@@ -4017,6 +2879,29 @@ components:
       - images
       - publicityRestrictions
       - units
+    store-reserve:
+      type: object
+      properties:
+        '@context':
+          type: string
+          title: Context for the MNP.reserveClass
+        id:
+          type: string
+          title: Id for the MNP.reserveClass
+        '@type':
+          type: string
+          title: Type for the MNP.reserveClass
+        reserver:
+          type: string
+          title: Reserver
+        until:
+          type: string
+          format: date
+          title: Until
+      required:
+      - reserver
+      - until
+      additionalProperties: false
     StoreDeleteResponse:
       type: object
       properties:
@@ -4309,6 +3194,1243 @@ components:
       required:
       - preparationType
       additionalProperties: false
+    store-documentIdentification:
+      type: object
+      properties:
+        '@context':
+          type: string
+          title: Context for the Document identification
+        id:
+          type: string
+          title: Id for the Document identification
+        '@type':
+          type: string
+          title: Type for the Document identification
+        det:
+          type: string
+          description: Name of the identifier (person) preferably in format "lastname, firstname"
+          title: Det.
+        detDate:
+          type: string
+          description: Date or year when the identification was done, preferably in format "d.m.Y" or "Y"
+          title: Det. date
+      additionalProperties: false
+      required:
+      - '@context'
+      - id
+      - '@type'
+      - det
+      - detDate
+    store-taxonCensus:
+      type: object
+      properties:
+        '@context':
+          type: string
+          title: Context for the Completeness of census
+        id:
+          type: string
+          title: Id for the Completeness of census
+        '@type':
+          type: string
+          title: Type for the Completeness of census
+        censusTaxonID:
+          type: string
+          title: Censused taxon
+        censusTaxonSetID:
+          type: string
+          enum:
+          - ''
+          - MX.taxonSetSykeButterflyCensusPapilionoidea
+          - MX.taxonSetSykeButterflyCensusOther
+          - MX.taxonSetWaterbirdWaterbirds
+          - MX.taxonSetWaterbirdWaders
+          - MX.taxonSetWaterbirdGulls
+          - MX.taxonSetWaterbirdPasserines
+          - MX.taxonSetWaterbirdAmphibia
+          - MX.taxonSetSykeBumblebee
+          - MVL.1201
+          - MX.taxonSetSykeBumblebeeOther
+          - MX.taxonSetBirdAtlasCommon
+          - MX.taxonSetBiomonCompleteListOdonata
+          - MX.taxonSetBiomonCompleteListButterflies
+          - MX.taxonSetBiomonCompleteListMoths
+          - MX.taxonSetBiomonCompleteListBombus
+          - MX.taxonSetBiomonCompleteListAmphibiaReptilia
+          - MX.taxonSetBiomonCompleteListLargeFlowers
+          - MX.taxonSetBiomonCompleteListSubarcticPlants
+          - MX.taxonSetBiomonCompleteListMacrolichens
+          - MX.taxonSetBiomonCompleteListBracketFungi
+          - MX.taxonSetBiomonCompleteListPracticalFungi
+          - MX.taxonSetSykeMacrozoobenthos
+          - MX.taxonSetArchipelagoWaterbirds
+          - MX.taxonSetArchipelagoWaders
+          - MX.taxonSetArchipelagoGulls
+          - MX.taxonSetArchipelagoPasserines
+          - MX.taxonSetArchipelagoAlcids
+          - MX.taxonSetArchipelagoRaptors
+          - MX.taxonSetArchipelagoCormorants
+          - MX.taxonSetArchipelagoEgrets
+          - MX.taxonSetArchipelagoMammals
+          - MX.taxonSetPriodiversityOldForestPolypores
+          - MX.taxonSetPriodiversityIndicatorLichens
+          title: Censused taxon set
+        taxonCensusType:
+          type: string
+          enum:
+          - MY.taxonCensusTypeCounted
+          - MY.taxonCensusTypeEstimated
+          - MY.taxonCensusTypeNotCounted
+          title: Completeness of census
+      required:
+      - taxonCensusType
+      additionalProperties: false
+    store-lineTransectNest:
+      type: object
+      properties:
+        '@context':
+          type: string
+          title: Context for the Instances of this class are information about a nest on a line-transect route
+        id:
+          type: string
+          title: Id for the Instances of this class are information about a nest on a line-transect route
+        '@type':
+          type: string
+          title: Type for the Instances of this class are information about a nest on a line-transect route
+        autocompleteSelectedTaxonID:
+          type: string
+          title: Taxon ID selected from autocomplete
+        lineTransectNestMeters:
+          type: integer
+          minimum: 0
+          title: 'Nest position on the line: meters from the start of the line'
+        lineTransectRouteFieldType:
+          type: string
+          enum:
+          - ''
+          - MY.lineTransectRouteFieldTypeInner
+          - MY.lineTransectRouteFieldTypeOuter
+          title: Field Area
+        nestCount:
+          type: integer
+          minimum: 0
+          title: Nest count
+        nestSize:
+          type: string
+          enum:
+          - ''
+          - MY.nestSizeEnum1
+          - MY.nestSizeEnum2
+          - MY.nestSizeEnum3
+          title: Nest Size
+        nestType:
+          type: string
+          enum:
+          - ''
+          - MY.nestTypeTreeCavity
+          - MY.nestTypeTwig
+          - MY.nestTypeNestBox
+          - MY.nestTypeBuilding
+          - MY.nestTypeGroundCavity
+          - MY.nestTypeOther
+          title: Nest type
+        taxon:
+          type: string
+          description: Taxon name
+          title: Species
+      additionalProperties: false
+      required:
+      - '@context'
+      - id
+      - '@type'
+      - autocompleteSelectedTaxonID
+      - lineTransectNestMeters
+      - lineTransectRouteFieldType
+      - nestCount
+      - nestSize
+      - nestType
+      - taxon
+    store-contact:
+      type: object
+      properties:
+        '@context':
+          type: string
+          title: Context for the Contact
+        id:
+          type: string
+          title: Id for the Contact
+        '@type':
+          type: string
+          title: Type for the Contact
+        emailAddress:
+          type: string
+          title: Email address
+        inheritedName:
+          type: string
+          title: Last name
+        preferredName:
+          type: string
+          title: Kutsumanimi
+        city:
+          type: string
+          title: City
+        country:
+          type: string
+          title: Country
+        phoneNumber:
+          type: string
+          title: Phone number
+        postalCode:
+          type: string
+          title: Postal code
+        streetAddress:
+          type: string
+          title: Street address
+      additionalProperties: false
+      required:
+      - '@context'
+      - id
+      - '@type'
+      - emailAddress
+      - inheritedName
+      - preferredName
+      - city
+      - country
+      - phoneNumber
+      - postalCode
+      - streetAddress
+    store-measurement:
+      type: object
+      properties:
+        '@context':
+          type: string
+          title: Context for the MY.measurementClass
+        id:
+          type: string
+          title: Id for the MY.measurementClass
+        '@type':
+          type: string
+          title: Type for the MY.measurementClass
+        DNAConcentrationNgPerMicroliter:
+          type: array
+          uniqueItems: false
+          items:
+            type: number
+          minItems: 0
+          title: DNA concentration (ng/microliter)
+        DNARatioOfAbsorbance260And280:
+          type: array
+          uniqueItems: false
+          items:
+            type: number
+          minItems: 0
+          title: DNA purity (ratio of absorbance 260/280 nm)
+        DNAVolumeMicroliters:
+          type: array
+          uniqueItems: false
+          items:
+            type: number
+          minItems: 0
+          title: DNA volume (microliters)
+        beakMillimeters:
+          type: array
+          uniqueItems: false
+          items:
+            type: number
+          minItems: 0
+          title: Beak (mm)
+        bodyCentimeters:
+          type: array
+          uniqueItems: false
+          items:
+            type: number
+          minItems: 0
+          title: Body (cm)
+        bodyMillimeters:
+          type: array
+          uniqueItems: false
+          items:
+            type: number
+          minItems: 0
+          title: Body (mm)
+        earLengthMillimeters:
+          type: array
+          uniqueItems: false
+          items:
+            type: number
+          minItems: 0
+          title: Ear length (mm)
+        embryoCount:
+          type: array
+          uniqueItems: false
+          items:
+            type: number
+          minItems: 0
+          title: Embryo count
+        follicleDiameterMillimeters:
+          type: array
+          uniqueItems: false
+          items:
+            type: number
+          minItems: 0
+          title: Follicle diameter (mm)
+        footLengthMillimeters:
+          type: array
+          uniqueItems: false
+          items:
+            type: number
+          minItems: 0
+          title: Foot length (mm)
+        forearmMillimeters:
+          type: array
+          uniqueItems: false
+          items:
+            type: number
+          minItems: 0
+          title: Forearm (mm)
+        gonadMillimeters:
+          type: array
+          uniqueItems: false
+          items:
+            type: number
+          minItems: 0
+          title: Gonad (mm)
+        isPartOf:
+          type: string
+          description: Which parent or larger collection this is part of.
+          title: Is part of
+        tailCentimeters:
+          type: array
+          uniqueItems: false
+          items:
+            type: number
+          minItems: 0
+          title: Tail (cm)
+        tailMillimeters:
+          type: array
+          uniqueItems: false
+          items:
+            type: number
+          minItems: 0
+          title: Tail (mm)
+        tarsusLengthMillimeters:
+          type: array
+          uniqueItems: false
+          items:
+            type: number
+          minItems: 0
+          title: Tarsus length (mm)
+        totalLengthCentimeters:
+          type: array
+          uniqueItems: false
+          items:
+            type: number
+          minItems: 0
+          title: Length (cm)
+        totalLengthMillimeters:
+          type: array
+          uniqueItems: false
+          items:
+            type: number
+          minItems: 0
+          title: Length (mm)
+        uterineScarCount:
+          type: array
+          uniqueItems: false
+          items:
+            type: number
+          minItems: 0
+          title: Uterine scar count
+        weightGrams:
+          type: array
+          uniqueItems: false
+          items:
+            type: number
+          minItems: 0
+          title: Weight (g)
+        weightKilograms:
+          type: array
+          uniqueItems: false
+          items:
+            type: number
+          minItems: 0
+          title: Weight (kg)
+        wingMaxMillimeters:
+          type: array
+          uniqueItems: false
+          items:
+            type: number
+          minItems: 0
+          title: Wing max (mm)
+        wingMillimeters:
+          type: array
+          uniqueItems: false
+          items:
+            type: number
+          minItems: 0
+          title: Wing (mm)
+        wingMinMillimeters:
+          type: array
+          uniqueItems: false
+          items:
+            type: number
+          minItems: 0
+          title: Wing min (mm)
+      additionalProperties: false
+      required:
+      - '@context'
+      - id
+      - '@type'
+      - DNAConcentrationNgPerMicroliter
+      - DNARatioOfAbsorbance260And280
+      - DNAVolumeMicroliters
+      - beakMillimeters
+      - bodyCentimeters
+      - bodyMillimeters
+      - earLengthMillimeters
+      - embryoCount
+      - follicleDiameterMillimeters
+      - footLengthMillimeters
+      - forearmMillimeters
+      - gonadMillimeters
+      - isPartOf
+      - tailCentimeters
+      - tailMillimeters
+      - tarsusLengthMillimeters
+      - totalLengthCentimeters
+      - totalLengthMillimeters
+      - uterineScarCount
+      - weightGrams
+      - weightKilograms
+      - wingMaxMillimeters
+      - wingMillimeters
+      - wingMinMillimeters
+    store-unitGathering:
+      type: object
+      properties:
+        '@context':
+          type: string
+          title: Context for the Havainnon keruutiedot
+        id:
+          type: string
+          title: Id for the Havainnon keruutiedot
+        '@type':
+          type: string
+          title: Type for the Havainnon keruutiedot
+        dateBegin:
+          type: string
+          description: Collection date as exact date or start date for a time period.
+          title: Start date
+        dateEnd:
+          type: string
+          description: End date for a collection time period, if exact date is not know.
+          title: End date
+        geometry:
+          $ref: '#/components/schemas/store-geometry'
+        habitatDescription:
+          type: string
+          description: Informal description of the habitat.
+          title: Habitat description
+        substrate:
+          type: string
+          description: Type of substrate or name of substrate species.
+          title: Substrate
+      additionalProperties: false
+      required:
+      - '@context'
+      - id
+      - '@type'
+      - dateBegin
+      - dateEnd
+      - geometry
+      - habitatDescription
+      - substrate
+    store-preparation:
+      type: object
+      properties:
+        '@context':
+          type: string
+          title: Context for the MF.preparationClass
+        id:
+          type: string
+          title: Id for the MF.preparationClass
+        '@type':
+          type: string
+          title: Type for the MF.preparationClass
+        preparationDate:
+          type: string
+          description: Date when the preparation/sample was prepared.
+          title: Preparation date
+        preparationMaterials:
+          type: array
+          uniqueItems: false
+          items:
+            type: string
+            enum:
+            - ''
+            - MF.preparationMaterialsAcetone
+            - MF.preparationMaterialsAmmonia
+            - MF.preparationMaterialsBasyntan
+            - MF.preparationMaterialsBorax
+            - MF.preparationMaterialsEulan
+            - MF.preparationMaterialsHydrogenPeroxide
+            - MF.preparationMaterialsMethyleneChloride
+            - MF.preparationMaterialsNovaltan
+            - MF.preparationMaterialsPapaine
+            - MF.preparationMaterialsPlaster
+            - MF.preparationMaterialsPolyurethane
+            - MF.preparationMaterialsPretanix
+            - MF.preparationMaterialsPurifiedGasoline
+            - MF.preparationMaterialsWoodWool
+            - MF.preparationMaterialsCTAB
+            - MF.preparationMaterialsEZNAForensicKit
+            - MF.preparationMaterialsDNEasyBloodAndTissueKit
+            - MF.preparationMaterialsDNEasyPlantKit
+            - MF.preparationMaterialsNucleospinTissueKit
+            - MF.preparationMaterialsNucleospinPlantTwo
+            - MF.preparationMaterialsSaltExtraction
+            - MF.preparationMaterialsDNeasyPlantMiniKit
+            - MF.preparationMaterialsMagAttractHMWDNAKit
+          minItems: 0
+          description: Materials (chemicals, kits etc.) used in the preparation process. It is possible to choose several.
+          title: Preparation process materials
+        preparationProcess:
+          type: array
+          uniqueItems: false
+          items:
+            type: string
+            enum:
+            - ''
+            - MF.preparationProcessTanning
+            - MF.preparationProcessEnzymaticMaceration
+            - MF.preparationProcessDegreasing
+            - MF.preparationProcessBeetleCleaning
+            - MF.preparationProcessPEG
+            - MF.preparationProcessFreezeDrying
+          minItems: 0
+          description: Processes used in the preparation. It is possible to choose several.
+          title: Preparation process
+        preparationProcessNotes:
+          type: string
+          description: Additional information about the preparation process.
+          title: Preparation process notes
+        preparedBy:
+          type: string
+          description: Name of the person who prepared the preparation/sample, preferably in the format 'lastname, firstname'
+          title: Prepared by
+        isPartOf:
+          type: string
+          description: Which parent or larger collection this is part of.
+          title: Is part of
+      additionalProperties: false
+      required:
+      - '@context'
+      - id
+      - '@type'
+      - preparationDate
+      - preparationMaterials
+      - preparationProcess
+      - preparationProcessNotes
+      - preparedBy
+      - isPartOf
+    store-document:
+      type: object
+      properties:
+        '@context':
+          type: string
+          title: Context for the Submissions
+        id:
+          type: string
+          title: Id for the Submissions
+        '@type':
+          type: string
+          title: Type for the Submissions
+        secureLevel:
+          type: string
+          enum:
+          - ''
+          - MX.secureLevelNone
+          - MX.secureLevelKM1
+          - MX.secureLevelKM5
+          - MX.secureLevelKM10
+          - MX.secureLevelKM25
+          - MX.secureLevelKM50
+          - MX.secureLevelKM100
+          - MX.secureLevelHighest
+          - MX.secureLevelNoShow
+          description: Secure level (salaus-/karkeistustaso) for the data
+          title: Secure level
+        DNASampleLocation:
+          type: string
+          description: Leave empty if no sample taken, or if the sample is recorded separately
+          title: DNA sample location
+        IPEN:
+          type: string
+          description: IPEN Number for the accession
+          title: IPEN
+        URL:
+          type: string
+          description: URL where more information is available about the specimen
+          title: URL
+        acknowledgedWarnings:
+          type: array
+          uniqueItems: false
+          items:
+            type: object
+            additionalProperties: true
+          minItems: 0
+          title: Acknowledged warnings
+        acquiredFrom:
+          type: string
+          description: From who/where the specimen was acquired (if not recorded as a transaction)
+          title: Acquired from
+        acquiredFromOrganization:
+          type: string
+          description: Organization where the accession was acquired from. If the organization is not on the list, add it first.
+          title: Acquired from organization
+        acquisitionDate:
+          type: string
+          description: Date (d.m.yyyy) or year (yyyy) on which the specimen was acquired to the collection. Empty means an old specimen acquired on an unknown date.
+          title: Acquisition date
+        additionalIDs:
+          type: array
+          uniqueItems: false
+          items:
+            type: string
+          minItems: 0
+          description: 'Other identifiers this specimen has, in format ''type:identifier''. For example: ''mzhtypes:123'' (old MAZ-type number)'
+          title: Additional ID's
+        bold:
+          type: array
+          uniqueItems: false
+          items:
+            type: string
+          minItems: 0
+          description: BOLD identifier, usually BOLD Sample ID. You can include additonal comment by separating them with colon, e.g. "AY123456:comments here"
+          title: BOLD
+        caption:
+          type: string
+          title: Document caption
+        cladBookID:
+          type: string
+          description: Clad book id number or such
+          title: Clad book id
+        cladSpecimenID:
+          type: string
+          description: 'Clad specimen id: usually color description and a number'
+          title: Clad specimen id
+        cladVerbatim:
+          type: string
+          description: Verbatim specimen data from clad book
+          title: Clad data verbatim
+        collectionID:
+          type: string
+          description: The collection which this specimen belongs to
+          title: Collection
+        condition:
+          type: string
+          description: Notes on the defects of the specimen (missing parts or such). Empty value means same as "good" or "hyvä" - that there is nothing special to mention about the condition.
+          title: Condition (defects)
+        contacts:
+          type: array
+          items:
+            $ref: '#/components/schemas/store-contact'
+        cultivationInformation:
+          type: string
+          description: Annuality/perenniality or other specialities about cultivation in our conditions.
+          title: Cultivation information
+        dataOrigin:
+          type: array
+          uniqueItems: false
+          items:
+            type: string
+            enum:
+            - ''
+            - MY.dataOriginPaperForm
+            - MY.dataOriginWebForm
+            - MY.dataOriginSpreadsheetFile
+          minItems: 0
+          title: Data origin
+        dataSource:
+          type: string
+          description: Where the data about this specimen or observation is from, in addition to labels. Eg. reference to a publication, field notes or an expedition.
+          title: Data source
+        datasetID:
+          type: array
+          uniqueItems: false
+          items:
+            type: string
+          minItems: 0
+          description: The tags this specimen has
+          title: Tags
+        datatype:
+          type: string
+          title: Datatype
+        deviceID:
+          type: string
+          title: Device ID
+        digitisers:
+          type: array
+          uniqueItems: false
+          items:
+            type: string
+          minItems: 0
+          title: Digitised by
+        documentIdentifications:
+          type: array
+          items:
+            $ref: '#/components/schemas/store-documentIdentification'
+        documentLocation:
+          type: string
+          description: Location of the specimen so that museum personnel can find it. E.g. taxon under which it is stored (if not clear from the identification), or shelf number
+          title: Specimen location
+        duplicatesIn:
+          type: string
+          description: Description where duplicates (specimens of the same individual) are located or have been sent to and by which ID's.
+          title: Duplicates
+        editNotes:
+          type: string
+          description: Reason for this edit or notes about it.
+          title: Notes about this edit
+        editor:
+          type: string
+          title: Editor
+        entered:
+          type: string
+          description: Date the data was first transcribed into electronic format or paper registry
+          title: Date transcribed
+        event:
+          type: array
+          uniqueItems: false
+          items:
+            type: string
+          minItems: 0
+          description: Free-text diary-style information about what has been done to the specimen and when.
+          title: Event
+        exsiccatum:
+          type: string
+          description: Name of the exsiccatum this specimen belongs to and possible exsiccatum number.
+          title: Exsiccatum
+        formID:
+          type: string
+          description: Id of the form that was used for the document
+          title: Form id
+        gatheringEvent:
+          $ref: '#/components/schemas/store-gatheringEvent'
+        genbank:
+          type: array
+          uniqueItems: false
+          items:
+            type: string
+          minItems: 0
+          description: Genbank identifier. You can include additonal comment by separating them with colon, e.g. "AY123456:comments here"
+          title: Genbank
+        hasGathering:
+          type: array
+          uniqueItems: false
+          items:
+            type: string
+          minItems: 0
+          title: hasGathering
+        isTemplate:
+          type: boolean
+          title: Use document as template
+        keywords:
+          type: array
+          uniqueItems: false
+          items:
+            type: string
+          minItems: 0
+          title: Keywords
+        labelsVerbatim:
+          type: string
+          description: All text from labels word-for-word, including spelling errors. Separate each label on its own row, starting from topmost label.
+          title: Verbatim labels
+        language:
+          type: string
+          description: Language the data is (mainly) written in, if applicable.
+          title: Language
+        legID:
+          type: string
+          description: Collecting number (field identifier, keruunumero) for the specimen
+          title: Collecting number
+        locked:
+          type: boolean
+          title: Locked
+        namedPlaceID:
+          type: string
+          title: Named place
+        notes:
+          type: string
+          description: Additional information to the data in each section.
+          title: Notes
+        observationID:
+          type: string
+          description: ID for the observation in another system, e.g. Vihko/Notebook. Format System:identifier.
+          title: Observation ID
+        originalSpecimenID:
+          type: string
+          description: Original catalogue number or other  original identifier of the specimen. E.g. H9000000
+          title: Original catalogue number
+        plannedLocation:
+          type: string
+          description: Garden area where this accession is planned to be located.
+          title: Planned location
+        preservation:
+          type: array
+          uniqueItems: false
+          items:
+            type: string
+            enum:
+            - ''
+            - MY.preservationPressed
+            - MY.preservationDry
+            - MY.preservationCriticalPointDrying
+            - MY.preservationPinned
+            - MY.preservationGlued
+            - MY.preservationLiquid
+            - MY.preservationEthanol
+            - MY.preservationEthanolPure
+            - MY.preservationEthanol70
+            - MY.preservationEthanol80
+            - MY.preservationEthanol80Pure
+            - MY.preservationEthanol96
+            - MY.preservationEthanolMinus20C
+            - MY.preservationEthanolDenatured
+            - MY.preservationEthanolFormalin
+            - MY.preservationEthanolExFormalin
+            - MY.preservationFormalin
+            - MY.preservationBouinSolution
+            - MY.preservationPampelsFluid
+            - MY.preservationGlycerol
+            - MY.preservationParaffin
+            - MY.preservationMercuricChloride
+            - MY.preservationCryopreserved
+            - MY.preservationFrozen
+            - MY.preservationFrozenMinus80C
+            - MY.preservationFreezeDried
+            - MY.preservationGoldPlated
+            - MY.preservationActiveCulture
+            - MY.preservationLiving
+            - MY.preservationSlide
+            - MY.preservationSlideCanadaBalsam
+            - MY.preservationSlideEuparal
+            - MY.preservationSlidePolyviol
+            - MY.preservationStuffed
+            - MY.preservationCast
+            - MY.preservationPlastinated
+            - MY.preservationFrozenMinus80CAndEthanolMinus20C
+          minItems: 0
+          description: Main method of preservation. If parts of the specimen are preserved in different ways, you can choose several methods.
+          title: Preservation
+        primaryDataLocation:
+          type: string
+          description: Location of the primary data if not Kotka.
+          title: Primary data location
+        privateNotes:
+          type: string
+          description: Notes shown within the system for users signed in but not shown publicly anywhere. Use only for notes that absolutely need to be hidden from public view.
+          title: Nonpublic notes
+        publication:
+          type: array
+          uniqueItems: false
+          items:
+            type: string
+          minItems: 0
+          description: Publication references or doi's that refer to this specimen
+          title: Publications
+        rawOCRData:
+          type: string
+          description: Optical character recognition or AI generated data in its raw format, errors and all.
+          title: Raw OCR data
+        relationship:
+          type: array
+          uniqueItems: false
+          items:
+            type: string
+          minItems: 0
+          description: 'Relationship to another taxon OR specimen. Choose relationship type as prefix and give taxon name or specimen identifier thereafter, e.g. "parasite: Parasiticus specius" OR "host:http://tun.fi/JAA.123"'
+          title: Relationship
+        sampleHistory:
+          type: string
+          description: The history of the specimen, for example how it was acquired or in which museums it has been before.
+          title: Specimen history
+        separatedFrom:
+          type: string
+          description: ID of the specimen from which this has been separated
+          title: Separated from specimen
+        separatedTo:
+          type: array
+          uniqueItems: false
+          items:
+            type: string
+          minItems: 0
+          description: ID's of those new specimens that have been separated from this specimen
+          title: Separated to specimen(s)
+        serialNumber:
+          type: string
+          title: Serial number
+        sourceID:
+          type: string
+          title: Source system id
+        status:
+          type: string
+          enum:
+          - ''
+          - MY.statusOk
+          - MY.statusMissing
+          - MY.statusUnrecoverable
+          - MY.statusLost
+          - MY.statusDonated
+          - MY.statusDeposited
+          - MY.statusDeaccessioned
+          - MY.statusDiscarded
+          - MY.statusSpent
+          - MY.statusDestroyed
+          - MY.statusUndefined
+          - MY.statusAxenic
+          - MY.statusNonAxenic
+          - MY.statusNotAvailable
+          - MY.statusDead
+          - MY.statusNoVoucherRetained
+          description: Empty value means same as "ok" - that there is not anything special about the status of the specimen.
+          title: Status
+        temp:
+          type: boolean
+          title: Temporary document
+        templateDescription:
+          type: string
+          title: Template description
+        templateName:
+          type: string
+          title: Template name
+        transcriberNotes:
+          type: string
+          description: Additional information regarding the data entry or transcription process, e.g. unclarities, explanations for interpretations,
+          title: Transcriber's notes
+        transferAgreement:
+          type: string
+          description: Common name of agreement concerning the transfer, if any.
+          title: Transfer agreement
+        unreliableFields:
+          type: string
+          description: List of those fields that contain unreliable data. The list is created automatically.
+          title: Unreliable fields
+        verificationStatus:
+          type: array
+          uniqueItems: false
+          items:
+            type: string
+            enum:
+            - ''
+            - MY.verificationStatusOk
+            - MY.verificationStatusVerify
+            - MY.verificationStatusNeedsCompletion
+            - MY.verificationStatusGeoreference
+            - MY.verificationStatusDet
+            - MY.verificationStatusCheckID
+            - MY.verificationStatusVerifyCoordinates
+          minItems: 0
+          description: Information about the quality of the specimen data. Possible to select several.
+          title: Verification status
+        voucherSpecimenID:
+          type: string
+          description: Identifier of the herbarium voucher specimen or information about it if the identifier is unknown.
+          title: Voucher specimen ID
+        creator:
+          type: string
+          title: Creator
+        dateCreated:
+          type: string
+          format: date-time
+          title: Created
+        dateEdited:
+          type: string
+          format: date-time
+          title: Edited
+        editors:
+          type: array
+          uniqueItems: false
+          items:
+            type: string
+          minItems: 0
+          title: Editors
+        images:
+          type: array
+          uniqueItems: false
+          items:
+            type: string
+          minItems: 0
+          title: Images
+        owner:
+          type: string
+          description: Team or organisation that owns the record and can edit it.
+          title: Owner of record
+        publicityRestrictions:
+          type: string
+          enum:
+          - ''
+          - MZ.publicityRestrictionsPublic
+          - MZ.publicityRestrictionsProtected
+          - MZ.publicityRestrictionsPrivate
+          description: 'PUBLIC: all data can be published; PROTECTED: exact locality is hidden (100*100km square); PRIVATE: most of the data is hidden. Empty value means same as public.'
+          title: Publicity restrictions
+        scheduledForDeletion:
+          type: boolean
+          title: Scheduled for deletion
+        gatherings:
+          type: array
+          items:
+            $ref: '#/components/schemas/store-gathering'
+      required:
+      - gatherings
+      additionalProperties: false
+    store-identification:
+      type: object
+      properties:
+        '@context':
+          type: string
+          title: Context for the Identification
+        id:
+          type: string
+          title: Id for the Identification
+        '@type':
+          type: string
+          title: Type for the Identification
+        associatedObservationTaxa:
+          type: string
+          description: 'Write associated observation taxa names here, separated by a semicolon (;). E.g.: "Betula pendula; Betula pubescens; Poaceae". These will form their own units of the type observation.'
+          title: Associated observation taxa
+        author:
+          type: string
+          description: Author for the taxon
+          title: Taxon author
+        det:
+          type: string
+          description: Name of the identifier (person) preferably in format "lastname, firstname"
+          title: Det.
+        detDate:
+          type: string
+          description: Date or year when the identification was done, preferably in format "d.m.Y" or "Y"
+          title: Det. date
+        detMethod:
+          type: string
+          enum:
+          - ''
+          - MY.detMethodFreshSample
+          - MY.detMethodMicroscopy
+          - MY.detMethodPhoto
+          title: Det method
+        detVerbatim:
+          type: string
+          description: Name of the identifier and date of identification in original format (e.g. from the label), errors and all
+          title: Det verbatim from the label or other original source
+        genusQualifier:
+          type: string
+          description: Additional qualifier or specifier at genus level (e.g. aff., cf.)
+          title: Genus qualifier
+        identificationBasis:
+          type: array
+          uniqueItems: false
+          items:
+            type: string
+            enum:
+            - ''
+            - MY.identificationBasisDNA
+            - MY.identificationBasisGenitals
+            - MY.identificationBasisGenitalPreparate
+            - MY.identificationBasisSpores
+            - MY.identificationBasisHandled
+            - MY.identificationBasisChemical
+            - MY.identificationBasisHeard
+            - MY.identificationBasisMicroscope
+            - MY.identificationBasisSeen
+            - MY.identificationBasisPreservedSpecimen
+            - MY.identificationBasisFreshSpecimen
+            - MY.identificationBasisMedia
+          minItems: 0
+          title: Identification basis
+        identificationNotes:
+          type: string
+          description: Additional information on the identification, basis or such
+          title: Identification notes
+        infraAuthor:
+          type: string
+          description: Author for the taxon below species level/infra epithet
+          title: Infra author
+        infraEpithet:
+          type: string
+          description: Taxon name for the epithet below species level
+          title: Infra name
+        infraRank:
+          type: string
+          enum:
+          - ''
+          - MY.infraRankSsp
+          - MY.infraRankVar
+          - MY.infraRankBeta
+          - MY.infraRankB
+          - MY.infraRankForma
+          - MY.infraRankHybrid
+          - MY.infraRankAnamorph
+          - MY.infraRankAggregate
+          - MY.infraRankAberration
+          - MY.infraRankCultivar
+          - MY.infraRankMorpha
+          - MY.infraRankUnknown
+          - MY.infraRankNothosubspecies
+          - MY.infraRankCultivarGroup
+          - MY.infraRankFsp
+          - MY.infraRankNothovar
+          description: Taxonomic level of the epithet below species level
+          title: Infra rank
+        infrasubspecificSubdivision:
+          type: string
+          description: Pathovars, serovars and other infrasubspecific subdivisions of microbes.
+          title: Infrasubspecific subdivision
+        isPartOf:
+          type: string
+          description: Which parent or larger collection this is part of.
+          title: Is part of
+        isTaxonGroup:
+          type: boolean
+          title: Is taxon group
+        preferredIdentification:
+          type: string
+          description: This can be used to select one of the identifications as 'recommended', which is the used as default when displaying information about the specimen.
+          title: Preferred identification
+        sec:
+          type: string
+          description: Publication reference for the taxon concept, that was used in identification
+          title: Taxon concept (sec)
+        speciesQualifier:
+          type: string
+          description: Additional qualifier at species level (e.g. aff., cf., sp. n., coll.)
+          title: Species qualifier
+        taxon:
+          type: string
+          description: Taxon name
+          title: Species
+        taxonID:
+          type: string
+          description: ID for the taxon if has some other than an MX code
+          title: Taxon alternative ID
+        taxonRank:
+          type: string
+          enum:
+          - ''
+          - MX.superdomain
+          - MX.domain
+          - MX.kingdom
+          - MX.subkingdom
+          - MX.infrakingdom
+          - MX.superphylum
+          - MX.phylum
+          - MX.subphylum
+          - MX.infraphylum
+          - MX.superdivision
+          - MX.division
+          - MX.subdivision
+          - MX.infradivision
+          - MX.superclass
+          - MX.class
+          - MX.subclass
+          - MX.infraclass
+          - MX.parvclass
+          - MX.superorder
+          - MX.order
+          - MX.suborder
+          - MX.infraorder
+          - MX.parvorder
+          - MX.superfamily
+          - MX.family
+          - MX.subfamily
+          - MX.tribe
+          - MX.subtribe
+          - MX.supergenus
+          - MX.genus
+          - MX.nothogenus
+          - MX.subgenus
+          - MX.section
+          - MX.subsection
+          - MX.series
+          - MX.subseries
+          - MX.infragenericTaxon
+          - MX.aggregate
+          - MX.speciesAggregate
+          - MX.species
+          - MX.nothospecies
+          - MX.infraspecificTaxon
+          - MX.subspecificAggregate
+          - MX.subspecies
+          - MX.nothosubspecies
+          - MX.variety
+          - MX.subvariety
+          - MX.form
+          - MX.subform
+          - MX.hybrid
+          - MX.anamorph
+          - MX.ecotype
+          - MX.populationGroup
+          - MX.intergenericHybrid
+          - MX.infragenericHybrid
+          - MX.cultivar
+          - MX.group
+          - MX.grex
+          description: Taxonomic level for the identification
+          title: Taxon rank
+        taxonSpecifier:
+          type: string
+          title: Taxon specifier
+        taxonURI:
+          type: string
+          title: Taxon URI
+        taxonVerbatim:
+          type: string
+          description: Taxon name in original format (e.g. from the label), errors and all
+          title: Taxon verbatim
+        publicityRestrictions:
+          type: string
+          enum:
+          - ''
+          - MZ.publicityRestrictionsPublic
+          - MZ.publicityRestrictionsProtected
+          - MZ.publicityRestrictionsPrivate
+          description: 'PUBLIC: all data can be published; PROTECTED: exact locality is hidden (100*100km square); PRIVATE: most of the data is hidden. Empty value means same as public.'
+          title: Publicity restrictions
+        sortOrder:
+          type: integer
+          title: sortOrder
+      additionalProperties: false
+      required:
+      - '@context'
+      - id
+      - '@type'
+      - associatedObservationTaxa
+      - author
+      - det
+      - detDate
+      - detMethod
+      - detVerbatim
+      - genusQualifier
+      - identificationBasis
+      - identificationNotes
+      - infraAuthor
+      - infraEpithet
+      - infraRank
+      - infrasubspecificSubdivision
+      - isPartOf
+      - isTaxonGroup
+      - preferredIdentification
+      - sec
+      - speciesQualifier
+      - taxon
+      - taxonID
+      - taxonRank
+      - taxonSpecifier
+      - taxonURI
+      - taxonVerbatim
+      - publicityRestrictions
+      - sortOrder
     store-gatheringEvent:
       type: object
       properties:
@@ -4539,620 +4661,6 @@ components:
       - temperatureStart
       - timeEnd
       - timeStart
-    store-taxonCensus:
-      type: object
-      properties:
-        '@context':
-          type: string
-          title: Context for the Completeness of census
-        id:
-          type: string
-          title: Id for the Completeness of census
-        '@type':
-          type: string
-          title: Type for the Completeness of census
-        censusTaxonID:
-          type: string
-          title: Censused taxon
-        censusTaxonSetID:
-          type: string
-          enum:
-          - ''
-          - MX.taxonSetSykeButterflyCensusPapilionoidea
-          - MX.taxonSetSykeButterflyCensusOther
-          - MX.taxonSetWaterbirdWaterbirds
-          - MX.taxonSetWaterbirdWaders
-          - MX.taxonSetWaterbirdGulls
-          - MX.taxonSetWaterbirdPasserines
-          - MX.taxonSetWaterbirdAmphibia
-          - MX.taxonSetSykeBumblebee
-          - MVL.1201
-          - MX.taxonSetSykeBumblebeeOther
-          - MX.taxonSetBirdAtlasCommon
-          - MX.taxonSetBiomonCompleteListOdonata
-          - MX.taxonSetBiomonCompleteListButterflies
-          - MX.taxonSetBiomonCompleteListMoths
-          - MX.taxonSetBiomonCompleteListBombus
-          - MX.taxonSetBiomonCompleteListAmphibiaReptilia
-          - MX.taxonSetBiomonCompleteListLargeFlowers
-          - MX.taxonSetBiomonCompleteListSubarcticPlants
-          - MX.taxonSetBiomonCompleteListMacrolichens
-          - MX.taxonSetBiomonCompleteListBracketFungi
-          - MX.taxonSetBiomonCompleteListPracticalFungi
-          - MX.taxonSetSykeMacrozoobenthos
-          - MX.taxonSetArchipelagoWaterbirds
-          - MX.taxonSetArchipelagoWaders
-          - MX.taxonSetArchipelagoGulls
-          - MX.taxonSetArchipelagoPasserines
-          - MX.taxonSetArchipelagoAlcids
-          - MX.taxonSetArchipelagoRaptors
-          - MX.taxonSetArchipelagoCormorants
-          - MX.taxonSetArchipelagoEgrets
-          - MX.taxonSetArchipelagoMammals
-          - MX.taxonSetPriodiversityOldForestPolypores
-          - MX.taxonSetPriodiversityIndicatorLichens
-          title: Censused taxon set
-        taxonCensusType:
-          type: string
-          enum:
-          - MY.taxonCensusTypeCounted
-          - MY.taxonCensusTypeEstimated
-          - MY.taxonCensusTypeNotCounted
-          title: Completeness of census
-      required:
-      - taxonCensusType
-      additionalProperties: false
-    store-reserve:
-      type: object
-      properties:
-        '@context':
-          type: string
-          title: Context for the MNP.reserveClass
-        id:
-          type: string
-          title: Id for the MNP.reserveClass
-        '@type':
-          type: string
-          title: Type for the MNP.reserveClass
-        reserver:
-          type: string
-          title: Reserver
-        until:
-          type: string
-          format: date
-          title: Until
-      required:
-      - reserver
-      - until
-      additionalProperties: false
-    store-measurement:
-      type: object
-      properties:
-        '@context':
-          type: string
-          title: Context for the MY.measurementClass
-        id:
-          type: string
-          title: Id for the MY.measurementClass
-        '@type':
-          type: string
-          title: Type for the MY.measurementClass
-        DNAConcentrationNgPerMicroliter:
-          type: array
-          uniqueItems: false
-          items:
-            type: number
-          minItems: 0
-          title: DNA concentration (ng/microliter)
-        DNARatioOfAbsorbance260And280:
-          type: array
-          uniqueItems: false
-          items:
-            type: number
-          minItems: 0
-          title: DNA purity (ratio of absorbance 260/280 nm)
-        DNAVolumeMicroliters:
-          type: array
-          uniqueItems: false
-          items:
-            type: number
-          minItems: 0
-          title: DNA volume (microliters)
-        beakMillimeters:
-          type: array
-          uniqueItems: false
-          items:
-            type: number
-          minItems: 0
-          title: Beak (mm)
-        bodyCentimeters:
-          type: array
-          uniqueItems: false
-          items:
-            type: number
-          minItems: 0
-          title: Body (cm)
-        bodyMillimeters:
-          type: array
-          uniqueItems: false
-          items:
-            type: number
-          minItems: 0
-          title: Body (mm)
-        earLengthMillimeters:
-          type: array
-          uniqueItems: false
-          items:
-            type: number
-          minItems: 0
-          title: Ear length (mm)
-        embryoCount:
-          type: array
-          uniqueItems: false
-          items:
-            type: number
-          minItems: 0
-          title: Embryo count
-        follicleDiameterMillimeters:
-          type: array
-          uniqueItems: false
-          items:
-            type: number
-          minItems: 0
-          title: Follicle diameter (mm)
-        footLengthMillimeters:
-          type: array
-          uniqueItems: false
-          items:
-            type: number
-          minItems: 0
-          title: Foot length (mm)
-        forearmMillimeters:
-          type: array
-          uniqueItems: false
-          items:
-            type: number
-          minItems: 0
-          title: Forearm (mm)
-        gonadMillimeters:
-          type: array
-          uniqueItems: false
-          items:
-            type: number
-          minItems: 0
-          title: Gonad (mm)
-        isPartOf:
-          type: string
-          description: Which parent or larger collection this is part of.
-          title: Is part of
-        tailCentimeters:
-          type: array
-          uniqueItems: false
-          items:
-            type: number
-          minItems: 0
-          title: Tail (cm)
-        tailMillimeters:
-          type: array
-          uniqueItems: false
-          items:
-            type: number
-          minItems: 0
-          title: Tail (mm)
-        tarsusLengthMillimeters:
-          type: array
-          uniqueItems: false
-          items:
-            type: number
-          minItems: 0
-          title: Tarsus length (mm)
-        totalLengthCentimeters:
-          type: array
-          uniqueItems: false
-          items:
-            type: number
-          minItems: 0
-          title: Length (cm)
-        totalLengthMillimeters:
-          type: array
-          uniqueItems: false
-          items:
-            type: number
-          minItems: 0
-          title: Length (mm)
-        uterineScarCount:
-          type: array
-          uniqueItems: false
-          items:
-            type: number
-          minItems: 0
-          title: Uterine scar count
-        weightGrams:
-          type: array
-          uniqueItems: false
-          items:
-            type: number
-          minItems: 0
-          title: Weight (g)
-        weightKilograms:
-          type: array
-          uniqueItems: false
-          items:
-            type: number
-          minItems: 0
-          title: Weight (kg)
-        wingMaxMillimeters:
-          type: array
-          uniqueItems: false
-          items:
-            type: number
-          minItems: 0
-          title: Wing max (mm)
-        wingMillimeters:
-          type: array
-          uniqueItems: false
-          items:
-            type: number
-          minItems: 0
-          title: Wing (mm)
-        wingMinMillimeters:
-          type: array
-          uniqueItems: false
-          items:
-            type: number
-          minItems: 0
-          title: Wing min (mm)
-      additionalProperties: false
-      required:
-      - '@context'
-      - id
-      - '@type'
-      - DNAConcentrationNgPerMicroliter
-      - DNARatioOfAbsorbance260And280
-      - DNAVolumeMicroliters
-      - beakMillimeters
-      - bodyCentimeters
-      - bodyMillimeters
-      - earLengthMillimeters
-      - embryoCount
-      - follicleDiameterMillimeters
-      - footLengthMillimeters
-      - forearmMillimeters
-      - gonadMillimeters
-      - isPartOf
-      - tailCentimeters
-      - tailMillimeters
-      - tarsusLengthMillimeters
-      - totalLengthCentimeters
-      - totalLengthMillimeters
-      - uterineScarCount
-      - weightGrams
-      - weightKilograms
-      - wingMaxMillimeters
-      - wingMillimeters
-      - wingMinMillimeters
-    store-unitFact:
-      type: object
-      properties:
-        '@context':
-          type: string
-          title: Context for the Näytteen / havainnon faktat
-        id:
-          type: string
-          title: Id for the Näytteen / havainnon faktat
-        '@type':
-          type: string
-          title: Type for the Näytteen / havainnon faktat
-        adultIndividualCount:
-          type: integer
-          title: Adult individual count
-        autocompleteSelectedTaxonID:
-          type: string
-          title: Taxon ID selected from autocomplete
-        birdMultiplier:
-          type: boolean
-          title: K-multiplier
-        broodCount:
-          type: integer
-          minimum: 0
-          title: Brood count
-        destroyedNestCount:
-          type: integer
-          minimum: 0
-          title: Destroyed nests count
-        detOnSite:
-          type: string
-          enum:
-          - ''
-          - MY.duringObservation
-          - MY.afterObservation
-          description: Tehtiinkö lajin määritys havaintotilanteessa vai myöhemmin esimerkiksi internetin tai muiden kanssa keskustelun perusteella?
-          title: Determination on site
-        distanceMeters:
-          type: integer
-          title: Observation distance (m)
-        eggCount:
-          type: integer
-          minimum: 0
-          title: Egg count
-        femalesWithBroodsCount:
-          type: integer
-          minimum: 0
-          title: Females with broods count
-        glowWormMicrohabitat:
-          type: string
-          enum:
-          - ''
-          - MY.glowWormMicrohabitatEnum1
-          - MY.glowWormMicrohabitatEnum2
-          - MY.glowWormMicrohabitatEnum3
-          - MY.glowWormMicrohabitatEnum4
-          - MY.glowWormMicrohabitatEnum5
-          - MY.glowWormMicrohabitatEnum6
-          - MY.glowWormMicrohabitatEnumOther
-          title: Micro habitat
-        groundNestCount:
-          type: integer
-          minimum: 0
-          title: Ground nest count
-        individualCountFlock:
-          type: integer
-          minimum: 0
-          title: Parven koko
-        individualCountInner:
-          type: integer
-          minimum: 0
-          title: Yksilömäärä sisällä
-        individualCountOuter:
-          type: integer
-          minimum: 0
-          title: Yksilömäärä alueen ulkopuolella
-        juvenileIndividualCount:
-          type: integer
-          title: Juvenile individual count
-        lineTransectObsType:
-          type: string
-          enum:
-          - ''
-          - MY.lineTransectObsTypeSong
-          - MY.lineTransectObsTypeOtherSound
-          - MY.lineTransectObsTypeSeen
-          - MY.lineTransectObsTypeSeenMale
-          - MY.lineTransectObsTypeSeenFemale
-          - MY.lineTransectObsTypeFlyingOverhead
-          - MY.lineTransectObsTypeFlock
-          - MY.lineTransectObsTypeFlockFlyingOverhead
-          - MY.lineTransectObsTypeSeenPair
-          - MY.lineTransectObsTypeSeenBrood
-          - MY.lineTransectObsTypeSeenNest
-          - MY.lineTransectObsTypeUnknown
-          title: Observations quality
-        lineTransectRouteFieldType:
-          type: string
-          enum:
-          - ''
-          - MY.lineTransectRouteFieldTypeInner
-          - MY.lineTransectRouteFieldTypeOuter
-          title: Field Area
-        lolifeDroppingsCount:
-          type: string
-          enum:
-          - ''
-          - MY.lolifeDroppingsCount0
-          - MY.lolifeDroppingsCount1
-          - MY.lolifeDroppingsCount2
-          - MY.lolifeDroppingsCount25
-          - MY.lolifeDroppingsCount3
-          - MY.lolifeDroppingsCount4
-          title: Droppings count
-        lolifeDroppingsQuality:
-          type: string
-          enum:
-          - ''
-          - MY.lolifeDroppingsQuality1
-          - MY.lolifeDroppingsQuality2
-          title: Papanoiden laatu
-        lolifeDroppingsType:
-          type: string
-          enum:
-          - ''
-          - MY.lolifeDroppingsTypeRock
-          - MY.lolifeDroppingsTypeTree
-          - MY.lolifeDroppingsTypeTreeGroup
-          - MY.lolifeDroppingsTypeOther
-          title: Droppings type
-        lolifeNestTree:
-          type: string
-          enum:
-          - ''
-          - MX.38590
-          - MX.37812
-          - MX.37999
-          - MX.37993
-          - MX.38010
-          - MX.38008
-          - MY.lolifeNestTreeOther
-          title: Tree species
-        observationDuration:
-          type: string
-          title: Observation duration
-        observationHours:
-          type: integer
-          title: Observation duration (h)
-          exclusiveMinimum: 0
-        pairCountInner:
-          type: integer
-          minimum: 0
-          title: Parimäärä sisällä
-        pairCountOuter:
-          type: integer
-          minimum: 0
-          title: Parimäärä alueen ulkopuolella
-        pointCountFlock:
-          type: string
-          title: Parvien koot
-        pullusIndividualCount:
-          type: integer
-          minimum: 0
-          title: Pullus individual count
-        runningWaterInVicinity:
-          type: boolean
-          title: Is the plant growing next to running water?
-        taxonConfidenceDescription:
-          type: string
-          description: Oma arvio lajimäärityksen luotettavuudesta
-          title: Estimate on determination confidence
-        traits:
-          type: string
-          title: Observed traits
-        treeNestCount:
-          type: integer
-          minimum: 0
-          title: Puupesien määrä
-        waterbirdFemale:
-          type: string
-          enum:
-          - ''
-          - MY.waterbirdFemaleEnumYes
-          - MY.waterbirdFemaleEnumNo
-          - MY.waterbirdFemaleEnumLonelyPanicking
-          title: Female observed
-        waterbirdJuvenileAgeClass:
-          type: string
-          enum:
-          - ''
-          - MY.waterbirdJuvenileAgeClassIa
-          - MY.waterbirdJuvenileAgeClassIb
-          - MY.waterbirdJuvenileAgeClassIc
-          - MY.waterbirdJuvenileAgeClassIIa
-          - MY.waterbirdJuvenileAgeClassIIb
-          - MY.waterbirdJuvenileAgeClassIIc
-          - MY.waterbirdJuvenileAgeClassIIIa
-          - MY.waterbirdJuvenileAgeClassUnknown
-          title: Juvenile age class
-        waterbirdJuvenileCountAccurate:
-          type: boolean
-          title: Count accurate?
-        waterbirdObserverOpinionSelectedCensus:
-          type: boolean
-          title: Make an interpretation based on this census
-        waterbirdPairCountOpinionReasoning:
-          type: string
-          enum:
-          - ''
-          - MY.waterbirdPairCountOpinionReasoningEnum1
-          - MY.waterbirdPairCountOpinionReasoningEnum2
-          - MY.waterbirdPairCountOpinionReasoningEnum3
-          - MY.waterbirdPairCountOpinionReasoningEnumOther
-          title: Reasoning for own interpretation
-        individualCountBiotopeA:
-          type: integer
-          minimum: 0
-          title: Individual count dump
-        individualCountBiotopeB:
-          type: integer
-          minimum: 0
-          title: Individual count urban
-        individualCountBiotopeC:
-          type: integer
-          minimum: 0
-          title: Individual count countryside
-        individualCountBiotopeD:
-          type: integer
-          minimum: 0
-          title: Individual count field
-        individualCountBiotopeE:
-          type: integer
-          minimum: 0
-          title: Individual count forest
-        individualCountBiotopeF:
-          type: integer
-          minimum: 0
-          title: Individual count other biotope
-        individualCountBiotopeG:
-          type: integer
-          minimum: 0
-          title: Individual count cutting open
-        individualCountBiotopeH:
-          type: integer
-          minimum: 0
-          title: Individual count reed
-      additionalProperties: false
-      required:
-      - '@context'
-      - id
-      - '@type'
-      - adultIndividualCount
-      - autocompleteSelectedTaxonID
-      - birdMultiplier
-      - broodCount
-      - destroyedNestCount
-      - detOnSite
-      - distanceMeters
-      - eggCount
-      - femalesWithBroodsCount
-      - glowWormMicrohabitat
-      - groundNestCount
-      - individualCountFlock
-      - individualCountInner
-      - individualCountOuter
-      - juvenileIndividualCount
-      - lineTransectObsType
-      - lineTransectRouteFieldType
-      - lolifeDroppingsCount
-      - lolifeDroppingsQuality
-      - lolifeDroppingsType
-      - lolifeNestTree
-      - observationDuration
-      - observationHours
-      - pairCountInner
-      - pairCountOuter
-      - pointCountFlock
-      - pullusIndividualCount
-      - runningWaterInVicinity
-      - taxonConfidenceDescription
-      - traits
-      - treeNestCount
-      - waterbirdFemale
-      - waterbirdJuvenileAgeClass
-      - waterbirdJuvenileCountAccurate
-      - waterbirdObserverOpinionSelectedCensus
-      - waterbirdPairCountOpinionReasoning
-      - individualCountBiotopeA
-      - individualCountBiotopeB
-      - individualCountBiotopeC
-      - individualCountBiotopeD
-      - individualCountBiotopeE
-      - individualCountBiotopeF
-      - individualCountBiotopeG
-      - individualCountBiotopeH
-    store-documentIdentification:
-      type: object
-      properties:
-        '@context':
-          type: string
-          title: Context for the Document identification
-        id:
-          type: string
-          title: Id for the Document identification
-        '@type':
-          type: string
-          title: Type for the Document identification
-        det:
-          type: string
-          description: Name of the identifier (person) preferably in format "lastname, firstname"
-          title: Det.
-        detDate:
-          type: string
-          description: Date or year when the identification was done, preferably in format "d.m.Y" or "Y"
-          title: Det. date
-      additionalProperties: false
-      required:
-      - '@context'
-      - id
-      - '@type'
-      - det
-      - detDate
     store-unit:
       type: object
       properties:
@@ -6494,6 +6002,498 @@ components:
       - identifications
       - typeSpecimens
       - samples
+    store-completeList:
+      type: object
+      properties:
+        '@context':
+          type: string
+          title: Context for the MY.completeListClass
+        id:
+          type: string
+          title: Id for the MY.completeListClass
+        '@type':
+          type: string
+          title: Type for the MY.completeListClass
+        completeListTaxonID:
+          type: string
+          title: Species
+        completeListType:
+          type: string
+          enum:
+          - ''
+          - MY.completeListTypeCompleteWithBreedingStatus
+          - MY.completeListTypeComplete
+          - MY.completeListTypeIncomplete
+          title: Species list completeness
+      additionalProperties: false
+      required:
+      - '@context'
+      - id
+      - '@type'
+      - completeListTaxonID
+      - completeListType
+    store-geometry:
+      anyOf:
+      - title: GeoJSON Geometry
+        oneOf:
+        - title: GeoJSON Point
+          type: object
+          required:
+          - type
+          - coordinates
+          properties:
+            type:
+              type: string
+              enum:
+              - Point
+            coordinates:
+              type: array
+              minItems: 2
+              items:
+                type: number
+            bbox:
+              type: array
+              minItems: 4
+              items:
+                type: number
+        - title: GeoJSON LineString
+          type: object
+          required:
+          - type
+          - coordinates
+          properties:
+            type:
+              type: string
+              enum:
+              - LineString
+            coordinates:
+              type: array
+              minItems: 2
+              items:
+                type: array
+                minItems: 2
+                items:
+                  type: number
+            bbox:
+              type: array
+              minItems: 4
+              items:
+                type: number
+        - title: GeoJSON Polygon
+          type: object
+          required:
+          - type
+          - coordinates
+          properties:
+            type:
+              type: string
+              enum:
+              - Polygon
+            coordinates:
+              type: array
+              items:
+                type: array
+                minItems: 4
+                items:
+                  type: array
+                  minItems: 2
+                  items:
+                    type: number
+            bbox:
+              type: array
+              minItems: 4
+              items:
+                type: number
+        - title: GeoJSON MultiPoint
+          type: object
+          required:
+          - type
+          - coordinates
+          properties:
+            type:
+              type: string
+              enum:
+              - MultiPoint
+            coordinates:
+              type: array
+              items:
+                type: array
+                minItems: 2
+                items:
+                  type: number
+            bbox:
+              type: array
+              minItems: 4
+              items:
+                type: number
+        - title: GeoJSON MultiLineString
+          type: object
+          required:
+          - type
+          - coordinates
+          properties:
+            type:
+              type: string
+              enum:
+              - MultiLineString
+            coordinates:
+              type: array
+              items:
+                type: array
+                minItems: 2
+                items:
+                  type: array
+                  minItems: 2
+                  items:
+                    type: number
+            bbox:
+              type: array
+              minItems: 4
+              items:
+                type: number
+        - title: GeoJSON MultiPolygon
+          type: object
+          required:
+          - type
+          - coordinates
+          properties:
+            type:
+              type: string
+              enum:
+              - MultiPolygon
+            coordinates:
+              type: array
+              items:
+                type: array
+                items:
+                  type: array
+                  minItems: 4
+                  items:
+                    type: array
+                    minItems: 2
+                    items:
+                      type: number
+            bbox:
+              type: array
+              minItems: 4
+              items:
+                type: number
+      - title: GeoJSON GeometryCollection
+        type: object
+        required:
+        - type
+        - geometries
+        properties:
+          type:
+            type: string
+            enum:
+            - GeometryCollection
+          geometries:
+            type: array
+            items:
+              oneOf:
+              - title: GeoJSON Point
+                type: object
+                required:
+                - type
+                - coordinates
+                properties:
+                  type:
+                    type: string
+                    enum:
+                    - Point
+                  coordinates:
+                    type: array
+                    minItems: 2
+                    items:
+                      type: number
+                  bbox:
+                    type: array
+                    minItems: 4
+                    items:
+                      type: number
+              - title: GeoJSON LineString
+                type: object
+                required:
+                - type
+                - coordinates
+                properties:
+                  type:
+                    type: string
+                    enum:
+                    - LineString
+                  coordinates:
+                    type: array
+                    minItems: 2
+                    items:
+                      type: array
+                      minItems: 2
+                      items:
+                        type: number
+                  bbox:
+                    type: array
+                    minItems: 4
+                    items:
+                      type: number
+              - title: GeoJSON Polygon
+                type: object
+                required:
+                - type
+                - coordinates
+                properties:
+                  type:
+                    type: string
+                    enum:
+                    - Polygon
+                  coordinates:
+                    type: array
+                    items:
+                      type: array
+                      minItems: 4
+                      items:
+                        type: array
+                        minItems: 2
+                        items:
+                          type: number
+                  bbox:
+                    type: array
+                    minItems: 4
+                    items:
+                      type: number
+              - title: GeoJSON MultiPoint
+                type: object
+                required:
+                - type
+                - coordinates
+                properties:
+                  type:
+                    type: string
+                    enum:
+                    - MultiPoint
+                  coordinates:
+                    type: array
+                    items:
+                      type: array
+                      minItems: 2
+                      items:
+                        type: number
+                  bbox:
+                    type: array
+                    minItems: 4
+                    items:
+                      type: number
+              - title: GeoJSON MultiLineString
+                type: object
+                required:
+                - type
+                - coordinates
+                properties:
+                  type:
+                    type: string
+                    enum:
+                    - MultiLineString
+                  coordinates:
+                    type: array
+                    items:
+                      type: array
+                      minItems: 2
+                      items:
+                        type: array
+                        minItems: 2
+                        items:
+                          type: number
+                  bbox:
+                    type: array
+                    minItems: 4
+                    items:
+                      type: number
+              - title: GeoJSON MultiPolygon
+                type: object
+                required:
+                - type
+                - coordinates
+                properties:
+                  type:
+                    type: string
+                    enum:
+                    - MultiPolygon
+                  coordinates:
+                    type: array
+                    items:
+                      type: array
+                      items:
+                        type: array
+                        minItems: 4
+                        items:
+                          type: array
+                          minItems: 2
+                          items:
+                            type: number
+                  bbox:
+                    type: array
+                    minItems: 4
+                    items:
+                      type: number
+          bbox:
+            type: array
+            minItems: 4
+            items:
+              type: number
+    store-namedPlace:
+      type: object
+      properties:
+        '@context':
+          type: string
+          title: Context for the MNP.namedPlace
+        id:
+          type: string
+          title: Id for the MNP.namedPlace
+        '@type':
+          type: string
+          title: Type for the MNP.namedPlace
+        acceptedDocument:
+          $ref: '#/components/schemas/store-document'
+        accessibility:
+          type: string
+          enum:
+          - ''
+          - MNP.accessibilityEasy
+          - MNP.accessibilityModerate
+          - MNP.accessibilityDifficult
+          title: Accessibility
+        active:
+          $ref: '#/components/schemas/store-dateRange'
+        alternativeIDs:
+          type: array
+          uniqueItems: false
+          items:
+            type: string
+          minItems: 0
+          title: Alternative IDs
+        biogeographicalProvince:
+          type: array
+          uniqueItems: false
+          items:
+            type: string
+          minItems: 0
+          description: Formal abbreviation. For Finnish eliömaakunnat, use Finnish abbreviation.
+          title: Biogeographical province
+        birdAssociationArea:
+          type: array
+          uniqueItems: false
+          items:
+            type: string
+          minItems: 0
+          title: Bird assocation area
+        collectionID:
+          type: string
+          title: Collection
+        editors:
+          type: array
+          uniqueItems: false
+          items:
+            type: string
+          minItems: 0
+          description: Persons who have rights to see and use the named places in their documents
+          title: Editors
+        geometry:
+          $ref: '#/components/schemas/store-geometry'
+        images:
+          type: array
+          uniqueItems: false
+          items:
+            type: string
+          minItems: 0
+          title: Images
+        locality:
+          type: string
+          title: Paikkatiedot
+        localityDescription:
+          type: string
+          description: Informal description of the exact locality, e.g. '5 km NE of city X, under stone bridge'
+          title: Locality description
+        municipality:
+          type: array
+          uniqueItems: false
+          items:
+            type: string
+          minItems: 0
+          title: Municipality
+        name:
+          type: string
+          title: Name
+        notes:
+          type: string
+          title: Notes
+        owners:
+          type: array
+          uniqueItems: false
+          items:
+            type: string
+          minItems: 0
+          description: Persons who have full use access and rights to edit the named place
+          title: Owners of the named place
+        prepopulatedDocument:
+          $ref: '#/components/schemas/store-document'
+        priority:
+          type: string
+          enum:
+          - ''
+          - MNP.priority1
+          - MNP.priority2
+          - MNP.priority3
+          - MNP.priority4
+          - MNP.priority5
+          title: Priority
+        privateNotes:
+          type: string
+          title: Private notes
+        public:
+          type: boolean
+          description: Is the named place publicaly available. (Defaults to false)
+          title: Publicly available
+        reserve:
+          $ref: '#/components/schemas/store-reserve'
+        tags:
+          type: array
+          uniqueItems: false
+          items:
+            type: string
+            enum:
+            - ''
+            - MNP.tagAccessibilityEasy
+            - MNP.tagAccessibilityModerate
+            - MNP.tagAccessibilityDifficult
+            - MNP.tagHabitatImportant
+            - MNP.tagCensusRare
+            - MNP.tagHabitatFarmland
+            - MNP.tagHabitatMire
+            - MNP.tagHabitatMountain
+            - MNP.tagSuitable
+            - MNP.tagTypeIsland
+            - MNP.tagTypePartialIsland
+            - MNP.tagTypeIslandGroup
+            - MNP.tagTypeWater
+            - MNP.tagTypeShoreline
+            - MNP.tagTypeMixed
+            - MNP.tagTypeUnknown
+            - MNP.tagWishedToBeCounted
+          minItems: 0
+          title: Tags
+        taxonIDs:
+          type: array
+          uniqueItems: false
+          items:
+            type: string
+          minItems: 0
+          title: Taxa
+        samplingMethodNotes:
+          type: string
+          title: Sampling method notes
+      required:
+      - geometry
+      - name
+      additionalProperties: false
   securitySchemes:
     Access_token:
       scheme: bearer

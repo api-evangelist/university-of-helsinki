@@ -84,6 +84,26 @@ paths:
     - url: https://gw.api.helsinki.fi/serviceapi
 components:
   schemas:
+    Title:
+      type: object
+      properties:
+        fi:
+          type: string
+          example: kirjastosihteeri
+        en:
+          type: string
+          example: Assistant Librarian
+        sv:
+          type: string
+          example: bibliotekssekreterare
+      description: Represents a title with multi-language support (Finnish, English, and Swedish)
+      example:
+      - fi: professori
+        en: Professor
+        sv: professor
+      - fi: dosentuuri
+        en: Docentship
+        sv: docentur
     Person:
       type: object
       properties:
@@ -116,125 +136,6 @@ components:
           type: string
           example: jane.doe@helsinki.fi
       description: Represents a person entity
-    Title:
-      type: object
-      properties:
-        fi:
-          type: string
-          example: kirjastosihteeri
-        en:
-          type: string
-          example: Assistant Librarian
-        sv:
-          type: string
-          example: bibliotekssekreterare
-      description: Represents a title with multi-language support (Finnish, English, and Swedish)
-      example:
-      - fi: professori
-        en: Professor
-        sv: professor
-      - fi: dosentuuri
-        en: Docentship
-        sv: docentur
-    ServiceProduct:
-      type: object
-      properties:
-        additionalServices:
-          type: string
-          example: Yliopiston ulkopuoliset henkilöt voivat saada...
-        additionalServicesEn:
-          type: string
-          example: People outside the University may receive a personal user account...
-        additionalServicesSv:
-          type: string
-          example: Personer utanför universitetet kan få...
-        efecteId:
-          type: string
-          description: Unique identifier of the service product in the source system. Can be null.
-          example: SVV-00152
-        scheduledMaintenance:
-          type: string
-        scheduledMaintenanceEn:
-          type: string
-        scheduledMaintenanceSv:
-          type: string
-        service:
-          type: string
-          example: Käyttäjätunnus
-        serviceDescription:
-          type: string
-          example: Henkilökohtainen käyttäjätunnus on Helsingin yliopiston verkkopalveluiden kuten sähköpostin...
-        serviceDescriptionEn:
-          type: string
-          example: A personal user account is a user account that includes the user’s digital identity...
-        serviceDescriptionSv:
-          type: string
-          example: Ett personligt användarnamn är ett användarnamn som krävs för att använda...
-        serviceIncludes:
-          type: string
-          example: Käyttäjätunnus (ns. AD-tunnus, joka muodostuu 4-8 kirjaimesta) sekä...
-        serviceIncludesEn:
-          type: string
-          example: User account (an AD account consisting of 4–8 letters) and...
-        serviceIncludesSv:
-          type: string
-          example: Användarnamn (s.k. AD-användarnamn som består av 4-8 bokstäver) och...
-        serviceInfo:
-          type: string
-          example: Yliopiston henkilökunta saa käyttäjätunnuksen...
-        serviceInfoEn:
-          type: string
-          example: The University staff can obtain a user account through the...
-        serviceInfoSv:
-          type: string
-          example: Universitetets personal får användarnamn via Helpdesk med hjälp av en...
-        serviceManager:
-          type: string
-        serviceManagerEn:
-          type: string
-        serviceManagerSv:
-          type: string
-        serviceProductName:
-          type: string
-          example: Henkilökohtainen käyttäjätunnus
-        serviceProductNameEn:
-          type: string
-          example: Personal user account
-        serviceProductNameSv:
-          type: string
-          example: Personligt användarnamn
-        serviceTargetGroups:
-          type: array
-          example:
-          - Oppija
-          - Työntekijä
-          - Ulkopuoliset
-          items:
-            type: string
-            example: '["Oppija","Työntekijä","Ulkopuoliset"]'
-        serviceTargetGroupsEn:
-          type: array
-          items:
-            type: string
-        serviceTargetGroupsSv:
-          type: array
-          items:
-            type: string
-        serviceUnit:
-          type: string
-        serviceUnitEn:
-          type: string
-        serviceUnitSv:
-          type: string
-        support:
-          type: string
-          example: Käyttäjätuesta vastaa ensisijaisesti...
-        supportEn:
-          type: string
-          example: User support is primarily provided by...
-        supportSv:
-          type: string
-          example: Det är i första hand Helpdesk som ansvarar för användarstödet. Vid behov hjälper experter...
     Service:
       type: object
       properties:
@@ -415,6 +316,105 @@ components:
           items:
             $ref: '#/components/schemas/ServiceProduct'
       description: Represents a service entity with multi-language support (Finnish, English, and Swedish)
+    ServiceProduct:
+      type: object
+      properties:
+        additionalServices:
+          type: string
+          example: Yliopiston ulkopuoliset henkilöt voivat saada...
+        additionalServicesEn:
+          type: string
+          example: People outside the University may receive a personal user account...
+        additionalServicesSv:
+          type: string
+          example: Personer utanför universitetet kan få...
+        efecteId:
+          type: string
+          description: Unique identifier of the service product in the source system. Can be null.
+          example: SVV-00152
+        scheduledMaintenance:
+          type: string
+        scheduledMaintenanceEn:
+          type: string
+        scheduledMaintenanceSv:
+          type: string
+        service:
+          type: string
+          example: Käyttäjätunnus
+        serviceDescription:
+          type: string
+          example: Henkilökohtainen käyttäjätunnus on Helsingin yliopiston verkkopalveluiden kuten sähköpostin...
+        serviceDescriptionEn:
+          type: string
+          example: A personal user account is a user account that includes the user’s digital identity...
+        serviceDescriptionSv:
+          type: string
+          example: Ett personligt användarnamn är ett användarnamn som krävs för att använda...
+        serviceIncludes:
+          type: string
+          example: Käyttäjätunnus (ns. AD-tunnus, joka muodostuu 4-8 kirjaimesta) sekä...
+        serviceIncludesEn:
+          type: string
+          example: User account (an AD account consisting of 4–8 letters) and...
+        serviceIncludesSv:
+          type: string
+          example: Användarnamn (s.k. AD-användarnamn som består av 4-8 bokstäver) och...
+        serviceInfo:
+          type: string
+          example: Yliopiston henkilökunta saa käyttäjätunnuksen...
+        serviceInfoEn:
+          type: string
+          example: The University staff can obtain a user account through the...
+        serviceInfoSv:
+          type: string
+          example: Universitetets personal får användarnamn via Helpdesk med hjälp av en...
+        serviceManager:
+          type: string
+        serviceManagerEn:
+          type: string
+        serviceManagerSv:
+          type: string
+        serviceProductName:
+          type: string
+          example: Henkilökohtainen käyttäjätunnus
+        serviceProductNameEn:
+          type: string
+          example: Personal user account
+        serviceProductNameSv:
+          type: string
+          example: Personligt användarnamn
+        serviceTargetGroups:
+          type: array
+          example:
+          - Oppija
+          - Työntekijä
+          - Ulkopuoliset
+          items:
+            type: string
+            example: '["Oppija","Työntekijä","Ulkopuoliset"]'
+        serviceTargetGroupsEn:
+          type: array
+          items:
+            type: string
+        serviceTargetGroupsSv:
+          type: array
+          items:
+            type: string
+        serviceUnit:
+          type: string
+        serviceUnitEn:
+          type: string
+        serviceUnitSv:
+          type: string
+        support:
+          type: string
+          example: Käyttäjätuesta vastaa ensisijaisesti...
+        supportEn:
+          type: string
+          example: User support is primarily provided by...
+        supportSv:
+          type: string
+          example: Det är i första hand Helpdesk som ansvarar för användarstödet. Vid behov hjälper experter...
   securitySchemes:
     Apikey:
       type: apiKey

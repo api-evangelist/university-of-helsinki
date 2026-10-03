@@ -237,7 +237,7 @@
     "tag 'News' spans 2 source specs (university-of-helsinki-finbif-laji-openapi.json, university-of-helsinki-helsinki-fi-content-openapi.json): per-path servers applied",
     "tag 'Person' spans 2 source specs (university-of-helsinki-finbif-laji-openapi.json, university-of-helsinki-persongroup-openapi.json): per-path servers applied",
     "superseded outputs removed: university-of-helsinki-human-resources-api-openapi.yml",
-    "apis.yml register: written (+5 apis, 97 total)"
+    "apis.yml register: written (+1 apis, 97 total)"
   ],
   "skipped": [
     "_original/university-of-helsinki-serviceapi-openapi.yml: archived document superseded by a larger archived document",
@@ -278,6 +278,9 @@
     "university-of-helsinki-forms-api-openapi.yml: previously refined output, superseded by openapi/_original/",
     "university-of-helsinki-geoconvert-api-openapi.yml: previously refined output, superseded by openapi/_original/",
     "university-of-helsinki-google-maps-api-openapi.yml: previously refined output, superseded by openapi/_original/",
+    "university-of-helsinki-group-api-openapi.yml: previously refined output, superseded by openapi/_original/",
+    "university-of-helsinki-groupnames-api-openapi.yml: previously refined output, superseded by openapi/_original/",
+    "university-of-helsinki-groups-api-openapi.yml: previously refined output, superseded by openapi/_original/",
     "university-of-helsinki-hosts-api-openapi.yml: previously refined output, superseded by openapi/_original/",
     "university-of-helsinki-hrorganization-api-openapi.yml: previously refined output, superseded by openapi/_original/",
     "university-of-helsinki-html-to-pdf-api-openapi.yml: previously refined output, superseded by openapi/_original/",
@@ -314,6 +317,7 @@
     "university-of-helsinki-ss-api-openapi.yml: previously refined output, superseded by openapi/_original/",
     "university-of-helsinki-steeringgroup-api-openapi.yml: previously refined output, superseded by openapi/_original/",
     "university-of-helsinki-steeringgroups-api-openapi.yml: previously refined output, superseded by openapi/_original/",
+    "university-of-helsinki-steeringgroupspeople-api-openapi.yml: previously refined output, superseded by openapi/_original/",
     "university-of-helsinki-study-search-api-openapi.yml: previously refined output, superseded by openapi/_original/",
     "university-of-helsinki-suggestion-api-openapi.yml: previously refined output, superseded by openapi/_original/",
     "university-of-helsinki-taxa-api-openapi.yml: previously refined output, superseded by openapi/_original/",

@@ -24445,63 +24445,82 @@ paths:
       - Taxa
 components:
   schemas:
-    LajiBackendHabitatObject:
+    LajiBackendOccurrence:
       type: object
       properties:
-        habitat:
+        area:
           type: string
           description: Qname identifier
-        habitatSpecificTypes:
-          type: array
-          items:
-            type: string
         id:
           type: string
           description: Qname identifier
-        order:
-          type: integer
-      required:
-      - habitat
-      - habitatSpecificTypes
-      - id
-      - order
-    LajiBackendBoldRecords:
-      type: object
-      properties:
-        barcodes:
-          type: integer
-        binCount:
-          type: integer
-        bins:
-          type: array
-          items:
-            type: string
-        publicRecords:
-          type: integer
-        specimens:
-          type: integer
-      required:
-      - barcodes
-      - binCount
-      - bins
-      - publicRecords
-      - specimens
-    LajiBackendHabitatOccurrenceCount:
-      type: object
-      properties:
-        habitat:
-          type: string
-        id:
+        notes:
           type: string
         occurrenceCount:
           type: integer
+        specimenURI:
+          type: string
+        status:
+          type: string
+          description: Qname identifier
+        threatened:
+          type: boolean
+        year:
+          type: integer
+      required:
+      - area
+      - id
+      - notes
+      - occurrenceCount
+      - specimenURI
+      - status
+      - threatened
+      - year
+    LajiBackendSimpleTaxon:
+      type: object
+      properties:
+        id:
+          type: string
+        scientificName:
+          type: string
+        scientificNameAuthorship:
+          type: string
+        vernacularName:
+          type: string
+        taxonRank:
+          type: string
+        cursiveName:
+          type: boolean
+        notes:
+          type: string
+        bold:
+          $ref: '#/components/schemas/LajiBackendBoldRecords'
+        hasBold:
+          type: boolean
       required:
       - id
-      - occurrenceCount
+      - scientificName
+      - scientificNameAuthorship
+      - taxonRank
+      - cursiveName
+      - notes
+      - bold
+      - hasBold
     LajiBackendContent:
       type: array
       items:
         $ref: '#/components/schemas/LajiBackendContext'
+    LajiBackendRedListStatus:
+      type: object
+      properties:
+        status:
+          type: string
+          description: Qname identifier
+        year:
+          type: integer
+      required:
+      - status
+      - year
     LajiBackendTaxon:
       type: object
       properties:
@@ -25067,6 +25086,39 @@ components:
       - colloquialVernacularNameMultiLang
       - obsoleteVernacularNameMultiLang
       - tradeNameMultiLang
+    LajiBackendLocalizedText:
+      type: string
+    LajiBackendBoldRecords:
+      type: object
+      properties:
+        barcodes:
+          type: integer
+        binCount:
+          type: integer
+        bins:
+          type: array
+          items:
+            type: string
+        publicRecords:
+          type: integer
+        specimens:
+          type: integer
+      required:
+      - barcodes
+      - binCount
+      - bins
+      - publicRecords
+      - specimens
+    LajiBackendLocalizedURL:
+      type: object
+      properties:
+        locale:
+          type: string
+        uri:
+          type: string
+      required:
+      - locale
+      - uri
     LajiBackendTaxonSearchResponse:
       type: array
       items:
@@ -25162,6 +25214,70 @@ components:
         - informalGroups
         - kingdomScientificName
         - type
+    LajiBackendHabitatOccurrenceCount:
+      type: object
+      properties:
+        habitat:
+          type: string
+        id:
+          type: string
+        occurrenceCount:
+          type: integer
+      required:
+      - id
+      - occurrenceCount
+    LajiBackendContext:
+      type: object
+      properties:
+        id:
+          type: string
+        title:
+          type: string
+        groups:
+          type: array
+          items:
+            type: object
+            properties:
+              group:
+                type: string
+              title:
+                $ref: '#/components/schemas/LajiBackendLocalizedText'
+              variables:
+                type: array
+                items:
+                  type: object
+                  properties:
+                    variable:
+                      type: string
+                    title:
+                      $ref: '#/components/schemas/LajiBackendLocalizedText'
+                    content:
+                      $ref: '#/components/schemas/LajiBackendLocalizedText'
+                  required:
+                  - variable
+                  - title
+                  - content
+            required:
+            - group
+            - title
+            - variables
+        speciesCardAuthors:
+          type: object
+          properties:
+            variable:
+              type: string
+            title:
+              $ref: '#/components/schemas/LajiBackendLocalizedText'
+            content:
+              $ref: '#/components/schemas/LajiBackendLocalizedText'
+          required:
+          - variable
+          - title
+          - content
+      required:
+      - id
+      - groups
+      - speciesCardAuthors
     LajiBackendEvaluation:
       type: object
       properties:
@@ -25276,17 +25392,26 @@ components:
       - calculatedRedListIndex
       - calculatedCorrectedRedListIndex
       - correctedStatusForRedListIndex
-    LajiBackendRedListStatus:
+    LajiBackendHabitatObject:
       type: object
       properties:
-        status:
+        habitat:
           type: string
           description: Qname identifier
-        year:
+        habitatSpecificTypes:
+          type: array
+          items:
+            type: string
+        id:
+          type: string
+          description: Qname identifier
+        order:
           type: integer
       required:
-      - status
-      - year
+      - habitat
+      - habitatSpecificTypes
+      - id
+      - order
     LajiBackendImage:
       type: object
       properties:
@@ -25375,131 +25500,6 @@ components:
       - type
       - uploadDateTime
       - primaryForTaxon
-    LajiBackendOccurrence:
-      type: object
-      properties:
-        area:
-          type: string
-          description: Qname identifier
-        id:
-          type: string
-          description: Qname identifier
-        notes:
-          type: string
-        occurrenceCount:
-          type: integer
-        specimenURI:
-          type: string
-        status:
-          type: string
-          description: Qname identifier
-        threatened:
-          type: boolean
-        year:
-          type: integer
-      required:
-      - area
-      - id
-      - notes
-      - occurrenceCount
-      - specimenURI
-      - status
-      - threatened
-      - year
-    LajiBackendContext:
-      type: object
-      properties:
-        id:
-          type: string
-        title:
-          type: string
-        groups:
-          type: array
-          items:
-            type: object
-            properties:
-              group:
-                type: string
-              title:
-                $ref: '#/components/schemas/LajiBackendLocalizedText'
-              variables:
-                type: array
-                items:
-                  type: object
-                  properties:
-                    variable:
-                      type: string
-                    title:
-                      $ref: '#/components/schemas/LajiBackendLocalizedText'
-                    content:
-                      $ref: '#/components/schemas/LajiBackendLocalizedText'
-                  required:
-                  - variable
-                  - title
-                  - content
-            required:
-            - group
-            - title
-            - variables
-        speciesCardAuthors:
-          type: object
-          properties:
-            variable:
-              type: string
-            title:
-              $ref: '#/components/schemas/LajiBackendLocalizedText'
-            content:
-              $ref: '#/components/schemas/LajiBackendLocalizedText'
-          required:
-          - variable
-          - title
-          - content
-      required:
-      - id
-      - groups
-      - speciesCardAuthors
-    LajiBackendSimpleTaxon:
-      type: object
-      properties:
-        id:
-          type: string
-        scientificName:
-          type: string
-        scientificNameAuthorship:
-          type: string
-        vernacularName:
-          type: string
-        taxonRank:
-          type: string
-        cursiveName:
-          type: boolean
-        notes:
-          type: string
-        bold:
-          $ref: '#/components/schemas/LajiBackendBoldRecords'
-        hasBold:
-          type: boolean
-      required:
-      - id
-      - scientificName
-      - scientificNameAuthorship
-      - taxonRank
-      - cursiveName
-      - notes
-      - bold
-      - hasBold
-    LajiBackendLocalizedText:
-      type: string
-    LajiBackendLocalizedURL:
-      type: object
-      properties:
-        locale:
-          type: string
-        uri:
-          type: string
-      required:
-      - locale
-      - uri
   securitySchemes:
     Access_token:
       scheme: bearer

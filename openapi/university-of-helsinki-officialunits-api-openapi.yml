@@ -47,6 +47,43 @@ paths:
       tags:
       - OfficialUnits
 components:
+  schemas:
+    OfficialUnitV2:
+      type: object
+      properties:
+        uniqueId:
+          type: string
+        type:
+          type: string
+        nameFi:
+          type: string
+        nameEn:
+          type: string
+        nameSv:
+          type: string
+        abbreviation:
+          type: string
+        educationQualifier:
+          type: string
+        parent:
+          type: string
+    OfficialUnit:
+      type: object
+      properties:
+        uniqueId:
+          type: string
+        type:
+          type: string
+        nameFi:
+          type: string
+        nameEn:
+          type: string
+        nameSv:
+          type: string
+        abbreviation:
+          type: string
+        parent:
+          type: string
   examples:
     OfficialUnitsExampleV2:
       value:
@@ -82,43 +119,6 @@ components:
         nameSv: Doktorandprogrammet i läkemedelsforskning
         abbreviation: null
         parent: '98765432'
-  schemas:
-    OfficialUnit:
-      type: object
-      properties:
-        uniqueId:
-          type: string
-        type:
-          type: string
-        nameFi:
-          type: string
-        nameEn:
-          type: string
-        nameSv:
-          type: string
-        abbreviation:
-          type: string
-        parent:
-          type: string
-    OfficialUnitV2:
-      type: object
-      properties:
-        uniqueId:
-          type: string
-        type:
-          type: string
-        nameFi:
-          type: string
-        nameEn:
-          type: string
-        nameSv:
-          type: string
-        abbreviation:
-          type: string
-        educationQualifier:
-          type: string
-        parent:
-          type: string
   securitySchemes:
     apiKey:
       type: apiKey

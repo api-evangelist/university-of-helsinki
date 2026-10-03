@@ -29,19 +29,6 @@ paths:
       tags:
       - AllNodeAttributes
 components:
-  examples:
-    AllNodeAttributes:
-      value:
-      - endDate: null
-        key: name_sv
-        startDate: '2024-09-03'
-        uniqueId: '100000048'
-        value: testbarnfakulten
-      - endDate: null
-        key: name_en
-        startDate: '2024-09-03'
-        uniqueId: '100000048'
-        value: testchildfaculty
   schemas:
     NodeAttribute:
       type: object
@@ -57,6 +44,19 @@ components:
           type: string
         endDate:
           type: string
+  examples:
+    AllNodeAttributes:
+      value:
+      - endDate: null
+        key: name_sv
+        startDate: '2024-09-03'
+        uniqueId: '100000048'
+        value: testbarnfakulten
+      - endDate: null
+        key: name_en
+        startDate: '2024-09-03'
+        uniqueId: '100000048'
+        value: testchildfaculty
   securitySchemes:
     apiKey:
       type: apiKey

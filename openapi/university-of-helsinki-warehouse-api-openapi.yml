@@ -18590,209 +18590,28 @@ paths:
       x-operation-id-source: derived
 components:
   schemas:
-    WarehouseDwSingle_RedListStatus:
-      type: object
-      properties:
-        status:
-          type: string
-          format: URI
-        year:
-          type: integer
-      required:
-      - status
-      - year
-    WarehouseDwETL_GatheringQuality:
-      type: object
-      properties:
-        issue:
-          $ref: '#/components/schemas/WarehouseDwETL_Quality'
-        locationIssue:
-          $ref: '#/components/schemas/WarehouseDwETL_Quality'
-        timeIssue:
-          $ref: '#/components/schemas/WarehouseDwETL_Quality'
-      required:
-      - issue
-      - locationIssue
-      - timeIssue
-    WarehouseDwQuery_DateRange:
-      type: object
-      properties:
-        begin:
-          type: string
-          format: yyyy-MM-dd
-        end:
-          type: string
-          format: yyyy-MM-dd
-      required:
-      - begin
-      - end
-    WarehouseDwQuery_GatheringDWLinkings:
-      type: object
-      properties:
-        observers:
-          type: array
-          items:
-            $ref: '#/components/schemas/WarehouseDwQuery_Person'
-      required:
-      - observers
-    WarehouseDwQuery_MediaObject:
-      type: object
-      properties:
-        author:
-          type: string
-        caption:
-          type: string
-        copyrightOwner:
-          type: string
-        fullResolutionMediaAvailable:
-          type: boolean
-        fullURL:
-          type: string
-        highDetailModelURL:
-          type: string
-        licenseId:
-          type: string
-        lowDetailModelURL:
-          type: string
-        mediaType:
-          type: string
-          enum:
-          - IMAGE
-          - AUDIO
-          - VIDEO
-          - MODEL
-        mp3URL:
-          type: string
-        squareThumbnailURL:
-          type: string
-        thumbnailURL:
-          type: string
-        type:
-          type: string
-          format: URI
-        videoURL:
-          type: string
-        wavURL:
-          type: string
-      required:
-      - author
-      - caption
-      - copyrightOwner
-      - fullResolutionMediaAvailable
-      - fullURL
-      - highDetailModelURL
-      - licenseId
-      - lowDetailModelURL
-      - mediaType
-      - mp3URL
-      - squareThumbnailURL
-      - thumbnailURL
-      - type
-      - videoURL
-      - wavURL
-    WarehouseDwQuery_Taxon:
-      properties:
-        id:
-          type: string
-          format: URI
-        qname:
-          type: string
-        checklist:
-          type: string
-          format: URI
-        scientificName:
-          type: string
-        scientificNameAuthorship:
-          type: string
-        scientificNameDisplayName:
-          type: string
-        cursiveName:
-          type: boolean
-        finnish:
-          type: boolean
-        taxonRank:
-          type: string
-          format: URI
-        vernacularName: {}
-        nameFinnish:
-          type: string
-        nameSwedish:
-          type: string
-        nameEnglish:
-          type: string
-        informalTaxonGroups:
-          type: array
-          items:
-            type: string
-        taxonomicOrder:
-          type: integer
-        latestRedListStatusFinland:
-          $ref: '#/components/schemas/WarehouseDwQuery_RedListStatus'
-        sensitive:
-          type: boolean
-        kingdomScientificName:
-          type: string
-        occurrenceCountFinland:
-          type: integer
-        primaryHabitat:
-          $ref: '#/components/schemas/WarehouseDwQuery_HabitatObject'
-        administrativeStatuses:
-          type: array
-          items:
-            type: string
-        threatenedStatus:
-          type: string
-          format: URI
-        taxonConceptIds:
-          type: array
-          items:
-            type: string
-      type: object
-      required:
-      - id
-      - qname
-      - checklist
-      - scientificName
-      - scientificNameAuthorship
-      - scientificNameDisplayName
-      - cursiveName
-      - finnish
-      - taxonRank
-      - vernacularName
-      - nameFinnish
-      - nameSwedish
-      - nameEnglish
-      - informalTaxonGroups
-      - taxonomicOrder
-      - latestRedListStatusFinland
-      - sensitive
-      - kingdomScientificName
-      - occurrenceCountFinland
-      - primaryHabitat
-      - administrativeStatuses
-      - threatenedStatus
-      - taxonConceptIds
-    WarehouseDwETL_TypeSpecimen:
+    WarehouseDwQuery_IdentificationEvent:
       type: object
       properties:
         notes:
           type: string
         author:
           type: string
-        basionymePublication:
+        det:
+          type: string
+        detDate:
           type: string
         facts:
           type: array
           items:
-            $ref: '#/components/schemas/WarehouseDwETL_Fact'
+            $ref: '#/components/schemas/WarehouseDwQuery_Fact'
         id:
           type: string
           format: URI
-        publication:
-          type: string
-        status:
-          type: string
-          format: URI
+        linkings:
+          $ref: '#/components/schemas/WarehouseDwQuery_IdentificationDwLinkings'
+        preferred:
+          type: boolean
         taxon:
           type: string
         taxonID:
@@ -18802,334 +18621,85 @@ components:
           type: string
         taxonSpecifierAuthor:
           type: string
-        typif:
-          type: string
-        typifDate:
-          type: string
-        verification:
-          type: string
-          format: URI
       required:
       - notes
       - author
-      - basionymePublication
+      - det
+      - detDate
       - facts
       - id
-      - publication
-      - status
+      - linkings
+      - preferred
       - taxon
       - taxonID
       - taxonSpecifier
       - taxonSpecifierAuthor
-      - typif
-      - typifDate
-      - verification
-    WarehouseDwSingle_Document:
+    WarehouseDwETL_IdentificationEvent:
       type: object
       properties:
-        documentId:
-          type: string
-          format: URI
-        secureLevel:
-          type: string
-          enum:
-          - NOSHOW
-          - HIGHEST
-          - KM100
-          - KM50
-          - KM25
-          - KM10
-          - KM5
-          - KM1
-          - NONE
-        secureReasons:
-          type: array
-          items:
-            type: string
-            enum:
-            - DEFAULT_TAXON_CONSERVATION
-            - BREEDING_SITE_CONSERVATION
-            - NATURA_AREA_CONSERVATION
-            - WINTER_SEASON_TAXON_CONSERVATION
-            - BREEDING_SEASON_TAXON_CONSERVATION
-            - CUSTOM
-            - USER_HIDDEN
-            - ADMIN_HIDDEN
-            - DATA_QUARANTINE_PERIOD
-            - ONLY_PRIVATE
-            - USER_PERSON_NAMES_HIDDEN
-            - USER_HIDDEN_LOCATION
-            - USER_HIDDEN_TIME
-        partial:
-          type: boolean
-        collectionId:
-          type: string
-          format: URI
-        licenseId:
-          type: string
-        dataSource:
-          type: string
-        linkings:
-          $ref: '#/components/schemas/WarehouseDwSingle_DocumentDWLinkings'
-        quality:
-          $ref: '#/components/schemas/WarehouseDwSingle_DocumentQuality'
-        sourceId:
-          type: string
-          format: URI
-        namedPlace:
-          $ref: '#/components/schemas/WarehouseDwSingle_NamedPlaceEntity'
-        siteType:
-          type: string
-        siteStatus:
-          type: string
-        keywords:
-          type: array
-          items:
-            type: string
-        firstLoadDate:
-          type: string
-          format: yyyy-MM-dd
-        loadDate:
-          type: string
-          format: yyyy-MM-dd
-        createdDate:
-          type: string
-          format: yyyy-MM-dd
-        modifiedDate:
-          type: string
-          format: yyyy-MM-dd
         notes:
           type: string
-        annotations:
-          type: array
-          items:
-            $ref: '#/components/schemas/WarehouseDwSingle_Annotation'
-        completeListTaxonId:
+        author:
           type: string
-        completeListType:
+        det:
           type: string
-        editorUserIds:
-          type: array
-          items:
-            type: string
+        detDate:
+          type: string
         facts:
           type: array
           items:
-            $ref: '#/components/schemas/WarehouseDwSingle_Fact'
-        formId:
-          type: string
-        gatherings:
-          type: array
-          items:
-            $ref: '#/components/schemas/WarehouseDwSingle_Gathering'
-        media:
-          type: array
-          items:
-            $ref: '#/components/schemas/WarehouseDwSingle_MediaObject'
-        mediaCount:
-          type: integer
-        namedPlaceId:
-          type: string
-        prefix:
-          type: string
-        referenceURL:
-          type: string
-        secured:
-          type: boolean
-        siteDead:
-          type: boolean
-        sourceTags:
-          type: array
-          items:
-            type: string
-            enum:
-            - ADMIN_MARKED_SPAM
-            - ADMIN_MARKED_COARSE
-            - ADMIN_MARKED_NON_WILD
-            - EXPERT_TAG_VERIFIED
-            - EXPERT_TAG_UNCERTAIN
-            - EXPERT_TAG_ERRONEOUS
-            - COMMUNITY_TAG_VERIFIED
-            - AUTO_VALIDATIONS_PASS
-            - CHECKED_CANNOT_VERIFY
-            - CHANGED_OWNER_MANUAL
-            - CHANGED_DW_AUTO
-            - CHECK
-            - CHECK_COORDINATES
-            - CHECK_DATETIME
-            - CHECK_LOCATION
-            - CHECK_OBSERVER
-            - CHECK_TAXON
-            - CHECK_DUPLICATE
-            - CHECK_WILDNESS
-            - CHECK_NEEDS_INFO
-            - CHECK_SPAM
-            - CHECK_BREEDING_INDEX
-            - AUTO_DISTRIBUTION_CHECK
-            - AUTO_PERIOD_CHECK
-            - FORMADMIN_CENSUS_COUNT_ERROR
-            - FORMADMIN_CENSUS_INNER_COUNT_ERROR
-            - FORMADMIN_CENSUS_OTHER_ERROR
-            - FORMADMIN_VERIFIED
-            - FORMADMIN_UNCERTAIN
-            - INVASIVE_FULL
-            - INVASIVE_PARTIAL
-            - INVASIVE_NO_EFFECT
-            - INVASIVE_NOT_FOUND
-      required:
-      - documentId
-      - secureLevel
-      - secureReasons
-      - partial
-      - collectionId
-      - licenseId
-      - dataSource
-      - linkings
-      - quality
-      - sourceId
-      - namedPlace
-      - siteType
-      - siteStatus
-      - keywords
-      - firstLoadDate
-      - loadDate
-      - createdDate
-      - modifiedDate
-      - notes
-      - annotations
-      - completeListTaxonId
-      - completeListType
-      - editorUserIds
-      - facts
-      - formId
-      - gatherings
-      - media
-      - mediaCount
-      - namedPlaceId
-      - prefix
-      - referenceURL
-      - secured
-      - siteDead
-      - sourceTags
-    WarehouseDwQuery_GatheringConversions:
-      type: object
-      properties:
-        birdAssociationArea:
+            $ref: '#/components/schemas/WarehouseDwETL_Fact'
+        id:
           type: string
           format: URI
-        boundingBoxAreaInSquareMeters:
-          type: integer
-        century:
-          type: integer
-        day:
-          type: integer
-        dayOfYearBegin:
-          type: integer
-        dayOfYearEnd:
-          type: integer
-        decade:
-          type: integer
-        euref:
-          $ref: '#/components/schemas/WarehouseDwQuery_Coordinates'
-        eurefCenterPoint:
-          $ref: '#/components/schemas/WarehouseDwQuery_SingleCoordinates'
-        eurefGeo:
-          type: object
-          externalDocs:
-            url: http://geojson.org/geojson-spec.html#geometry-objects
-          description: GeoJSON object with custom "crs" required property that takes in values WGS84,EUREF,YKJ (WGS84 = EPSG:4326; EUREF = ETRS-TM35FIN EPSG:3067; YKJ = EPSG:2393)
-        eurefWKT:
+        preferred:
+          type: boolean
+        taxon:
           type: string
-        linelengthInMeters:
-          type: integer
-        month:
-          type: integer
-        seasonBegin:
-          type: integer
-        seasonEnd:
-          type: integer
-        wgs84:
-          $ref: '#/components/schemas/WarehouseDwQuery_Coordinates'
-        wgs84CenterPoint:
-          $ref: '#/components/schemas/WarehouseDwQuery_SingleCoordinates'
-        wgs84Geo:
-          type: object
-          externalDocs:
-            url: http://geojson.org/geojson-spec.html#geometry-objects
-          description: GeoJSON object with custom "crs" required property that takes in values WGS84,EUREF,YKJ (WGS84 = EPSG:4326; EUREF = ETRS-TM35FIN EPSG:3067; YKJ = EPSG:2393)
-        wgs84Grid005:
-          $ref: '#/components/schemas/WarehouseDwQuery_SingleCoordinates'
-        wgs84Grid01:
-          $ref: '#/components/schemas/WarehouseDwQuery_SingleCoordinates'
-        wgs84Grid05:
-          $ref: '#/components/schemas/WarehouseDwQuery_SingleCoordinates'
-        wgs84Grid1:
-          $ref: '#/components/schemas/WarehouseDwQuery_SingleCoordinates'
-        wgs84WKT:
+        taxonID:
           type: string
-        year:
-          type: integer
-        ykj:
-          $ref: '#/components/schemas/WarehouseDwQuery_Coordinates'
-        ykj100km:
-          $ref: '#/components/schemas/WarehouseDwQuery_SingleCoordinates'
-        ykj100kmCenter:
-          $ref: '#/components/schemas/WarehouseDwQuery_SingleCoordinates'
-        ykj10km:
-          $ref: '#/components/schemas/WarehouseDwQuery_SingleCoordinates'
-        ykj10kmCenter:
-          $ref: '#/components/schemas/WarehouseDwQuery_SingleCoordinates'
-        ykj1km:
-          $ref: '#/components/schemas/WarehouseDwQuery_SingleCoordinates'
-        ykj1kmCenter:
-          $ref: '#/components/schemas/WarehouseDwQuery_SingleCoordinates'
-        ykj50km:
-          $ref: '#/components/schemas/WarehouseDwQuery_SingleCoordinates'
-        ykj50kmCenter:
-          $ref: '#/components/schemas/WarehouseDwQuery_SingleCoordinates'
-        ykjGeo:
-          type: object
-          externalDocs:
-            url: http://geojson.org/geojson-spec.html#geometry-objects
-          description: GeoJSON object with custom "crs" required property that takes in values WGS84,EUREF,YKJ (WGS84 = EPSG:4326; EUREF = ETRS-TM35FIN EPSG:3067; YKJ = EPSG:2393)
-        ykjWKT:
+          format: URI
+        taxonSpecifier:
+          type: string
+        taxonSpecifierAuthor:
           type: string
       required:
-      - birdAssociationArea
-      - boundingBoxAreaInSquareMeters
-      - century
-      - day
-      - dayOfYearBegin
-      - dayOfYearEnd
-      - decade
-      - euref
-      - eurefCenterPoint
-      - eurefGeo
-      - eurefWKT
-      - linelengthInMeters
-      - month
-      - seasonBegin
-      - seasonEnd
-      - wgs84
-      - wgs84CenterPoint
-      - wgs84Geo
-      - wgs84Grid005
-      - wgs84Grid01
-      - wgs84Grid05
-      - wgs84Grid1
-      - wgs84WKT
-      - year
-      - ykj
-      - ykj100km
-      - ykj100kmCenter
-      - ykj10km
-      - ykj10kmCenter
-      - ykj1km
-      - ykj1kmCenter
-      - ykj50km
-      - ykj50kmCenter
-      - ykjGeo
-      - ykjWKT
+      - notes
+      - author
+      - det
+      - detDate
+      - facts
+      - id
+      - preferred
+      - taxon
+      - taxonID
+      - taxonSpecifier
+      - taxonSpecifierAuthor
+    WarehouseDwSingle_GatheringQuality:
+      type: object
+      properties:
+        issue:
+          $ref: '#/components/schemas/WarehouseDwSingle_Quality'
+        locationIssue:
+          $ref: '#/components/schemas/WarehouseDwSingle_Quality'
+        timeIssue:
+          $ref: '#/components/schemas/WarehouseDwSingle_Quality'
+      required:
+      - issue
+      - locationIssue
+      - timeIssue
+    WarehouseDwETL_TaxonCensus:
+      type: object
+      properties:
+        taxonId:
+          type: string
+          format: URI
+        type:
+          type: string
+          format: URI
+      required:
+      - taxonId
+      - type
     WarehouseDwQuery_HabitatObject:
       type: object
       properties:
@@ -19150,194 +18720,6 @@ components:
       - habitatSpecificTypes
       - id
       - order
-    WarehouseDwQuery_IdentificationDwLinkings:
-      type: object
-      properties:
-        taxon:
-          $ref: '#/components/schemas/WarehouseDwQuery_Taxon'
-      required:
-      - taxon
-    WarehouseDwQuery_Fact:
-      type: object
-      properties:
-        fact:
-          type: string
-        value:
-          type: string
-        integerValue:
-          type: integer
-        decimalValue:
-          type: number
-      required:
-      - fact
-      - value
-      - integerValue
-      - decimalValue
-    WarehouseDwQuery_NamedPlaceEntity:
-      type: object
-      properties:
-        alternativeId:
-          type: string
-        alternativeIds:
-          type: string
-        birdAssociationAreaDisplayName:
-          type: string
-        birdAssociationAreaId:
-          type: string
-        collectionId:
-          type: string
-        id:
-          type: string
-        municipalityDisplayName:
-          type: string
-        municipalityId:
-          type: string
-        name:
-          type: string
-        tags:
-          type: array
-          items:
-            type: string
-        wgs84CenterPoint:
-          $ref: '#/components/schemas/WarehouseDwQuery_SingleCoordinates'
-        ykj10km:
-          $ref: '#/components/schemas/WarehouseDwQuery_SingleCoordinates'
-      required:
-      - alternativeId
-      - alternativeIds
-      - birdAssociationAreaDisplayName
-      - birdAssociationAreaId
-      - collectionId
-      - id
-      - municipalityDisplayName
-      - municipalityId
-      - name
-      - tags
-      - wgs84CenterPoint
-      - ykj10km
-    WarehouseDwQuery_Quality:
-      type: object
-      properties:
-        issue:
-          type: string
-          enum:
-          - REPORTED_UNRELIABLE
-          - MEDIA_ISSUE
-          - INVALID_CREATED_DATE
-          - INVALID_MODIFIED_DATE
-          - COORDINATES_COUNTRY_MISMATCH
-          - COORDINATES_MUNICIPALITY_MISMATCH
-          - TOO_LARGE_AREA
-          - INVALID_GEO
-          - INVALID_YKJ_COORDINATES
-          - INVALID_EUREF_COORDINATES
-          - INVALID_WGS84_COORDINATES
-          - DATE_END_BEFORE_BEGIN
-          - DATE_END_GIVEN_WITHOUT_BEGIN
-          - DATE_IN_FUTURE
-          - DATE_TOO_FAR_IN_THE_PAST
-          - INVALID_DATE
-          - RECORD_BASIS_MISSING
-          - INVALID_HOUR
-          - INVALID_MINUTE
-          - TIME_END_BEFORE_BEGIN
-          - INVALID_COORDINATES
-          - ETL_ISSUE
-        message:
-          type: string
-        source:
-          type: string
-          enum:
-          - AUTOMATED_FINBIF_VALIDATION
-          - ORIGINAL_DOCUMENT
-          - QUALITY_CONTROL
-      required:
-      - issue
-      - message
-      - source
-    WarehouseDwSingle_HabitatObject:
-      type: object
-      properties:
-        habitat:
-          type: string
-          format: URI
-        habitatSpecificTypes:
-          type: array
-          items:
-            type: string
-        id:
-          type: string
-          format: URI
-        order:
-          type: integer
-      required:
-      - habitat
-      - habitatSpecificTypes
-      - id
-      - order
-    WarehouseDwQuery_CountResponse:
-      type: object
-      properties:
-        total:
-          type: integer
-        cacheTimestamp:
-          type: integer
-      required:
-      - total
-      - cacheTimestamp
-    WarehouseDwQuery_OccurrenceAtTimeOfAnnotation:
-      type: object
-      properties:
-        countryVerbatim:
-          type: string
-        dateBegin:
-          type: string
-          format: yyyy-MM-dd
-        dateEnd:
-          type: string
-          format: yyyy-MM-dd
-        linkings:
-          $ref: '#/components/schemas/WarehouseDwQuery_IdentificationDwLinkings'
-        locality:
-          type: string
-        municipalityVerbatim:
-          type: string
-        taxonId:
-          type: string
-          format: URI
-        taxonVerbatim:
-          type: string
-        wgs84centerPointLat:
-          type: number
-        wgs84centerPointLon:
-          type: number
-      required:
-      - countryVerbatim
-      - dateBegin
-      - dateEnd
-      - linkings
-      - locality
-      - municipalityVerbatim
-      - taxonId
-      - taxonVerbatim
-      - wgs84centerPointLat
-      - wgs84centerPointLon
-    WarehouseDwETL_DocumentQuality:
-      type: object
-      properties:
-        issue:
-          $ref: '#/components/schemas/WarehouseDwETL_Quality'
-      required:
-      - issue
-    WarehouseDwEnumerationLabels:
-      properties:
-        results:
-          type: array
-          items:
-            $ref: '#/components/schemas/WarehouseDwEnumerationLabel'
-      type: object
-      required:
-      - results
     WarehouseDwSingle_GatheringConversions:
       type: object
       properties:
@@ -19457,1255 +18839,6 @@ components:
       - ykj50kmCenter
       - ykjGeo
       - ykjWKT
-    WarehouseDwEnumerationLabel:
-      properties:
-        enumeration:
-          type: string
-        property:
-          type: string
-        label:
-          type: string
-      type: object
-      required:
-      - enumeration
-      - property
-    WarehouseDwSingle_MediaObject:
-      type: object
-      properties:
-        author:
-          type: string
-        caption:
-          type: string
-        copyrightOwner:
-          type: string
-        fullResolutionMediaAvailable:
-          type: boolean
-        fullURL:
-          type: string
-        highDetailModelURL:
-          type: string
-        licenseId:
-          type: string
-        lowDetailModelURL:
-          type: string
-        mediaType:
-          type: string
-          enum:
-          - IMAGE
-          - AUDIO
-          - VIDEO
-          - MODEL
-        mp3URL:
-          type: string
-        squareThumbnailURL:
-          type: string
-        thumbnailURL:
-          type: string
-        type:
-          type: string
-          format: URI
-        videoURL:
-          type: string
-        wavURL:
-          type: string
-      required:
-      - author
-      - caption
-      - copyrightOwner
-      - fullResolutionMediaAvailable
-      - fullURL
-      - highDetailModelURL
-      - licenseId
-      - lowDetailModelURL
-      - mediaType
-      - mp3URL
-      - squareThumbnailURL
-      - thumbnailURL
-      - type
-      - videoURL
-      - wavURL
-    WarehouseDwETL_Coordinates:
-      type: object
-      properties:
-        accuracyInMeters:
-          type: integer
-        latMax:
-          type: number
-        latMin:
-          type: number
-        lonMax:
-          type: number
-        lonMin:
-          type: number
-        type:
-          type: string
-          enum:
-          - WGS84
-          - EUREF
-          - YKJ
-      required:
-      - accuracyInMeters
-      - latMax
-      - latMin
-      - lonMax
-      - lonMin
-      - type
-    WarehouseDwSingle_Unit:
-      type: object
-      properties:
-        unitId:
-          type: string
-          format: URI
-        unitOrder:
-          type: integer
-        taxonVerbatim:
-          type: string
-        quality:
-          $ref: '#/components/schemas/WarehouseDwSingle_UnitQuality'
-        reportedTaxonConfidence:
-          type: string
-          enum:
-          - SURE
-          - UNSURE
-          - SUBSPECIES_UNSURE
-        linkings:
-          $ref: '#/components/schemas/WarehouseDwSingle_UnitDWLinkings'
-        abundanceString:
-          type: string
-        abundanceUnit:
-          type: string
-          enum:
-          - OCCURS_DOES_NOT_OCCUR
-          - INDIVIDUAL_COUNT
-          - PAIRCOUNT
-          - NESTS
-          - BREEDING_SITES
-          - FEEDING_SITES
-          - COLONIES
-          - QUEENS
-          - FRUITBODIES
-          - SPROUTS
-          - HUMMOCKS
-          - THALLI
-          - FLOWERS
-          - SPOTS
-          - TRUNKS
-          - SHELLS
-          - DROPPINGS
-          - FEEDING_MARKS
-          - INDIRECT_MARKS
-          - SQUARE_DM
-          - SQUARE_M
-          - RELATIVE_DENSITY
-        interpretations:
-          $ref: '#/components/schemas/WarehouseDwSingle_UnitInterpretations'
-        superRecordBasis:
-          type: string
-          enum:
-          - PRESERVED_SPECIMEN
-          - LIVING_SPECIMEN
-          - FOSSIL_SPECIMEN
-          - SUBFOSSIL_SPECIMEN
-          - SUBFOSSIL_AMBER_INCLUSION_SPECIMEN
-          - MICROBIAL_SPECIMEN
-          - HUMAN_OBSERVATION_UNSPECIFIED
-          - HUMAN_OBSERVATION_SEEN
-          - HUMAN_OBSERVATION_HEARD
-          - HUMAN_OBSERVATION_PHOTO
-          - HUMAN_OBSERVATION_INDIRECT
-          - HUMAN_OBSERVATION_HANDLED
-          - HUMAN_OBSERVATION_VIDEO
-          - HUMAN_OBSERVATION_RECORDED_AUDIO
-          - MACHINE_OBSERVATION_UNSPECIFIED
-          - MACHINE_OBSERVATION_PHOTO
-          - MACHINE_OBSERVATION_VIDEO
-          - MACHINE_OBSERVATION_AUDIO
-          - MACHINE_OBSERVATION_GEOLOGGER
-          - MACHINE_OBSERVATION_SATELLITE_TRANSMITTER
-          - LITERATURE
-          - MATERIAL_SAMPLE
-          - MATERIAL_SAMPLE_AIR
-          - MATERIAL_SAMPLE_SOIL
-          - MATERIAL_SAMPLE_WATER
-        recordBasis:
-          type: string
-          enum:
-          - PRESERVED_SPECIMEN
-          - LIVING_SPECIMEN
-          - FOSSIL_SPECIMEN
-          - SUBFOSSIL_SPECIMEN
-          - SUBFOSSIL_AMBER_INCLUSION_SPECIMEN
-          - MICROBIAL_SPECIMEN
-          - HUMAN_OBSERVATION_UNSPECIFIED
-          - HUMAN_OBSERVATION_SEEN
-          - HUMAN_OBSERVATION_HEARD
-          - HUMAN_OBSERVATION_PHOTO
-          - HUMAN_OBSERVATION_INDIRECT
-          - HUMAN_OBSERVATION_HANDLED
-          - HUMAN_OBSERVATION_VIDEO
-          - HUMAN_OBSERVATION_RECORDED_AUDIO
-          - MACHINE_OBSERVATION_UNSPECIFIED
-          - MACHINE_OBSERVATION_PHOTO
-          - MACHINE_OBSERVATION_VIDEO
-          - MACHINE_OBSERVATION_AUDIO
-          - MACHINE_OBSERVATION_GEOLOGGER
-          - MACHINE_OBSERVATION_SATELLITE_TRANSMITTER
-          - LITERATURE
-          - MATERIAL_SAMPLE
-          - MATERIAL_SAMPLE_AIR
-          - MATERIAL_SAMPLE_SOIL
-          - MATERIAL_SAMPLE_WATER
-        typeSpecimen:
-          type: boolean
-        det:
-          type: string
-        sex:
-          type: string
-          enum:
-          - MALE
-          - FEMALE
-          - WORKER
-          - UNKNOWN
-          - NOT_APPLICABLE
-          - GYNANDROMORPH
-          - MULTIPLE
-          - CONFLICTING
-        lifeStage:
-          type: string
-          enum:
-          - ADULT
-          - JUVENILE
-          - IMMATURE
-          - EGG
-          - TADPOLE
-          - PUPA
-          - NYMPH
-          - SUBIMAGO
-          - LARVA
-          - SNAG
-          - EMBRYO
-          - SUBADULT
-          - MATURE
-          - STERILE
-          - FERTILE
-          - SPROUT
-          - DEAD_SPROUT
-          - BUD
-          - FLOWER
-          - WITHERED_FLOWER
-          - SEED
-          - RIPENING_FRUIT
-          - RIPE_FRUIT
-          - SUBTERRANEAN
-          - GALL
-          - MARKS
-          - TRIUNGULIN
-        wild:
-          type: boolean
-        alive:
-          type: boolean
-        local:
-          type: boolean
-        keywords:
-          type: array
-          items:
-            type: string
-        breedingSite:
-          type: boolean
-        plantStatusCode:
-          type: string
-        atlasCode:
-          type: string
-        atlasClass:
-          type: string
-        individualId:
-          type: string
-        sequenceText:
-          type: string
-        notes:
-          type: string
-        annotationCount:
-          type: integer
-        annotations:
-          type: array
-          items:
-            $ref: '#/components/schemas/WarehouseDwSingle_Annotation'
-        audioCount:
-          type: integer
-        author:
-          type: string
-        externalMediaCount:
-          type: integer
-        facts:
-          type: array
-          items:
-            $ref: '#/components/schemas/WarehouseDwSingle_Fact'
-        identificationBasis:
-          type: array
-          items:
-            type: string
-        identifications:
-          type: array
-          items:
-            $ref: '#/components/schemas/WarehouseDwSingle_IdentificationEvent'
-        imageCount:
-          type: integer
-        individualCountFemale:
-          type: integer
-        individualCountMale:
-          type: integer
-        media:
-          type: array
-          items:
-            $ref: '#/components/schemas/WarehouseDwSingle_MediaObject'
-        mediaCount:
-          type: integer
-        modelCount:
-          type: integer
-        primarySpecimen:
-          type: boolean
-        reportedInformalTaxonGroup:
-          type: string
-          format: URI
-        reportedTaxonId:
-          type: string
-          format: URI
-        sampleCount:
-          type: integer
-        samples:
-          type: array
-          items:
-            $ref: '#/components/schemas/WarehouseDwSingle_Sample'
-        samplingMethod:
-          type: string
-        sourceTags:
-          type: array
-          items:
-            type: string
-            enum:
-            - ADMIN_MARKED_SPAM
-            - ADMIN_MARKED_COARSE
-            - ADMIN_MARKED_NON_WILD
-            - EXPERT_TAG_VERIFIED
-            - EXPERT_TAG_UNCERTAIN
-            - EXPERT_TAG_ERRONEOUS
-            - COMMUNITY_TAG_VERIFIED
-            - AUTO_VALIDATIONS_PASS
-            - CHECKED_CANNOT_VERIFY
-            - CHANGED_OWNER_MANUAL
-            - CHANGED_DW_AUTO
-            - CHECK
-            - CHECK_COORDINATES
-            - CHECK_DATETIME
-            - CHECK_LOCATION
-            - CHECK_OBSERVER
-            - CHECK_TAXON
-            - CHECK_DUPLICATE
-            - CHECK_WILDNESS
-            - CHECK_NEEDS_INFO
-            - CHECK_SPAM
-            - CHECK_BREEDING_INDEX
-            - AUTO_DISTRIBUTION_CHECK
-            - AUTO_PERIOD_CHECK
-            - FORMADMIN_CENSUS_COUNT_ERROR
-            - FORMADMIN_CENSUS_INNER_COUNT_ERROR
-            - FORMADMIN_CENSUS_OTHER_ERROR
-            - FORMADMIN_VERIFIED
-            - FORMADMIN_UNCERTAIN
-            - INVASIVE_FULL
-            - INVASIVE_PARTIAL
-            - INVASIVE_NO_EFFECT
-            - INVASIVE_NOT_FOUND
-        types:
-          type: array
-          items:
-            $ref: '#/components/schemas/WarehouseDwSingle_TypeSpecimen'
-        videoCount:
-          type: integer
-      required:
-      - unitId
-      - unitOrder
-      - taxonVerbatim
-      - quality
-      - reportedTaxonConfidence
-      - linkings
-      - abundanceString
-      - abundanceUnit
-      - interpretations
-      - superRecordBasis
-      - recordBasis
-      - typeSpecimen
-      - det
-      - sex
-      - lifeStage
-      - wild
-      - alive
-      - local
-      - keywords
-      - breedingSite
-      - plantStatusCode
-      - atlasCode
-      - atlasClass
-      - individualId
-      - sequenceText
-      - notes
-      - annotationCount
-      - annotations
-      - audioCount
-      - author
-      - externalMediaCount
-      - facts
-      - identificationBasis
-      - identifications
-      - imageCount
-      - individualCountFemale
-      - individualCountMale
-      - media
-      - mediaCount
-      - modelCount
-      - primarySpecimen
-      - reportedInformalTaxonGroup
-      - reportedTaxonId
-      - sampleCount
-      - samples
-      - samplingMethod
-      - sourceTags
-      - types
-      - videoCount
-    WarehouseDwQuery_GatheringQuality:
-      type: object
-      properties:
-        issue:
-          $ref: '#/components/schemas/WarehouseDwQuery_Quality'
-        locationIssue:
-          $ref: '#/components/schemas/WarehouseDwQuery_Quality'
-        timeIssue:
-          $ref: '#/components/schemas/WarehouseDwQuery_Quality'
-      required:
-      - issue
-      - locationIssue
-      - timeIssue
-    WarehouseDwSingle_UnitInterpretations:
-      type: object
-      properties:
-        annotatedTaxonId:
-          type: string
-          format: URI
-        collectionAndRecordQuality:
-          type: string
-        det:
-          type: string
-        effectiveTags:
-          type: array
-          items:
-            type: string
-            enum:
-            - ADMIN_MARKED_SPAM
-            - ADMIN_MARKED_COARSE
-            - ADMIN_MARKED_NON_WILD
-            - EXPERT_TAG_VERIFIED
-            - EXPERT_TAG_UNCERTAIN
-            - EXPERT_TAG_ERRONEOUS
-            - COMMUNITY_TAG_VERIFIED
-            - AUTO_VALIDATIONS_PASS
-            - CHECKED_CANNOT_VERIFY
-            - CHANGED_OWNER_MANUAL
-            - CHANGED_DW_AUTO
-            - CHECK
-            - CHECK_COORDINATES
-            - CHECK_DATETIME
-            - CHECK_LOCATION
-            - CHECK_OBSERVER
-            - CHECK_TAXON
-            - CHECK_DUPLICATE
-            - CHECK_WILDNESS
-            - CHECK_NEEDS_INFO
-            - CHECK_SPAM
-            - CHECK_BREEDING_INDEX
-            - AUTO_DISTRIBUTION_CHECK
-            - AUTO_PERIOD_CHECK
-            - FORMADMIN_CENSUS_COUNT_ERROR
-            - FORMADMIN_CENSUS_INNER_COUNT_ERROR
-            - FORMADMIN_CENSUS_OTHER_ERROR
-            - FORMADMIN_VERIFIED
-            - FORMADMIN_UNCERTAIN
-            - INVASIVE_FULL
-            - INVASIVE_PARTIAL
-            - INVASIVE_NO_EFFECT
-            - INVASIVE_NOT_FOUND
-        individualCount:
-          type: integer
-        invasiveControlEffectiveness:
-          type: string
-          enum:
-          - FULL
-          - PARTIAL
-          - NO_EFFECT
-          - NOT_FOUND
-        invasiveControlled:
-          type: boolean
-        needsCheck:
-          type: boolean
-        needsIdentification:
-          type: boolean
-        pairCount:
-          type: integer
-        recordQuality:
-          type: string
-          enum:
-          - EXPERT_VERIFIED
-          - COMMUNITY_VERIFIED
-          - NEUTRAL
-          - UNCERTAIN
-          - ERRONEOUS
-        recordQualityNumeric:
-          type: number
-        reliability:
-          type: string
-          enum:
-          - RELIABLE
-          - UNDEFINED
-          - UNRELIABLE
-      required:
-      - annotatedTaxonId
-      - collectionAndRecordQuality
-      - det
-      - effectiveTags
-      - individualCount
-      - invasiveControlEffectiveness
-      - invasiveControlled
-      - needsCheck
-      - needsIdentification
-      - pairCount
-      - recordQuality
-      - recordQualityNumeric
-      - reliability
-    WarehouseDwSingle_OccurrenceAtTimeOfAnnotation:
-      type: object
-      properties:
-        countryVerbatim:
-          type: string
-        dateBegin:
-          type: string
-          format: yyyy-MM-dd
-        dateEnd:
-          type: string
-          format: yyyy-MM-dd
-        linkings:
-          $ref: '#/components/schemas/WarehouseDwSingle_IdentificationDwLinkings'
-        locality:
-          type: string
-        municipalityVerbatim:
-          type: string
-        taxonId:
-          type: string
-          format: URI
-        taxonVerbatim:
-          type: string
-        wgs84centerPointLat:
-          type: number
-        wgs84centerPointLon:
-          type: number
-      required:
-      - countryVerbatim
-      - dateBegin
-      - dateEnd
-      - linkings
-      - locality
-      - municipalityVerbatim
-      - taxonId
-      - taxonVerbatim
-      - wgs84centerPointLat
-      - wgs84centerPointLon
-    WarehouseDwETL_MediaObject:
-      type: object
-      properties:
-        author:
-          type: string
-        caption:
-          type: string
-        copyrightOwner:
-          type: string
-        fullResolutionMediaAvailable:
-          type: boolean
-        fullURL:
-          type: string
-        highDetailModelURL:
-          type: string
-        id:
-          type: string
-          format: URI
-        licenseId:
-          type: string
-        lowDetailModelURL:
-          type: string
-        mediaType:
-          type: string
-          enum:
-          - IMAGE
-          - AUDIO
-          - VIDEO
-          - MODEL
-        mp3URL:
-          type: string
-        squareThumbnailURL:
-          type: string
-        thumbnailURL:
-          type: string
-        type:
-          type: string
-          format: URI
-        videoURL:
-          type: string
-        wavURL:
-          type: string
-      required:
-      - author
-      - caption
-      - copyrightOwner
-      - fullResolutionMediaAvailable
-      - fullURL
-      - highDetailModelURL
-      - id
-      - licenseId
-      - lowDetailModelURL
-      - mediaType
-      - mp3URL
-      - squareThumbnailURL
-      - thumbnailURL
-      - type
-      - videoURL
-      - wavURL
-    WarehouseDwSingle_NamedPlaceEntity:
-      type: object
-      properties:
-        alternativeId:
-          type: string
-        alternativeIds:
-          type: string
-        birdAssociationAreaDisplayName:
-          type: string
-        birdAssociationAreaId:
-          type: string
-        collectionId:
-          type: string
-        id:
-          type: string
-        municipalityDisplayName:
-          type: string
-        municipalityId:
-          type: string
-        name:
-          type: string
-        tags:
-          type: array
-          items:
-            type: string
-        wgs84CenterPoint:
-          $ref: '#/components/schemas/WarehouseDwSingle_SingleCoordinates'
-        ykj10km:
-          $ref: '#/components/schemas/WarehouseDwSingle_SingleCoordinates'
-      required:
-      - alternativeId
-      - alternativeIds
-      - birdAssociationAreaDisplayName
-      - birdAssociationAreaId
-      - collectionId
-      - id
-      - municipalityDisplayName
-      - municipalityId
-      - name
-      - tags
-      - wgs84CenterPoint
-      - ykj10km
-    WarehouseDwSingle_GatheringQuality:
-      type: object
-      properties:
-        issue:
-          $ref: '#/components/schemas/WarehouseDwSingle_Quality'
-        locationIssue:
-          $ref: '#/components/schemas/WarehouseDwSingle_Quality'
-        timeIssue:
-          $ref: '#/components/schemas/WarehouseDwSingle_Quality'
-      required:
-      - issue
-      - locationIssue
-      - timeIssue
-    WarehouseDwSingle_Fact:
-      type: object
-      properties:
-        fact:
-          type: string
-        value:
-          type: string
-        integerValue:
-          type: integer
-        decimalValue:
-          type: number
-      required:
-      - fact
-      - value
-      - integerValue
-      - decimalValue
-    WarehouseDwQuery_Sample:
-      type: object
-      properties:
-        notes:
-          type: string
-        collectionId:
-          type: string
-          format: URI
-        facts:
-          type: array
-          items:
-            $ref: '#/components/schemas/WarehouseDwQuery_Fact'
-        keywords:
-          type: array
-          items:
-            type: string
-        material:
-          type: string
-        multiple:
-          type: boolean
-        quality:
-          type: string
-        sampleId:
-          type: string
-          format: URI
-        sampleOrder:
-          type: integer
-        status:
-          type: string
-        type:
-          type: string
-      required:
-      - notes
-      - collectionId
-      - facts
-      - keywords
-      - material
-      - multiple
-      - quality
-      - sampleId
-      - sampleOrder
-      - status
-      - type
-    WarehouseDwSingle_UnitDWLinkings:
-      type: object
-      properties:
-        taxon:
-          $ref: '#/components/schemas/WarehouseDwSingle_Taxon'
-        originalTaxon:
-          $ref: '#/components/schemas/WarehouseDwSingle_Taxon'
-      required:
-      - taxon
-      - originalTaxon
-    WarehouseDwETL_Gathering:
-      type: object
-      properties:
-        gatheringId:
-          type: string
-          format: URI
-        gatheringSection:
-          type: integer
-        coordinates:
-          $ref: '#/components/schemas/WarehouseDwETL_Coordinates'
-        geo:
-          type: object
-          externalDocs:
-            url: http://geojson.org/geojson-spec.html#geometry-objects
-          description: GeoJSON object with custom "crs" required property that takes in values WGS84,EUREF,YKJ (WGS84 = EPSG:4326; EUREF = ETRS-TM35FIN EPSG:3067; YKJ = EPSG:2393)
-        eventDate:
-          $ref: '#/components/schemas/WarehouseDwETL_DateRange'
-        hourBegin:
-          type: integer
-        hourEnd:
-          type: integer
-        team:
-          type: array
-          items:
-            type: string
-        stateLand:
-          type: boolean
-        accurateArea:
-          type: boolean
-        higherGeography:
-          type: string
-        country:
-          type: string
-        municipality:
-          type: string
-        biogeographicalProvince:
-          type: string
-        province:
-          type: string
-        locality:
-          type: string
-        quality:
-          $ref: '#/components/schemas/WarehouseDwETL_GatheringQuality'
-        notes:
-          type: string
-        coordinatesVerbatim:
-          type: string
-        facts:
-          type: array
-          items:
-            $ref: '#/components/schemas/WarehouseDwETL_Fact'
-        media:
-          type: array
-          items:
-            $ref: '#/components/schemas/WarehouseDwETL_MediaObject'
-        minutesBegin:
-          type: integer
-        minutesEnd:
-          type: integer
-        observerUserIds:
-          type: array
-          items:
-            type: string
-        taxonCensus:
-          type: array
-          items:
-            $ref: '#/components/schemas/WarehouseDwETL_TaxonCensus'
-        units:
-          type: array
-          items:
-            $ref: '#/components/schemas/WarehouseDwETL_Unit'
-      required:
-      - gatheringId
-      - gatheringSection
-      - coordinates
-      - geo
-      - eventDate
-      - hourBegin
-      - hourEnd
-      - team
-      - stateLand
-      - accurateArea
-      - higherGeography
-      - country
-      - municipality
-      - biogeographicalProvince
-      - province
-      - locality
-      - quality
-      - notes
-      - coordinatesVerbatim
-      - facts
-      - media
-      - minutesBegin
-      - minutesEnd
-      - observerUserIds
-      - taxonCensus
-      - units
-    WarehouseDwQuery_ListResponse:
-      type: object
-      properties:
-        currentPage:
-          type: integer
-        prevPage:
-          type: integer
-        nextPage:
-          type: integer
-        lastPage:
-          type: integer
-        pageSize:
-          type: integer
-        total:
-          type: integer
-        results:
-          type: array
-          items:
-            $ref: '#/components/schemas/WarehouseDwQuery_JoinedRow'
-        cacheTimestamp:
-          type: integer
-      required:
-      - currentPage
-      - prevPage
-      - nextPage
-      - lastPage
-      - pageSize
-      - total
-      - results
-      - cacheTimestamp
-    WarehouseDwSingle_Annotation:
-      type: object
-      properties:
-        addedTags:
-          type: array
-          items:
-            type: string
-            enum:
-            - ADMIN_MARKED_SPAM
-            - ADMIN_MARKED_COARSE
-            - ADMIN_MARKED_NON_WILD
-            - EXPERT_TAG_VERIFIED
-            - EXPERT_TAG_UNCERTAIN
-            - EXPERT_TAG_ERRONEOUS
-            - COMMUNITY_TAG_VERIFIED
-            - AUTO_VALIDATIONS_PASS
-            - CHECKED_CANNOT_VERIFY
-            - CHANGED_OWNER_MANUAL
-            - CHANGED_DW_AUTO
-            - CHECK
-            - CHECK_COORDINATES
-            - CHECK_DATETIME
-            - CHECK_LOCATION
-            - CHECK_OBSERVER
-            - CHECK_TAXON
-            - CHECK_DUPLICATE
-            - CHECK_WILDNESS
-            - CHECK_NEEDS_INFO
-            - CHECK_SPAM
-            - CHECK_BREEDING_INDEX
-            - AUTO_DISTRIBUTION_CHECK
-            - AUTO_PERIOD_CHECK
-            - FORMADMIN_CENSUS_COUNT_ERROR
-            - FORMADMIN_CENSUS_INNER_COUNT_ERROR
-            - FORMADMIN_CENSUS_OTHER_ERROR
-            - FORMADMIN_VERIFIED
-            - FORMADMIN_UNCERTAIN
-            - INVASIVE_FULL
-            - INVASIVE_PARTIAL
-            - INVASIVE_NO_EFFECT
-            - INVASIVE_NOT_FOUND
-        annotationByPerson:
-          type: string
-          format: URI
-        annotationByPersonName:
-          type: string
-        annotationBySystem:
-          type: string
-          format: URI
-        annotationBySystemName:
-          type: string
-        atlasCode:
-          type: string
-          format: URI
-        byRole:
-          type: string
-          format: URI
-        created:
-          type: string
-        deleted:
-          type: boolean
-        deletedByPerson:
-          type: string
-          format: URI
-        deletedByPersonName:
-          type: string
-        deletedDateTime:
-          type: string
-        id:
-          type: string
-          format: URI
-        identification:
-          $ref: '#/components/schemas/WarehouseDwSingle_Identification'
-        notes:
-          type: string
-        occurrenceAtTimeOfAnnotation:
-          $ref: '#/components/schemas/WarehouseDwSingle_OccurrenceAtTimeOfAnnotation'
-        removedTags:
-          type: array
-          items:
-            type: string
-            enum:
-            - ADMIN_MARKED_SPAM
-            - ADMIN_MARKED_COARSE
-            - ADMIN_MARKED_NON_WILD
-            - EXPERT_TAG_VERIFIED
-            - EXPERT_TAG_UNCERTAIN
-            - EXPERT_TAG_ERRONEOUS
-            - COMMUNITY_TAG_VERIFIED
-            - AUTO_VALIDATIONS_PASS
-            - CHECKED_CANNOT_VERIFY
-            - CHANGED_OWNER_MANUAL
-            - CHANGED_DW_AUTO
-            - CHECK
-            - CHECK_COORDINATES
-            - CHECK_DATETIME
-            - CHECK_LOCATION
-            - CHECK_OBSERVER
-            - CHECK_TAXON
-            - CHECK_DUPLICATE
-            - CHECK_WILDNESS
-            - CHECK_NEEDS_INFO
-            - CHECK_SPAM
-            - CHECK_BREEDING_INDEX
-            - AUTO_DISTRIBUTION_CHECK
-            - AUTO_PERIOD_CHECK
-            - FORMADMIN_CENSUS_COUNT_ERROR
-            - FORMADMIN_CENSUS_INNER_COUNT_ERROR
-            - FORMADMIN_CENSUS_OTHER_ERROR
-            - FORMADMIN_VERIFIED
-            - FORMADMIN_UNCERTAIN
-            - INVASIVE_FULL
-            - INVASIVE_PARTIAL
-            - INVASIVE_NO_EFFECT
-            - INVASIVE_NOT_FOUND
-        valid:
-          type: boolean
-      required:
-      - addedTags
-      - annotationByPerson
-      - annotationByPersonName
-      - annotationBySystem
-      - annotationBySystemName
-      - atlasCode
-      - byRole
-      - created
-      - deleted
-      - deletedByPerson
-      - deletedByPersonName
-      - deletedDateTime
-      - id
-      - identification
-      - notes
-      - occurrenceAtTimeOfAnnotation
-      - removedTags
-      - valid
-    WarehouseDwQuery_AggregateResponse:
-      type: object
-      properties:
-        currentPage:
-          type: integer
-        prevPage:
-          type: integer
-        nextPage:
-          type: integer
-        lastPage:
-          type: integer
-        pageSize:
-          type: integer
-        total:
-          type: integer
-        results:
-          type: array
-          items:
-            $ref: '#/components/schemas/WarehouseDwQuery_AggregateRow'
-        cacheTimestamp:
-          type: integer
-      required:
-      - currentPage
-      - prevPage
-      - nextPage
-      - lastPage
-      - pageSize
-      - total
-      - results
-      - cacheTimestamp
-    WarehouseDwQuery_UnitQuality:
-      type: object
-      properties:
-        documentGatheringUnitQualityIssues:
-          type: boolean
-        issue:
-          $ref: '#/components/schemas/WarehouseDwQuery_Quality'
-      required:
-      - documentGatheringUnitQualityIssues
-      - issue
-    WarehouseDwSingle_Taxon:
-      properties:
-        id:
-          type: string
-          format: URI
-        qname:
-          type: string
-        checklist:
-          type: string
-          format: URI
-        scientificName:
-          type: string
-        scientificNameAuthorship:
-          type: string
-        scientificNameDisplayName:
-          type: string
-        cursiveName:
-          type: boolean
-        finnish:
-          type: boolean
-        taxonRank:
-          type: string
-          format: URI
-        vernacularName: {}
-        nameFinnish:
-          type: string
-        nameSwedish:
-          type: string
-        nameEnglish:
-          type: string
-        informalTaxonGroups:
-          type: array
-          items:
-            type: string
-        taxonomicOrder:
-          type: integer
-        latestRedListStatusFinland:
-          $ref: '#/components/schemas/WarehouseDwSingle_RedListStatus'
-        sensitive:
-          type: boolean
-        kingdomScientificName:
-          type: string
-        occurrenceCountFinland:
-          type: integer
-        primaryHabitat:
-          $ref: '#/components/schemas/WarehouseDwSingle_HabitatObject'
-        administrativeStatuses:
-          type: array
-          items:
-            type: string
-        threatenedStatus:
-          type: string
-          format: URI
-        taxonConceptIds:
-          type: array
-          items:
-            type: string
-      type: object
-      required:
-      - id
-      - qname
-      - checklist
-      - scientificName
-      - scientificNameAuthorship
-      - scientificNameDisplayName
-      - cursiveName
-      - finnish
-      - taxonRank
-      - vernacularName
-      - nameFinnish
-      - nameSwedish
-      - nameEnglish
-      - informalTaxonGroups
-      - taxonomicOrder
-      - latestRedListStatusFinland
-      - sensitive
-      - kingdomScientificName
-      - occurrenceCountFinland
-      - primaryHabitat
-      - administrativeStatuses
-      - threatenedStatus
-      - taxonConceptIds
-    WarehouseDwQuery_TypeSpecimen:
-      type: object
-      properties:
-        notes:
-          type: string
-        author:
-          type: string
-        basionymePublication:
-          type: string
-        facts:
-          type: array
-          items:
-            $ref: '#/components/schemas/WarehouseDwQuery_Fact'
-        id:
-          type: string
-          format: URI
-        linkings:
-          $ref: '#/components/schemas/WarehouseDwQuery_IdentificationDwLinkings'
-        publication:
-          type: string
-        status:
-          type: string
-          format: URI
-        taxon:
-          type: string
-        taxonID:
-          type: string
-          format: URI
-        taxonSpecifier:
-          type: string
-        taxonSpecifierAuthor:
-          type: string
-        typif:
-          type: string
-        typifDate:
-          type: string
-        verification:
-          type: string
-          format: URI
-      required:
-      - notes
-      - author
-      - basionymePublication
-      - facts
-      - id
-      - linkings
-      - publication
-      - status
-      - taxon
-      - taxonID
-      - taxonSpecifier
-      - taxonSpecifierAuthor
-      - typif
-      - typifDate
-      - verification
-    WarehouseDwTeamMembers:
-      type: object
-      properties:
-        results:
-          type: array
-          items:
-            type: object
-            properties:
-              id:
-                type: string
-              name:
-                type: string
-              count:
-                type: integer
-            required:
-            - id
-            - name
-            - count
-      required:
-      - results
-    WarehouseDwSingle_Identification:
-      type: object
-      properties:
-        notes:
-          type: string
-        author:
-          type: string
-        facts:
-          type: array
-          items:
-            $ref: '#/components/schemas/WarehouseDwSingle_Fact'
-        id:
-          type: string
-          format: URI
-        linkings:
-          $ref: '#/components/schemas/WarehouseDwSingle_IdentificationDwLinkings'
-        taxon:
-          type: string
-        taxonID:
-          type: string
-          format: URI
-        taxonSpecifier:
-          type: string
-        taxonSpecifierAuthor:
-          type: string
-      required:
-      - notes
-      - author
-      - facts
-      - id
-      - linkings
-      - taxon
-      - taxonID
-      - taxonSpecifier
-      - taxonSpecifierAuthor
-    WarehouseDwQuery_SingleCoordinates:
-      type: object
-      properties:
-        lat:
-          type: number
-        lon:
-          type: number
-      required:
-      - lat
-      - lon
     WarehouseDwError:
       properties:
         status:
@@ -20716,6 +18849,61 @@ components:
       required:
       - status
       - message
+    WarehouseDwQuery_MediaObject:
+      type: object
+      properties:
+        author:
+          type: string
+        caption:
+          type: string
+        copyrightOwner:
+          type: string
+        fullResolutionMediaAvailable:
+          type: boolean
+        fullURL:
+          type: string
+        highDetailModelURL:
+          type: string
+        licenseId:
+          type: string
+        lowDetailModelURL:
+          type: string
+        mediaType:
+          type: string
+          enum:
+          - IMAGE
+          - AUDIO
+          - VIDEO
+          - MODEL
+        mp3URL:
+          type: string
+        squareThumbnailURL:
+          type: string
+        thumbnailURL:
+          type: string
+        type:
+          type: string
+          format: URI
+        videoURL:
+          type: string
+        wavURL:
+          type: string
+      required:
+      - author
+      - caption
+      - copyrightOwner
+      - fullResolutionMediaAvailable
+      - fullURL
+      - highDetailModelURL
+      - licenseId
+      - lowDetailModelURL
+      - mediaType
+      - mp3URL
+      - squareThumbnailURL
+      - thumbnailURL
+      - type
+      - videoURL
+      - wavURL
     WarehouseDwQuery_Annotation:
       type: object
       properties:
@@ -20852,6 +19040,479 @@ components:
       - occurrenceAtTimeOfAnnotation
       - removedTags
       - valid
+    WarehouseDwSingle_DocumentQuality:
+      type: object
+      properties:
+        issue:
+          $ref: '#/components/schemas/WarehouseDwSingle_Quality'
+      required:
+      - issue
+    WarehouseDwFilter:
+      properties:
+        label:
+          type: string
+        type:
+          type: string
+          enum:
+          - STRING
+          - ENUMERATION
+          - RESOURCE
+        resource:
+          type: string
+        enumerations:
+          type: array
+          items:
+            $ref: '#/components/schemas/WarehouseDwFilterEnum'
+      type: object
+      description: Map of filter name to filter definition
+      required:
+      - type
+      - resource
+      - enumerations
+    WarehouseDwSingle_TaxonCensus:
+      type: object
+      properties:
+        taxonId:
+          type: string
+          format: URI
+        type:
+          type: string
+          format: URI
+      required:
+      - taxonId
+      - type
+    WarehouseDwQuery_NamedPlaceEntity:
+      type: object
+      properties:
+        alternativeId:
+          type: string
+        alternativeIds:
+          type: string
+        birdAssociationAreaDisplayName:
+          type: string
+        birdAssociationAreaId:
+          type: string
+        collectionId:
+          type: string
+        id:
+          type: string
+        municipalityDisplayName:
+          type: string
+        municipalityId:
+          type: string
+        name:
+          type: string
+        tags:
+          type: array
+          items:
+            type: string
+        wgs84CenterPoint:
+          $ref: '#/components/schemas/WarehouseDwQuery_SingleCoordinates'
+        ykj10km:
+          $ref: '#/components/schemas/WarehouseDwQuery_SingleCoordinates'
+      required:
+      - alternativeId
+      - alternativeIds
+      - birdAssociationAreaDisplayName
+      - birdAssociationAreaId
+      - collectionId
+      - id
+      - municipalityDisplayName
+      - municipalityId
+      - name
+      - tags
+      - wgs84CenterPoint
+      - ykj10km
+    WarehouseDwSingle_RedListStatus:
+      type: object
+      properties:
+        status:
+          type: string
+          format: URI
+        year:
+          type: integer
+      required:
+      - status
+      - year
+    WarehouseDwTeamMembers:
+      type: object
+      properties:
+        results:
+          type: array
+          items:
+            type: object
+            properties:
+              id:
+                type: string
+              name:
+                type: string
+              count:
+                type: integer
+            required:
+            - id
+            - name
+            - count
+      required:
+      - results
+    WarehouseDwETL_Fact:
+      type: object
+      properties:
+        fact:
+          type: string
+        value:
+          type: string
+      required:
+      - fact
+      - value
+    WarehouseDwFilters:
+      type: object
+      additionalProperties:
+        $ref: '#/components/schemas/WarehouseDwFilter'
+    WarehouseDwQuery_Person:
+      type: object
+      properties:
+        fullName:
+          type: string
+        id:
+          type: string
+          format: URI
+        userId:
+          type: string
+      required:
+      - fullName
+      - id
+      - userId
+    WarehouseDwSingle_NamedPlaceEntity:
+      type: object
+      properties:
+        alternativeId:
+          type: string
+        alternativeIds:
+          type: string
+        birdAssociationAreaDisplayName:
+          type: string
+        birdAssociationAreaId:
+          type: string
+        collectionId:
+          type: string
+        id:
+          type: string
+        municipalityDisplayName:
+          type: string
+        municipalityId:
+          type: string
+        name:
+          type: string
+        tags:
+          type: array
+          items:
+            type: string
+        wgs84CenterPoint:
+          $ref: '#/components/schemas/WarehouseDwSingle_SingleCoordinates'
+        ykj10km:
+          $ref: '#/components/schemas/WarehouseDwSingle_SingleCoordinates'
+      required:
+      - alternativeId
+      - alternativeIds
+      - birdAssociationAreaDisplayName
+      - birdAssociationAreaId
+      - collectionId
+      - id
+      - municipalityDisplayName
+      - municipalityId
+      - name
+      - tags
+      - wgs84CenterPoint
+      - ykj10km
+    WarehouseDwSingle_OccurrenceAtTimeOfAnnotation:
+      type: object
+      properties:
+        countryVerbatim:
+          type: string
+        dateBegin:
+          type: string
+          format: yyyy-MM-dd
+        dateEnd:
+          type: string
+          format: yyyy-MM-dd
+        linkings:
+          $ref: '#/components/schemas/WarehouseDwSingle_IdentificationDwLinkings'
+        locality:
+          type: string
+        municipalityVerbatim:
+          type: string
+        taxonId:
+          type: string
+          format: URI
+        taxonVerbatim:
+          type: string
+        wgs84centerPointLat:
+          type: number
+        wgs84centerPointLon:
+          type: number
+      required:
+      - countryVerbatim
+      - dateBegin
+      - dateEnd
+      - linkings
+      - locality
+      - municipalityVerbatim
+      - taxonId
+      - taxonVerbatim
+      - wgs84centerPointLat
+      - wgs84centerPointLon
+    WarehouseDwETL_DwRoot:
+      type: object
+      properties:
+        documentId:
+          type: string
+          format: URI
+        sourceId:
+          type: string
+          format: URI
+        collectionId:
+          type: string
+          format: URI
+        publicDocument:
+          $ref: '#/components/schemas/WarehouseDwETL_Document'
+        privateDocument:
+          $ref: '#/components/schemas/WarehouseDwETL_Document'
+        deleteRequest:
+          type: boolean
+      required:
+      - documentId
+      - sourceId
+      - collectionId
+      - publicDocument
+      - privateDocument
+      - deleteRequest
+    WarehouseDwSingle_Coordinates:
+      type: object
+      properties:
+        latMax:
+          type: number
+        latMin:
+          type: number
+        lonMax:
+          type: number
+        lonMin:
+          type: number
+      required:
+      - latMax
+      - latMin
+      - lonMax
+      - lonMin
+    WarehouseDwSingle_TypeSpecimen:
+      type: object
+      properties:
+        notes:
+          type: string
+        author:
+          type: string
+        basionymePublication:
+          type: string
+        facts:
+          type: array
+          items:
+            $ref: '#/components/schemas/WarehouseDwSingle_Fact'
+        id:
+          type: string
+          format: URI
+        linkings:
+          $ref: '#/components/schemas/WarehouseDwSingle_IdentificationDwLinkings'
+        publication:
+          type: string
+        status:
+          type: string
+          format: URI
+        taxon:
+          type: string
+        taxonID:
+          type: string
+          format: URI
+        taxonSpecifier:
+          type: string
+        taxonSpecifierAuthor:
+          type: string
+        typif:
+          type: string
+        typifDate:
+          type: string
+        verification:
+          type: string
+          format: URI
+      required:
+      - notes
+      - author
+      - basionymePublication
+      - facts
+      - id
+      - linkings
+      - publication
+      - status
+      - taxon
+      - taxonID
+      - taxonSpecifier
+      - taxonSpecifierAuthor
+      - typif
+      - typifDate
+      - verification
+    WarehouseDwSingle_Taxon:
+      properties:
+        id:
+          type: string
+          format: URI
+        qname:
+          type: string
+        checklist:
+          type: string
+          format: URI
+        scientificName:
+          type: string
+        scientificNameAuthorship:
+          type: string
+        scientificNameDisplayName:
+          type: string
+        cursiveName:
+          type: boolean
+        finnish:
+          type: boolean
+        taxonRank:
+          type: string
+          format: URI
+        vernacularName: {}
+        nameFinnish:
+          type: string
+        nameSwedish:
+          type: string
+        nameEnglish:
+          type: string
+        informalTaxonGroups:
+          type: array
+          items:
+            type: string
+        taxonomicOrder:
+          type: integer
+        latestRedListStatusFinland:
+          $ref: '#/components/schemas/WarehouseDwSingle_RedListStatus'
+        sensitive:
+          type: boolean
+        kingdomScientificName:
+          type: string
+        occurrenceCountFinland:
+          type: integer
+        primaryHabitat:
+          $ref: '#/components/schemas/WarehouseDwSingle_HabitatObject'
+        administrativeStatuses:
+          type: array
+          items:
+            type: string
+        threatenedStatus:
+          type: string
+          format: URI
+        taxonConceptIds:
+          type: array
+          items:
+            type: string
+      type: object
+      required:
+      - id
+      - qname
+      - checklist
+      - scientificName
+      - scientificNameAuthorship
+      - scientificNameDisplayName
+      - cursiveName
+      - finnish
+      - taxonRank
+      - vernacularName
+      - nameFinnish
+      - nameSwedish
+      - nameEnglish
+      - informalTaxonGroups
+      - taxonomicOrder
+      - latestRedListStatusFinland
+      - sensitive
+      - kingdomScientificName
+      - occurrenceCountFinland
+      - primaryHabitat
+      - administrativeStatuses
+      - threatenedStatus
+      - taxonConceptIds
+    WarehouseDwQuery_UnitQuality:
+      type: object
+      properties:
+        documentGatheringUnitQualityIssues:
+          type: boolean
+        issue:
+          $ref: '#/components/schemas/WarehouseDwQuery_Quality'
+      required:
+      - documentGatheringUnitQualityIssues
+      - issue
+    WarehouseDwSingle_Identification:
+      type: object
+      properties:
+        notes:
+          type: string
+        author:
+          type: string
+        facts:
+          type: array
+          items:
+            $ref: '#/components/schemas/WarehouseDwSingle_Fact'
+        id:
+          type: string
+          format: URI
+        linkings:
+          $ref: '#/components/schemas/WarehouseDwSingle_IdentificationDwLinkings'
+        taxon:
+          type: string
+        taxonID:
+          type: string
+          format: URI
+        taxonSpecifier:
+          type: string
+        taxonSpecifierAuthor:
+          type: string
+      required:
+      - notes
+      - author
+      - facts
+      - id
+      - linkings
+      - taxon
+      - taxonID
+      - taxonSpecifier
+      - taxonSpecifierAuthor
+    WarehouseDwFilterEnum:
+      properties:
+        name:
+          type: string
+        label:
+          type: string
+      type: object
+      required:
+      - name
+    WarehouseDwQuery_CountResponse:
+      type: object
+      properties:
+        total:
+          type: integer
+        cacheTimestamp:
+          type: integer
+      required:
+      - total
+      - cacheTimestamp
+    WarehouseDwQuery_SingleCoordinates:
+      type: object
+      properties:
+        lat:
+          type: number
+        lon:
+          type: number
+      required:
+      - lat
+      - lon
     WarehouseDwSingle_Sample:
       type: object
       properties:
@@ -20895,81 +19556,7 @@ components:
       - sampleOrder
       - status
       - type
-    WarehouseDwQuery_GatheringInterpretations:
-      type: object
-      properties:
-        biogeographicalProvince:
-          type: string
-          format: URI
-        biogeographicalProvinceDisplayname:
-          type: string
-        biogeographicalProvinces:
-          type: array
-          items:
-            type: string
-        coordinateAccuracy:
-          type: integer
-        country:
-          type: string
-          format: URI
-        countryDisplayname:
-          type: string
-        finnishMunicipalities:
-          type: array
-          items:
-            type: string
-        finnishMunicipality:
-          type: string
-          format: URI
-        municipalityDisplayname:
-          type: string
-        sourceOfBiogeographicalProvince:
-          type: string
-          enum:
-          - COORDINATES
-          - COORDINATE_CENTERPOINT
-          - REPORTED_VALUE
-          - FINNISH_MUNICIPALITY
-          - OLD_FINNISH_MUNICIPALITY
-        sourceOfCoordinates:
-          type: string
-          enum:
-          - COORDINATES
-          - COORDINATE_CENTERPOINT
-          - REPORTED_VALUE
-          - FINNISH_MUNICIPALITY
-          - OLD_FINNISH_MUNICIPALITY
-        sourceOfCountry:
-          type: string
-          enum:
-          - COORDINATES
-          - COORDINATE_CENTERPOINT
-          - REPORTED_VALUE
-          - FINNISH_MUNICIPALITY
-          - OLD_FINNISH_MUNICIPALITY
-        sourceOfFinnishMunicipality:
-          type: string
-          enum:
-          - COORDINATES
-          - COORDINATE_CENTERPOINT
-          - REPORTED_VALUE
-          - FINNISH_MUNICIPALITY
-          - OLD_FINNISH_MUNICIPALITY
-      required:
-      - biogeographicalProvince
-      - biogeographicalProvinceDisplayname
-      - biogeographicalProvinces
-      - coordinateAccuracy
-      - country
-      - countryDisplayname
-      - finnishMunicipalities
-      - finnishMunicipality
-      - municipalityDisplayname
-      - sourceOfBiogeographicalProvince
-      - sourceOfCoordinates
-      - sourceOfCountry
-      - sourceOfFinnishMunicipality
-    WarehouseDwQuery_UnitInterpretations:
+    WarehouseDwSingle_UnitInterpretations:
       type: object
       properties:
         annotatedTaxonId:
@@ -21064,106 +19651,31 @@ components:
       - recordQuality
       - recordQualityNumeric
       - reliability
-    WarehouseDwSingle_TaxonCensus:
-      type: object
-      properties:
-        taxonId:
-          type: string
-          format: URI
-        type:
-          type: string
-          format: URI
-      required:
-      - taxonId
-      - type
-    WarehouseDwSingle_UnitQuality:
-      type: object
-      properties:
-        documentGatheringUnitQualityIssues:
-          type: boolean
-        issue:
-          $ref: '#/components/schemas/WarehouseDwSingle_Quality'
-      required:
-      - documentGatheringUnitQualityIssues
-      - issue
-    WarehouseDwETL_Quality:
-      type: object
-      properties:
-        issue:
-          type: string
-          enum:
-          - REPORTED_UNRELIABLE
-          - MEDIA_ISSUE
-          - INVALID_CREATED_DATE
-          - INVALID_MODIFIED_DATE
-          - COORDINATES_COUNTRY_MISMATCH
-          - COORDINATES_MUNICIPALITY_MISMATCH
-          - TOO_LARGE_AREA
-          - INVALID_GEO
-          - INVALID_YKJ_COORDINATES
-          - INVALID_EUREF_COORDINATES
-          - INVALID_WGS84_COORDINATES
-          - DATE_END_BEFORE_BEGIN
-          - DATE_END_GIVEN_WITHOUT_BEGIN
-          - DATE_IN_FUTURE
-          - DATE_TOO_FAR_IN_THE_PAST
-          - INVALID_DATE
-          - RECORD_BASIS_MISSING
-          - INVALID_HOUR
-          - INVALID_MINUTE
-          - TIME_END_BEFORE_BEGIN
-          - INVALID_COORDINATES
-          - ETL_ISSUE
-        message:
-          type: string
-        source:
-          type: string
-          enum:
-          - AUTOMATED_FINBIF_VALIDATION
-          - ORIGINAL_DOCUMENT
-          - QUALITY_CONTROL
-      required:
-      - issue
-      - message
-      - source
-    WarehouseDwPolygonId:
-      properties:
-        id:
-          type: integer
-      type: object
-      required:
-      - id
-    WarehouseDwQuery_Gathering:
+    WarehouseDwETL_Gathering:
       type: object
       properties:
         gatheringId:
           type: string
           format: URI
-        gatheringOrder:
-          type: integer
         gatheringSection:
           type: integer
+        coordinates:
+          $ref: '#/components/schemas/WarehouseDwETL_Coordinates'
         geo:
           type: object
           externalDocs:
             url: http://geojson.org/geojson-spec.html#geometry-objects
           description: GeoJSON object with custom "crs" required property that takes in values WGS84,EUREF,YKJ (WGS84 = EPSG:4326; EUREF = ETRS-TM35FIN EPSG:3067; YKJ = EPSG:2393)
         eventDate:
-          $ref: '#/components/schemas/WarehouseDwQuery_DateRange'
+          $ref: '#/components/schemas/WarehouseDwETL_DateRange'
         hourBegin:
           type: integer
         hourEnd:
           type: integer
-        displayDateTime:
-          type: string
         team:
           type: array
           items:
             type: string
-        conversions:
-          $ref: '#/components/schemas/WarehouseDwQuery_GatheringConversions'
-        interpretations:
-          $ref: '#/components/schemas/WarehouseDwQuery_GatheringInterpretations'
         stateLand:
           type: boolean
         accurateArea:
@@ -21181,7 +19693,7 @@ components:
         locality:
           type: string
         quality:
-          $ref: '#/components/schemas/WarehouseDwQuery_GatheringQuality'
+          $ref: '#/components/schemas/WarehouseDwETL_GatheringQuality'
         notes:
           type: string
         coordinatesVerbatim:
@@ -21189,15 +19701,11 @@ components:
         facts:
           type: array
           items:
-            $ref: '#/components/schemas/WarehouseDwQuery_Fact'
-        linkings:
-          $ref: '#/components/schemas/WarehouseDwQuery_GatheringDWLinkings'
+            $ref: '#/components/schemas/WarehouseDwETL_Fact'
         media:
           type: array
           items:
-            $ref: '#/components/schemas/WarehouseDwQuery_MediaObject'
-        mediaCount:
-          type: integer
+            $ref: '#/components/schemas/WarehouseDwETL_MediaObject'
         minutesBegin:
           type: integer
         minutesEnd:
@@ -21209,19 +19717,20 @@ components:
         taxonCensus:
           type: array
           items:
-            $ref: '#/components/schemas/WarehouseDwQuery_TaxonCensus'
+            $ref: '#/components/schemas/WarehouseDwETL_TaxonCensus'
+        units:
+          type: array
+          items:
+            $ref: '#/components/schemas/WarehouseDwETL_Unit'
       required:
       - gatheringId
-      - gatheringOrder
       - gatheringSection
+      - coordinates
       - geo
       - eventDate
       - hourBegin
       - hourEnd
-      - displayDateTime
       - team
-      - conversions
-      - interpretations
       - stateLand
       - accurateArea
       - higherGeography
@@ -21234,23 +19743,112 @@ components:
       - notes
       - coordinatesVerbatim
       - facts
-      - linkings
       - media
-      - mediaCount
       - minutesBegin
       - minutesEnd
       - observerUserIds
       - taxonCensus
-    WarehouseDwSingle_DocumentQuality:
+      - units
+    WarehouseDwSingle_UnitQuality:
       type: object
       properties:
+        documentGatheringUnitQualityIssues:
+          type: boolean
         issue:
           $ref: '#/components/schemas/WarehouseDwSingle_Quality'
       required:
+      - documentGatheringUnitQualityIssues
       - issue
-    WarehouseDwSingle_Coordinates:
+    WarehouseDwSingle_Person:
       type: object
       properties:
+        fullName:
+          type: string
+        id:
+          type: string
+          format: URI
+        userId:
+          type: string
+      required:
+      - fullName
+      - id
+      - userId
+    WarehouseDwQuery_Fact:
+      type: object
+      properties:
+        fact:
+          type: string
+        value:
+          type: string
+        integerValue:
+          type: integer
+        decimalValue:
+          type: number
+      required:
+      - fact
+      - value
+      - integerValue
+      - decimalValue
+    WarehouseDwQuery_TypeSpecimen:
+      type: object
+      properties:
+        notes:
+          type: string
+        author:
+          type: string
+        basionymePublication:
+          type: string
+        facts:
+          type: array
+          items:
+            $ref: '#/components/schemas/WarehouseDwQuery_Fact'
+        id:
+          type: string
+          format: URI
+        linkings:
+          $ref: '#/components/schemas/WarehouseDwQuery_IdentificationDwLinkings'
+        publication:
+          type: string
+        status:
+          type: string
+          format: URI
+        taxon:
+          type: string
+        taxonID:
+          type: string
+          format: URI
+        taxonSpecifier:
+          type: string
+        taxonSpecifierAuthor:
+          type: string
+        typif:
+          type: string
+        typifDate:
+          type: string
+        verification:
+          type: string
+          format: URI
+      required:
+      - notes
+      - author
+      - basionymePublication
+      - facts
+      - id
+      - linkings
+      - publication
+      - status
+      - taxon
+      - taxonID
+      - taxonSpecifier
+      - taxonSpecifierAuthor
+      - typif
+      - typifDate
+      - verification
+    WarehouseDwETL_Coordinates:
+      type: object
+      properties:
+        accuracyInMeters:
+          type: integer
         latMax:
           type: number
         latMin:
@@ -21259,36 +19857,101 @@ components:
           type: number
         lonMin:
           type: number
+        type:
+          type: string
+          enum:
+          - WGS84
+          - EUREF
+          - YKJ
       required:
+      - accuracyInMeters
       - latMax
       - latMin
       - lonMax
       - lonMin
-    WarehouseDwETL_DwRoot:
-      type: object
+      - type
+    WarehouseDwQuery_Taxon:
       properties:
-        documentId:
+        id:
           type: string
           format: URI
-        sourceId:
+        qname:
+          type: string
+        checklist:
           type: string
           format: URI
-        collectionId:
+        scientificName:
           type: string
-          format: URI
-        publicDocument:
-          $ref: '#/components/schemas/WarehouseDwETL_Document'
-        privateDocument:
-          $ref: '#/components/schemas/WarehouseDwETL_Document'
-        deleteRequest:
+        scientificNameAuthorship:
+          type: string
+        scientificNameDisplayName:
+          type: string
+        cursiveName:
           type: boolean
+        finnish:
+          type: boolean
+        taxonRank:
+          type: string
+          format: URI
+        vernacularName: {}
+        nameFinnish:
+          type: string
+        nameSwedish:
+          type: string
+        nameEnglish:
+          type: string
+        informalTaxonGroups:
+          type: array
+          items:
+            type: string
+        taxonomicOrder:
+          type: integer
+        latestRedListStatusFinland:
+          $ref: '#/components/schemas/WarehouseDwQuery_RedListStatus'
+        sensitive:
+          type: boolean
+        kingdomScientificName:
+          type: string
+        occurrenceCountFinland:
+          type: integer
+        primaryHabitat:
+          $ref: '#/components/schemas/WarehouseDwQuery_HabitatObject'
+        administrativeStatuses:
+          type: array
+          items:
+            type: string
+        threatenedStatus:
+          type: string
+          format: URI
+        taxonConceptIds:
+          type: array
+          items:
+            type: string
+      type: object
       required:
-      - documentId
-      - sourceId
-      - collectionId
-      - publicDocument
-      - privateDocument
-      - deleteRequest
+      - id
+      - qname
+      - checklist
+      - scientificName
+      - scientificNameAuthorship
+      - scientificNameDisplayName
+      - cursiveName
+      - finnish
+      - taxonRank
+      - vernacularName
+      - nameFinnish
+      - nameSwedish
+      - nameEnglish
+      - informalTaxonGroups
+      - taxonomicOrder
+      - latestRedListStatusFinland
+      - sensitive
+      - kingdomScientificName
+      - occurrenceCountFinland
+      - primaryHabitat
+      - administrativeStatuses
+      - threatenedStatus
+      - taxonConceptIds
     WarehouseDwSingle_DateRange:
       type: object
       properties:
@@ -21336,713 +19999,6 @@ components:
       - taxonID
       - taxonSpecifier
       - taxonSpecifierAuthor
-    WarehouseDwQuery_Document:
-      type: object
-      properties:
-        documentId:
-          type: string
-          format: URI
-        secureLevel:
-          type: string
-          enum:
-          - NOSHOW
-          - HIGHEST
-          - KM100
-          - KM50
-          - KM25
-          - KM10
-          - KM5
-          - KM1
-          - NONE
-        secureReasons:
-          type: array
-          items:
-            type: string
-            enum:
-            - DEFAULT_TAXON_CONSERVATION
-            - BREEDING_SITE_CONSERVATION
-            - NATURA_AREA_CONSERVATION
-            - WINTER_SEASON_TAXON_CONSERVATION
-            - BREEDING_SEASON_TAXON_CONSERVATION
-            - CUSTOM
-            - USER_HIDDEN
-            - ADMIN_HIDDEN
-            - DATA_QUARANTINE_PERIOD
-            - ONLY_PRIVATE
-            - USER_PERSON_NAMES_HIDDEN
-            - USER_HIDDEN_LOCATION
-            - USER_HIDDEN_TIME
-        partial:
-          type: boolean
-        collectionId:
-          type: string
-          format: URI
-        licenseId:
-          type: string
-        dataSource:
-          type: string
-        linkings:
-          $ref: '#/components/schemas/WarehouseDwQuery_DocumentDWLinkings'
-        quality:
-          $ref: '#/components/schemas/WarehouseDwQuery_DocumentQuality'
-        sourceId:
-          type: string
-          format: URI
-        namedPlace:
-          $ref: '#/components/schemas/WarehouseDwQuery_NamedPlaceEntity'
-        siteType:
-          type: string
-        siteStatus:
-          type: string
-        keywords:
-          type: array
-          items:
-            type: string
-        firstLoadDate:
-          type: string
-          format: yyyy-MM-dd
-        loadDate:
-          type: string
-          format: yyyy-MM-dd
-        createdDate:
-          type: string
-          format: yyyy-MM-dd
-        modifiedDate:
-          type: string
-          format: yyyy-MM-dd
-        notes:
-          type: string
-        annotations:
-          type: array
-          items:
-            $ref: '#/components/schemas/WarehouseDwQuery_Annotation'
-        completeListTaxonId:
-          type: string
-        completeListType:
-          type: string
-        editorUserIds:
-          type: array
-          items:
-            type: string
-        facts:
-          type: array
-          items:
-            $ref: '#/components/schemas/WarehouseDwQuery_Fact'
-        formId:
-          type: string
-        media:
-          type: array
-          items:
-            $ref: '#/components/schemas/WarehouseDwQuery_MediaObject'
-        mediaCount:
-          type: integer
-        namedPlaceId:
-          type: string
-        prefix:
-          type: string
-        referenceURL:
-          type: string
-        secured:
-          type: boolean
-        siteDead:
-          type: boolean
-        sourceTags:
-          type: array
-          items:
-            type: string
-            enum:
-            - ADMIN_MARKED_SPAM
-            - ADMIN_MARKED_COARSE
-            - ADMIN_MARKED_NON_WILD
-            - EXPERT_TAG_VERIFIED
-            - EXPERT_TAG_UNCERTAIN
-            - EXPERT_TAG_ERRONEOUS
-            - COMMUNITY_TAG_VERIFIED
-            - AUTO_VALIDATIONS_PASS
-            - CHECKED_CANNOT_VERIFY
-            - CHANGED_OWNER_MANUAL
-            - CHANGED_DW_AUTO
-            - CHECK
-            - CHECK_COORDINATES
-            - CHECK_DATETIME
-            - CHECK_LOCATION
-            - CHECK_OBSERVER
-            - CHECK_TAXON
-            - CHECK_DUPLICATE
-            - CHECK_WILDNESS
-            - CHECK_NEEDS_INFO
-            - CHECK_SPAM
-            - CHECK_BREEDING_INDEX
-            - AUTO_DISTRIBUTION_CHECK
-            - AUTO_PERIOD_CHECK
-            - FORMADMIN_CENSUS_COUNT_ERROR
-            - FORMADMIN_CENSUS_INNER_COUNT_ERROR
-            - FORMADMIN_CENSUS_OTHER_ERROR
-            - FORMADMIN_VERIFIED
-            - FORMADMIN_UNCERTAIN
-            - INVASIVE_FULL
-            - INVASIVE_PARTIAL
-            - INVASIVE_NO_EFFECT
-            - INVASIVE_NOT_FOUND
-      required:
-      - documentId
-      - secureLevel
-      - secureReasons
-      - partial
-      - collectionId
-      - licenseId
-      - dataSource
-      - linkings
-      - quality
-      - sourceId
-      - namedPlace
-      - siteType
-      - siteStatus
-      - keywords
-      - firstLoadDate
-      - loadDate
-      - createdDate
-      - modifiedDate
-      - notes
-      - annotations
-      - completeListTaxonId
-      - completeListType
-      - editorUserIds
-      - facts
-      - formId
-      - media
-      - mediaCount
-      - namedPlaceId
-      - prefix
-      - referenceURL
-      - secured
-      - siteDead
-      - sourceTags
-    WarehouseDwETL_DateRange:
-      type: object
-      properties:
-        begin:
-          type: string
-          format: yyyy-MM-dd
-        end:
-          type: string
-          format: yyyy-MM-dd
-      required:
-      - begin
-      - end
-    WarehouseDwETL_TaxonCensus:
-      type: object
-      properties:
-        taxonId:
-          type: string
-          format: URI
-        type:
-          type: string
-          format: URI
-      required:
-      - taxonId
-      - type
-    WarehouseDwQuery_UnitDWLinkings:
-      type: object
-      properties:
-        taxon:
-          $ref: '#/components/schemas/WarehouseDwQuery_Taxon'
-        originalTaxon:
-          $ref: '#/components/schemas/WarehouseDwQuery_Taxon'
-      required:
-      - taxon
-      - originalTaxon
-    WarehouseDwETL_Fact:
-      type: object
-      properties:
-        fact:
-          type: string
-        value:
-          type: string
-      required:
-      - fact
-      - value
-    WarehouseDwFilter:
-      properties:
-        label:
-          type: string
-        type:
-          type: string
-          enum:
-          - STRING
-          - ENUMERATION
-          - RESOURCE
-        resource:
-          type: string
-        enumerations:
-          type: array
-          items:
-            $ref: '#/components/schemas/WarehouseDwFilterEnum'
-      type: object
-      description: Map of filter name to filter definition
-      required:
-      - type
-      - resource
-      - enumerations
-    WarehouseDwFilterEnum:
-      properties:
-        name:
-          type: string
-        label:
-          type: string
-      type: object
-      required:
-      - name
-    WarehouseDwETL_IdentificationEvent:
-      type: object
-      properties:
-        notes:
-          type: string
-        author:
-          type: string
-        det:
-          type: string
-        detDate:
-          type: string
-        facts:
-          type: array
-          items:
-            $ref: '#/components/schemas/WarehouseDwETL_Fact'
-        id:
-          type: string
-          format: URI
-        preferred:
-          type: boolean
-        taxon:
-          type: string
-        taxonID:
-          type: string
-          format: URI
-        taxonSpecifier:
-          type: string
-        taxonSpecifierAuthor:
-          type: string
-      required:
-      - notes
-      - author
-      - det
-      - detDate
-      - facts
-      - id
-      - preferred
-      - taxon
-      - taxonID
-      - taxonSpecifier
-      - taxonSpecifierAuthor
-    WarehouseDwSingle_IdentificationDwLinkings:
-      type: object
-      properties:
-        taxon:
-          $ref: '#/components/schemas/WarehouseDwSingle_Taxon'
-      required:
-      - taxon
-    WarehouseDwQuery_IdentificationEvent:
-      type: object
-      properties:
-        notes:
-          type: string
-        author:
-          type: string
-        det:
-          type: string
-        detDate:
-          type: string
-        facts:
-          type: array
-          items:
-            $ref: '#/components/schemas/WarehouseDwQuery_Fact'
-        id:
-          type: string
-          format: URI
-        linkings:
-          $ref: '#/components/schemas/WarehouseDwQuery_IdentificationDwLinkings'
-        preferred:
-          type: boolean
-        taxon:
-          type: string
-        taxonID:
-          type: string
-          format: URI
-        taxonSpecifier:
-          type: string
-        taxonSpecifierAuthor:
-          type: string
-      required:
-      - notes
-      - author
-      - det
-      - detDate
-      - facts
-      - id
-      - linkings
-      - preferred
-      - taxon
-      - taxonID
-      - taxonSpecifier
-      - taxonSpecifierAuthor
-    WarehouseDwSingle_Gathering:
-      type: object
-      properties:
-        gatheringId:
-          type: string
-          format: URI
-        gatheringOrder:
-          type: integer
-        gatheringSection:
-          type: integer
-        geo:
-          type: object
-          externalDocs:
-            url: http://geojson.org/geojson-spec.html#geometry-objects
-          description: GeoJSON object with custom "crs" required property that takes in values WGS84,EUREF,YKJ (WGS84 = EPSG:4326; EUREF = ETRS-TM35FIN EPSG:3067; YKJ = EPSG:2393)
-        eventDate:
-          $ref: '#/components/schemas/WarehouseDwSingle_DateRange'
-        hourBegin:
-          type: integer
-        hourEnd:
-          type: integer
-        displayDateTime:
-          type: string
-        team:
-          type: array
-          items:
-            type: string
-        conversions:
-          $ref: '#/components/schemas/WarehouseDwSingle_GatheringConversions'
-        interpretations:
-          $ref: '#/components/schemas/WarehouseDwSingle_GatheringInterpretations'
-        stateLand:
-          type: boolean
-        accurateArea:
-          type: boolean
-        higherGeography:
-          type: string
-        country:
-          type: string
-        municipality:
-          type: string
-        biogeographicalProvince:
-          type: string
-        province:
-          type: string
-        locality:
-          type: string
-        quality:
-          $ref: '#/components/schemas/WarehouseDwSingle_GatheringQuality'
-        notes:
-          type: string
-        coordinatesVerbatim:
-          type: string
-        facts:
-          type: array
-          items:
-            $ref: '#/components/schemas/WarehouseDwSingle_Fact'
-        linkings:
-          $ref: '#/components/schemas/WarehouseDwSingle_GatheringDWLinkings'
-        media:
-          type: array
-          items:
-            $ref: '#/components/schemas/WarehouseDwSingle_MediaObject'
-        mediaCount:
-          type: integer
-        minutesBegin:
-          type: integer
-        minutesEnd:
-          type: integer
-        observerUserIds:
-          type: array
-          items:
-            type: string
-        taxonCensus:
-          type: array
-          items:
-            $ref: '#/components/schemas/WarehouseDwSingle_TaxonCensus'
-        units:
-          type: array
-          items:
-            $ref: '#/components/schemas/WarehouseDwSingle_Unit'
-      required:
-      - gatheringId
-      - gatheringOrder
-      - gatheringSection
-      - geo
-      - eventDate
-      - hourBegin
-      - hourEnd
-      - displayDateTime
-      - team
-      - conversions
-      - interpretations
-      - stateLand
-      - accurateArea
-      - higherGeography
-      - country
-      - municipality
-      - biogeographicalProvince
-      - province
-      - locality
-      - quality
-      - notes
-      - coordinatesVerbatim
-      - facts
-      - linkings
-      - media
-      - mediaCount
-      - minutesBegin
-      - minutesEnd
-      - observerUserIds
-      - taxonCensus
-      - units
-    WarehouseDwQuery_Person:
-      type: object
-      properties:
-        fullName:
-          type: string
-        id:
-          type: string
-          format: URI
-        userId:
-          type: string
-      required:
-      - fullName
-      - id
-      - userId
-    WarehouseDwQuery_DocumentDWLinkings:
-      type: object
-      properties:
-        collectionQuality:
-          type: string
-          enum:
-          - PROFESSIONAL
-          - HOBBYIST
-          - AMATEUR
-        editors:
-          type: array
-          items:
-            $ref: '#/components/schemas/WarehouseDwQuery_Person'
-      required:
-      - collectionQuality
-      - editors
-    WarehouseDwTeamMember:
-      properties:
-        id:
-          type: string
-        name:
-          type: string
-      type: object
-      required:
-      - id
-      - name
-    WarehouseDwETL_Sample:
-      type: object
-      properties:
-        notes:
-          type: string
-        collectionId:
-          type: string
-          format: URI
-        facts:
-          type: array
-          items:
-            $ref: '#/components/schemas/WarehouseDwETL_Fact'
-        keywords:
-          type: array
-          items:
-            type: string
-        material:
-          type: string
-        multiple:
-          type: boolean
-        quality:
-          type: string
-        sampleId:
-          type: string
-          format: URI
-        status:
-          type: string
-        type:
-          type: string
-      required:
-      - notes
-      - collectionId
-      - facts
-      - keywords
-      - material
-      - multiple
-      - quality
-      - sampleId
-      - status
-      - type
-    WarehouseDwETL_Document:
-      type: object
-      properties:
-        documentId:
-          type: string
-          format: URI
-        secureLevel:
-          type: string
-          enum:
-          - NOSHOW
-          - HIGHEST
-          - KM100
-          - KM50
-          - KM25
-          - KM10
-          - KM5
-          - KM1
-          - NONE
-        secureReasons:
-          type: array
-          items:
-            type: string
-            enum:
-            - DEFAULT_TAXON_CONSERVATION
-            - BREEDING_SITE_CONSERVATION
-            - NATURA_AREA_CONSERVATION
-            - WINTER_SEASON_TAXON_CONSERVATION
-            - BREEDING_SEASON_TAXON_CONSERVATION
-            - CUSTOM
-            - USER_HIDDEN
-            - ADMIN_HIDDEN
-            - DATA_QUARANTINE_PERIOD
-            - ONLY_PRIVATE
-            - USER_PERSON_NAMES_HIDDEN
-            - USER_HIDDEN_LOCATION
-            - USER_HIDDEN_TIME
-        collectionId:
-          type: string
-          format: URI
-        licenseId:
-          type: string
-        dataSource:
-          type: string
-        quality:
-          $ref: '#/components/schemas/WarehouseDwETL_DocumentQuality'
-        sourceId:
-          type: string
-          format: URI
-        siteType:
-          type: string
-        siteStatus:
-          type: string
-        keywords:
-          type: array
-          items:
-            type: string
-        createdDate:
-          type: string
-          format: yyyy-MM-dd
-        modifiedDate:
-          type: string
-          format: yyyy-MM-dd
-        notes:
-          type: string
-        completeListTaxonId:
-          type: string
-        completeListType:
-          type: string
-        concealment:
-          type: string
-          enum:
-          - PUBLIC
-          - PRIVATE
-        deleted:
-          type: boolean
-        editorUserIds:
-          type: array
-          items:
-            type: string
-        facts:
-          type: array
-          items:
-            $ref: '#/components/schemas/WarehouseDwETL_Fact'
-        formId:
-          type: string
-        gatherings:
-          type: array
-          items:
-            $ref: '#/components/schemas/WarehouseDwETL_Gathering'
-        media:
-          type: array
-          items:
-            $ref: '#/components/schemas/WarehouseDwETL_MediaObject'
-        namedPlaceId:
-          type: string
-        referenceURL:
-          type: string
-        siteDead:
-          type: boolean
-        sourceTags:
-          type: array
-          items:
-            type: string
-            enum:
-            - ADMIN_MARKED_SPAM
-            - ADMIN_MARKED_COARSE
-            - ADMIN_MARKED_NON_WILD
-            - EXPERT_TAG_VERIFIED
-            - EXPERT_TAG_UNCERTAIN
-            - EXPERT_TAG_ERRONEOUS
-            - COMMUNITY_TAG_VERIFIED
-            - AUTO_VALIDATIONS_PASS
-            - CHECKED_CANNOT_VERIFY
-            - CHANGED_OWNER_MANUAL
-            - CHANGED_DW_AUTO
-            - CHECK
-            - CHECK_COORDINATES
-            - CHECK_DATETIME
-            - CHECK_LOCATION
-            - CHECK_OBSERVER
-            - CHECK_TAXON
-            - CHECK_DUPLICATE
-            - CHECK_WILDNESS
-            - CHECK_NEEDS_INFO
-            - CHECK_SPAM
-            - CHECK_BREEDING_INDEX
-            - AUTO_DISTRIBUTION_CHECK
-            - AUTO_PERIOD_CHECK
-            - FORMADMIN_CENSUS_COUNT_ERROR
-            - FORMADMIN_CENSUS_INNER_COUNT_ERROR
-            - FORMADMIN_CENSUS_OTHER_ERROR
-            - FORMADMIN_VERIFIED
-            - FORMADMIN_UNCERTAIN
-            - INVASIVE_FULL
-            - INVASIVE_PARTIAL
-            - INVASIVE_NO_EFFECT
-            - INVASIVE_NOT_FOUND
-      required:
-      - documentId
-      - secureLevel
-      - secureReasons
-      - collectionId
-      - licenseId
-      - dataSource
-      - quality
-      - sourceId
-      - siteType
-      - siteStatus
-      - keywords
-      - createdDate
-      - modifiedDate
-      - notes
-      - completeListTaxonId
-      - completeListType
-      - concealment
-      - deleted
-      - editorUserIds
-      - facts
-      - formId
-      - gatherings
-      - media
-      - namedPlaceId
-      - referenceURL
-      - siteDead
-      - sourceTags
     WarehouseDwQuery_Unit:
       type: object
       properties:
@@ -22365,6 +20321,671 @@ components:
       - sourceTags
       - types
       - videoCount
+    WarehouseDwQuery_DocumentQuality:
+      type: object
+      properties:
+        issue:
+          $ref: '#/components/schemas/WarehouseDwQuery_Quality'
+      required:
+      - issue
+    WarehouseDwSingle_HabitatObject:
+      type: object
+      properties:
+        habitat:
+          type: string
+          format: URI
+        habitatSpecificTypes:
+          type: array
+          items:
+            type: string
+        id:
+          type: string
+          format: URI
+        order:
+          type: integer
+      required:
+      - habitat
+      - habitatSpecificTypes
+      - id
+      - order
+    WarehouseDwETL_Document:
+      type: object
+      properties:
+        documentId:
+          type: string
+          format: URI
+        secureLevel:
+          type: string
+          enum:
+          - NOSHOW
+          - HIGHEST
+          - KM100
+          - KM50
+          - KM25
+          - KM10
+          - KM5
+          - KM1
+          - NONE
+        secureReasons:
+          type: array
+          items:
+            type: string
+            enum:
+            - DEFAULT_TAXON_CONSERVATION
+            - BREEDING_SITE_CONSERVATION
+            - NATURA_AREA_CONSERVATION
+            - WINTER_SEASON_TAXON_CONSERVATION
+            - BREEDING_SEASON_TAXON_CONSERVATION
+            - CUSTOM
+            - USER_HIDDEN
+            - ADMIN_HIDDEN
+            - DATA_QUARANTINE_PERIOD
+            - ONLY_PRIVATE
+            - USER_PERSON_NAMES_HIDDEN
+            - USER_HIDDEN_LOCATION
+            - USER_HIDDEN_TIME
+        collectionId:
+          type: string
+          format: URI
+        licenseId:
+          type: string
+        dataSource:
+          type: string
+        quality:
+          $ref: '#/components/schemas/WarehouseDwETL_DocumentQuality'
+        sourceId:
+          type: string
+          format: URI
+        siteType:
+          type: string
+        siteStatus:
+          type: string
+        keywords:
+          type: array
+          items:
+            type: string
+        createdDate:
+          type: string
+          format: yyyy-MM-dd
+        modifiedDate:
+          type: string
+          format: yyyy-MM-dd
+        notes:
+          type: string
+        completeListTaxonId:
+          type: string
+        completeListType:
+          type: string
+        concealment:
+          type: string
+          enum:
+          - PUBLIC
+          - PRIVATE
+        deleted:
+          type: boolean
+        editorUserIds:
+          type: array
+          items:
+            type: string
+        facts:
+          type: array
+          items:
+            $ref: '#/components/schemas/WarehouseDwETL_Fact'
+        formId:
+          type: string
+        gatherings:
+          type: array
+          items:
+            $ref: '#/components/schemas/WarehouseDwETL_Gathering'
+        media:
+          type: array
+          items:
+            $ref: '#/components/schemas/WarehouseDwETL_MediaObject'
+        namedPlaceId:
+          type: string
+        referenceURL:
+          type: string
+        siteDead:
+          type: boolean
+        sourceTags:
+          type: array
+          items:
+            type: string
+            enum:
+            - ADMIN_MARKED_SPAM
+            - ADMIN_MARKED_COARSE
+            - ADMIN_MARKED_NON_WILD
+            - EXPERT_TAG_VERIFIED
+            - EXPERT_TAG_UNCERTAIN
+            - EXPERT_TAG_ERRONEOUS
+            - COMMUNITY_TAG_VERIFIED
+            - AUTO_VALIDATIONS_PASS
+            - CHECKED_CANNOT_VERIFY
+            - CHANGED_OWNER_MANUAL
+            - CHANGED_DW_AUTO
+            - CHECK
+            - CHECK_COORDINATES
+            - CHECK_DATETIME
+            - CHECK_LOCATION
+            - CHECK_OBSERVER
+            - CHECK_TAXON
+            - CHECK_DUPLICATE
+            - CHECK_WILDNESS
+            - CHECK_NEEDS_INFO
+            - CHECK_SPAM
+            - CHECK_BREEDING_INDEX
+            - AUTO_DISTRIBUTION_CHECK
+            - AUTO_PERIOD_CHECK
+            - FORMADMIN_CENSUS_COUNT_ERROR
+            - FORMADMIN_CENSUS_INNER_COUNT_ERROR
+            - FORMADMIN_CENSUS_OTHER_ERROR
+            - FORMADMIN_VERIFIED
+            - FORMADMIN_UNCERTAIN
+            - INVASIVE_FULL
+            - INVASIVE_PARTIAL
+            - INVASIVE_NO_EFFECT
+            - INVASIVE_NOT_FOUND
+      required:
+      - documentId
+      - secureLevel
+      - secureReasons
+      - collectionId
+      - licenseId
+      - dataSource
+      - quality
+      - sourceId
+      - siteType
+      - siteStatus
+      - keywords
+      - createdDate
+      - modifiedDate
+      - notes
+      - completeListTaxonId
+      - completeListType
+      - concealment
+      - deleted
+      - editorUserIds
+      - facts
+      - formId
+      - gatherings
+      - media
+      - namedPlaceId
+      - referenceURL
+      - siteDead
+      - sourceTags
+    WarehouseDwQuery_ListResponse:
+      type: object
+      properties:
+        currentPage:
+          type: integer
+        prevPage:
+          type: integer
+        nextPage:
+          type: integer
+        lastPage:
+          type: integer
+        pageSize:
+          type: integer
+        total:
+          type: integer
+        results:
+          type: array
+          items:
+            $ref: '#/components/schemas/WarehouseDwQuery_JoinedRow'
+        cacheTimestamp:
+          type: integer
+      required:
+      - currentPage
+      - prevPage
+      - nextPage
+      - lastPage
+      - pageSize
+      - total
+      - results
+      - cacheTimestamp
+    WarehouseDwETL_UnitQuality:
+      type: object
+      properties:
+        issue:
+          $ref: '#/components/schemas/WarehouseDwETL_Quality'
+      required:
+      - issue
+    WarehouseDwSingle_IdentificationEvent:
+      type: object
+      properties:
+        notes:
+          type: string
+        author:
+          type: string
+        det:
+          type: string
+        detDate:
+          type: string
+        facts:
+          type: array
+          items:
+            $ref: '#/components/schemas/WarehouseDwSingle_Fact'
+        id:
+          type: string
+          format: URI
+        linkings:
+          $ref: '#/components/schemas/WarehouseDwSingle_IdentificationDwLinkings'
+        preferred:
+          type: boolean
+        taxon:
+          type: string
+        taxonID:
+          type: string
+          format: URI
+        taxonSpecifier:
+          type: string
+        taxonSpecifierAuthor:
+          type: string
+      required:
+      - notes
+      - author
+      - det
+      - detDate
+      - facts
+      - id
+      - linkings
+      - preferred
+      - taxon
+      - taxonID
+      - taxonSpecifier
+      - taxonSpecifierAuthor
+    WarehouseDwQuery_GatheringDWLinkings:
+      type: object
+      properties:
+        observers:
+          type: array
+          items:
+            $ref: '#/components/schemas/WarehouseDwQuery_Person'
+      required:
+      - observers
+    WarehouseDwQuery_UnitDWLinkings:
+      type: object
+      properties:
+        taxon:
+          $ref: '#/components/schemas/WarehouseDwQuery_Taxon'
+        originalTaxon:
+          $ref: '#/components/schemas/WarehouseDwQuery_Taxon'
+      required:
+      - taxon
+      - originalTaxon
+    WarehouseDwSingle_UnitDWLinkings:
+      type: object
+      properties:
+        taxon:
+          $ref: '#/components/schemas/WarehouseDwSingle_Taxon'
+        originalTaxon:
+          $ref: '#/components/schemas/WarehouseDwSingle_Taxon'
+      required:
+      - taxon
+      - originalTaxon
+    WarehouseDwQuery_JoinedRow:
+      type: object
+      properties:
+        document:
+          $ref: '#/components/schemas/WarehouseDwQuery_Document'
+        gathering:
+          $ref: '#/components/schemas/WarehouseDwQuery_Gathering'
+        unit:
+          $ref: '#/components/schemas/WarehouseDwQuery_Unit'
+        annotation:
+          $ref: '#/components/schemas/WarehouseDwQuery_Annotation'
+        media:
+          $ref: '#/components/schemas/WarehouseDwQuery_MediaObject'
+        sample:
+          $ref: '#/components/schemas/WarehouseDwQuery_Sample'
+      required:
+      - document
+      - gathering
+      - unit
+      - annotation
+      - media
+      - sample
+    WarehouseDwQuery_RedListStatus:
+      type: object
+      properties:
+        status:
+          type: string
+          format: URI
+        year:
+          type: integer
+      required:
+      - status
+      - year
+    WarehouseDwQuery_Gathering:
+      type: object
+      properties:
+        gatheringId:
+          type: string
+          format: URI
+        gatheringOrder:
+          type: integer
+        gatheringSection:
+          type: integer
+        geo:
+          type: object
+          externalDocs:
+            url: http://geojson.org/geojson-spec.html#geometry-objects
+          description: GeoJSON object with custom "crs" required property that takes in values WGS84,EUREF,YKJ (WGS84 = EPSG:4326; EUREF = ETRS-TM35FIN EPSG:3067; YKJ = EPSG:2393)
+        eventDate:
+          $ref: '#/components/schemas/WarehouseDwQuery_DateRange'
+        hourBegin:
+          type: integer
+        hourEnd:
+          type: integer
+        displayDateTime:
+          type: string
+        team:
+          type: array
+          items:
+            type: string
+        conversions:
+          $ref: '#/components/schemas/WarehouseDwQuery_GatheringConversions'
+        interpretations:
+          $ref: '#/components/schemas/WarehouseDwQuery_GatheringInterpretations'
+        stateLand:
+          type: boolean
+        accurateArea:
+          type: boolean
+        higherGeography:
+          type: string
+        country:
+          type: string
+        municipality:
+          type: string
+        biogeographicalProvince:
+          type: string
+        province:
+          type: string
+        locality:
+          type: string
+        quality:
+          $ref: '#/components/schemas/WarehouseDwQuery_GatheringQuality'
+        notes:
+          type: string
+        coordinatesVerbatim:
+          type: string
+        facts:
+          type: array
+          items:
+            $ref: '#/components/schemas/WarehouseDwQuery_Fact'
+        linkings:
+          $ref: '#/components/schemas/WarehouseDwQuery_GatheringDWLinkings'
+        media:
+          type: array
+          items:
+            $ref: '#/components/schemas/WarehouseDwQuery_MediaObject'
+        mediaCount:
+          type: integer
+        minutesBegin:
+          type: integer
+        minutesEnd:
+          type: integer
+        observerUserIds:
+          type: array
+          items:
+            type: string
+        taxonCensus:
+          type: array
+          items:
+            $ref: '#/components/schemas/WarehouseDwQuery_TaxonCensus'
+      required:
+      - gatheringId
+      - gatheringOrder
+      - gatheringSection
+      - geo
+      - eventDate
+      - hourBegin
+      - hourEnd
+      - displayDateTime
+      - team
+      - conversions
+      - interpretations
+      - stateLand
+      - accurateArea
+      - higherGeography
+      - country
+      - municipality
+      - biogeographicalProvince
+      - province
+      - locality
+      - quality
+      - notes
+      - coordinatesVerbatim
+      - facts
+      - linkings
+      - media
+      - mediaCount
+      - minutesBegin
+      - minutesEnd
+      - observerUserIds
+      - taxonCensus
+    WarehouseDwQuery_GatheringConversions:
+      type: object
+      properties:
+        birdAssociationArea:
+          type: string
+          format: URI
+        boundingBoxAreaInSquareMeters:
+          type: integer
+        century:
+          type: integer
+        day:
+          type: integer
+        dayOfYearBegin:
+          type: integer
+        dayOfYearEnd:
+          type: integer
+        decade:
+          type: integer
+        euref:
+          $ref: '#/components/schemas/WarehouseDwQuery_Coordinates'
+        eurefCenterPoint:
+          $ref: '#/components/schemas/WarehouseDwQuery_SingleCoordinates'
+        eurefGeo:
+          type: object
+          externalDocs:
+            url: http://geojson.org/geojson-spec.html#geometry-objects
+          description: GeoJSON object with custom "crs" required property that takes in values WGS84,EUREF,YKJ (WGS84 = EPSG:4326; EUREF = ETRS-TM35FIN EPSG:3067; YKJ = EPSG:2393)
+        eurefWKT:
+          type: string
+        linelengthInMeters:
+          type: integer
+        month:
+          type: integer
+        seasonBegin:
+          type: integer
+        seasonEnd:
+          type: integer
+        wgs84:
+          $ref: '#/components/schemas/WarehouseDwQuery_Coordinates'
+        wgs84CenterPoint:
+          $ref: '#/components/schemas/WarehouseDwQuery_SingleCoordinates'
+        wgs84Geo:
+          type: object
+          externalDocs:
+            url: http://geojson.org/geojson-spec.html#geometry-objects
+          description: GeoJSON object with custom "crs" required property that takes in values WGS84,EUREF,YKJ (WGS84 = EPSG:4326; EUREF = ETRS-TM35FIN EPSG:3067; YKJ = EPSG:2393)
+        wgs84Grid005:
+          $ref: '#/components/schemas/WarehouseDwQuery_SingleCoordinates'
+        wgs84Grid01:
+          $ref: '#/components/schemas/WarehouseDwQuery_SingleCoordinates'
+        wgs84Grid05:
+          $ref: '#/components/schemas/WarehouseDwQuery_SingleCoordinates'
+        wgs84Grid1:
+          $ref: '#/components/schemas/WarehouseDwQuery_SingleCoordinates'
+        wgs84WKT:
+          type: string
+        year:
+          type: integer
+        ykj:
+          $ref: '#/components/schemas/WarehouseDwQuery_Coordinates'
+        ykj100km:
+          $ref: '#/components/schemas/WarehouseDwQuery_SingleCoordinates'
+        ykj100kmCenter:
+          $ref: '#/components/schemas/WarehouseDwQuery_SingleCoordinates'
+        ykj10km:
+          $ref: '#/components/schemas/WarehouseDwQuery_SingleCoordinates'
+        ykj10kmCenter:
+          $ref: '#/components/schemas/WarehouseDwQuery_SingleCoordinates'
+        ykj1km:
+          $ref: '#/components/schemas/WarehouseDwQuery_SingleCoordinates'
+        ykj1kmCenter:
+          $ref: '#/components/schemas/WarehouseDwQuery_SingleCoordinates'
+        ykj50km:
+          $ref: '#/components/schemas/WarehouseDwQuery_SingleCoordinates'
+        ykj50kmCenter:
+          $ref: '#/components/schemas/WarehouseDwQuery_SingleCoordinates'
+        ykjGeo:
+          type: object
+          externalDocs:
+            url: http://geojson.org/geojson-spec.html#geometry-objects
+          description: GeoJSON object with custom "crs" required property that takes in values WGS84,EUREF,YKJ (WGS84 = EPSG:4326; EUREF = ETRS-TM35FIN EPSG:3067; YKJ = EPSG:2393)
+        ykjWKT:
+          type: string
+      required:
+      - birdAssociationArea
+      - boundingBoxAreaInSquareMeters
+      - century
+      - day
+      - dayOfYearBegin
+      - dayOfYearEnd
+      - decade
+      - euref
+      - eurefCenterPoint
+      - eurefGeo
+      - eurefWKT
+      - linelengthInMeters
+      - month
+      - seasonBegin
+      - seasonEnd
+      - wgs84
+      - wgs84CenterPoint
+      - wgs84Geo
+      - wgs84Grid005
+      - wgs84Grid01
+      - wgs84Grid05
+      - wgs84Grid1
+      - wgs84WKT
+      - year
+      - ykj
+      - ykj100km
+      - ykj100kmCenter
+      - ykj10km
+      - ykj10kmCenter
+      - ykj1km
+      - ykj1kmCenter
+      - ykj50km
+      - ykj50kmCenter
+      - ykjGeo
+      - ykjWKT
+    WarehouseDwSingle_SingleCoordinates:
+      type: object
+      properties:
+        lat:
+          type: number
+        lon:
+          type: number
+      required:
+      - lat
+      - lon
+    WarehouseDwQuery_GatheringQuality:
+      type: object
+      properties:
+        issue:
+          $ref: '#/components/schemas/WarehouseDwQuery_Quality'
+        locationIssue:
+          $ref: '#/components/schemas/WarehouseDwQuery_Quality'
+        timeIssue:
+          $ref: '#/components/schemas/WarehouseDwQuery_Quality'
+      required:
+      - issue
+      - locationIssue
+      - timeIssue
+    WarehouseDwQuery_TaxonCensus:
+      type: object
+      properties:
+        taxonId:
+          type: string
+          format: URI
+        type:
+          type: string
+          format: URI
+      required:
+      - taxonId
+      - type
+    WarehouseDwEnumerationLabel:
+      properties:
+        enumeration:
+          type: string
+        property:
+          type: string
+        label:
+          type: string
+      type: object
+      required:
+      - enumeration
+      - property
+    WarehouseDwSingle_DocumentDWLinkings:
+      type: object
+      properties:
+        collectionQuality:
+          type: string
+          enum:
+          - PROFESSIONAL
+          - HOBBYIST
+          - AMATEUR
+        editors:
+          type: array
+          items:
+            $ref: '#/components/schemas/WarehouseDwSingle_Person'
+      required:
+      - collectionQuality
+      - editors
+    WarehouseDwETL_Quality:
+      type: object
+      properties:
+        issue:
+          type: string
+          enum:
+          - REPORTED_UNRELIABLE
+          - MEDIA_ISSUE
+          - INVALID_CREATED_DATE
+          - INVALID_MODIFIED_DATE
+          - COORDINATES_COUNTRY_MISMATCH
+          - COORDINATES_MUNICIPALITY_MISMATCH
+          - TOO_LARGE_AREA
+          - INVALID_GEO
+          - INVALID_YKJ_COORDINATES
+          - INVALID_EUREF_COORDINATES
+          - INVALID_WGS84_COORDINATES
+          - DATE_END_BEFORE_BEGIN
+          - DATE_END_GIVEN_WITHOUT_BEGIN
+          - DATE_IN_FUTURE
+          - DATE_TOO_FAR_IN_THE_PAST
+          - INVALID_DATE
+          - RECORD_BASIS_MISSING
+          - INVALID_HOUR
+          - INVALID_MINUTE
+          - TIME_END_BEFORE_BEGIN
+          - INVALID_COORDINATES
+          - ETL_ISSUE
+        message:
+          type: string
+        source:
+          type: string
+          enum:
+          - AUTOMATED_FINBIF_VALIDATION
+          - ORIGINAL_DOCUMENT
+          - QUALITY_CONTROL
+      required:
+      - issue
+      - message
+      - source
     WarehouseDwQuery_AggregateRow:
       type: object
       properties:
@@ -22434,13 +21055,45 @@ components:
       - atlasCodeMax
       - atlasClassMax
       - aggregateBy
-    WarehouseDwQuery_DocumentQuality:
+    WarehouseDwQuery_AggregateResponse:
       type: object
       properties:
-        issue:
-          $ref: '#/components/schemas/WarehouseDwQuery_Quality'
+        currentPage:
+          type: integer
+        prevPage:
+          type: integer
+        nextPage:
+          type: integer
+        lastPage:
+          type: integer
+        pageSize:
+          type: integer
+        total:
+          type: integer
+        results:
+          type: array
+          items:
+            $ref: '#/components/schemas/WarehouseDwQuery_AggregateRow'
+        cacheTimestamp:
+          type: integer
       required:
-      - issue
+      - currentPage
+      - prevPage
+      - nextPage
+      - lastPage
+      - pageSize
+      - total
+      - results
+      - cacheTimestamp
+    WarehouseDwEnumerationLabels:
+      properties:
+        results:
+          type: array
+          items:
+            $ref: '#/components/schemas/WarehouseDwEnumerationLabel'
+      type: object
+      required:
+      - results
     WarehouseDwSingle_GatheringDWLinkings:
       type: object
       properties:
@@ -22450,173 +21103,353 @@ components:
             $ref: '#/components/schemas/WarehouseDwSingle_Person'
       required:
       - observers
-    WarehouseDwSingle_SingleCoordinates:
+    WarehouseDwQuery_IdentificationDwLinkings:
       type: object
       properties:
-        lat:
-          type: number
-        lon:
-          type: number
+        taxon:
+          $ref: '#/components/schemas/WarehouseDwQuery_Taxon'
       required:
-      - lat
-      - lon
-    WarehouseDwQuery_Coordinates:
-      type: object
-      properties:
-        latMax:
-          type: number
-        latMin:
-          type: number
-        lonMax:
-          type: number
-        lonMin:
-          type: number
-      required:
-      - latMax
-      - latMin
-      - lonMax
-      - lonMin
-    WarehouseDwSingle_Person:
-      type: object
-      properties:
-        fullName:
-          type: string
-        id:
-          type: string
-          format: URI
-        userId:
-          type: string
-      required:
-      - fullName
-      - id
-      - userId
-    WarehouseDwSingle_Quality:
+      - taxon
+    WarehouseDwETL_GatheringQuality:
       type: object
       properties:
         issue:
-          type: string
-          enum:
-          - REPORTED_UNRELIABLE
-          - MEDIA_ISSUE
-          - INVALID_CREATED_DATE
-          - INVALID_MODIFIED_DATE
-          - COORDINATES_COUNTRY_MISMATCH
-          - COORDINATES_MUNICIPALITY_MISMATCH
-          - TOO_LARGE_AREA
-          - INVALID_GEO
-          - INVALID_YKJ_COORDINATES
-          - INVALID_EUREF_COORDINATES
-          - INVALID_WGS84_COORDINATES
-          - DATE_END_BEFORE_BEGIN
-          - DATE_END_GIVEN_WITHOUT_BEGIN
-          - DATE_IN_FUTURE
-          - DATE_TOO_FAR_IN_THE_PAST
-          - INVALID_DATE
-          - RECORD_BASIS_MISSING
-          - INVALID_HOUR
-          - INVALID_MINUTE
-          - TIME_END_BEFORE_BEGIN
-          - INVALID_COORDINATES
-          - ETL_ISSUE
-        message:
-          type: string
-        source:
-          type: string
-          enum:
-          - AUTOMATED_FINBIF_VALIDATION
-          - ORIGINAL_DOCUMENT
-          - QUALITY_CONTROL
+          $ref: '#/components/schemas/WarehouseDwETL_Quality'
+        locationIssue:
+          $ref: '#/components/schemas/WarehouseDwETL_Quality'
+        timeIssue:
+          $ref: '#/components/schemas/WarehouseDwETL_Quality'
       required:
       - issue
-      - message
-      - source
-    WarehouseDwQuery_TaxonCensus:
+      - locationIssue
+      - timeIssue
+    WarehouseDwQuery_GatheringInterpretations:
       type: object
       properties:
-        taxonId:
+        biogeographicalProvince:
           type: string
           format: URI
-        type:
+        biogeographicalProvinceDisplayname:
+          type: string
+        biogeographicalProvinces:
+          type: array
+          items:
+            type: string
+        coordinateAccuracy:
+          type: integer
+        country:
           type: string
           format: URI
-      required:
-      - taxonId
-      - type
-    WarehouseDwFilters:
-      type: object
-      additionalProperties:
-        $ref: '#/components/schemas/WarehouseDwFilter'
-    WarehouseDwSingle_DocumentDWLinkings:
-      type: object
-      properties:
-        collectionQuality:
+        countryDisplayname:
+          type: string
+        finnishMunicipalities:
+          type: array
+          items:
+            type: string
+        finnishMunicipality:
+          type: string
+          format: URI
+        municipalityDisplayname:
+          type: string
+        sourceOfBiogeographicalProvince:
           type: string
           enum:
-          - PROFESSIONAL
-          - HOBBYIST
-          - AMATEUR
-        editors:
-          type: array
-          items:
-            $ref: '#/components/schemas/WarehouseDwSingle_Person'
+          - COORDINATES
+          - COORDINATE_CENTERPOINT
+          - REPORTED_VALUE
+          - FINNISH_MUNICIPALITY
+          - OLD_FINNISH_MUNICIPALITY
+        sourceOfCoordinates:
+          type: string
+          enum:
+          - COORDINATES
+          - COORDINATE_CENTERPOINT
+          - REPORTED_VALUE
+          - FINNISH_MUNICIPALITY
+          - OLD_FINNISH_MUNICIPALITY
+        sourceOfCountry:
+          type: string
+          enum:
+          - COORDINATES
+          - COORDINATE_CENTERPOINT
+          - REPORTED_VALUE
+          - FINNISH_MUNICIPALITY
+          - OLD_FINNISH_MUNICIPALITY
+        sourceOfFinnishMunicipality:
+          type: string
+          enum:
+          - COORDINATES
+          - COORDINATE_CENTERPOINT
+          - REPORTED_VALUE
+          - FINNISH_MUNICIPALITY
+          - OLD_FINNISH_MUNICIPALITY
       required:
-      - collectionQuality
-      - editors
-    WarehouseDwSingle_TypeSpecimen:
+      - biogeographicalProvince
+      - biogeographicalProvinceDisplayname
+      - biogeographicalProvinces
+      - coordinateAccuracy
+      - country
+      - countryDisplayname
+      - finnishMunicipalities
+      - finnishMunicipality
+      - municipalityDisplayname
+      - sourceOfBiogeographicalProvince
+      - sourceOfCoordinates
+      - sourceOfCountry
+      - sourceOfFinnishMunicipality
+    WarehouseDwETL_DateRange:
       type: object
       properties:
-        notes:
+        begin:
           type: string
+          format: yyyy-MM-dd
+        end:
+          type: string
+          format: yyyy-MM-dd
+      required:
+      - begin
+      - end
+    WarehouseDwETL_MediaObject:
+      type: object
+      properties:
         author:
           type: string
-        basionymePublication:
+        caption:
           type: string
-        facts:
-          type: array
-          items:
-            $ref: '#/components/schemas/WarehouseDwSingle_Fact'
+        copyrightOwner:
+          type: string
+        fullResolutionMediaAvailable:
+          type: boolean
+        fullURL:
+          type: string
+        highDetailModelURL:
+          type: string
         id:
           type: string
           format: URI
-        linkings:
-          $ref: '#/components/schemas/WarehouseDwSingle_IdentificationDwLinkings'
-        publication:
+        licenseId:
           type: string
-        status:
+        lowDetailModelURL:
           type: string
-          format: URI
-        taxon:
+        mediaType:
           type: string
-        taxonID:
+          enum:
+          - IMAGE
+          - AUDIO
+          - VIDEO
+          - MODEL
+        mp3URL:
           type: string
-          format: URI
-        taxonSpecifier:
+        squareThumbnailURL:
           type: string
-        taxonSpecifierAuthor:
+        thumbnailURL:
           type: string
-        typif:
-          type: string
-        typifDate:
-          type: string
-        verification:
+        type:
           type: string
           format: URI
+        videoURL:
+          type: string
+        wavURL:
+          type: string
       required:
-      - notes
       - author
-      - basionymePublication
-      - facts
+      - caption
+      - copyrightOwner
+      - fullResolutionMediaAvailable
+      - fullURL
+      - highDetailModelURL
       - id
+      - licenseId
+      - lowDetailModelURL
+      - mediaType
+      - mp3URL
+      - squareThumbnailURL
+      - thumbnailURL
+      - type
+      - videoURL
+      - wavURL
+    WarehouseDwQuery_Document:
+      type: object
+      properties:
+        documentId:
+          type: string
+          format: URI
+        secureLevel:
+          type: string
+          enum:
+          - NOSHOW
+          - HIGHEST
+          - KM100
+          - KM50
+          - KM25
+          - KM10
+          - KM5
+          - KM1
+          - NONE
+        secureReasons:
+          type: array
+          items:
+            type: string
+            enum:
+            - DEFAULT_TAXON_CONSERVATION
+            - BREEDING_SITE_CONSERVATION
+            - NATURA_AREA_CONSERVATION
+            - WINTER_SEASON_TAXON_CONSERVATION
+            - BREEDING_SEASON_TAXON_CONSERVATION
+            - CUSTOM
+            - USER_HIDDEN
+            - ADMIN_HIDDEN
+            - DATA_QUARANTINE_PERIOD
+            - ONLY_PRIVATE
+            - USER_PERSON_NAMES_HIDDEN
+            - USER_HIDDEN_LOCATION
+            - USER_HIDDEN_TIME
+        partial:
+          type: boolean
+        collectionId:
+          type: string
+          format: URI
+        licenseId:
+          type: string
+        dataSource:
+          type: string
+        linkings:
+          $ref: '#/components/schemas/WarehouseDwQuery_DocumentDWLinkings'
+        quality:
+          $ref: '#/components/schemas/WarehouseDwQuery_DocumentQuality'
+        sourceId:
+          type: string
+          format: URI
+        namedPlace:
+          $ref: '#/components/schemas/WarehouseDwQuery_NamedPlaceEntity'
+        siteType:
+          type: string
+        siteStatus:
+          type: string
+        keywords:
+          type: array
+          items:
+            type: string
+        firstLoadDate:
+          type: string
+          format: yyyy-MM-dd
+        loadDate:
+          type: string
+          format: yyyy-MM-dd
+        createdDate:
+          type: string
+          format: yyyy-MM-dd
+        modifiedDate:
+          type: string
+          format: yyyy-MM-dd
+        notes:
+          type: string
+        annotations:
+          type: array
+          items:
+            $ref: '#/components/schemas/WarehouseDwQuery_Annotation'
+        completeListTaxonId:
+          type: string
+        completeListType:
+          type: string
+        editorUserIds:
+          type: array
+          items:
+            type: string
+        facts:
+          type: array
+          items:
+            $ref: '#/components/schemas/WarehouseDwQuery_Fact'
+        formId:
+          type: string
+        media:
+          type: array
+          items:
+            $ref: '#/components/schemas/WarehouseDwQuery_MediaObject'
+        mediaCount:
+          type: integer
+        namedPlaceId:
+          type: string
+        prefix:
+          type: string
+        referenceURL:
+          type: string
+        secured:
+          type: boolean
+        siteDead:
+          type: boolean
+        sourceTags:
+          type: array
+          items:
+            type: string
+            enum:
+            - ADMIN_MARKED_SPAM
+            - ADMIN_MARKED_COARSE
+            - ADMIN_MARKED_NON_WILD
+            - EXPERT_TAG_VERIFIED
+            - EXPERT_TAG_UNCERTAIN
+            - EXPERT_TAG_ERRONEOUS
+            - COMMUNITY_TAG_VERIFIED
+            - AUTO_VALIDATIONS_PASS
+            - CHECKED_CANNOT_VERIFY
+            - CHANGED_OWNER_MANUAL
+            - CHANGED_DW_AUTO
+            - CHECK
+            - CHECK_COORDINATES
+            - CHECK_DATETIME
+            - CHECK_LOCATION
+            - CHECK_OBSERVER
+            - CHECK_TAXON
+            - CHECK_DUPLICATE
+            - CHECK_WILDNESS
+            - CHECK_NEEDS_INFO
+            - CHECK_SPAM
+            - CHECK_BREEDING_INDEX
+            - AUTO_DISTRIBUTION_CHECK
+            - AUTO_PERIOD_CHECK
+            - FORMADMIN_CENSUS_COUNT_ERROR
+            - FORMADMIN_CENSUS_INNER_COUNT_ERROR
+            - FORMADMIN_CENSUS_OTHER_ERROR
+            - FORMADMIN_VERIFIED
+            - FORMADMIN_UNCERTAIN
+            - INVASIVE_FULL
+            - INVASIVE_PARTIAL
+            - INVASIVE_NO_EFFECT
+            - INVASIVE_NOT_FOUND
+      required:
+      - documentId
+      - secureLevel
+      - secureReasons
+      - partial
+      - collectionId
+      - licenseId
+      - dataSource
       - linkings
-      - publication
-      - status
-      - taxon
-      - taxonID
-      - taxonSpecifier
-      - taxonSpecifierAuthor
-      - typif
-      - typifDate
-      - verification
+      - quality
+      - sourceId
+      - namedPlace
+      - siteType
+      - siteStatus
+      - keywords
+      - firstLoadDate
+      - loadDate
+      - createdDate
+      - modifiedDate
+      - notes
+      - annotations
+      - completeListTaxonId
+      - completeListType
+      - editorUserIds
+      - facts
+      - formId
+      - media
+      - mediaCount
+      - namedPlaceId
+      - prefix
+      - referenceURL
+      - secured
+      - siteDead
+      - sourceTags
     WarehouseDwSingle_GatheringInterpretations:
       type: object
       properties:
@@ -22691,35 +21524,992 @@ components:
       - sourceOfCoordinates
       - sourceOfCountry
       - sourceOfFinnishMunicipality
-    WarehouseDwETL_UnitQuality:
+    WarehouseDwQuery_DocumentDWLinkings:
+      type: object
+      properties:
+        collectionQuality:
+          type: string
+          enum:
+          - PROFESSIONAL
+          - HOBBYIST
+          - AMATEUR
+        editors:
+          type: array
+          items:
+            $ref: '#/components/schemas/WarehouseDwQuery_Person'
+      required:
+      - collectionQuality
+      - editors
+    WarehouseDwQuery_Quality:
       type: object
       properties:
         issue:
-          $ref: '#/components/schemas/WarehouseDwETL_Quality'
+          type: string
+          enum:
+          - REPORTED_UNRELIABLE
+          - MEDIA_ISSUE
+          - INVALID_CREATED_DATE
+          - INVALID_MODIFIED_DATE
+          - COORDINATES_COUNTRY_MISMATCH
+          - COORDINATES_MUNICIPALITY_MISMATCH
+          - TOO_LARGE_AREA
+          - INVALID_GEO
+          - INVALID_YKJ_COORDINATES
+          - INVALID_EUREF_COORDINATES
+          - INVALID_WGS84_COORDINATES
+          - DATE_END_BEFORE_BEGIN
+          - DATE_END_GIVEN_WITHOUT_BEGIN
+          - DATE_IN_FUTURE
+          - DATE_TOO_FAR_IN_THE_PAST
+          - INVALID_DATE
+          - RECORD_BASIS_MISSING
+          - INVALID_HOUR
+          - INVALID_MINUTE
+          - TIME_END_BEFORE_BEGIN
+          - INVALID_COORDINATES
+          - ETL_ISSUE
+        message:
+          type: string
+        source:
+          type: string
+          enum:
+          - AUTOMATED_FINBIF_VALIDATION
+          - ORIGINAL_DOCUMENT
+          - QUALITY_CONTROL
       required:
       - issue
-    WarehouseDwQuery_JoinedRow:
+      - message
+      - source
+    WarehouseDwQuery_Sample:
       type: object
       properties:
-        document:
-          $ref: '#/components/schemas/WarehouseDwQuery_Document'
-        gathering:
-          $ref: '#/components/schemas/WarehouseDwQuery_Gathering'
-        unit:
-          $ref: '#/components/schemas/WarehouseDwQuery_Unit'
-        annotation:
-          $ref: '#/components/schemas/WarehouseDwQuery_Annotation'
-        media:
-          $ref: '#/components/schemas/WarehouseDwQuery_MediaObject'
-        sample:
-          $ref: '#/components/schemas/WarehouseDwQuery_Sample'
+        notes:
+          type: string
+        collectionId:
+          type: string
+          format: URI
+        facts:
+          type: array
+          items:
+            $ref: '#/components/schemas/WarehouseDwQuery_Fact'
+        keywords:
+          type: array
+          items:
+            type: string
+        material:
+          type: string
+        multiple:
+          type: boolean
+        quality:
+          type: string
+        sampleId:
+          type: string
+          format: URI
+        sampleOrder:
+          type: integer
+        status:
+          type: string
+        type:
+          type: string
       required:
-      - document
-      - gathering
-      - unit
-      - annotation
+      - notes
+      - collectionId
+      - facts
+      - keywords
+      - material
+      - multiple
+      - quality
+      - sampleId
+      - sampleOrder
+      - status
+      - type
+    WarehouseDwTeamMember:
+      properties:
+        id:
+          type: string
+        name:
+          type: string
+      type: object
+      required:
+      - id
+      - name
+    WarehouseDwSingle_Document:
+      type: object
+      properties:
+        documentId:
+          type: string
+          format: URI
+        secureLevel:
+          type: string
+          enum:
+          - NOSHOW
+          - HIGHEST
+          - KM100
+          - KM50
+          - KM25
+          - KM10
+          - KM5
+          - KM1
+          - NONE
+        secureReasons:
+          type: array
+          items:
+            type: string
+            enum:
+            - DEFAULT_TAXON_CONSERVATION
+            - BREEDING_SITE_CONSERVATION
+            - NATURA_AREA_CONSERVATION
+            - WINTER_SEASON_TAXON_CONSERVATION
+            - BREEDING_SEASON_TAXON_CONSERVATION
+            - CUSTOM
+            - USER_HIDDEN
+            - ADMIN_HIDDEN
+            - DATA_QUARANTINE_PERIOD
+            - ONLY_PRIVATE
+            - USER_PERSON_NAMES_HIDDEN
+            - USER_HIDDEN_LOCATION
+            - USER_HIDDEN_TIME
+        partial:
+          type: boolean
+        collectionId:
+          type: string
+          format: URI
+        licenseId:
+          type: string
+        dataSource:
+          type: string
+        linkings:
+          $ref: '#/components/schemas/WarehouseDwSingle_DocumentDWLinkings'
+        quality:
+          $ref: '#/components/schemas/WarehouseDwSingle_DocumentQuality'
+        sourceId:
+          type: string
+          format: URI
+        namedPlace:
+          $ref: '#/components/schemas/WarehouseDwSingle_NamedPlaceEntity'
+        siteType:
+          type: string
+        siteStatus:
+          type: string
+        keywords:
+          type: array
+          items:
+            type: string
+        firstLoadDate:
+          type: string
+          format: yyyy-MM-dd
+        loadDate:
+          type: string
+          format: yyyy-MM-dd
+        createdDate:
+          type: string
+          format: yyyy-MM-dd
+        modifiedDate:
+          type: string
+          format: yyyy-MM-dd
+        notes:
+          type: string
+        annotations:
+          type: array
+          items:
+            $ref: '#/components/schemas/WarehouseDwSingle_Annotation'
+        completeListTaxonId:
+          type: string
+        completeListType:
+          type: string
+        editorUserIds:
+          type: array
+          items:
+            type: string
+        facts:
+          type: array
+          items:
+            $ref: '#/components/schemas/WarehouseDwSingle_Fact'
+        formId:
+          type: string
+        gatherings:
+          type: array
+          items:
+            $ref: '#/components/schemas/WarehouseDwSingle_Gathering'
+        media:
+          type: array
+          items:
+            $ref: '#/components/schemas/WarehouseDwSingle_MediaObject'
+        mediaCount:
+          type: integer
+        namedPlaceId:
+          type: string
+        prefix:
+          type: string
+        referenceURL:
+          type: string
+        secured:
+          type: boolean
+        siteDead:
+          type: boolean
+        sourceTags:
+          type: array
+          items:
+            type: string
+            enum:
+            - ADMIN_MARKED_SPAM
+            - ADMIN_MARKED_COARSE
+            - ADMIN_MARKED_NON_WILD
+            - EXPERT_TAG_VERIFIED
+            - EXPERT_TAG_UNCERTAIN
+            - EXPERT_TAG_ERRONEOUS
+            - COMMUNITY_TAG_VERIFIED
+            - AUTO_VALIDATIONS_PASS
+            - CHECKED_CANNOT_VERIFY
+            - CHANGED_OWNER_MANUAL
+            - CHANGED_DW_AUTO
+            - CHECK
+            - CHECK_COORDINATES
+            - CHECK_DATETIME
+            - CHECK_LOCATION
+            - CHECK_OBSERVER
+            - CHECK_TAXON
+            - CHECK_DUPLICATE
+            - CHECK_WILDNESS
+            - CHECK_NEEDS_INFO
+            - CHECK_SPAM
+            - CHECK_BREEDING_INDEX
+            - AUTO_DISTRIBUTION_CHECK
+            - AUTO_PERIOD_CHECK
+            - FORMADMIN_CENSUS_COUNT_ERROR
+            - FORMADMIN_CENSUS_INNER_COUNT_ERROR
+            - FORMADMIN_CENSUS_OTHER_ERROR
+            - FORMADMIN_VERIFIED
+            - FORMADMIN_UNCERTAIN
+            - INVASIVE_FULL
+            - INVASIVE_PARTIAL
+            - INVASIVE_NO_EFFECT
+            - INVASIVE_NOT_FOUND
+      required:
+      - documentId
+      - secureLevel
+      - secureReasons
+      - partial
+      - collectionId
+      - licenseId
+      - dataSource
+      - linkings
+      - quality
+      - sourceId
+      - namedPlace
+      - siteType
+      - siteStatus
+      - keywords
+      - firstLoadDate
+      - loadDate
+      - createdDate
+      - modifiedDate
+      - notes
+      - annotations
+      - completeListTaxonId
+      - completeListType
+      - editorUserIds
+      - facts
+      - formId
+      - gatherings
       - media
-      - sample
+      - mediaCount
+      - namedPlaceId
+      - prefix
+      - referenceURL
+      - secured
+      - siteDead
+      - sourceTags
+    WarehouseDwQuery_DateRange:
+      type: object
+      properties:
+        begin:
+          type: string
+          format: yyyy-MM-dd
+        end:
+          type: string
+          format: yyyy-MM-dd
+      required:
+      - begin
+      - end
+    WarehouseDwPolygonId:
+      properties:
+        id:
+          type: integer
+      type: object
+      required:
+      - id
+    WarehouseDwSingle_Quality:
+      type: object
+      properties:
+        issue:
+          type: string
+          enum:
+          - REPORTED_UNRELIABLE
+          - MEDIA_ISSUE
+          - INVALID_CREATED_DATE
+          - INVALID_MODIFIED_DATE
+          - COORDINATES_COUNTRY_MISMATCH
+          - COORDINATES_MUNICIPALITY_MISMATCH
+          - TOO_LARGE_AREA
+          - INVALID_GEO
+          - INVALID_YKJ_COORDINATES
+          - INVALID_EUREF_COORDINATES
+          - INVALID_WGS84_COORDINATES
+          - DATE_END_BEFORE_BEGIN
+          - DATE_END_GIVEN_WITHOUT_BEGIN
+          - DATE_IN_FUTURE
+          - DATE_TOO_FAR_IN_THE_PAST
+          - INVALID_DATE
+          - RECORD_BASIS_MISSING
+          - INVALID_HOUR
+          - INVALID_MINUTE
+          - TIME_END_BEFORE_BEGIN
+          - INVALID_COORDINATES
+          - ETL_ISSUE
+        message:
+          type: string
+        source:
+          type: string
+          enum:
+          - AUTOMATED_FINBIF_VALIDATION
+          - ORIGINAL_DOCUMENT
+          - QUALITY_CONTROL
+      required:
+      - issue
+      - message
+      - source
+    WarehouseDwSingle_IdentificationDwLinkings:
+      type: object
+      properties:
+        taxon:
+          $ref: '#/components/schemas/WarehouseDwSingle_Taxon'
+      required:
+      - taxon
+    WarehouseDwSingle_MediaObject:
+      type: object
+      properties:
+        author:
+          type: string
+        caption:
+          type: string
+        copyrightOwner:
+          type: string
+        fullResolutionMediaAvailable:
+          type: boolean
+        fullURL:
+          type: string
+        highDetailModelURL:
+          type: string
+        licenseId:
+          type: string
+        lowDetailModelURL:
+          type: string
+        mediaType:
+          type: string
+          enum:
+          - IMAGE
+          - AUDIO
+          - VIDEO
+          - MODEL
+        mp3URL:
+          type: string
+        squareThumbnailURL:
+          type: string
+        thumbnailURL:
+          type: string
+        type:
+          type: string
+          format: URI
+        videoURL:
+          type: string
+        wavURL:
+          type: string
+      required:
+      - author
+      - caption
+      - copyrightOwner
+      - fullResolutionMediaAvailable
+      - fullURL
+      - highDetailModelURL
+      - licenseId
+      - lowDetailModelURL
+      - mediaType
+      - mp3URL
+      - squareThumbnailURL
+      - thumbnailURL
+      - type
+      - videoURL
+      - wavURL
+    WarehouseDwSingle_Unit:
+      type: object
+      properties:
+        unitId:
+          type: string
+          format: URI
+        unitOrder:
+          type: integer
+        taxonVerbatim:
+          type: string
+        quality:
+          $ref: '#/components/schemas/WarehouseDwSingle_UnitQuality'
+        reportedTaxonConfidence:
+          type: string
+          enum:
+          - SURE
+          - UNSURE
+          - SUBSPECIES_UNSURE
+        linkings:
+          $ref: '#/components/schemas/WarehouseDwSingle_UnitDWLinkings'
+        abundanceString:
+          type: string
+        abundanceUnit:
+          type: string
+          enum:
+          - OCCURS_DOES_NOT_OCCUR
+          - INDIVIDUAL_COUNT
+          - PAIRCOUNT
+          - NESTS
+          - BREEDING_SITES
+          - FEEDING_SITES
+          - COLONIES
+          - QUEENS
+          - FRUITBODIES
+          - SPROUTS
+          - HUMMOCKS
+          - THALLI
+          - FLOWERS
+          - SPOTS
+          - TRUNKS
+          - SHELLS
+          - DROPPINGS
+          - FEEDING_MARKS
+          - INDIRECT_MARKS
+          - SQUARE_DM
+          - SQUARE_M
+          - RELATIVE_DENSITY
+        interpretations:
+          $ref: '#/components/schemas/WarehouseDwSingle_UnitInterpretations'
+        superRecordBasis:
+          type: string
+          enum:
+          - PRESERVED_SPECIMEN
+          - LIVING_SPECIMEN
+          - FOSSIL_SPECIMEN
+          - SUBFOSSIL_SPECIMEN
+          - SUBFOSSIL_AMBER_INCLUSION_SPECIMEN
+          - MICROBIAL_SPECIMEN
+          - HUMAN_OBSERVATION_UNSPECIFIED
+          - HUMAN_OBSERVATION_SEEN
+          - HUMAN_OBSERVATION_HEARD
+          - HUMAN_OBSERVATION_PHOTO
+          - HUMAN_OBSERVATION_INDIRECT
+          - HUMAN_OBSERVATION_HANDLED
+          - HUMAN_OBSERVATION_VIDEO
+          - HUMAN_OBSERVATION_RECORDED_AUDIO
+          - MACHINE_OBSERVATION_UNSPECIFIED
+          - MACHINE_OBSERVATION_PHOTO
+          - MACHINE_OBSERVATION_VIDEO
+          - MACHINE_OBSERVATION_AUDIO
+          - MACHINE_OBSERVATION_GEOLOGGER
+          - MACHINE_OBSERVATION_SATELLITE_TRANSMITTER
+          - LITERATURE
+          - MATERIAL_SAMPLE
+          - MATERIAL_SAMPLE_AIR
+          - MATERIAL_SAMPLE_SOIL
+          - MATERIAL_SAMPLE_WATER
+        recordBasis:
+          type: string
+          enum:
+          - PRESERVED_SPECIMEN
+          - LIVING_SPECIMEN
+          - FOSSIL_SPECIMEN
+          - SUBFOSSIL_SPECIMEN
+          - SUBFOSSIL_AMBER_INCLUSION_SPECIMEN
+          - MICROBIAL_SPECIMEN
+          - HUMAN_OBSERVATION_UNSPECIFIED
+          - HUMAN_OBSERVATION_SEEN
+          - HUMAN_OBSERVATION_HEARD
+          - HUMAN_OBSERVATION_PHOTO
+          - HUMAN_OBSERVATION_INDIRECT
+          - HUMAN_OBSERVATION_HANDLED
+          - HUMAN_OBSERVATION_VIDEO
+          - HUMAN_OBSERVATION_RECORDED_AUDIO
+          - MACHINE_OBSERVATION_UNSPECIFIED
+          - MACHINE_OBSERVATION_PHOTO
+          - MACHINE_OBSERVATION_VIDEO
+          - MACHINE_OBSERVATION_AUDIO
+          - MACHINE_OBSERVATION_GEOLOGGER
+          - MACHINE_OBSERVATION_SATELLITE_TRANSMITTER
+          - LITERATURE
+          - MATERIAL_SAMPLE
+          - MATERIAL_SAMPLE_AIR
+          - MATERIAL_SAMPLE_SOIL
+          - MATERIAL_SAMPLE_WATER
+        typeSpecimen:
+          type: boolean
+        det:
+          type: string
+        sex:
+          type: string
+          enum:
+          - MALE
+          - FEMALE
+          - WORKER
+          - UNKNOWN
+          - NOT_APPLICABLE
+          - GYNANDROMORPH
+          - MULTIPLE
+          - CONFLICTING
+        lifeStage:
+          type: string
+          enum:
+          - ADULT
+          - JUVENILE
+          - IMMATURE
+          - EGG
+          - TADPOLE
+          - PUPA
+          - NYMPH
+          - SUBIMAGO
+          - LARVA
+          - SNAG
+          - EMBRYO
+          - SUBADULT
+          - MATURE
+          - STERILE
+          - FERTILE
+          - SPROUT
+          - DEAD_SPROUT
+          - BUD
+          - FLOWER
+          - WITHERED_FLOWER
+          - SEED
+          - RIPENING_FRUIT
+          - RIPE_FRUIT
+          - SUBTERRANEAN
+          - GALL
+          - MARKS
+          - TRIUNGULIN
+        wild:
+          type: boolean
+        alive:
+          type: boolean
+        local:
+          type: boolean
+        keywords:
+          type: array
+          items:
+            type: string
+        breedingSite:
+          type: boolean
+        plantStatusCode:
+          type: string
+        atlasCode:
+          type: string
+        atlasClass:
+          type: string
+        individualId:
+          type: string
+        sequenceText:
+          type: string
+        notes:
+          type: string
+        annotationCount:
+          type: integer
+        annotations:
+          type: array
+          items:
+            $ref: '#/components/schemas/WarehouseDwSingle_Annotation'
+        audioCount:
+          type: integer
+        author:
+          type: string
+        externalMediaCount:
+          type: integer
+        facts:
+          type: array
+          items:
+            $ref: '#/components/schemas/WarehouseDwSingle_Fact'
+        identificationBasis:
+          type: array
+          items:
+            type: string
+        identifications:
+          type: array
+          items:
+            $ref: '#/components/schemas/WarehouseDwSingle_IdentificationEvent'
+        imageCount:
+          type: integer
+        individualCountFemale:
+          type: integer
+        individualCountMale:
+          type: integer
+        media:
+          type: array
+          items:
+            $ref: '#/components/schemas/WarehouseDwSingle_MediaObject'
+        mediaCount:
+          type: integer
+        modelCount:
+          type: integer
+        primarySpecimen:
+          type: boolean
+        reportedInformalTaxonGroup:
+          type: string
+          format: URI
+        reportedTaxonId:
+          type: string
+          format: URI
+        sampleCount:
+          type: integer
+        samples:
+          type: array
+          items:
+            $ref: '#/components/schemas/WarehouseDwSingle_Sample'
+        samplingMethod:
+          type: string
+        sourceTags:
+          type: array
+          items:
+            type: string
+            enum:
+            - ADMIN_MARKED_SPAM
+            - ADMIN_MARKED_COARSE
+            - ADMIN_MARKED_NON_WILD
+            - EXPERT_TAG_VERIFIED
+            - EXPERT_TAG_UNCERTAIN
+            - EXPERT_TAG_ERRONEOUS
+            - COMMUNITY_TAG_VERIFIED
+            - AUTO_VALIDATIONS_PASS
+            - CHECKED_CANNOT_VERIFY
+            - CHANGED_OWNER_MANUAL
+            - CHANGED_DW_AUTO
+            - CHECK
+            - CHECK_COORDINATES
+            - CHECK_DATETIME
+            - CHECK_LOCATION
+            - CHECK_OBSERVER
+            - CHECK_TAXON
+            - CHECK_DUPLICATE
+            - CHECK_WILDNESS
+            - CHECK_NEEDS_INFO
+            - CHECK_SPAM
+            - CHECK_BREEDING_INDEX
+            - AUTO_DISTRIBUTION_CHECK
+            - AUTO_PERIOD_CHECK
+            - FORMADMIN_CENSUS_COUNT_ERROR
+            - FORMADMIN_CENSUS_INNER_COUNT_ERROR
+            - FORMADMIN_CENSUS_OTHER_ERROR
+            - FORMADMIN_VERIFIED
+            - FORMADMIN_UNCERTAIN
+            - INVASIVE_FULL
+            - INVASIVE_PARTIAL
+            - INVASIVE_NO_EFFECT
+            - INVASIVE_NOT_FOUND
+        types:
+          type: array
+          items:
+            $ref: '#/components/schemas/WarehouseDwSingle_TypeSpecimen'
+        videoCount:
+          type: integer
+      required:
+      - unitId
+      - unitOrder
+      - taxonVerbatim
+      - quality
+      - reportedTaxonConfidence
+      - linkings
+      - abundanceString
+      - abundanceUnit
+      - interpretations
+      - superRecordBasis
+      - recordBasis
+      - typeSpecimen
+      - det
+      - sex
+      - lifeStage
+      - wild
+      - alive
+      - local
+      - keywords
+      - breedingSite
+      - plantStatusCode
+      - atlasCode
+      - atlasClass
+      - individualId
+      - sequenceText
+      - notes
+      - annotationCount
+      - annotations
+      - audioCount
+      - author
+      - externalMediaCount
+      - facts
+      - identificationBasis
+      - identifications
+      - imageCount
+      - individualCountFemale
+      - individualCountMale
+      - media
+      - mediaCount
+      - modelCount
+      - primarySpecimen
+      - reportedInformalTaxonGroup
+      - reportedTaxonId
+      - sampleCount
+      - samples
+      - samplingMethod
+      - sourceTags
+      - types
+      - videoCount
+    WarehouseDwQuery_Coordinates:
+      type: object
+      properties:
+        latMax:
+          type: number
+        latMin:
+          type: number
+        lonMax:
+          type: number
+        lonMin:
+          type: number
+      required:
+      - latMax
+      - latMin
+      - lonMax
+      - lonMin
+    WarehouseDwQuery_UnitInterpretations:
+      type: object
+      properties:
+        annotatedTaxonId:
+          type: string
+          format: URI
+        collectionAndRecordQuality:
+          type: string
+        det:
+          type: string
+        effectiveTags:
+          type: array
+          items:
+            type: string
+            enum:
+            - ADMIN_MARKED_SPAM
+            - ADMIN_MARKED_COARSE
+            - ADMIN_MARKED_NON_WILD
+            - EXPERT_TAG_VERIFIED
+            - EXPERT_TAG_UNCERTAIN
+            - EXPERT_TAG_ERRONEOUS
+            - COMMUNITY_TAG_VERIFIED
+            - AUTO_VALIDATIONS_PASS
+            - CHECKED_CANNOT_VERIFY
+            - CHANGED_OWNER_MANUAL
+            - CHANGED_DW_AUTO
+            - CHECK
+            - CHECK_COORDINATES
+            - CHECK_DATETIME
+            - CHECK_LOCATION
+            - CHECK_OBSERVER
+            - CHECK_TAXON
+            - CHECK_DUPLICATE
+            - CHECK_WILDNESS
+            - CHECK_NEEDS_INFO
+            - CHECK_SPAM
+            - CHECK_BREEDING_INDEX
+            - AUTO_DISTRIBUTION_CHECK
+            - AUTO_PERIOD_CHECK
+            - FORMADMIN_CENSUS_COUNT_ERROR
+            - FORMADMIN_CENSUS_INNER_COUNT_ERROR
+            - FORMADMIN_CENSUS_OTHER_ERROR
+            - FORMADMIN_VERIFIED
+            - FORMADMIN_UNCERTAIN
+            - INVASIVE_FULL
+            - INVASIVE_PARTIAL
+            - INVASIVE_NO_EFFECT
+            - INVASIVE_NOT_FOUND
+        individualCount:
+          type: integer
+        invasiveControlEffectiveness:
+          type: string
+          enum:
+          - FULL
+          - PARTIAL
+          - NO_EFFECT
+          - NOT_FOUND
+        invasiveControlled:
+          type: boolean
+        needsCheck:
+          type: boolean
+        needsIdentification:
+          type: boolean
+        pairCount:
+          type: integer
+        recordQuality:
+          type: string
+          enum:
+          - EXPERT_VERIFIED
+          - COMMUNITY_VERIFIED
+          - NEUTRAL
+          - UNCERTAIN
+          - ERRONEOUS
+        recordQualityNumeric:
+          type: number
+        reliability:
+          type: string
+          enum:
+          - RELIABLE
+          - UNDEFINED
+          - UNRELIABLE
+      required:
+      - annotatedTaxonId
+      - collectionAndRecordQuality
+      - det
+      - effectiveTags
+      - individualCount
+      - invasiveControlEffectiveness
+      - invasiveControlled
+      - needsCheck
+      - needsIdentification
+      - pairCount
+      - recordQuality
+      - recordQualityNumeric
+      - reliability
+    WarehouseDwSingle_Annotation:
+      type: object
+      properties:
+        addedTags:
+          type: array
+          items:
+            type: string
+            enum:
+            - ADMIN_MARKED_SPAM
+            - ADMIN_MARKED_COARSE
+            - ADMIN_MARKED_NON_WILD
+            - EXPERT_TAG_VERIFIED
+            - EXPERT_TAG_UNCERTAIN
+            - EXPERT_TAG_ERRONEOUS
+            - COMMUNITY_TAG_VERIFIED
+            - AUTO_VALIDATIONS_PASS
+            - CHECKED_CANNOT_VERIFY
+            - CHANGED_OWNER_MANUAL
+            - CHANGED_DW_AUTO
+            - CHECK
+            - CHECK_COORDINATES
+            - CHECK_DATETIME
+            - CHECK_LOCATION
+            - CHECK_OBSERVER
+            - CHECK_TAXON
+            - CHECK_DUPLICATE
+            - CHECK_WILDNESS
+            - CHECK_NEEDS_INFO
+            - CHECK_SPAM
+            - CHECK_BREEDING_INDEX
+            - AUTO_DISTRIBUTION_CHECK
+            - AUTO_PERIOD_CHECK
+            - FORMADMIN_CENSUS_COUNT_ERROR
+            - FORMADMIN_CENSUS_INNER_COUNT_ERROR
+            - FORMADMIN_CENSUS_OTHER_ERROR
+            - FORMADMIN_VERIFIED
+            - FORMADMIN_UNCERTAIN
+            - INVASIVE_FULL
+            - INVASIVE_PARTIAL
+            - INVASIVE_NO_EFFECT
+            - INVASIVE_NOT_FOUND
+        annotationByPerson:
+          type: string
+          format: URI
+        annotationByPersonName:
+          type: string
+        annotationBySystem:
+          type: string
+          format: URI
+        annotationBySystemName:
+          type: string
+        atlasCode:
+          type: string
+          format: URI
+        byRole:
+          type: string
+          format: URI
+        created:
+          type: string
+        deleted:
+          type: boolean
+        deletedByPerson:
+          type: string
+          format: URI
+        deletedByPersonName:
+          type: string
+        deletedDateTime:
+          type: string
+        id:
+          type: string
+          format: URI
+        identification:
+          $ref: '#/components/schemas/WarehouseDwSingle_Identification'
+        notes:
+          type: string
+        occurrenceAtTimeOfAnnotation:
+          $ref: '#/components/schemas/WarehouseDwSingle_OccurrenceAtTimeOfAnnotation'
+        removedTags:
+          type: array
+          items:
+            type: string
+            enum:
+            - ADMIN_MARKED_SPAM
+            - ADMIN_MARKED_COARSE
+            - ADMIN_MARKED_NON_WILD
+            - EXPERT_TAG_VERIFIED
+            - EXPERT_TAG_UNCERTAIN
+            - EXPERT_TAG_ERRONEOUS
+            - COMMUNITY_TAG_VERIFIED
+            - AUTO_VALIDATIONS_PASS
+            - CHECKED_CANNOT_VERIFY
+            - CHANGED_OWNER_MANUAL
+            - CHANGED_DW_AUTO
+            - CHECK
+            - CHECK_COORDINATES
+            - CHECK_DATETIME
+            - CHECK_LOCATION
+            - CHECK_OBSERVER
+            - CHECK_TAXON
+            - CHECK_DUPLICATE
+            - CHECK_WILDNESS
+            - CHECK_NEEDS_INFO
+            - CHECK_SPAM
+            - CHECK_BREEDING_INDEX
+            - AUTO_DISTRIBUTION_CHECK
+            - AUTO_PERIOD_CHECK
+            - FORMADMIN_CENSUS_COUNT_ERROR
+            - FORMADMIN_CENSUS_INNER_COUNT_ERROR
+            - FORMADMIN_CENSUS_OTHER_ERROR
+            - FORMADMIN_VERIFIED
+            - FORMADMIN_UNCERTAIN
+            - INVASIVE_FULL
+            - INVASIVE_PARTIAL
+            - INVASIVE_NO_EFFECT
+            - INVASIVE_NOT_FOUND
+        valid:
+          type: boolean
+      required:
+      - addedTags
+      - annotationByPerson
+      - annotationByPersonName
+      - annotationBySystem
+      - annotationBySystemName
+      - atlasCode
+      - byRole
+      - created
+      - deleted
+      - deletedByPerson
+      - deletedByPersonName
+      - deletedDateTime
+      - id
+      - identification
+      - notes
+      - occurrenceAtTimeOfAnnotation
+      - removedTags
+      - valid
     WarehouseDwETL_Unit:
       type: object
       properties:
@@ -22979,28 +22769,184 @@ components:
       - samplingMethod
       - sourceTags
       - types
-    WarehouseDwSingle_IdentificationEvent:
+    WarehouseDwETL_DocumentQuality:
+      type: object
+      properties:
+        issue:
+          $ref: '#/components/schemas/WarehouseDwETL_Quality'
+      required:
+      - issue
+    WarehouseDwQuery_OccurrenceAtTimeOfAnnotation:
+      type: object
+      properties:
+        countryVerbatim:
+          type: string
+        dateBegin:
+          type: string
+          format: yyyy-MM-dd
+        dateEnd:
+          type: string
+          format: yyyy-MM-dd
+        linkings:
+          $ref: '#/components/schemas/WarehouseDwQuery_IdentificationDwLinkings'
+        locality:
+          type: string
+        municipalityVerbatim:
+          type: string
+        taxonId:
+          type: string
+          format: URI
+        taxonVerbatim:
+          type: string
+        wgs84centerPointLat:
+          type: number
+        wgs84centerPointLon:
+          type: number
+      required:
+      - countryVerbatim
+      - dateBegin
+      - dateEnd
+      - linkings
+      - locality
+      - municipalityVerbatim
+      - taxonId
+      - taxonVerbatim
+      - wgs84centerPointLat
+      - wgs84centerPointLon
+    WarehouseDwSingle_Gathering:
+      type: object
+      properties:
+        gatheringId:
+          type: string
+          format: URI
+        gatheringOrder:
+          type: integer
+        gatheringSection:
+          type: integer
+        geo:
+          type: object
+          externalDocs:
+            url: http://geojson.org/geojson-spec.html#geometry-objects
+          description: GeoJSON object with custom "crs" required property that takes in values WGS84,EUREF,YKJ (WGS84 = EPSG:4326; EUREF = ETRS-TM35FIN EPSG:3067; YKJ = EPSG:2393)
+        eventDate:
+          $ref: '#/components/schemas/WarehouseDwSingle_DateRange'
+        hourBegin:
+          type: integer
+        hourEnd:
+          type: integer
+        displayDateTime:
+          type: string
+        team:
+          type: array
+          items:
+            type: string
+        conversions:
+          $ref: '#/components/schemas/WarehouseDwSingle_GatheringConversions'
+        interpretations:
+          $ref: '#/components/schemas/WarehouseDwSingle_GatheringInterpretations'
+        stateLand:
+          type: boolean
+        accurateArea:
+          type: boolean
+        higherGeography:
+          type: string
+        country:
+          type: string
+        municipality:
+          type: string
+        biogeographicalProvince:
+          type: string
+        province:
+          type: string
+        locality:
+          type: string
+        quality:
+          $ref: '#/components/schemas/WarehouseDwSingle_GatheringQuality'
+        notes:
+          type: string
+        coordinatesVerbatim:
+          type: string
+        facts:
+          type: array
+          items:
+            $ref: '#/components/schemas/WarehouseDwSingle_Fact'
+        linkings:
+          $ref: '#/components/schemas/WarehouseDwSingle_GatheringDWLinkings'
+        media:
+          type: array
+          items:
+            $ref: '#/components/schemas/WarehouseDwSingle_MediaObject'
+        mediaCount:
+          type: integer
+        minutesBegin:
+          type: integer
+        minutesEnd:
+          type: integer
+        observerUserIds:
+          type: array
+          items:
+            type: string
+        taxonCensus:
+          type: array
+          items:
+            $ref: '#/components/schemas/WarehouseDwSingle_TaxonCensus'
+        units:
+          type: array
+          items:
+            $ref: '#/components/schemas/WarehouseDwSingle_Unit'
+      required:
+      - gatheringId
+      - gatheringOrder
+      - gatheringSection
+      - geo
+      - eventDate
+      - hourBegin
+      - hourEnd
+      - displayDateTime
+      - team
+      - conversions
+      - interpretations
+      - stateLand
+      - accurateArea
+      - higherGeography
+      - country
+      - municipality
+      - biogeographicalProvince
+      - province
+      - locality
+      - quality
+      - notes
+      - coordinatesVerbatim
+      - facts
+      - linkings
+      - media
+      - mediaCount
+      - minutesBegin
+      - minutesEnd
+      - observerUserIds
+      - taxonCensus
+      - units
+    WarehouseDwETL_TypeSpecimen:
       type: object
       properties:
         notes:
           type: string
         author:
           type: string
-        det:
-          type: string
-        detDate:
+        basionymePublication:
           type: string
         facts:
           type: array
           items:
-            $ref: '#/components/schemas/WarehouseDwSingle_Fact'
+            $ref: '#/components/schemas/WarehouseDwETL_Fact'
         id:
           type: string
           format: URI
-        linkings:
-          $ref: '#/components/schemas/WarehouseDwSingle_IdentificationDwLinkings'
-        preferred:
-          type: boolean
+        publication:
+          type: string
+        status:
+          type: string
+          format: URI
         taxon:
           type: string
         taxonID:
@@ -23010,30 +22956,84 @@ components:
           type: string
         taxonSpecifierAuthor:
           type: string
+        typif:
+          type: string
+        typifDate:
+          type: string
+        verification:
+          type: string
+          format: URI
       required:
       - notes
       - author
-      - det
-      - detDate
+      - basionymePublication
       - facts
       - id
-      - linkings
-      - preferred
+      - publication
+      - status
       - taxon
       - taxonID
       - taxonSpecifier
       - taxonSpecifierAuthor
-    WarehouseDwQuery_RedListStatus:
+      - typif
+      - typifDate
+      - verification
+    WarehouseDwSingle_Fact:
       type: object
       properties:
-        status:
+        fact:
+          type: string
+        value:
+          type: string
+        integerValue:
+          type: integer
+        decimalValue:
+          type: number
+      required:
+      - fact
+      - value
+      - integerValue
+      - decimalValue
+    WarehouseDwETL_Sample:
+      type: object
+      properties:
+        notes:
+          type: string
+        collectionId:
           type: string
           format: URI
-        year:
-          type: integer
+        facts:
+          type: array
+          items:
+            $ref: '#/components/schemas/WarehouseDwETL_Fact'
+        keywords:
+          type: array
+          items:
+            type: string
+        material:
+          type: string
+        multiple:
+          type: boolean
+        quality:
+          type: string
+        sampleId:
+          type: string
+          format: URI
+        status:
+          type: string
+        type:
+          type: string
       required:
+      - notes
+      - collectionId
+      - facts
+      - keywords
+      - material
+      - multiple
+      - quality
+      - sampleId
       - status
-      - year
+      - type
   securitySchemes:
     Access_token:
       scheme: bearer

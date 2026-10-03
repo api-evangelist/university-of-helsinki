@@ -405,54 +405,59 @@ paths:
       x-summary-source: derived
 components:
   schemas:
-    store-notification:
+    store-annotationOccurrence:
       type: object
       properties:
         '@context':
           type: string
-          title: Context for the MHN.notification
+          title: Context for the MAN.annotationOccurrenceClass
         id:
           type: string
-          title: Id for the MHN.notification
+          title: Id for the MAN.annotationOccurrenceClass
         '@type':
           type: string
-          title: Type for the MHN.notification
-        annotation:
-          $ref: '#/components/schemas/store-annotation'
-        created:
+          title: Type for the MAN.annotationOccurrenceClass
+        countryVerbatim:
           type: string
-          format: date-time
-          title: Created
-        friendRequest:
+          title: Country verbatim
+        dateBegin:
           type: string
-          title: Friend request from
-        friendRequestAccepted:
+          title: Date begin
+        dateEnd:
           type: string
-          title: Friend request accepted by
-        notificationReason:
+          title: Date end
+        locality:
           type: string
-          enum:
-          - ''
-          - MHN.notificationReasonOwnDocumentAnnotated
-          - MHN.notificationReasonAnnotatedDocumentAnnotated
-          title: Notification reason
-        seen:
-          type: boolean
-          title: Seen
-        toPerson:
+          title: Locality
+        municipalityVerbatim:
           type: string
-          title: Notification is for
-      required:
-      - created
-      - toPerson
-      additionalProperties: false
-    StoreDeleteResponse:
-      type: object
-      properties:
-        affected:
+          title: Municipality verbatim
+        taxonId:
+          type: string
+          title: Taxon ID
+        taxonVerbatim:
+          type: string
+          title: Taxon verbatim
+        wgs84centerPointLat:
           type: number
+          title: Latitude (center point)
+        wgs84centerPointLon:
+          type: number
+          title: Longitude (center point)
+      additionalProperties: false
       required:
-      - affected
+      - '@context'
+      - id
+      - '@type'
+      - countryVerbatim
+      - dateBegin
+      - dateEnd
+      - locality
+      - municipalityVerbatim
+      - taxonId
+      - taxonVerbatim
+      - wgs84centerPointLat
+      - wgs84centerPointLon
     store-annotation:
       type: object
       properties:
@@ -619,59 +624,6 @@ components:
       required:
       - rootID
       additionalProperties: false
-    store-annotationOccurrence:
-      type: object
-      properties:
-        '@context':
-          type: string
-          title: Context for the MAN.annotationOccurrenceClass
-        id:
-          type: string
-          title: Id for the MAN.annotationOccurrenceClass
-        '@type':
-          type: string
-          title: Type for the MAN.annotationOccurrenceClass
-        countryVerbatim:
-          type: string
-          title: Country verbatim
-        dateBegin:
-          type: string
-          title: Date begin
-        dateEnd:
-          type: string
-          title: Date end
-        locality:
-          type: string
-          title: Locality
-        municipalityVerbatim:
-          type: string
-          title: Municipality verbatim
-        taxonId:
-          type: string
-          title: Taxon ID
-        taxonVerbatim:
-          type: string
-          title: Taxon verbatim
-        wgs84centerPointLat:
-          type: number
-          title: Latitude (center point)
-        wgs84centerPointLon:
-          type: number
-          title: Longitude (center point)
-      additionalProperties: false
-      required:
-      - '@context'
-      - id
-      - '@type'
-      - countryVerbatim
-      - dateBegin
-      - dateEnd
-      - locality
-      - municipalityVerbatim
-      - taxonId
-      - taxonVerbatim
-      - wgs84centerPointLat
-      - wgs84centerPointLon
     store-identification:
       type: object
       properties:
@@ -919,6 +871,54 @@ components:
       - taxonVerbatim
       - publicityRestrictions
       - sortOrder
+    store-notification:
+      type: object
+      properties:
+        '@context':
+          type: string
+          title: Context for the MHN.notification
+        id:
+          type: string
+          title: Id for the MHN.notification
+        '@type':
+          type: string
+          title: Type for the MHN.notification
+        annotation:
+          $ref: '#/components/schemas/store-annotation'
+        created:
+          type: string
+          format: date-time
+          title: Created
+        friendRequest:
+          type: string
+          title: Friend request from
+        friendRequestAccepted:
+          type: string
+          title: Friend request accepted by
+        notificationReason:
+          type: string
+          enum:
+          - ''
+          - MHN.notificationReasonOwnDocumentAnnotated
+          - MHN.notificationReasonAnnotatedDocumentAnnotated
+          title: Notification reason
+        seen:
+          type: boolean
+          title: Seen
+        toPerson:
+          type: string
+          title: Notification is for
+      required:
+      - created
+      - toPerson
+      additionalProperties: false
+    StoreDeleteResponse:
+      type: object
+      properties:
+        affected:
+          type: number
+      required:
+      - affected
   securitySchemes:
     Access_token:
       scheme: bearer

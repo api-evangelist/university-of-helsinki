@@ -104,17 +104,11 @@ paths:
       deprecated: false
 components:
   schemas:
-    CompanyTitle.jsonld-read:
+    CompanyTitle-read:
       type: object
       deprecated: false
       description: Company Title resource.
       properties:
-        '@id':
-          type: string
-          readOnly: true
-        '@type':
-          type: string
-          readOnly: true
         id:
           type: string
         name:
@@ -128,11 +122,17 @@ components:
               type: string
             sv:
               type: string
-    CompanyTitle-read:
+    CompanyTitle.jsonld-read:
       type: object
       deprecated: false
       description: Company Title resource.
       properties:
+        '@id':
+          type: string
+          readOnly: true
+        '@type':
+          type: string
+          readOnly: true
         id:
           type: string
         name:

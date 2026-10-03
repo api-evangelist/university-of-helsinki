@@ -383,6 +383,14 @@ paths:
       x-operation-id-source: derived
 components:
   schemas:
+    NewHostRequirements:
+      required:
+      - laitos
+      - nimi
+      - rakennus
+      - vh
+      - vlan
+      type: object
     HostSearchSpecification:
       type: object
       properties:
@@ -436,18 +444,6 @@ components:
         routingscope:
           maxLength: 40
           type: string
-    NewHostRequirements:
-      required:
-      - laitos
-      - nimi
-      - rakennus
-      - vh
-      - vlan
-      type: object
-    HostCollection:
-      type: array
-      items:
-        $ref: '#/components/schemas/Host'
     Host:
       type: object
       properties:
@@ -545,6 +541,10 @@ components:
           maxLength: 40
           type: string
           example: public
+    HostCollection:
+      type: array
+      items:
+        $ref: '#/components/schemas/Host'
   headers:
     NetdataMessage:
       description: Further information on the operation result
