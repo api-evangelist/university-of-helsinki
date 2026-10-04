@@ -3522,6 +3522,8 @@ apis:
   humanURL: https://api.helsinki.fi/portal/
   baseURL: https://api.helsinki.fi/portal/environments/DEFAULT
   tags:
+  - Group
+  tags_raw:
   - Groups
   properties:
   - type: OpenAPI
@@ -3633,6 +3635,9 @@ apis:
   - type: Documentation
     url: https://info.laji.fi/en/
 common:
+- type: CapabilityMap
+  url: capabilities/university-of-helsinki-capability-edges.yml
+  name: University of Helsinki Business Capability Map
 - type: Website
   url: https://www.helsinki.fi/en
 - type: DeveloperPortal
