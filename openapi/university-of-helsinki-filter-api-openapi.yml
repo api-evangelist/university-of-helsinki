@@ -123,6 +123,21 @@ paths:
       deprecated: false
 components:
   schemas:
+    Filter-read:
+      type: object
+      deprecated: false
+      description: Filter resource.
+      properties:
+        id:
+          type: string
+        data:
+          type: array
+          items:
+            type: string
+        isPublic:
+          type: boolean
+          default: true
+          example: true
     Filter.jsonld-read:
       type: object
       deprecated: false
@@ -150,21 +165,6 @@ components:
             - '@vocab'
             - hydra
           readOnly: true
-        id:
-          type: string
-        data:
-          type: array
-          items:
-            type: string
-        isPublic:
-          type: boolean
-          default: true
-          example: true
-    Filter-read:
-      type: object
-      deprecated: false
-      description: Filter resource.
-      properties:
         id:
           type: string
         data:

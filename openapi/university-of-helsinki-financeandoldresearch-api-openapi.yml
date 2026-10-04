@@ -29,32 +29,6 @@ paths:
       tags:
       - FinanceAndOldResearch
 components:
-  schemas:
-    FinanceAndOldResearch:
-      type: object
-      properties:
-        uniqueId:
-          type: string
-        type:
-          type: string
-        code:
-          type: string
-        educationCode:
-          type: string
-        nameFi:
-          type: string
-        nameEn:
-          type: string
-        nameSv:
-          type: string
-        unitStartDate:
-          type: string
-        publicity:
-          type: string
-        uniqueCode:
-          type: string
-        parent:
-          type: string
   examples:
     FinanceAndOldResearchExample:
       value:
@@ -94,6 +68,32 @@ components:
         uniqueCode: kylla
         uniqueId: '99998888'
         unitStartDate: null
+  schemas:
+    FinanceAndOldResearch:
+      type: object
+      properties:
+        uniqueId:
+          type: string
+        type:
+          type: string
+        code:
+          type: string
+        educationCode:
+          type: string
+        nameFi:
+          type: string
+        nameEn:
+          type: string
+        nameSv:
+          type: string
+        unitStartDate:
+          type: string
+        publicity:
+          type: string
+        uniqueCode:
+          type: string
+        parent:
+          type: string
   securitySchemes:
     apiKey:
       type: apiKey

@@ -135,20 +135,6 @@ paths:
       x-summary-source: derived
 components:
   schemas:
-    AddressComponent:
-      type: object
-      properties:
-        long_name:
-          type: string
-        short_name:
-          $ref: '#/components/schemas/MultiLangDto'
-        types:
-          type: array
-          items:
-            type: string
-      required:
-      - short_name
-      - types
     Location:
       type: object
       properties:
@@ -168,6 +154,20 @@ components:
       - address_components
       - types
       - place_id
+    AddressComponent:
+      type: object
+      properties:
+        long_name:
+          type: string
+        short_name:
+          $ref: '#/components/schemas/MultiLangDto'
+        types:
+          type: array
+          items:
+            type: string
+      required:
+      - short_name
+      - types
     MultiLangDto:
       type: string
   securitySchemes:

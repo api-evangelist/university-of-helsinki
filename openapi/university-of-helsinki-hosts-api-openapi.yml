@@ -545,13 +545,6 @@ components:
       type: array
       items:
         $ref: '#/components/schemas/Host'
-  headers:
-    NetdataMessage:
-      description: Further information on the operation result
-      style: simple
-      explode: false
-      schema:
-        type: string
   parameters:
     NetdataRef:
       name: X-Netdata-Reference
@@ -563,6 +556,13 @@ components:
       schema:
         maxLength: 50
         pattern: ^[-_+a-zA-Z0-9]+$
+        type: string
+  headers:
+    NetdataMessage:
+      description: Further information on the operation result
+      style: simple
+      explode: false
+      schema:
         type: string
   securitySchemes:
     api_key:

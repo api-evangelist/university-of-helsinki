@@ -421,328 +421,12 @@ paths:
       deprecated: false
 components:
   schemas:
-    Organization.jsonld-read:
-      type: object
-      deprecated: false
-      description: Organization resource.
-      properties:
-        '@id':
-          type: string
-          readOnly: true
-        '@type':
-          type: string
-          readOnly: true
-        '@context':
-          oneOf:
-          - type: string
-          - type: object
-            additionalProperties: true
-            properties:
-              '@vocab':
-                type: string
-              hydra:
-                type: string
-                enum:
-                - http://www.w3.org/ns/hydra/core#
-            required:
-            - '@vocab'
-            - hydra
-          readOnly: true
-        id:
-          type: integer
-        name:
-          type: object
-          items:
-            type: string
-          properties:
-            en:
-              type: string
-            fi:
-              type: string
-            sv:
-              type: string
-        type:
-          type: string
-        parent:
-          type:
-          - integer
-          - 'null'
-        depth:
-          type: integer
-    FieldOfScience.jsonld-read:
-      type: object
-      deprecated: false
-      description: Field of science resource.
-      properties:
-        '@id':
-          type: string
-          readOnly: true
-        '@type':
-          type: string
-          readOnly: true
-        id:
-          type: integer
-        label:
-          type: object
-          items:
-            type: string
-          properties:
-            en:
-              type: string
-            fi:
-              type: string
-            sv:
-              type: string
-      required:
-      - label
-    Title.jsonld-read:
-      type: object
-      deprecated: false
-      description: Title resource.
-      properties:
-        '@id':
-          type: string
-          readOnly: true
-        '@type':
-          type: string
-          readOnly: true
-        id:
-          type: string
-        name:
-          type: object
-          items:
-            type: string
-          properties:
-            en:
-              type: string
-            fi:
-              type: string
-            sv:
-              type: string
     Organization-write:
       type: object
       deprecated: false
       description: Organization resource.
       properties:
         id:
-          type: integer
-    KeywordGroup.jsonld-read:
-      type: object
-      deprecated: false
-      description: ''
-      properties:
-        value:
-          anyOf:
-          - $ref: '#/components/schemas/FieldOfScience.jsonld-read'
-          - type: 'null'
-          owl:maxCardinality: 1
-        additional:
-          type: object
-          items:
-            type: string
-          properties:
-            en:
-              type: array
-              items:
-                type: string
-            fi:
-              type: array
-              items:
-                type: string
-            sv:
-              type: array
-              items:
-                type: string
-      required:
-      - additional
-      - value
-    Contact-read:
-      type: object
-      deprecated: false
-      description: Contact resource.
-      properties:
-        organizations:
-          type: array
-          items:
-            $ref: '#/components/schemas/Organization-read'
-        researchOrganizations:
-          type:
-          - array
-          - 'null'
-          items:
-            type: string
-        steeringGroups:
-          type: array
-          items:
-            $ref: '#/components/schemas/SteeringGroup-read'
-        hrOrganizations:
-          type: array
-          items:
-            $ref: '#/components/schemas/HrOrganization-read'
-        title:
-          anyOf:
-          - $ref: '#/components/schemas/Title-read'
-          - type: 'null'
-          owl:maxCardinality: 1
-        fieldsOfScience:
-          type: array
-          items:
-            $ref: '#/components/schemas/KeywordGroup-read'
-        picture:
-          type:
-          - string
-          - 'null'
-        description:
-          type: object
-          items:
-            type: string
-          properties:
-            en:
-              type: string
-            fi:
-              type: string
-            sv:
-              type: string
-        publicWorkDescription:
-          type: object
-          items:
-            type: string
-          properties:
-            en:
-              type: string
-            fi:
-              type: string
-            sv:
-              type: string
-        currentStatus:
-          type: object
-          items:
-            type: string
-          properties:
-            en:
-              type: string
-            fi:
-              type: string
-            sv:
-              type: string
-        tuhUri:
-          type: object
-          items:
-            type: string
-          properties:
-            rss:
-              type: object
-              properties:
-                clippings:
-                  type: string
-                activities:
-                  type: string
-                projects:
-                  type: string
-                publications:
-                  type: string
-            html:
-              type: object
-              properties:
-                clippings:
-                  type: string
-                activities:
-                  type: string
-                projects:
-                  type: string
-                publications:
-                  type: string
-        twitterLink:
-          type:
-          - string
-          - 'null'
-        linkedinLink:
-          type:
-          - string
-          - 'null'
-        facebookLink:
-          type:
-          - string
-          - 'null'
-        instagramLink:
-          type:
-          - string
-          - 'null'
-        youtubeLink:
-          type:
-          - string
-          - 'null'
-        personalLinks:
-          type: array
-          items:
-            type: string
-          properties: {}
-        id:
-          type: integer
-        firstnames:
-          type: string
-        lastname:
-          type: string
-        fullname:
-          type: string
-        email:
-          type:
-          - string
-          - 'null'
-        address:
-          type: object
-          items:
-            type: string
-          properties:
-            en:
-              type: string
-            fi:
-              type: string
-            sv:
-              type: string
-        mobileNumber:
-          type:
-          - string
-          - 'null'
-        phoneNumber:
-          type:
-          - string
-          - 'null'
-        isPublic:
-          type: boolean
-          default: true
-          example: true
-      required:
-      - email
-      - fieldsOfScience
-      - firstnames
-      - fullname
-      - lastname
-    Organization-read:
-      type: object
-      deprecated: false
-      description: Organization resource.
-      properties:
-        id:
-          type: integer
-        name:
-          type: object
-          items:
-            type: string
-          properties:
-            en:
-              type: string
-            fi:
-              type: string
-            sv:
-              type: string
-        type:
-          type: string
-        parent:
-          type:
-          - integer
-          - 'null'
-        depth:
           type: integer
     SteeringGroup.jsonld-read:
       type: object
@@ -796,115 +480,10 @@ components:
           type:
           - string
           - 'null'
-    Contact.jsonld-write:
+    Title.jsonld-read:
       type: object
       deprecated: false
-      description: Contact resource.
-      properties:
-        primaryOrganizations:
-          type: array
-          items:
-            $ref: '#/components/schemas/Organization.jsonld-write'
-        primaryResearchOrganizations:
-          type: array
-          items:
-            $ref: '#/components/schemas/ResearchOrganization.jsonld-write'
-        servicingOrganizations:
-          type: array
-          items:
-            $ref: '#/components/schemas/Organization.jsonld-write'
-        picture:
-          type:
-          - string
-          - 'null'
-        description:
-          type: object
-          items:
-            type: string
-          properties:
-            en:
-              type: string
-            fi:
-              type: string
-            sv:
-              type: string
-        publicWorkDescription:
-          type: object
-          items:
-            type: string
-          properties:
-            en:
-              type: string
-            fi:
-              type: string
-            sv:
-              type: string
-        titleAddition:
-          type: object
-          items:
-            type: string
-          properties:
-            en:
-              type: string
-            fi:
-              type: string
-            sv:
-              type: string
-        addressAddition:
-          type: object
-          items:
-            type: string
-          properties:
-            en:
-              type: string
-            fi:
-              type: string
-            sv:
-              type: string
-        currentStatus:
-          type: object
-          items:
-            type: string
-          properties:
-            en:
-              type: string
-            fi:
-              type: string
-            sv:
-              type: string
-        twitterLink:
-          type:
-          - string
-          - 'null'
-        linkedinLink:
-          type:
-          - string
-          - 'null'
-        facebookLink:
-          type:
-          - string
-          - 'null'
-        instagramLink:
-          type:
-          - string
-          - 'null'
-        youtubeLink:
-          type:
-          - string
-          - 'null'
-        personalLinks:
-          type: array
-          items:
-            type: string
-          properties: {}
-        isPublic:
-          type: boolean
-          default: true
-          example: true
-    HrOrganization.jsonld-read:
-      type: object
-      deprecated: false
-      description: HR organization resource.
+      description: Title resource.
       properties:
         '@id':
           type: string
@@ -912,24 +491,8 @@ components:
         '@type':
           type: string
           readOnly: true
-        '@context':
-          oneOf:
-          - type: string
-          - type: object
-            additionalProperties: true
-            properties:
-              '@vocab':
-                type: string
-              hydra:
-                type: string
-                enum:
-                - http://www.w3.org/ns/hydra/core#
-            required:
-            - '@vocab'
-            - hydra
-          readOnly: true
         id:
-          type: integer
+          type: string
         name:
           type: object
           items:
@@ -941,227 +504,6 @@ components:
               type: string
             sv:
               type: string
-        type:
-          type: string
-        parent:
-          type:
-          - integer
-          - 'null'
-        depth:
-          type: integer
-        code:
-          type:
-          - string
-          - 'null'
-    Organization.jsonld-write:
-      type: object
-      deprecated: false
-      description: Organization resource.
-      properties:
-        id:
-          type: integer
-    ResearchOrganization.jsonld-write:
-      type: object
-      deprecated: false
-      description: Research organization resource.
-      properties:
-        id:
-          type: integer
-    SteeringGroup-read:
-      type: object
-      deprecated: false
-      description: Steering Group resource.
-      properties:
-        id:
-          type: integer
-        name:
-          type: object
-          items:
-            type: string
-          properties:
-            en:
-              type: string
-            fi:
-              type: string
-            sv:
-              type: string
-        type:
-          type: string
-        parent:
-          type:
-          - integer
-          - 'null'
-        depth:
-          type: integer
-        code:
-          type:
-          - string
-          - 'null'
-    HrOrganization-read:
-      type: object
-      deprecated: false
-      description: HR organization resource.
-      properties:
-        id:
-          type: integer
-        name:
-          type: object
-          items:
-            type: string
-          properties:
-            en:
-              type: string
-            fi:
-              type: string
-            sv:
-              type: string
-        type:
-          type: string
-        parent:
-          type:
-          - integer
-          - 'null'
-        depth:
-          type: integer
-        code:
-          type:
-          - string
-          - 'null'
-    Contact-write:
-      type: object
-      deprecated: false
-      description: Contact resource.
-      properties:
-        primaryOrganizations:
-          type: array
-          items:
-            $ref: '#/components/schemas/Organization-write'
-        primaryResearchOrganizations:
-          type: array
-          items:
-            $ref: '#/components/schemas/ResearchOrganization-write'
-        servicingOrganizations:
-          type: array
-          items:
-            $ref: '#/components/schemas/Organization-write'
-        picture:
-          type:
-          - string
-          - 'null'
-        description:
-          type: object
-          items:
-            type: string
-          properties:
-            en:
-              type: string
-            fi:
-              type: string
-            sv:
-              type: string
-        publicWorkDescription:
-          type: object
-          items:
-            type: string
-          properties:
-            en:
-              type: string
-            fi:
-              type: string
-            sv:
-              type: string
-        titleAddition:
-          type: object
-          items:
-            type: string
-          properties:
-            en:
-              type: string
-            fi:
-              type: string
-            sv:
-              type: string
-        addressAddition:
-          type: object
-          items:
-            type: string
-          properties:
-            en:
-              type: string
-            fi:
-              type: string
-            sv:
-              type: string
-        currentStatus:
-          type: object
-          items:
-            type: string
-          properties:
-            en:
-              type: string
-            fi:
-              type: string
-            sv:
-              type: string
-        twitterLink:
-          type:
-          - string
-          - 'null'
-        linkedinLink:
-          type:
-          - string
-          - 'null'
-        facebookLink:
-          type:
-          - string
-          - 'null'
-        instagramLink:
-          type:
-          - string
-          - 'null'
-        youtubeLink:
-          type:
-          - string
-          - 'null'
-        personalLinks:
-          type: array
-          items:
-            type: string
-          properties: {}
-        isPublic:
-          type: boolean
-          default: true
-          example: true
-    KeywordGroup-read:
-      type: object
-      deprecated: false
-      description: ''
-      properties:
-        value:
-          anyOf:
-          - $ref: '#/components/schemas/FieldOfScience-read'
-          - type: 'null'
-          owl:maxCardinality: 1
-        additional:
-          type: object
-          items:
-            type: string
-          properties:
-            en:
-              type: array
-              items:
-                type: string
-            fi:
-              type: array
-              items:
-                type: string
-            sv:
-              type: array
-              items:
-                type: string
-      required:
-      - additional
-      - value
     Title-read:
       type: object
       deprecated: false
@@ -1180,6 +522,13 @@ components:
               type: string
             sv:
               type: string
+    ResearchOrganization.jsonld-write:
+      type: object
+      deprecated: false
+      description: Research organization resource.
+      properties:
+        id:
+          type: integer
     Contact.jsonld-read:
       type: object
       deprecated: false
@@ -1384,6 +733,475 @@ components:
               type: string
       required:
       - label
+    Contact-read:
+      type: object
+      deprecated: false
+      description: Contact resource.
+      properties:
+        organizations:
+          type: array
+          items:
+            $ref: '#/components/schemas/Organization-read'
+        researchOrganizations:
+          type:
+          - array
+          - 'null'
+          items:
+            type: string
+        steeringGroups:
+          type: array
+          items:
+            $ref: '#/components/schemas/SteeringGroup-read'
+        hrOrganizations:
+          type: array
+          items:
+            $ref: '#/components/schemas/HrOrganization-read'
+        title:
+          anyOf:
+          - $ref: '#/components/schemas/Title-read'
+          - type: 'null'
+          owl:maxCardinality: 1
+        fieldsOfScience:
+          type: array
+          items:
+            $ref: '#/components/schemas/KeywordGroup-read'
+        picture:
+          type:
+          - string
+          - 'null'
+        description:
+          type: object
+          items:
+            type: string
+          properties:
+            en:
+              type: string
+            fi:
+              type: string
+            sv:
+              type: string
+        publicWorkDescription:
+          type: object
+          items:
+            type: string
+          properties:
+            en:
+              type: string
+            fi:
+              type: string
+            sv:
+              type: string
+        currentStatus:
+          type: object
+          items:
+            type: string
+          properties:
+            en:
+              type: string
+            fi:
+              type: string
+            sv:
+              type: string
+        tuhUri:
+          type: object
+          items:
+            type: string
+          properties:
+            rss:
+              type: object
+              properties:
+                clippings:
+                  type: string
+                activities:
+                  type: string
+                projects:
+                  type: string
+                publications:
+                  type: string
+            html:
+              type: object
+              properties:
+                clippings:
+                  type: string
+                activities:
+                  type: string
+                projects:
+                  type: string
+                publications:
+                  type: string
+        twitterLink:
+          type:
+          - string
+          - 'null'
+        linkedinLink:
+          type:
+          - string
+          - 'null'
+        facebookLink:
+          type:
+          - string
+          - 'null'
+        instagramLink:
+          type:
+          - string
+          - 'null'
+        youtubeLink:
+          type:
+          - string
+          - 'null'
+        personalLinks:
+          type: array
+          items:
+            type: string
+          properties: {}
+        id:
+          type: integer
+        firstnames:
+          type: string
+        lastname:
+          type: string
+        fullname:
+          type: string
+        email:
+          type:
+          - string
+          - 'null'
+        address:
+          type: object
+          items:
+            type: string
+          properties:
+            en:
+              type: string
+            fi:
+              type: string
+            sv:
+              type: string
+        mobileNumber:
+          type:
+          - string
+          - 'null'
+        phoneNumber:
+          type:
+          - string
+          - 'null'
+        isPublic:
+          type: boolean
+          default: true
+          example: true
+      required:
+      - email
+      - fieldsOfScience
+      - firstnames
+      - fullname
+      - lastname
+    KeywordGroup.jsonld-read:
+      type: object
+      deprecated: false
+      description: ''
+      properties:
+        value:
+          anyOf:
+          - $ref: '#/components/schemas/FieldOfScience.jsonld-read'
+          - type: 'null'
+          owl:maxCardinality: 1
+        additional:
+          type: object
+          items:
+            type: string
+          properties:
+            en:
+              type: array
+              items:
+                type: string
+            fi:
+              type: array
+              items:
+                type: string
+            sv:
+              type: array
+              items:
+                type: string
+      required:
+      - additional
+      - value
+    SteeringGroup-read:
+      type: object
+      deprecated: false
+      description: Steering Group resource.
+      properties:
+        id:
+          type: integer
+        name:
+          type: object
+          items:
+            type: string
+          properties:
+            en:
+              type: string
+            fi:
+              type: string
+            sv:
+              type: string
+        type:
+          type: string
+        parent:
+          type:
+          - integer
+          - 'null'
+        depth:
+          type: integer
+        code:
+          type:
+          - string
+          - 'null'
+    HrOrganization-read:
+      type: object
+      deprecated: false
+      description: HR organization resource.
+      properties:
+        id:
+          type: integer
+        name:
+          type: object
+          items:
+            type: string
+          properties:
+            en:
+              type: string
+            fi:
+              type: string
+            sv:
+              type: string
+        type:
+          type: string
+        parent:
+          type:
+          - integer
+          - 'null'
+        depth:
+          type: integer
+        code:
+          type:
+          - string
+          - 'null'
+    Contact-write:
+      type: object
+      deprecated: false
+      description: Contact resource.
+      properties:
+        primaryOrganizations:
+          type: array
+          items:
+            $ref: '#/components/schemas/Organization-write'
+        primaryResearchOrganizations:
+          type: array
+          items:
+            $ref: '#/components/schemas/ResearchOrganization-write'
+        servicingOrganizations:
+          type: array
+          items:
+            $ref: '#/components/schemas/Organization-write'
+        picture:
+          type:
+          - string
+          - 'null'
+        description:
+          type: object
+          items:
+            type: string
+          properties:
+            en:
+              type: string
+            fi:
+              type: string
+            sv:
+              type: string
+        publicWorkDescription:
+          type: object
+          items:
+            type: string
+          properties:
+            en:
+              type: string
+            fi:
+              type: string
+            sv:
+              type: string
+        titleAddition:
+          type: object
+          items:
+            type: string
+          properties:
+            en:
+              type: string
+            fi:
+              type: string
+            sv:
+              type: string
+        addressAddition:
+          type: object
+          items:
+            type: string
+          properties:
+            en:
+              type: string
+            fi:
+              type: string
+            sv:
+              type: string
+        currentStatus:
+          type: object
+          items:
+            type: string
+          properties:
+            en:
+              type: string
+            fi:
+              type: string
+            sv:
+              type: string
+        twitterLink:
+          type:
+          - string
+          - 'null'
+        linkedinLink:
+          type:
+          - string
+          - 'null'
+        facebookLink:
+          type:
+          - string
+          - 'null'
+        instagramLink:
+          type:
+          - string
+          - 'null'
+        youtubeLink:
+          type:
+          - string
+          - 'null'
+        personalLinks:
+          type: array
+          items:
+            type: string
+          properties: {}
+        isPublic:
+          type: boolean
+          default: true
+          example: true
+    Organization.jsonld-write:
+      type: object
+      deprecated: false
+      description: Organization resource.
+      properties:
+        id:
+          type: integer
+    Contact.jsonld-write:
+      type: object
+      deprecated: false
+      description: Contact resource.
+      properties:
+        primaryOrganizations:
+          type: array
+          items:
+            $ref: '#/components/schemas/Organization.jsonld-write'
+        primaryResearchOrganizations:
+          type: array
+          items:
+            $ref: '#/components/schemas/ResearchOrganization.jsonld-write'
+        servicingOrganizations:
+          type: array
+          items:
+            $ref: '#/components/schemas/Organization.jsonld-write'
+        picture:
+          type:
+          - string
+          - 'null'
+        description:
+          type: object
+          items:
+            type: string
+          properties:
+            en:
+              type: string
+            fi:
+              type: string
+            sv:
+              type: string
+        publicWorkDescription:
+          type: object
+          items:
+            type: string
+          properties:
+            en:
+              type: string
+            fi:
+              type: string
+            sv:
+              type: string
+        titleAddition:
+          type: object
+          items:
+            type: string
+          properties:
+            en:
+              type: string
+            fi:
+              type: string
+            sv:
+              type: string
+        addressAddition:
+          type: object
+          items:
+            type: string
+          properties:
+            en:
+              type: string
+            fi:
+              type: string
+            sv:
+              type: string
+        currentStatus:
+          type: object
+          items:
+            type: string
+          properties:
+            en:
+              type: string
+            fi:
+              type: string
+            sv:
+              type: string
+        twitterLink:
+          type:
+          - string
+          - 'null'
+        linkedinLink:
+          type:
+          - string
+          - 'null'
+        facebookLink:
+          type:
+          - string
+          - 'null'
+        instagramLink:
+          type:
+          - string
+          - 'null'
+        youtubeLink:
+          type:
+          - string
+          - 'null'
+        personalLinks:
+          type: array
+          items:
+            type: string
+          properties: {}
+        isPublic:
+          type: boolean
+          default: true
+          example: true
     ResearchOrganization-write:
       type: object
       deprecated: false
@@ -1391,3 +1209,185 @@ components:
       properties:
         id:
           type: integer
+    Organization-read:
+      type: object
+      deprecated: false
+      description: Organization resource.
+      properties:
+        id:
+          type: integer
+        name:
+          type: object
+          items:
+            type: string
+          properties:
+            en:
+              type: string
+            fi:
+              type: string
+            sv:
+              type: string
+        type:
+          type: string
+        parent:
+          type:
+          - integer
+          - 'null'
+        depth:
+          type: integer
+    FieldOfScience.jsonld-read:
+      type: object
+      deprecated: false
+      description: Field of science resource.
+      properties:
+        '@id':
+          type: string
+          readOnly: true
+        '@type':
+          type: string
+          readOnly: true
+        id:
+          type: integer
+        label:
+          type: object
+          items:
+            type: string
+          properties:
+            en:
+              type: string
+            fi:
+              type: string
+            sv:
+              type: string
+      required:
+      - label
+    Organization.jsonld-read:
+      type: object
+      deprecated: false
+      description: Organization resource.
+      properties:
+        '@id':
+          type: string
+          readOnly: true
+        '@type':
+          type: string
+          readOnly: true
+        '@context':
+          oneOf:
+          - type: string
+          - type: object
+            additionalProperties: true
+            properties:
+              '@vocab':
+                type: string
+              hydra:
+                type: string
+                enum:
+                - http://www.w3.org/ns/hydra/core#
+            required:
+            - '@vocab'
+            - hydra
+          readOnly: true
+        id:
+          type: integer
+        name:
+          type: object
+          items:
+            type: string
+          properties:
+            en:
+              type: string
+            fi:
+              type: string
+            sv:
+              type: string
+        type:
+          type: string
+        parent:
+          type:
+          - integer
+          - 'null'
+        depth:
+          type: integer
+    KeywordGroup-read:
+      type: object
+      deprecated: false
+      description: ''
+      properties:
+        value:
+          anyOf:
+          - $ref: '#/components/schemas/FieldOfScience-read'
+          - type: 'null'
+          owl:maxCardinality: 1
+        additional:
+          type: object
+          items:
+            type: string
+          properties:
+            en:
+              type: array
+              items:
+                type: string
+            fi:
+              type: array
+              items:
+                type: string
+            sv:
+              type: array
+              items:
+                type: string
+      required:
+      - additional
+      - value
+    HrOrganization.jsonld-read:
+      type: object
+      deprecated: false
+      description: HR organization resource.
+      properties:
+        '@id':
+          type: string
+          readOnly: true
+        '@type':
+          type: string
+          readOnly: true
+        '@context':
+          oneOf:
+          - type: string
+          - type: object
+            additionalProperties: true
+            properties:
+              '@vocab':
+                type: string
+              hydra:
+                type: string
+                enum:
+                - http://www.w3.org/ns/hydra/core#
+            required:
+            - '@vocab'
+            - hydra
+          readOnly: true
+        id:
+          type: integer
+        name:
+          type: object
+          items:
+            type: string
+          properties:
+            en:
+              type: string
+            fi:
+              type: string
+            sv:
+              type: string
+        type:
+          type: string
+        parent:
+          type:
+          - integer
+          - 'null'
+        depth:
+          type: integer
+        code:
+          type:
+          - string
+          - 'null'

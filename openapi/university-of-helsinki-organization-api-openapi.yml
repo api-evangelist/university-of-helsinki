@@ -135,32 +135,6 @@ paths:
       deprecated: false
 components:
   schemas:
-    Organization-read:
-      type: object
-      deprecated: false
-      description: Organization resource.
-      properties:
-        id:
-          type: integer
-        name:
-          type: object
-          items:
-            type: string
-          properties:
-            en:
-              type: string
-            fi:
-              type: string
-            sv:
-              type: string
-        type:
-          type: string
-        parent:
-          type:
-          - integer
-          - 'null'
-        depth:
-          type: integer
     Organization.jsonld-read:
       type: object
       deprecated: false
@@ -188,6 +162,32 @@ components:
             - '@vocab'
             - hydra
           readOnly: true
+        id:
+          type: integer
+        name:
+          type: object
+          items:
+            type: string
+          properties:
+            en:
+              type: string
+            fi:
+              type: string
+            sv:
+              type: string
+        type:
+          type: string
+        parent:
+          type:
+          - integer
+          - 'null'
+        depth:
+          type: integer
+    Organization-read:
+      type: object
+      deprecated: false
+      description: Organization resource.
+      properties:
         id:
           type: integer
         name:

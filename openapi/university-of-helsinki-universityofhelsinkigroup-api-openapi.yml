@@ -29,6 +29,16 @@ paths:
       tags:
       - UniversityOfHelsinkiGroup
 components:
+  examples:
+    ConcernGroupExample:
+      value:
+      - uniqueId: '68909643'
+        code: KP
+        type: tytar-yhtio
+        nameFi: Helsingin yliopiston kiinteistöpalvelut Oy
+        nameEn: University of Helsinki Property Services Ltd
+        nameSv: Helsingfors Universitets fastighetsservice Ab
+        parent: null
   schemas:
     SteeringGroup:
       type: object
@@ -47,16 +57,6 @@ components:
           type: string
         parent:
           type: string
-  examples:
-    ConcernGroupExample:
-      value:
-      - uniqueId: '68909643'
-        code: KP
-        type: tytar-yhtio
-        nameFi: Helsingin yliopiston kiinteistöpalvelut Oy
-        nameEn: University of Helsinki Property Services Ltd
-        nameSv: Helsingfors Universitets fastighetsservice Ab
-        parent: null
   securitySchemes:
     apiKey:
       type: apiKey

@@ -1156,50 +1156,6 @@ paths:
       - Audio
 components:
   schemas:
-    AudioPagedDto:
-      type: object
-      properties:
-        results:
-          type: array
-          items:
-            $ref: '#/components/schemas/Audio'
-        currentPage:
-          type: number
-        pageSize:
-          type: number
-        total:
-          type: number
-        lastPage:
-          type: number
-        prevPage:
-          type: number
-        nextPage:
-          type: number
-        '@context':
-          type: string
-      required:
-      - results
-      - currentPage
-      - pageSize
-      - total
-      - lastPage
-      - '@context'
-    FileUploadResponse:
-      type: object
-      properties:
-        name:
-          type: string
-        fileName:
-          type: string
-        id:
-          type: string
-        expires:
-          type: number
-      required:
-      - name
-      - fileName
-      - id
-      - expires
     Audio:
       type: object
       properties:
@@ -1261,6 +1217,50 @@ components:
       - intellectualOwner
       - mp3URL
       - thumbnailURL
+    AudioPagedDto:
+      type: object
+      properties:
+        results:
+          type: array
+          items:
+            $ref: '#/components/schemas/Audio'
+        currentPage:
+          type: number
+        pageSize:
+          type: number
+        total:
+          type: number
+        lastPage:
+          type: number
+        prevPage:
+          type: number
+        nextPage:
+          type: number
+        '@context':
+          type: string
+      required:
+      - results
+      - currentPage
+      - pageSize
+      - total
+      - lastPage
+      - '@context'
+    FileUploadResponse:
+      type: object
+      properties:
+        name:
+          type: string
+        fileName:
+          type: string
+        id:
+          type: string
+        expires:
+          type: number
+      required:
+      - name
+      - fileName
+      - id
+      - expires
   securitySchemes:
     Access_token:
       scheme: bearer

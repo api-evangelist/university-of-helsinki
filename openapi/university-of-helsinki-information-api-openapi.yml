@@ -121,6 +121,18 @@ paths:
       - Information
 components:
   schemas:
+    FeaturedImage:
+      type: object
+      properties:
+        url:
+          type: string
+        caption:
+          type: string
+        alt:
+          type: string
+      required:
+      - url
+      - caption
     InformationChild:
       type: object
       properties:
@@ -135,18 +147,6 @@ components:
       required:
       - title
       - id
-    FeaturedImage:
-      type: object
-      properties:
-        url:
-          type: string
-        caption:
-          type: string
-        alt:
-          type: string
-      required:
-      - url
-      - caption
     Information:
       type: object
       properties:

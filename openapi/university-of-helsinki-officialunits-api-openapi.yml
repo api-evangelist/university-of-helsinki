@@ -85,6 +85,22 @@ components:
         parent:
           type: string
   examples:
+    OfficialUnitsExample:
+      value:
+      - uniqueId: '12312312'
+        type: tiedekunta
+        nameFi: Lääketieteellinen tiedekunta
+        nameEn: Doctoral Programme in Drug Research
+        nameSv: Doktorandprogrammet i läkemedelsforskning
+        abbreviation: LÄÄK
+        parent: '98765432'
+      - uniqueId: '32131231'
+        type: tiedekunta
+        nameFi: Lääketieteellinen tiedekunta
+        nameEn: Doctoral Programme in Drug Research
+        nameSv: Doktorandprogrammet i läkemedelsforskning
+        abbreviation: null
+        parent: '98765432'
     OfficialUnitsExampleV2:
       value:
       - uniqueId: '12312312'
@@ -101,22 +117,6 @@ components:
         nameEn: Doctoral Programme in Drug Research
         nameSv: Doktorandprogrammet i läkemedelsforskning
         educationQualifier: null
-        abbreviation: null
-        parent: '98765432'
-    OfficialUnitsExample:
-      value:
-      - uniqueId: '12312312'
-        type: tiedekunta
-        nameFi: Lääketieteellinen tiedekunta
-        nameEn: Doctoral Programme in Drug Research
-        nameSv: Doktorandprogrammet i läkemedelsforskning
-        abbreviation: LÄÄK
-        parent: '98765432'
-      - uniqueId: '32131231'
-        type: tiedekunta
-        nameFi: Lääketieteellinen tiedekunta
-        nameEn: Doctoral Programme in Drug Research
-        nameSv: Doktorandprogrammet i läkemedelsforskning
         abbreviation: null
         parent: '98765432'
   securitySchemes:

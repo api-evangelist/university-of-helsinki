@@ -498,59 +498,6 @@ paths:
       - Annotations
 components:
   schemas:
-    store-annotationOccurrence:
-      type: object
-      properties:
-        '@context':
-          type: string
-          title: Context for the MAN.annotationOccurrenceClass
-        id:
-          type: string
-          title: Id for the MAN.annotationOccurrenceClass
-        '@type':
-          type: string
-          title: Type for the MAN.annotationOccurrenceClass
-        countryVerbatim:
-          type: string
-          title: Country verbatim
-        dateBegin:
-          type: string
-          title: Date begin
-        dateEnd:
-          type: string
-          title: Date end
-        locality:
-          type: string
-          title: Locality
-        municipalityVerbatim:
-          type: string
-          title: Municipality verbatim
-        taxonId:
-          type: string
-          title: Taxon ID
-        taxonVerbatim:
-          type: string
-          title: Taxon verbatim
-        wgs84centerPointLat:
-          type: number
-          title: Latitude (center point)
-        wgs84centerPointLon:
-          type: number
-          title: Longitude (center point)
-      additionalProperties: false
-      required:
-      - '@context'
-      - id
-      - '@type'
-      - countryVerbatim
-      - dateBegin
-      - dateEnd
-      - locality
-      - municipalityVerbatim
-      - taxonId
-      - taxonVerbatim
-      - wgs84centerPointLat
-      - wgs84centerPointLon
     store-tag:
       type: object
       properties:
@@ -782,6 +729,8 @@ components:
       required:
       - rootID
       additionalProperties: false
+    store-multiLang:
+      type: string
     store-identification:
       type: object
       properties:
@@ -1029,8 +978,59 @@ components:
       - taxonVerbatim
       - publicityRestrictions
       - sortOrder
-    store-multiLang:
-      type: string
+    store-annotationOccurrence:
+      type: object
+      properties:
+        '@context':
+          type: string
+          title: Context for the MAN.annotationOccurrenceClass
+        id:
+          type: string
+          title: Id for the MAN.annotationOccurrenceClass
+        '@type':
+          type: string
+          title: Type for the MAN.annotationOccurrenceClass
+        countryVerbatim:
+          type: string
+          title: Country verbatim
+        dateBegin:
+          type: string
+          title: Date begin
+        dateEnd:
+          type: string
+          title: Date end
+        locality:
+          type: string
+          title: Locality
+        municipalityVerbatim:
+          type: string
+          title: Municipality verbatim
+        taxonId:
+          type: string
+          title: Taxon ID
+        taxonVerbatim:
+          type: string
+          title: Taxon verbatim
+        wgs84centerPointLat:
+          type: number
+          title: Latitude (center point)
+        wgs84centerPointLon:
+          type: number
+          title: Longitude (center point)
+      additionalProperties: false
+      required:
+      - '@context'
+      - id
+      - '@type'
+      - countryVerbatim
+      - dateBegin
+      - dateEnd
+      - locality
+      - municipalityVerbatim
+      - taxonId
+      - taxonVerbatim
+      - wgs84centerPointLat
+      - wgs84centerPointLon
   securitySchemes:
     Access_token:
       scheme: bearer

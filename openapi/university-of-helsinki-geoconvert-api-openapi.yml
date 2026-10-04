@@ -360,49 +360,6 @@ paths:
       - Person token: []
 components:
   schemas:
-    GeoConvertBody_convert_with_file__post:
-      properties:
-        file:
-          type: string
-          format: binary
-          title: File
-          description: ZIP file containing TSV data
-      type: object
-      required:
-      - file
-      title: Body_convert_with_file__post
-    GeoConvertValidationError:
-      properties:
-        loc:
-          items:
-            anyOf:
-            - type: string
-            - type: integer
-          type: array
-          title: Location
-        msg:
-          type: string
-          title: Message
-        type:
-          type: string
-          title: Error Type
-      type: object
-      required:
-      - loc
-      - msg
-      - type
-      title: ValidationError
-    GeoConvertBody_convert_gis_to_table_convert_to_table_post:
-      properties:
-        file:
-          type: string
-          format: binary
-          title: File
-          description: GIS file to convert (GeoJSON, GPKG, KML, GML, or ZIP for Shapefiles)
-      type: object
-      required:
-      - file
-      title: Body_convert_gis_to_table_convert_to_table_post
     GeoConvertStatusResponse:
       properties:
         id:
@@ -446,6 +403,61 @@ components:
       title: HTTPValidationError
       required:
       - detail
+    GeoConvertBody_convert_with_file__post:
+      properties:
+        file:
+          type: string
+          format: binary
+          title: File
+          description: ZIP file containing TSV data
+      type: object
+      required:
+      - file
+      title: Body_convert_with_file__post
+    GeoConvertErrorResponse:
+      properties:
+        detail:
+          type: string
+          title: Detail
+          description: Error message
+          examples:
+          - Conversion ID not found
+      type: object
+      required:
+      - detail
+      title: ErrorResponse
+    GeoConvertValidationError:
+      properties:
+        loc:
+          items:
+            anyOf:
+            - type: string
+            - type: integer
+          type: array
+          title: Location
+        msg:
+          type: string
+          title: Message
+        type:
+          type: string
+          title: Error Type
+      type: object
+      required:
+      - loc
+      - msg
+      - type
+      title: ValidationError
+    GeoConvertBody_convert_gis_to_table_convert_to_table_post:
+      properties:
+        file:
+          type: string
+          format: binary
+          title: File
+          description: GIS file to convert (GeoJSON, GPKG, KML, GML, or ZIP for Shapefiles)
+      type: object
+      required:
+      - file
+      title: Body_convert_gis_to_table_convert_to_table_post
     GeoConvertHealthResponse:
       properties:
         status:
@@ -465,18 +477,6 @@ components:
       - status
       - processing
       title: HealthResponse
-    GeoConvertErrorResponse:
-      properties:
-        detail:
-          type: string
-          title: Detail
-          description: Error message
-          examples:
-          - Conversion ID not found
-      type: object
-      required:
-      - detail
-      title: ErrorResponse
   securitySchemes:
     Access_token:
       scheme: bearer

@@ -47,6 +47,45 @@ paths:
       tags:
       - EducationUnits
 components:
+  examples:
+    EducationUnitsExampleV2:
+      value:
+      - uniqueId: '12345678'
+        code: 444-M00
+        abbreviation: TRA
+        type: maisteriohjelma
+        nameFi: Kääntämisen ja tulkkauksen maisteriohjelma
+        nameEn: Master's Programme in Translation and Interpreting
+        nameSv: Magisterprogrammet i översättning och tolkning
+        educationQualifier: rinnakkainen-koulutusohjelma
+        parent: '11112222'
+      - uniqueId: '87654321'
+        code: '01'
+        abbreviation: null
+        type: kansio
+        nameFi: Helsingin yliopisto
+        nameEn: University of Helsinki
+        nameSv: Helsingfors universitet
+        educationQualifier: null
+        parent: null
+    EducationUnitsExample:
+      value:
+      - uniqueId: '12345678'
+        code: 444-M00
+        abbreviation: TRA
+        type: maisteriohjelma
+        nameFi: Kääntämisen ja tulkkauksen maisteriohjelma
+        nameEn: Master's Programme in Translation and Interpreting
+        nameSv: Magisterprogrammet i översättning och tolkning
+        parent: '11112222'
+      - uniqueId: '87654321'
+        code: '01'
+        abbreviation: null
+        type: kansio
+        nameFi: Helsingin yliopisto
+        nameEn: University of Helsinki
+        nameSv: Helsingfors universitet
+        parent: null
   schemas:
     EducationUnit:
       type: object
@@ -88,45 +127,6 @@ components:
           type: string
         parent:
           type: string
-  examples:
-    EducationUnitsExampleV2:
-      value:
-      - uniqueId: '12345678'
-        code: 444-M00
-        abbreviation: TRA
-        type: maisteriohjelma
-        nameFi: Kääntämisen ja tulkkauksen maisteriohjelma
-        nameEn: Master's Programme in Translation and Interpreting
-        nameSv: Magisterprogrammet i översättning och tolkning
-        educationQualifier: rinnakkainen-koulutusohjelma
-        parent: '11112222'
-      - uniqueId: '87654321'
-        code: '01'
-        abbreviation: null
-        type: kansio
-        nameFi: Helsingin yliopisto
-        nameEn: University of Helsinki
-        nameSv: Helsingfors universitet
-        educationQualifier: null
-        parent: null
-    EducationUnitsExample:
-      value:
-      - uniqueId: '12345678'
-        code: 444-M00
-        abbreviation: TRA
-        type: maisteriohjelma
-        nameFi: Kääntämisen ja tulkkauksen maisteriohjelma
-        nameEn: Master's Programme in Translation and Interpreting
-        nameSv: Magisterprogrammet i översättning och tolkning
-        parent: '11112222'
-      - uniqueId: '87654321'
-        code: '01'
-        abbreviation: null
-        type: kansio
-        nameFi: Helsingin yliopisto
-        nameEn: University of Helsinki
-        nameSv: Helsingfors universitet
-        parent: null
   securitySchemes:
     apiKey:
       type: apiKey

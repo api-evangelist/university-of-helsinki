@@ -29,6 +29,13 @@ paths:
       - Apikey: []
 components:
   schemas:
+    OrderResponse:
+      type: object
+      properties:
+        status:
+          type: string
+        efecteId:
+          type: string
     TicketTemplate:
       type: object
       properties:
@@ -97,13 +104,6 @@ components:
         efecteId:
           type: string
         webShopCategory:
-          type: string
-    OrderResponse:
-      type: object
-      properties:
-        status:
-          type: string
-        efecteId:
           type: string
   securitySchemes:
     Apikey:

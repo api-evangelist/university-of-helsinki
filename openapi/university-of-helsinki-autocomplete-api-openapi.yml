@@ -461,6 +461,8 @@ paths:
       x-summary-source: derived
 components:
   schemas:
+    LajiBackendLocalizedText:
+      type: string
     GetPersonsResponseDto:
       type: object
       properties:
@@ -474,8 +476,6 @@ components:
           type: string
       required:
       - key
-    LajiBackendLocalizedText:
-      type: string
     TaxonAutocompleteResponse:
       type: object
       properties:
