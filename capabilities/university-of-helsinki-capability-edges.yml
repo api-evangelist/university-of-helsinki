@@ -1,0 +1,70 @@
+slug: university-of-helsinki
+provider: University of Helsinki
+generated_by: planning/capability-mapping/scripts/classify_capabilities.py
+model: claude-opus-5
+frame:
+- Software & Technology
+min_confidence: 0.7
+capability_model:
+  source: https://github.com/vincentmakes/turbo-ea-capabilities
+  license: CC-BY-4.0
+  attribution: Turbo EA Capabilities by Vincent Verdet — Turbo EA, https://github.com/vincentmakes/turbo-ea-capabilities,
+    CC BY 4.0
+  notice: NOTICE
+edge_count: 5
+edges:
+- tag: /dynamicorder
+  spec_file: university-of-helsinki-dynamicorder-api-openapi.yml
+  capability_id: BC-600.30
+  capability_id_l1: BC-600
+  capability_name: IT Service Management
+  confidence: 0.85
+  evidence: POST /dynamicorder/post_catalogdevice  Dynamic catalog post API; POST /dynamicorder/post_incident  Dynamic
+    order incident post API; POST /dynamicorder/post_workstation
+  reason: Efecte is an ITSM tool and these operations submit service-catalog requests (workstation, container,
+    GPU, Ceph tenant) and incident records — service request and incident handling, i.e. IT Service Management.
+    Small residual doubt only over catalogue-vs-incident emphasis within the same L2.
+- tag: API User
+  spec_file: university-of-helsinki-api-user-api-openapi.yml
+  capability_id: BC-4270.40
+  capability_id_l1: BC-4270
+  capability_name: Developer Identity & Credential Management
+  confidence: 0.8
+  evidence: POST /api-user  ApiUsersController_register  Register as an api user.; DELETE /api-user/{accessToken}  Delete
+    API user by access token
+  reason: Registration, update and deletion of API users keyed by access token is issuance and stewardship
+    of developer credentials for a public API. Some ambiguity with general Identity & Access Management,
+    but the subject is API consumers of a developer platform, not enterprise workforce identity.
+- tag: Hosts
+  spec_file: university-of-helsinki-hosts-api-openapi.yml
+  capability_id: BC-600.50
+  capability_id_l1: BC-600
+  capability_name: IT Infrastructure Management
+  confidence: 0.75
+  evidence: '"network registry Hosts API", "interface to network registry data at University of Helsinki";
+    "Create hosts", "Get hosts", "Delete hosts name by nimi"'
+  reason: CRUD and search over network host registry records — management of network/compute infrastructure
+    inventory, which is IT Infrastructure Management. 'Hosts' here is explicitly network registry data,
+    not hospitality or event hosts.
+- tag: Ticket
+  spec_file: university-of-helsinki-ticket-api-openapi.yml
+  capability_id: BC-600.30
+  capability_id_l1: BC-600
+  capability_name: IT Service Management
+  confidence: 0.75
+  evidence: POST /ticket/post — Ticket post API; schemas TicketTemplate, OrderResponse (General Efecte
+    /ticket API)
+  reason: Efecte is the institution's service-management platform and this endpoint creates service tickets
+    from a template, returning an order response. That is incident/service-request handling, i.e. IT Service
+    Management. Slight uncertainty because the single operation gives little detail on the ticket domain.
+- tag: Form Permissions
+  spec_file: university-of-helsinki-form-permissions-api-openapi.yml
+  capability_id: BC-620.20
+  capability_id_l1: BC-620
+  capability_name: Identity & Access Management
+  confidence: 0.7
+  evidence: '"Request access to form", "Accept access to form", "Remove access to form", "Get form permissions
+    for a person"'
+  reason: The operations are a request/grant/revoke access-permission workflow for persons against form
+    collections — access administration, i.e. Identity & Access Management. Not form/business-process
+    content management; the tag's operations only manipulate permissions.
