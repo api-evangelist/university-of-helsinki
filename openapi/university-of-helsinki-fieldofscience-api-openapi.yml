@@ -104,11 +104,17 @@ paths:
       deprecated: false
 components:
   schemas:
-    FieldOfScience-read:
+    FieldOfScience.jsonld-read:
       type: object
       deprecated: false
       description: Field of science resource.
       properties:
+        '@id':
+          type: string
+          readOnly: true
+        '@type':
+          type: string
+          readOnly: true
         id:
           type: integer
         label:
@@ -124,17 +130,11 @@ components:
               type: string
       required:
       - label
-    FieldOfScience.jsonld-read:
+    FieldOfScience-read:
       type: object
       deprecated: false
       description: Field of science resource.
       properties:
-        '@id':
-          type: string
-          readOnly: true
-        '@type':
-          type: string
-          readOnly: true
         id:
           type: integer
         label:

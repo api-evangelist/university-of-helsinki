@@ -48,6 +48,24 @@ paths:
       - EducationUnits
 components:
   examples:
+    EducationUnitsExample:
+      value:
+      - uniqueId: '12345678'
+        code: 444-M00
+        abbreviation: TRA
+        type: maisteriohjelma
+        nameFi: Kääntämisen ja tulkkauksen maisteriohjelma
+        nameEn: Master's Programme in Translation and Interpreting
+        nameSv: Magisterprogrammet i översättning och tolkning
+        parent: '11112222'
+      - uniqueId: '87654321'
+        code: '01'
+        abbreviation: null
+        type: kansio
+        nameFi: Helsingin yliopisto
+        nameEn: University of Helsinki
+        nameSv: Helsingfors universitet
+        parent: null
     EducationUnitsExampleV2:
       value:
       - uniqueId: '12345678'
@@ -68,44 +86,7 @@ components:
         nameSv: Helsingfors universitet
         educationQualifier: null
         parent: null
-    EducationUnitsExample:
-      value:
-      - uniqueId: '12345678'
-        code: 444-M00
-        abbreviation: TRA
-        type: maisteriohjelma
-        nameFi: Kääntämisen ja tulkkauksen maisteriohjelma
-        nameEn: Master's Programme in Translation and Interpreting
-        nameSv: Magisterprogrammet i översättning och tolkning
-        parent: '11112222'
-      - uniqueId: '87654321'
-        code: '01'
-        abbreviation: null
-        type: kansio
-        nameFi: Helsingin yliopisto
-        nameEn: University of Helsinki
-        nameSv: Helsingfors universitet
-        parent: null
   schemas:
-    EducationUnit:
-      type: object
-      properties:
-        uniqueId:
-          type: string
-        type:
-          type: string
-        code:
-          type: string
-        nameFi:
-          type: string
-        nameEn:
-          type: string
-        nameSv:
-          type: string
-        abbreviation:
-          type: string
-        parent:
-          type: string
     EducationUnitV2:
       type: object
       properties:
@@ -124,6 +105,25 @@ components:
         abbreviation:
           type: string
         educationQualifier:
+          type: string
+        parent:
+          type: string
+    EducationUnit:
+      type: object
+      properties:
+        uniqueId:
+          type: string
+        type:
+          type: string
+        code:
+          type: string
+        nameFi:
+          type: string
+        nameEn:
+          type: string
+        nameSv:
+          type: string
+        abbreviation:
           type: string
         parent:
           type: string

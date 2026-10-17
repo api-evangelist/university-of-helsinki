@@ -432,6 +432,18 @@ paths:
     - url: https://gw.api.helsinki.fi
 components:
   schemas:
+    FeaturedImage:
+      type: object
+      properties:
+        url:
+          type: string
+        caption:
+          type: string
+        alt:
+          type: string
+      required:
+      - url
+      - caption
     LajiBackendNewsNode:
       type: object
       properties:
@@ -457,6 +469,29 @@ components:
           type: string
       required:
       - external
+      - id
+    LajiBackendCMSNode:
+      type: object
+      properties:
+        id:
+          type: string
+        content:
+          type: string
+        title:
+          type: string
+        author:
+          type: string
+        posted:
+          type: string
+        tags:
+          type: array
+          items:
+            type: string
+        featuredImage:
+          $ref: '#/components/schemas/FeaturedImage'
+        modified:
+          type: string
+      required:
       - id
     NewsPagedDto:
       type: object
@@ -486,41 +521,6 @@ components:
       - total
       - lastPage
       - '@context'
-    FeaturedImage:
-      type: object
-      properties:
-        url:
-          type: string
-        caption:
-          type: string
-        alt:
-          type: string
-      required:
-      - url
-      - caption
-    LajiBackendCMSNode:
-      type: object
-      properties:
-        id:
-          type: string
-        content:
-          type: string
-        title:
-          type: string
-        author:
-          type: string
-        posted:
-          type: string
-        tags:
-          type: array
-          items:
-            type: string
-        featuredImage:
-          $ref: '#/components/schemas/FeaturedImage'
-        modified:
-          type: string
-      required:
-      - id
     NewsNode:
       type: object
       properties:

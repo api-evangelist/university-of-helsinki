@@ -24445,57 +24445,105 @@ paths:
       - Taxa
 components:
   schemas:
-    LajiBackendSimpleTaxon:
-      type: object
-      properties:
-        id:
-          type: string
-        scientificName:
-          type: string
-        scientificNameAuthorship:
-          type: string
-        vernacularName:
-          type: string
-        taxonRank:
-          type: string
-        cursiveName:
-          type: boolean
-        notes:
-          type: string
-        bold:
-          $ref: '#/components/schemas/LajiBackendBoldRecords'
-        hasBold:
-          type: boolean
-      required:
-      - id
-      - scientificName
-      - scientificNameAuthorship
-      - taxonRank
-      - cursiveName
-      - notes
-      - bold
-      - hasBold
-    LajiBackendBoldRecords:
-      type: object
-      properties:
-        barcodes:
-          type: integer
-        binCount:
-          type: integer
-        bins:
-          type: array
-          items:
+    LajiBackendContent:
+      type: array
+      items:
+        $ref: '#/components/schemas/LajiBackendContext'
+    LajiBackendTaxonSearchResponse:
+      type: array
+      items:
+        type: object
+        properties:
+          matchingName:
             type: string
-        publicRecords:
-          type: integer
-        specimens:
-          type: integer
-      required:
-      - barcodes
-      - binCount
-      - bins
-      - publicRecords
-      - specimens
+            description: Name that matched the search word
+          nameType:
+            type: string
+            description: Type of the name.
+            enum:
+            - MX.scientificName
+            - MX.vernacularName
+            - MX.hasSynonym
+            - MX.hasBasionym
+            - MX.alternativeVernacularName
+            - MX.hasMisappliedName
+            - MX.birdlifeCode
+            - MX.obsoleteVernacularName
+            - MX.euringCode
+            - MX.hasSubjectiveSynonym
+            - MX.hasAlternativeName
+            - MX.hasOrthographicVariant
+            - MX.hasObjectiveSynonym
+            - MX.hasMisspelledName
+            - MX.colloquialVernacularName
+            - MX.hasUncertainSynonym
+            - MX.hasHomotypicSynonym
+            - MX.tradeName
+            - MX.hasHeterotypicSynonym
+          id:
+            type: string
+            description: Taxon identifier of the taxon that has the matching name; in the short Qname format, for example 'MX.123'
+          checklist:
+            type: string
+            description: Checklist identifier of the matching taxon; in the short Qname format, for example 'MR.1'. For taxa not part of any checklist the value is 'undefined'.
+          scientificName:
+            type: string
+            description: Accepted scientific name of the taxon that has the matching name
+          scientificNameAuthorship:
+            type: string
+            description: Author of the above mentioned scientific name
+          taxonRank:
+            type: string
+            description: Taxonomic rank of the taxon that has the matching name; in the short Qname format, for example 'MX.genus'
+          cursiveName:
+            type: boolean
+            description: Should the matching name be cursived
+          finnish:
+            type: boolean
+            description: Is the taxon that has the mathing name marked as a Finnish taxon
+          species:
+            type: boolean
+            description: Is the taxon that has the mathing name species level or lower, or a higher taxon
+          vernacularName:
+            $ref: '#/components/schemas/LajiBackendLocalizedText'
+          informalGroups:
+            type: array
+            items:
+              type: object
+              properties:
+                id:
+                  type: string
+                  description: Identifier of the informal taxon group that the matching taxon belongs to); in the short Qname format, for example 'MVL.1'
+                name:
+                  $ref: '#/components/schemas/LajiBackendLocalizedText'
+              required:
+              - id
+              - name
+          kingdomScientificName:
+            type: string
+            description: Scientific name of the kingdom that the matching taxon belongs to
+          type:
+            type: string
+            description: Type of the matching name
+            enum:
+            - exactMatches
+            - partialMatches
+            - likelyMatches
+        required:
+        - matchingName
+        - nameType
+        - id
+        - checklist
+        - scientificName
+        - scientificNameAuthorship
+        - taxonRank
+        - cursiveName
+        - finnish
+        - species
+        - vernacularName
+        - informalGroups
+        - kingdomScientificName
+        - type
     LajiBackendTaxon:
       type: object
       properties:
@@ -25061,37 +25109,115 @@ components:
       - colloquialVernacularNameMultiLang
       - obsoleteVernacularNameMultiLang
       - tradeNameMultiLang
-    LajiBackendOccurrence:
+    LajiBackendBoldRecords:
       type: object
       properties:
-        area:
+        barcodes:
+          type: integer
+        binCount:
+          type: integer
+        bins:
+          type: array
+          items:
+            type: string
+        publicRecords:
+          type: integer
+        specimens:
+          type: integer
+      required:
+      - barcodes
+      - binCount
+      - bins
+      - publicRecords
+      - specimens
+    LajiBackendImage:
+      type: object
+      properties:
+        author:
           type: string
-          description: Qname identifier
+        caption:
+          type: string
+        captureDateTime:
+          type: string
+        copyrightOwner:
+          type: string
+        fullURL:
+          type: string
         id:
           type: string
           description: Qname identifier
-        notes:
+        keywords:
+          type: array
+          items:
+            type: string
+        largeURL:
           type: string
-        occurrenceCount:
-          type: integer
-        specimenURI:
+        licenseAbbreviation:
           type: string
-        status:
+        licenseFullname:
+          type: string
+        licenseId:
           type: string
           description: Qname identifier
-        threatened:
-          type: boolean
-        year:
+        lifeStage:
+          type: array
+          items:
+            type: string
+        plantLifeStage:
+          type: array
+          items:
+            type: string
+        sex:
+          type: array
+          items:
+            type: string
+        side:
+          type: string
+          description: Qname identifier
+        sortOrder:
           type: integer
+        source:
+          type: string
+          description: Qname identifier
+        squareThumbnailURL:
+          type: string
+        taxon:
+          $ref: '#/components/schemas/LajiBackendSimpleTaxon'
+        taxonDescriptionCaption:
+          $ref: '#/components/schemas/LajiBackendLocalizedText'
+        thumbnailURL:
+          type: string
+        type:
+          type: string
+          description: Qname identifier
+        uploadDateTime:
+          type: string
+        primaryForTaxon:
+          type: boolean
       required:
-      - area
+      - author
+      - caption
+      - captureDateTime
+      - copyrightOwner
+      - fullURL
       - id
-      - notes
-      - occurrenceCount
-      - specimenURI
-      - status
-      - threatened
-      - year
+      - keywords
+      - largeURL
+      - licenseAbbreviation
+      - licenseId
+      - lifeStage
+      - plantLifeStage
+      - sex
+      - side
+      - sortOrder
+      - source
+      - squareThumbnailURL
+      - taxon
+      - taxonDescriptionCaption
+      - thumbnailURL
+      - type
+      - uploadDateTime
+      - primaryForTaxon
     LajiBackendContext:
       type: object
       properties:
@@ -25144,6 +25270,16 @@ components:
       - id
       - groups
       - speciesCardAuthors
+    LajiBackendLocalizedURL:
+      type: object
+      properties:
+        locale:
+          type: string
+        uri:
+          type: string
+      required:
+      - locale
+      - uri
     LajiBackendHabitatOccurrenceCount:
       type: object
       properties:
@@ -25156,12 +25292,38 @@ components:
       required:
       - id
       - occurrenceCount
+    LajiBackendSimpleTaxon:
+      type: object
+      properties:
+        id:
+          type: string
+        scientificName:
+          type: string
+        scientificNameAuthorship:
+          type: string
+        vernacularName:
+          type: string
+        taxonRank:
+          type: string
+        cursiveName:
+          type: boolean
+        notes:
+          type: string
+        bold:
+          $ref: '#/components/schemas/LajiBackendBoldRecords'
+        hasBold:
+          type: boolean
+      required:
+      - id
+      - scientificName
+      - scientificNameAuthorship
+      - taxonRank
+      - cursiveName
+      - notes
+      - bold
+      - hasBold
     LajiBackendLocalizedText:
       type: string
-    LajiBackendContent:
-      type: array
-      items:
-        $ref: '#/components/schemas/LajiBackendContext'
     LajiBackendRedListStatus:
       type: object
       properties:
@@ -25173,6 +25335,26 @@ components:
       required:
       - status
       - year
+    LajiBackendHabitatObject:
+      type: object
+      properties:
+        habitat:
+          type: string
+          description: Qname identifier
+        habitatSpecificTypes:
+          type: array
+          items:
+            type: string
+        id:
+          type: string
+          description: Qname identifier
+        order:
+          type: integer
+      required:
+      - habitat
+      - habitatSpecificTypes
+      - id
+      - order
     LajiBackendEvaluation:
       type: object
       properties:
@@ -25287,219 +25469,37 @@ components:
       - calculatedRedListIndex
       - calculatedCorrectedRedListIndex
       - correctedStatusForRedListIndex
-    LajiBackendImage:
+    LajiBackendOccurrence:
       type: object
       properties:
-        author:
+        area:
           type: string
-        caption:
-          type: string
-        captureDateTime:
-          type: string
-        copyrightOwner:
-          type: string
-        fullURL:
-          type: string
+          description: Qname identifier
         id:
           type: string
           description: Qname identifier
-        keywords:
-          type: array
-          items:
-            type: string
-        largeURL:
+        notes:
           type: string
-        licenseAbbreviation:
-          type: string
-        licenseFullname:
-          type: string
-        licenseId:
-          type: string
-          description: Qname identifier
-        lifeStage:
-          type: array
-          items:
-            type: string
-        plantLifeStage:
-          type: array
-          items:
-            type: string
-        sex:
-          type: array
-          items:
-            type: string
-        side:
-          type: string
-          description: Qname identifier
-        sortOrder:
+        occurrenceCount:
           type: integer
-        source:
+        specimenURI:
+          type: string
+        status:
           type: string
           description: Qname identifier
-        squareThumbnailURL:
-          type: string
-        taxon:
-          $ref: '#/components/schemas/LajiBackendSimpleTaxon'
-        taxonDescriptionCaption:
-          $ref: '#/components/schemas/LajiBackendLocalizedText'
-        thumbnailURL:
-          type: string
-        type:
-          type: string
-          description: Qname identifier
-        uploadDateTime:
-          type: string
-        primaryForTaxon:
+        threatened:
           type: boolean
-      required:
-      - author
-      - caption
-      - captureDateTime
-      - copyrightOwner
-      - fullURL
-      - id
-      - keywords
-      - largeURL
-      - licenseAbbreviation
-      - licenseId
-      - lifeStage
-      - plantLifeStage
-      - sex
-      - side
-      - sortOrder
-      - source
-      - squareThumbnailURL
-      - taxon
-      - taxonDescriptionCaption
-      - thumbnailURL
-      - type
-      - uploadDateTime
-      - primaryForTaxon
-    LajiBackendLocalizedURL:
-      type: object
-      properties:
-        locale:
-          type: string
-        uri:
-          type: string
-      required:
-      - locale
-      - uri
-    LajiBackendHabitatObject:
-      type: object
-      properties:
-        habitat:
-          type: string
-          description: Qname identifier
-        habitatSpecificTypes:
-          type: array
-          items:
-            type: string
-        id:
-          type: string
-          description: Qname identifier
-        order:
+        year:
           type: integer
       required:
-      - habitat
-      - habitatSpecificTypes
+      - area
       - id
-      - order
-    LajiBackendTaxonSearchResponse:
-      type: array
-      items:
-        type: object
-        properties:
-          matchingName:
-            type: string
-            description: Name that matched the search word
-          nameType:
-            type: string
-            description: Type of the name.
-            enum:
-            - MX.scientificName
-            - MX.vernacularName
-            - MX.hasSynonym
-            - MX.hasBasionym
-            - MX.alternativeVernacularName
-            - MX.hasMisappliedName
-            - MX.birdlifeCode
-            - MX.obsoleteVernacularName
-            - MX.euringCode
-            - MX.hasSubjectiveSynonym
-            - MX.hasAlternativeName
-            - MX.hasOrthographicVariant
-            - MX.hasObjectiveSynonym
-            - MX.hasMisspelledName
-            - MX.colloquialVernacularName
-            - MX.hasUncertainSynonym
-            - MX.hasHomotypicSynonym
-            - MX.tradeName
-            - MX.hasHeterotypicSynonym
-          id:
-            type: string
-            description: Taxon identifier of the taxon that has the matching name; in the short Qname format, for example 'MX.123'
-          checklist:
-            type: string
-            description: Checklist identifier of the matching taxon; in the short Qname format, for example 'MR.1'. For taxa not part of any checklist the value is 'undefined'.
-          scientificName:
-            type: string
-            description: Accepted scientific name of the taxon that has the matching name
-          scientificNameAuthorship:
-            type: string
-            description: Author of the above mentioned scientific name
-          taxonRank:
-            type: string
-            description: Taxonomic rank of the taxon that has the matching name; in the short Qname format, for example 'MX.genus'
-          cursiveName:
-            type: boolean
-            description: Should the matching name be cursived
-          finnish:
-            type: boolean
-            description: Is the taxon that has the mathing name marked as a Finnish taxon
-          species:
-            type: boolean
-            description: Is the taxon that has the mathing name species level or lower, or a higher taxon
-          vernacularName:
-            $ref: '#/components/schemas/LajiBackendLocalizedText'
-          informalGroups:
-            type: array
-            items:
-              type: object
-              properties:
-                id:
-                  type: string
-                  description: Identifier of the informal taxon group that the matching taxon belongs to); in the short Qname format, for example 'MVL.1'
-                name:
-                  $ref: '#/components/schemas/LajiBackendLocalizedText'
-              required:
-              - id
-              - name
-          kingdomScientificName:
-            type: string
-            description: Scientific name of the kingdom that the matching taxon belongs to
-          type:
-            type: string
-            description: Type of the matching name
-            enum:
-            - exactMatches
-            - partialMatches
-            - likelyMatches
-        required:
-        - matchingName
-        - nameType
-        - id
-        - checklist
-        - scientificName
-        - scientificNameAuthorship
-        - taxonRank
-        - cursiveName
-        - finnish
-        - species
-        - vernacularName
-        - informalGroups
-        - kingdomScientificName
-        - type
+      - notes
+      - occurrenceCount
+      - specimenURI
+      - status
+      - threatened
+      - year
   securitySchemes:
     Access_token:
       scheme: bearer

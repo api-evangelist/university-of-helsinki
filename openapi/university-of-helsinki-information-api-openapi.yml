@@ -133,20 +133,6 @@ components:
       required:
       - url
       - caption
-    InformationChild:
-      type: object
-      properties:
-        title:
-          type: string
-        id:
-          type: string
-        children:
-          type: array
-          items:
-            $ref: '#/components/schemas/InformationChild'
-      required:
-      - title
-      - id
     Information:
       type: object
       properties:
@@ -184,6 +170,20 @@ components:
       - author
       - posted
       - tags
+    InformationChild:
+      type: object
+      properties:
+        title:
+          type: string
+        id:
+          type: string
+        children:
+          type: array
+          items:
+            $ref: '#/components/schemas/InformationChild'
+      required:
+      - title
+      - id
   securitySchemes:
     Access_token:
       scheme: bearer

@@ -29,16 +29,6 @@ paths:
       tags:
       - Human Resources
 components:
-  examples:
-    HumanResourcesExample:
-      value:
-      - uniqueId: '77096679'
-        code: H01
-        type: yritys_yhteiso
-        nameFi: Yliopistopalvelut
-        nameEn: Yliopistopalvelut EN
-        nameSv: Yliopistopalvelut SV
-        parent: null
   schemas:
     SteeringGroup:
       type: object
@@ -57,6 +47,16 @@ components:
           type: string
         parent:
           type: string
+  examples:
+    HumanResourcesExample:
+      value:
+      - uniqueId: '77096679'
+        code: H01
+        type: yritys_yhteiso
+        nameFi: Yliopistopalvelut
+        nameEn: Yliopistopalvelut EN
+        nameSv: Yliopistopalvelut SV
+        parent: null
   securitySchemes:
     apiKey:
       type: apiKey

@@ -29,6 +29,17 @@ paths:
       tags:
       - AllSuccessorsAndPredecessors
 components:
+  examples:
+    AllSuccessorsAndPredecessors:
+      value:
+      - endDate: null
+        predecessor: '18770'
+        startDate: '2023-06-30'
+        successor: '18488'
+      - endDate: null
+        predecessor: '32678'
+        startDate: '2023-12-01'
+        successor: '5935'
   schemas:
     AllSuccessorsAndPredecessors:
       type: object
@@ -41,17 +52,6 @@ components:
           type: string
         endDate:
           type: string
-  examples:
-    AllSuccessorsAndPredecessors:
-      value:
-      - endDate: null
-        predecessor: '18770'
-        startDate: '2023-06-30'
-        successor: '18488'
-      - endDate: null
-        predecessor: '32678'
-        startDate: '2023-12-01'
-        successor: '5935'
   securitySchemes:
     apiKey:
       type: apiKey

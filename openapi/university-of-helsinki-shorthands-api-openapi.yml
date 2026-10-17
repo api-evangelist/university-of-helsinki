@@ -473,40 +473,6 @@ paths:
       x-summary-source: derived
 components:
   schemas:
-    LineTransectUnitShorthandResponseDto:
-      type: object
-      properties:
-        key:
-          type: string
-        value:
-          type: string
-        matchType:
-          type: string
-        unit:
-          type: object
-        interpretedFrom:
-          type: object
-          properties:
-            taxon:
-              type: string
-            count:
-              type: string
-            maleIndividualCount:
-              type: string
-            femaleIndividualCount:
-              type: string
-          required:
-          - taxon
-          - count
-          - maleIndividualCount
-          - femaleIndividualCount
-      required:
-      - key
-      - value
-      - unit
-      - interpretedFrom
-    LajiBackendLocalizedText:
-      type: string
     LajiBackendTaxonSearchResponse:
       type: array
       items:
@@ -617,6 +583,40 @@ components:
       - results
       - count
       - nonMatchingCount
+    LineTransectUnitShorthandResponseDto:
+      type: object
+      properties:
+        key:
+          type: string
+        value:
+          type: string
+        matchType:
+          type: string
+        unit:
+          type: object
+        interpretedFrom:
+          type: object
+          properties:
+            taxon:
+              type: string
+            count:
+              type: string
+            maleIndividualCount:
+              type: string
+            femaleIndividualCount:
+              type: string
+          required:
+          - taxon
+          - count
+          - maleIndividualCount
+          - femaleIndividualCount
+      required:
+      - key
+      - value
+      - unit
+      - interpretedFrom
+    LajiBackendLocalizedText:
+      type: string
   securitySchemes:
     Access_token:
       scheme: bearer

@@ -29,13 +29,6 @@ paths:
       - Apikey: []
 components:
   schemas:
-    OrderResponse:
-      type: object
-      properties:
-        status:
-          type: string
-        efecteId:
-          type: string
     VDIMachine:
       type: object
       properties:
@@ -76,6 +69,13 @@ components:
         status:
           type: string
         order:
+          type: string
+    OrderResponse:
+      type: object
+      properties:
+        status:
+          type: string
+        efecteId:
           type: string
   securitySchemes:
     Apikey:
